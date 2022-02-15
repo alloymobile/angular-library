@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { IconComponent } from './shared/library/cell/icon/icon.component';
 import { ButtonComponent } from './shared/library/cell/button/button.component';
 import { LinkComponent } from './shared/library/cell/link/link.component';
-import { ButtonBarComponent } from './shared/library/tissue/button-bar/button-bar.component';
+import { NavbarComponent } from './shared/library/organ/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { ButtonBarComponent } from './shared/library/tissue/button-bar/button-ba
     IconComponent,
     ButtonComponent,
     LinkComponent,
-    ButtonBarComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -1,4 +1,4 @@
 <a [id]="_link.id" [routerLink]="_link.link" [class]="_link.className">
-  <app-icon [icon]="_link.icon"></app-icon>
-  <span class="px-2">{{ _link.name }}</span>
+  <app-icon *ngIf="_link.icon.id != 0" [icon]="_link.icon"></app-icon>
+  <span class="px-2" *ngIf="_link.name !=''">{{ _link.name }}</span>
 </a>

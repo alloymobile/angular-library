@@ -1,0 +1,20 @@
+<div class="container-fluid sticky-top bg-light">
+  <header
+    class="
+      d-flex
+      flex-wrap
+      align-items-center
+      justify-content-center justify-content-md-between
+      border-bottom"
+  >
+    <div class="nav col-12 col-md-auto mb-2 justify-content-center">
+      <app-link [link]="navbar.brand"></app-link>
+    </div>
+    <div>
+      <app-link *ngFor="let link of navbar.pageLink" [link]="link"></app-link>
+    </div>
+    <div>
+      <app-link *ngFor="let icon of navbar.iconLink" [link]="icon"></app-link>
+    </div>
+  </header>
+</div>

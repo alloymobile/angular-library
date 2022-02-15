@@ -11,13 +11,13 @@ export class AppIcon{
   constructor(res?: any){
     if(res){
       this.id = res.id ? res.id : 0;
-      this.icon = res.icon ? AppIcon.getIcon(res.icon) : AppIcon.getIcon("faAsymmetrik");
+      this.icon = res.icon ? AppIcon.getIcon(res.icon) : AppIcon.getIcon("");
       this.size = res.size ? AppIcon.getSizeProp(res.size) : AppIcon.getSizeProp("lg");
       this.spin = res.spin ? res.spin : false;
       this.className = res.className ? res.className : '';
     }else{
       this.id = 0;
-      this.icon = AppIcon.getIcon("faAsymmetrik");
+      this.icon = AppIcon.getIcon("");
       this.size = AppIcon.getSizeProp("lg");
       this.spin = false;
       this.className = "";

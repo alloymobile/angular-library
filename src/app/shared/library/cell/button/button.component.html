@@ -3,7 +3,7 @@
   [class]="_button.className"
   (click)="output.emit(_button)"
 >
-  <app-icon [icon]="_button.icon" ></app-icon>
+  <app-icon *ngIf="_button.icon.id != 0" [icon]="_button.icon" ></app-icon>
   <span class="px-2" *ngIf="_button.name !=''">{{_button.name}}</span>
 </button>
 

@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "brand":{ "id":1,"name":"AlloyMobile","className":"h3","link":"","icon":{"id":1,"icon":"faAsymmetrik","size":"lg","spin":false,"className":""}},
+  "pageLink":
+    [
+      { "id":2,"name":"home","className":"btn btn-outline-dark border-0 px-2 h6","link":"home"},
+      { "id":3,"name":"about","className":"btn btn-outline-dark border-0 px-2 h6","link":"about"},
+      { "id":4,"name":"contact","className":"btn btn-outline-dark border-0 px-2 h6","link":"contact"}
+    ],
+  "iconLink":
+    [
+      { "id":5,"name":"","className":"","link":"","icon":{"id":2,"icon":"faLock","size":"lg","spin":false,"className":""}}
+    ]
+}
