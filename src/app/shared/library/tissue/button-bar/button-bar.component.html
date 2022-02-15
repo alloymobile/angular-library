@@ -1,0 +1,3 @@
+<div>
+  <app-button *ngFor="let _button of _buttons" [button]="_button" (output)="output.emit($event)"></app-button>
+</div>
