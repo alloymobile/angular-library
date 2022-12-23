@@ -18,6 +18,7 @@ import { IconNavbarComponent } from './tissue/navbar/icon-navbar/icon-navbar.com
 import { LoginComponent } from './organ/login/login/login.component';
 import { RegisterComponent } from './organ/register/register/register.component';
 import { ForgetComponent } from './organ/forget/forget/forget.component';
+import { TableComponent } from './tissue/table/table/table.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ForgetComponent } from './organ/forget/forget/forget.component';
     IconNavbarComponent,
     LoginComponent,
     RegisterComponent,
-    ForgetComponent
+    ForgetComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { ForgetComponent } from './organ/forget/forget/forget.component';
     IconNavbarComponent,
     LoginComponent,
     RegisterComponent,
-    ForgetComponent
+    ForgetComponent,
+    TableComponent
   ]
 })
 export class AlloymobileAngularModule { }

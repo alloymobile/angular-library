@@ -11,6 +11,7 @@ import { ButtonPageComponent } from './cell/button-page/button-page.component';
 import { LoginPageComponent } from './organ/login-page/login-page.component';
 import { RegisterPageComponent } from './organ/register-page/register-page.component';
 import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
+import { TablePageComponent } from './tissue/table-page/table-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
     ButtonPageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ForgetPageComponent
+    ForgetPageComponent,
+    TablePageComponent
   ],
   imports: [
     BrowserModule,
