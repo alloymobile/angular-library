@@ -3,7 +3,7 @@
     "id":1,
     "className":"navbar-light navbar-sticky border-bottom",
     "logo":{"id":1,"name":"Alloymobile","className":"btn btn-outline-dark border-0 rounded px-1","link":"","icon":{"id":1,"icon":"faAsymmetrik","size":"2x","spin":false,"className":""}},
-    "iconLink":
+    "linkIcon":
     [
       {"id":1,"name":"Home","className":"btn btn-outline-dark border-0 rounded px-1","link":"","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
       {"id":2,"name":"About us","className":"btn btn-outline-dark border-0 rounded px-1","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
@@ -16,19 +16,19 @@
   "cellBar":{
     "id":1,
     "className":"list-group h-100",
-    "iconLink":
+    "linkIcon":
     [
       {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"icon","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
       {"id":2,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"TextBox","className":"list-group-item list-group-item-action","link":"text","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
       {"id":5,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
     ]
   },
   "tissueBar":{
     "id":1,
     "className":"list-group h-100",
-    "iconLink":
+    "linkIcon":
     [
       {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"table","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
       {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
@@ -37,7 +37,7 @@
   "organBar":{
     "id":1,
     "className":"list-group h-100",
-    "iconLink":
+    "linkIcon":
     [
       {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"login","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
       {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},

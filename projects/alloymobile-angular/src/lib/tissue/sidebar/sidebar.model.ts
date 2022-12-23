@@ -1,4 +1,4 @@
-import { AlloyIconLink, AlloyLink } from "../../cell/link/link.model";
+import { AlloyLinkIcon, AlloyLink } from "../../cell/link/link.model";
 
 export class SideBar {
     id: string;
@@ -30,14 +30,14 @@ export class AlloySideBar extends SideBar {
 
 
 export class AlloyIconSideBar extends SideBar  {
-  iconLink: AlloyIconLink[];
+  linkIcon: AlloyLinkIcon[];
   constructor(response?: any) {
     if (response) {
       super(response);
-      this.iconLink = response.iconLink ? response.iconLink.map((iconLink: AlloyIconLink)=>new AlloyIconLink(iconLink)) : []; 
+      this.linkIcon = response.linkIcon ? response.linkIcon.map((linkIcon: AlloyLinkIcon)=>new AlloyLinkIcon(linkIcon)) : []; 
     } else {
       super();
-      this.iconLink = [];
+      this.linkIcon = [];
     }
   }
 }

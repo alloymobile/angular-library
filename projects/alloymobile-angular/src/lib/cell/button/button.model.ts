@@ -17,7 +17,7 @@ export class AlloyButton{
   }
 }
 
-export class AlloyIconButton extends AlloyButton{
+export class AlloyButtonIcon extends AlloyButton{
   icon: AlloyIcon;
   constructor(res?: any){
     if(res){

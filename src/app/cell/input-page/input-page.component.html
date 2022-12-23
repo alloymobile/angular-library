@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-sm-6 text-center border">
+            <h1>Dashboard Cards</h1>
+            <div class="m-2" *ngFor="let inputText of inputTexts" >
+                <alloy-input-text [inputText]="inputText" (output)="gettext($event)"></alloy-input-text>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center border">
+            <h1>Usage</h1>
+        </div>
+    </div>
+</div>

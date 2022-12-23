@@ -1,20 +1,20 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlloyIconLink } from '../link.model';
+import { AlloyLinkIcon } from '../link.model';
 
 @Component({
-  selector: 'alloy-icon-link',
-  templateUrl: './icon-link.component.html',
-  styleUrls: ['./icon-link.component.css']
+  selector: 'alloy-link-icon',
+  templateUrl: './link-icon.component.html',
+  styleUrls: ['./link-icon.component.css']
 })
-export class IconLinkComponent {
-  _iconLink: AlloyIconLink;
-  @Input() set iconLink(iconLink: AlloyIconLink){
-    this._iconLink = iconLink;
+export class LinkIconComponent {
+  _linkIcon: AlloyLinkIcon;
+  @Input() set linkIcon(linkIcon: AlloyLinkIcon){
+    this._linkIcon = linkIcon;
   }
 
   constructor(private router:Router) { 
-    this._iconLink = new AlloyIconLink();
+    this._linkIcon = new AlloyLinkIcon();
   }
   //redirect on click
   routeLink(lnk: any) {

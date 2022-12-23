@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <!-- Logo START -->
-          <alloy-icon-link [iconLink]="_iconNavBar.logo"></alloy-icon-link>
+          <alloy-link-icon [linkIcon]="_iconNavBar.logo"></alloy-link-icon>
         <!-- Logo END -->
   
         <!-- Responsive navbar toggler -->
@@ -31,8 +31,8 @@
           <!-- Nav Search END -->
           <ul class="navbar-nav navbar-nav-scroll">
             <!-- Nav item 4 link-->
-            <li *ngFor="let i of _iconNavBar.iconLink" class="nav-item">
-              <alloy-icon-link [iconLink]="i"></alloy-icon-link>
+            <li *ngFor="let i of _iconNavBar.linkIcon" class="nav-item">
+              <alloy-link-icon [linkIcon]="i"></alloy-link-icon>
             </li>
           </ul>
         </div>

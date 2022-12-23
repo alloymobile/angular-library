@@ -1,5 +1,5 @@
 {
-    "id":"table","className":"table table-striped table-hover","link":"/icon","name":"Folders",
+    "id":"table","className":"table table-striped table-hover","link":"/table","name":"Folders",
     "icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},
     "rows":
     [

@@ -6,10 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IconComponent } from './cell/icon/icon.component';
 import { ButtonComponent } from './cell/button/button/button.component';
-import { IconButtonComponent } from './cell/button/icon-button/icon-button.component';
 import { LinkComponent } from './cell/link/link/link.component';
-import { IconLinkComponent } from './cell/link/icon-link/icon-link.component';
-import { TextComponent } from './cell/input/text/text.component';
 
 import { SidebarComponent } from './tissue/sidebar/sidebar/sidebar.component';
 import { IconSidebarComponent } from './tissue/sidebar/icon-sidebar/icon-sidebar.component';
@@ -19,16 +16,20 @@ import { LoginComponent } from './organ/login/login/login.component';
 import { RegisterComponent } from './organ/register/register/register.component';
 import { ForgetComponent } from './organ/forget/forget/forget.component';
 import { TableComponent } from './tissue/table/table/table.component';
+import { TableActionComponent } from './tissue/table/table-action/table-action.component';
+import { ButtonIconComponent } from './cell/button/button-icon/button-icon.component';
+import { LinkIconComponent } from './cell/link/link-icon/link-icon.component';
+import { InputTextComponent } from './cell/input/input-text/input-text.component';
+import { InputTextIconComponent } from './cell/input/input-text-icon/input-text-icon.component';
 
 
 @NgModule({
   declarations: [
     IconComponent,
     ButtonComponent,
+    ButtonIconComponent,
     LinkComponent,
-    TextComponent,
-    IconLinkComponent,
-    IconButtonComponent,
+    LinkIconComponent,
     SidebarComponent,
     IconSidebarComponent,
     NavbarComponent,
@@ -36,7 +37,10 @@ import { TableComponent } from './tissue/table/table/table.component';
     LoginComponent,
     RegisterComponent,
     ForgetComponent,
-    TableComponent
+    TableComponent,
+    TableActionComponent,
+    InputTextComponent,
+    InputTextIconComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +52,9 @@ import { TableComponent } from './tissue/table/table/table.component';
   exports: [
     IconComponent,
     ButtonComponent,
+    ButtonIconComponent,
     LinkComponent,
-    IconLinkComponent,
-    IconButtonComponent,
+    LinkIconComponent,
     SidebarComponent,
     IconSidebarComponent,
     NavbarComponent,
@@ -58,7 +62,9 @@ import { TableComponent } from './tissue/table/table/table.component';
     LoginComponent,
     RegisterComponent,
     ForgetComponent,
-    TableComponent
+    TableComponent,
+    TableActionComponent,
+    InputTextComponent,
   ]
 })
 export class AlloymobileAngularModule { }

@@ -12,6 +12,8 @@ import { LoginPageComponent } from './organ/login-page/login-page.component';
 import { RegisterPageComponent } from './organ/register-page/register-page.component';
 import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
 import { TablePageComponent } from './tissue/table-page/table-page.component';
+import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
+import { InputPageComponent } from './cell/input-page/input-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TablePageComponent } from './tissue/table-page/table-page.component';
     LoginPageComponent,
     RegisterPageComponent,
     ForgetPageComponent,
-    TablePageComponent
+    TablePageComponent,
+    TableDetailPageComponent,
+    InputPageComponent
   ],
   imports: [
     BrowserModule,

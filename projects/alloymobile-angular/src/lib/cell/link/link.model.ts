@@ -21,7 +21,7 @@ export class AlloyLink{
   }
 }
 
-export class AlloyIconLink extends AlloyLink{
+export class AlloyLinkIcon extends AlloyLink{
   icon: AlloyIcon;
   constructor(res?: any){
     if(res){

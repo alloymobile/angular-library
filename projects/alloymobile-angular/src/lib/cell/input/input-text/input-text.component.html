@@ -1,0 +1,12 @@
+<div [class]="_inputText.className">
+    <input
+      [type]="_inputText.typeName"
+      [name]="_inputText.name"
+      class="form-control"
+      [id]="_inputText.id"
+      [placeholder]="_inputText.placeholder"
+      [(ngModel)]="_inputText.text"
+      (blur)="output.emit(_inputText)"
+    />
+    <label [for]="_inputText.id">{{_inputText.label}}</label>
+  </div>
