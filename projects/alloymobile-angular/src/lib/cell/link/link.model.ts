@@ -2,18 +2,18 @@ import { AlloyIcon } from "../icon/icon.model";
 
 
 export class AlloyLink{
-  id: number;
+  id: string;
   name: string;
   className: string;
   link: string;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : 0;
+      this.id = res.id ? res.id : "";
       this.name = res.name ? res.name : "";
       this.className = res.className ? res.className : "";
       this.link = res.link ? res.link : "./";
     }else{
-      this.id = 0;
+      this.id = "";;
       this.name = "Funny";
       this.className =  "";
       this.link = "./";

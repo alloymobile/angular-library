@@ -1,0 +1,50 @@
+{
+  "navBar":{
+    "id":1,
+    "className":"navbar-light navbar-sticky border-bottom",
+    "logo":{"id":1,"name":"Alloymobile","className":"btn btn-outline-dark border-0 rounded px-1","link":"","icon":{"id":1,"icon":"faAsymmetrik","size":"2x","spin":false,"className":""}},
+    "iconLink":
+    [
+      {"id":1,"name":"Home","className":"btn btn-outline-dark border-0 rounded px-1","link":"","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"About us","className":"btn btn-outline-dark border-0 rounded px-1","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Gallery","className":"btn btn-outline-dark border-0 rounded px-1","link":"gallery","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Blog","className":"btn btn-outline-dark border-0 rounded px-1","link":"blog","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Teaching","className":"btn btn-outline-dark border-0 rounded px-1","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Contact us","className":"btn btn-outline-dark border-0 rounded px-1","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
+    ]
+  },
+  "cellBar":{
+    "id":1,
+    "className":"list-group h-100",
+    "iconLink":
+    [
+      {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"icon","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"TextBox","className":"list-group-item list-group-item-action","link":"text","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
+      {"id":5,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
+    ]
+  },
+  "tissueBar":{
+    "id":1,
+    "className":"list-group h-100",
+    "iconLink":
+    [
+      {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"table","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
+    ]
+  },
+  "organBar":{
+    "id":1,
+    "className":"list-group h-100",
+    "iconLink":
+    [
+      {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"login","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Forget","className":"list-group-item list-group-item-action","link":"forget","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Gallery","className":"list-group-item list-group-item-action","link":"gallery","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
+      {"id":5,"name":"Teaching","className":"list-group-item list-group-item-action","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
+      {"id":6,"name":"Contact us","className":"list-group-item list-group-item-action","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
+    ]
+  }
+}

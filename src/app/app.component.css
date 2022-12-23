@@ -1,0 +1,9 @@
+.sidebar {
+    flex: 0 0 200px;
+  }
+  
+  .main{
+    flex: 1;
+    overflow: hidden;
+  }
+  

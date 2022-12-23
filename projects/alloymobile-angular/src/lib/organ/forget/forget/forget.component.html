@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center text-center mt-5">
+    <form [formGroup]="forgetForm" (ngSubmit)="forgetClient()">
+      <div class="form-group m-2">
+        <div class="alert alert-danger" *ngIf="_forget.error != ''">
+          {{ _forget.error }}
+        </div>
+      </div>
+      <alloy-link [link]="forgetLink"></alloy-link>
+      <div class="form-floating p-2">
+        <input
+          type="email"
+          class="form-control"
+          id="inputEmail"
+          formControlName="email"
+          placeholder="name@example.com"
+        />
+        <label for="inputEmail">Email address</label>
+        <small id="emailHelp" class="form-text text-muted ml-2"
+          >We'll never share your email with anyone else.</small
+        >
+        <div *ngIf="_forget.submitted && formControl.email.errors" class="alert alert-danger m-0 p-0">
+          <div *ngIf="formControl.email.errors.email">Email must be valid.</div>
+          <div *ngIf="formControl.email.errors.required">Email is required.</div>
+        </div>
+      </div>
+      <div class="p-2">
+        <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_forget.showSpinner">
+          <alloy-icon [icon]="loadingIcon" *ngIf="loadingIcon.spin"></alloy-icon>
+          Send email
+        </button>
+      </div>
+    </form>
+  </div>

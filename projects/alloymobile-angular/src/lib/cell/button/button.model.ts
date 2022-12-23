@@ -1,16 +1,16 @@
 import { AlloyIcon} from "../icon/icon.model";
 
 export class AlloyButton{
-  id: number;
+  id: string;
   name: string;
   className: string;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : 0;
+      this.id = res.id ? res.id : "";
       this.name = res.name ? res.name : "";
       this.className = res.className ? res.className : "btn btn-primary m-1";
     }else{
-      this.id = 0;
+      this.id = "";
       this.name = "";
       this.className =  "btn btn-primary m-1";
     }

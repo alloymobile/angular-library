@@ -1,16 +1,32 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AlloymobileAngularModule } from 'alloymobile-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { IconPageComponent } from './cell/icon-page/icon-page.component';
+import { LinkPageComponent } from './cell/link-page/link-page.component';
+import { ButtonPageComponent } from './cell/button-page/button-page.component';
+import { LoginPageComponent } from './organ/login-page/login-page.component';
+import { RegisterPageComponent } from './organ/register-page/register-page.component';
+import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    IconPageComponent,
+    LinkPageComponent,
+    ButtonPageComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    ForgetPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AlloymobileAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]

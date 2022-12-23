@@ -3,20 +3,20 @@ import { faApple, faAsymmetrik, faFacebook, faGoogle, faInstagram, faLinkedin, f
 import { faAddressCard, faAt, faBlog, faBorderAll, faCamera, faChalkboardTeacher, faDollarSign, faDownload, faEdit, faEnvelope, faEnvelopeOpenText, faFilePdf, faFolder, faHome, faIcons, faKeyboard, faLink, faList, faLocation, faLock, faPhoneAlt, faPlus, faRightToBracket, faSearch, faSpinner, faTh, faToggleOff, faTrashAlt, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon{
-  id: number;
+  id: string;
   icon: IconDefinition;
   size: SizeProp;
   spin: boolean;
   className: string;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : 0;
+      this.id = res.id ? res.id : "";
       this.icon = res.icon ? AlloyIcon.getIcon(res.icon) : AlloyIcon.getIcon("");
       this.size = res.size ? AlloyIcon.getSizeProp(res.size) : AlloyIcon.getSizeProp("lg");
       this.spin = res.spin ? res.spin : false;
       this.className = res.className ? res.className : '';
     }else{
-      this.id = 0;
+      this.id = "";
       this.icon = AlloyIcon.getIcon("");
       this.size = AlloyIcon.getSizeProp("lg");
       this.spin = false;
