@@ -8,8 +8,8 @@ import { AlloyButtonIcon } from '../button.model';
 })
 export class ButtonIconComponent {
   _buttonIcon: AlloyButtonIcon;
-  @Input() set iconButton(iconButton: AlloyButtonIcon){
-    this._buttonIcon = iconButton;
+  @Input() set buttonIcon(buttonIcon: AlloyButtonIcon){
+    this._buttonIcon = buttonIcon;
   }
   @Output() output: EventEmitter<AlloyButtonIcon>= new EventEmitter<AlloyButtonIcon>();
   constructor() {

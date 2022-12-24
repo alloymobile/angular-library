@@ -37,6 +37,7 @@
     {"id":"36","icon":"faToggleOff","size":"lg","spin":false,"className":""},
     {"id":"37","icon":"faUserPlus","size":"lg","spin":false,"className":""},
     {"id":"38","icon":"faFilePdf","size":"lg","spin":false,"className":""},
-    {"id":"39","icon":"faFolder","size":"lg","spin":false,"className":""}
+    {"id":"39","icon":"faFolder","size":"lg","spin":false,"className":""},
+    {"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}
 ]
 

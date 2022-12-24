@@ -1,9 +1,15 @@
 <div class="container">
     <div class="row mt-2">
         <div class="col-sm-6 text-center border">
-            <h1>Dashboard Cards</h1>
+            <h1>Input</h1>
             <div class="m-2" *ngFor="let inputText of inputTexts" >
-                <alloy-input-text [inputText]="inputText" (output)="gettext($event)"></alloy-input-text>
+                <alloy-input-text [inputText]="inputText" (output)="getText($event)"></alloy-input-text>
+            </div>
+            <div class="m-2" *ngFor="let inputTextIcon of inputTextIcons" >
+                <alloy-input-text-icon [inputTextIcon]="inputTextIcon" (output)="getText($event)"></alloy-input-text-icon>
+            </div>
+            <div>
+                <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
             </div>
         </div>
         <div class="col-sm-6 text-center border">

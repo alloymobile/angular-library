@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InputText } from 'alloymobile-angular';
+import { AlloyButtonIcon, AlloyInputText,AlloyInputTextIcon,AlloySearchBar } from 'alloymobile-angular';
 import InputDB from './input-page.data.json';
 @Component({
   selector: 'app-input-page',
@@ -7,12 +7,16 @@ import InputDB from './input-page.data.json';
   styleUrls: ['./input-page.component.css']
 })
 export class InputPageComponent {
-  inputTexts: InputText[];
+  inputTexts: AlloyInputText[];
+  inputTextIcons: AlloyInputTextIcon[];
+  searchbar: AlloySearchBar;
   constructor(){
-    this.inputTexts = InputDB.map((inputText)=> new InputText(inputText)) ;
+    this.inputTexts = InputDB.inputTexts.map((inputText)=> new AlloyInputText(inputText)) ;
+    this.inputTextIcons = InputDB.inputTextIcons.map((inputTextIcon)=> new AlloyInputTextIcon(inputTextIcon)) ;
+    this.searchbar = new AlloySearchBar(InputDB.searchbar);
   }
 
-  gettext(text){
+  getText(text){
     console.log(text);
   }
 }

@@ -1,1 +1,21 @@
-<p>input-text-icon works!</p>
+<div [class]="_inputTextIcon.className">
+    <input
+      [type]="_inputTextIcon.typeName"
+      [name]="_inputTextIcon.name"
+      class="form-control"
+      [id]="_inputTextIcon.id"
+      [placeholder]="_inputTextIcon.placeholder"
+      [(ngModel)]="_inputTextIcon.text"
+      (input)="output.emit(_inputTextIcon)"
+    />
+    <span [class]="_inputTextIcon.iconClass">
+        <button
+          class="input-group-text"
+          type="button"
+          (click)="output.emit(_inputTextIcon)"
+        >
+          <span class="icon"><alloy-icon [icon]="_inputTextIcon.icon"></alloy-icon></span>
+        </button>
+      </span>
+</div>
+
