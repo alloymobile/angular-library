@@ -11,6 +11,12 @@
             <div class="m-2">
                 <alloy-input-icon-text [inputIconTexts]="inputTextIcons" (output)="getText($event)"></alloy-input-icon-text>
             </div>
+            <div class="m-2">
+                <alloy-input-icon-text-label [inputIconTextLabels]="inputTextIcons" (output)="getText($event)"></alloy-input-icon-text-label>
+            </div>
+            <div class="m-2">
+                <alloy-input-text-icon-label [inputTextIconLabels]="inputTextIcons" (output)="getText($event)"></alloy-input-text-icon-label>
+            </div>
             <div>
                 <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
             </div>

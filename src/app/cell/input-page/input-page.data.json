@@ -1,7 +1,6 @@
 {
     "inputTexts":
     [
-        {"id":"1","name":"test","className":"form-floating mb-3","typeName":"text","label":"My Mail","placeholder":"john@example.com"},
         {"id":"2","name":"password","className":"form-floating mb-3","typeName":"password","label":"My Password","placeholder":"john@example.com"}
     ],
     "inputTextIcons":
@@ -11,7 +10,7 @@
     "searchbar":
     {
         "id":"1","className":"input-group mb-3",
-        "search":{"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","text":"","iconClass":"input-group-append","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
+        "search":[{"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","text":"","iconClass":"input-group-append","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}}],
         "upload":{"id":"1","name":"Upload","className":"btn btn-outline-dark border-0","icon":{"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}}
     }
 }

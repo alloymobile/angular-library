@@ -23,6 +23,8 @@ export * from './lib/cell/button/button-icon/button-icon.component';
 export * from './lib/cell/input/input-text/input-text.component';
 export * from './lib/cell/input/input-text-icon/input-text-icon.component';
 export * from './lib/cell/input/input-icon-text/input-icon-text.component';
+export * from './lib/cell/input/input-icon-text-label/input-icon-text-label.component';
+export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/icon-navbar/icon-navbar.component';
