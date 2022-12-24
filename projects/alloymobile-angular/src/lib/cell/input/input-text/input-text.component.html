@@ -1,15 +1,13 @@
-<div [class]="_inputText.className">
-    <form         
-    [formGroup]="inputForm"
-    (ngSubmit)="submitData()"
-    #form="ngForm">
-        <input
-        [id]="_inputText.id"
-        [type]="_inputText.typeName"
-        [formControlName]="_inputText.name"
-        class="form-control"
-        (input)="submitData()"
-        />
-        <label [for]="_inputText.id">{{_inputText.label}}</label>
-    </form>
-</div>
+<form [formGroup]="inputForm" (ngSubmit)="output.emit(inputForm.value)" #form="ngForm">
+  <div *ngFor="let _inputText of _inputTexts" [class]="_inputText.className">
+    <input
+      [id]="_inputText.id"
+      [type]="_inputText.typeName"
+      [formControlName]="_inputText.name"
+      [placeholder]="_inputText.placeholder"
+      class="form-control"
+      (input)="output.emit(inputForm.value)"
+    />
+    <label [for]="_inputText.id">{{ _inputText.label }}</label>
+  </div>
+</form>

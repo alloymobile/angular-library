@@ -2,11 +2,14 @@
     <div class="row mt-2">
         <div class="col-sm-6 text-center border">
             <h1>Input</h1>
-            <div class="m-2" *ngFor="let inputText of inputTexts" >
-                <alloy-input-text [inputText]="inputText" (output)="getText($event)"></alloy-input-text>
+            <div class="m-2">
+                <alloy-input-text [inputTexts]="inputTexts" (output)="getText($event)"></alloy-input-text>
             </div>
-            <div class="m-2" *ngFor="let inputTextIcon of inputTextIcons" >
-                <alloy-input-text-icon [inputTextIcon]="inputTextIcon" (output)="getText($event)"></alloy-input-text-icon>
+            <div class="m-2">
+                <alloy-input-text-icon [inputTextIcons]="inputTextIcons" (output)="getText($event)"></alloy-input-text-icon>
+            </div>
+            <div class="m-2">
+                <alloy-input-icon-text [inputIconTexts]="inputTextIcons" (output)="getText($event)"></alloy-input-icon-text>
             </div>
             <div>
                 <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>

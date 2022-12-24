@@ -3,14 +3,14 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { AlloyInputTextIcon } from '../input.model';
 
 @Component({
-  selector: 'alloy-input-text-icon',
-  templateUrl: './input-text-icon.component.html',
-  styleUrls: ['./input-text-icon.component.css']
+  selector: 'alloy-input-icon-text',
+  templateUrl: './input-icon-text.component.html',
+  styleUrls: ['./input-icon-text.component.css']
 })
-export class InputTextIconComponent {
-  _inputTextIcons: AlloyInputTextIcon[];
-  @Input() set inputTextIcons(inputTextIcons: AlloyInputTextIcon[]) {
-  	this._inputTextIcons = inputTextIcons;
+export class InputIconTextComponent {
+  _inputIconTexts: AlloyInputTextIcon[];
+  @Input() set inputIconTexts(inputIconTexts: AlloyInputTextIcon[]) {
+  	this._inputIconTexts = inputIconTexts;
     this.createForm();
   }
   //reactive form for data input
@@ -19,12 +19,12 @@ export class InputTextIconComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputTextIcons = [];
+    this._inputIconTexts = [];
   }
 
   createForm() {
     this.inputForm = new FormGroup({});
-    this.inputForm = this.createData(this._inputTextIcons);
+    this.inputForm = this.createData(this._inputIconTexts);
   }
 
   //Used to create the form group
