@@ -42,7 +42,7 @@
       {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"login","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
       {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Forget","className":"list-group-item list-group-item-action","link":"forget","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Gallery","className":"list-group-item list-group-item-action","link":"gallery","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Token","className":"list-group-item list-group-item-action","link":"token","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
       {"id":5,"name":"Teaching","className":"list-group-item list-group-item-action","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
       {"id":6,"name":"Contact us","className":"list-group-item list-group-item-action","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
     ]

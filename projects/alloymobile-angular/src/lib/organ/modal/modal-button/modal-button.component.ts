@@ -1,32 +1,29 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output  } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { AlloyModal } from '../modal.model';
+import { AlloyModalButton } from '../modal.model';
 declare var window: any;
 @Component({
-  selector: 'alloy-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  selector: 'alloy-modal-button',
+  templateUrl: './modal-button.component.html',
+  styleUrls: ['./modal-button.component.css']
 })
-export class ModalComponent{
-  _modal: AlloyModal;
+export class ModalButtonComponent {
+  _modalButton: AlloyModalButton;
   modalForm: any;
   formData: any;
-  @Input() set modal(modal: AlloyModal){
-    this._modal = modal;
-    if(modal.open){
-      this.showModal();
-    }
+  @Input() set modalButton(modalButton: AlloyModalButton){
+    this._modalButton = modalButton;
   }
 
   @Output() output: EventEmitter<AbstractControl<any,any>>= new EventEmitter<AbstractControl<any,any>>();
   constructor() {
-    this._modal = new AlloyModal();
+    this._modalButton = new AlloyModalButton();
     this.formData = {};
   }
 
-  showModal(){
+  showModal(text){
     this.modalForm = new window.bootstrap.Modal(
-      document.getElementById(this._modal.id)
+      document.getElementById(this._modalButton.id)
     );
     this.modalForm.show();
   }

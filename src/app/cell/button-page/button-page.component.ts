@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyButtonIcon, AlloyModal } from 'alloymobile-angular';
+import { AlloyButtonIcon, AlloyModal, AlloyModalButton } from 'alloymobile-angular';
 import ButtonDB from "./button.data.json"
 @Component({
   selector: 'app-button-page',
@@ -7,13 +7,22 @@ import ButtonDB from "./button.data.json"
   styleUrls: ['./button-page.component.css']
 })
 export class ButtonPageComponent {
-  modal: AlloyModal;
+  modalButton: AlloyModalButton;
   buttons: AlloyButtonIcon[]
+  button1: AlloyButtonIcon;
+  modal: AlloyModal;
   constructor(){
-    this.modal = new AlloyModal(ButtonDB.modal)
+    this.modalButton = new AlloyModalButton(ButtonDB.modalButton)
     this.buttons = ButtonDB.buttons.map(b=>new AlloyButtonIcon(b));
+    this.button1 = new AlloyButtonIcon(ButtonDB.button1);
   }
   modalData(data){
     console.log(data);
+  }
+
+  showModal(modal){
+    console.log(modal);
+    this.modal = new AlloyModal(ButtonDB.modal);
+    this.modal.open = true;
   }
 }

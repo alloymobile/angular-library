@@ -14,6 +14,7 @@ import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
 import { TablePageComponent } from './tissue/table-page/table-page.component';
 import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
 import { InputPageComponent } from './cell/input-page/input-page.component';
+import { TokenPageComponent } from './organ/token-page/token-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { InputPageComponent } from './cell/input-page/input-page.component';
     ForgetPageComponent,
     TablePageComponent,
     TableDetailPageComponent,
-    InputPageComponent
+    InputPageComponent,
+    TokenPageComponent
   ],
   imports: [
     BrowserModule,

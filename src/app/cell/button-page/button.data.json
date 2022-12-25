@@ -1,6 +1,15 @@
 {
+    "button1":{"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFolder","size":"lg","spin":false,"className":""}},
     "modal":{
-        "id":"myModal","title":"Create Folder",
+        "id":"myModal","title":"Create Folder","open":false,
+        "fields":
+        [
+            {"id":"1","name":"email","className":"input-group mb-3","typeName":"text","placeholder":"tax 2022","label":"Email address","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+            {"id":"1","name":"password","className":"input-group mb-3","typeName":"password","placeholder":"tax 2022","label":"Password","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        ]
+    },
+    "modalButton":{
+        "id":"myModal","title":"Create Folder","open":false,
         "fields":
         [
             {"id":"1","name":"email","className":"input-group mb-3","typeName":"text","placeholder":"tax 2022","label":"Email address","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},

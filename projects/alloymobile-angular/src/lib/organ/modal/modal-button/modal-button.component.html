@@ -1,7 +1,7 @@
-
+<alloy-button-icon [buttonIcon]="_modalButton.show" (output)="showModal($event)"></alloy-button-icon>
 <div
   class="modal fade"
-  [id]="_modal.id"
+  [id]="_modalButton.id"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -10,7 +10,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{_modal.title}}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{_modalButton.title}}</h5>
         <button
           type="button"
           class="btn-close"
@@ -19,7 +19,7 @@
         ></button>
       </div>
         <div class="modal-body">
-            <alloy-input-icon-text-label [inputIconTextLabels]="_modal.fields" (output)="getText($event)"></alloy-input-icon-text-label>
+            <alloy-input-icon-text-label [inputIconTextLabels]="_modalButton.fields" (output)="getText($event)"></alloy-input-icon-text-label>
         </div>
         <div class="modal-footer">
           <button
