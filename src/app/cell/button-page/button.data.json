@@ -1,0 +1,17 @@
+{
+    "modal":{
+        "id":"myModal","title":"Create Folder",
+        "fields":
+        [
+            {"id":"1","name":"email","className":"input-group mb-3","typeName":"text","placeholder":"tax 2022","label":"Email address","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+            {"id":"1","name":"password","className":"input-group mb-3","typeName":"password","placeholder":"tax 2022","label":"Password","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        ],
+        "show":{"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+    },
+    "buttons":
+    [
+        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
+        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
+        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}}
+    ]
+}

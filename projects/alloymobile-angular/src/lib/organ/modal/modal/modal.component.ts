@@ -1,41 +1,40 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AlloyModal } from '../modal.model';
 declare var window: any;
 @Component({
   selector: 'alloy-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent {
-  formModal: any;
-  //reactive form for data input
-  dataForm: FormGroup;
- 
-  constructor(private formBuilder: FormBuilder) {}
- 
-  ngOnInit(): void {
-    // this.createLoginForm();
-    this.formModal = new window.bootstrap.Modal(
-      document.getElementById('myModal')
-    );
+export class ModalComponent{
+  _modal: AlloyModal;
+  modalForm: any;
+  formData: any;
+  @Input() set modal(modal: AlloyModal){
+    this._modal = modal;
   }
-    // convenience getter for easy access to form fields
-    get formControl() {
-      return this.dataForm.controls;
-    }
 
-  // createLoginForm() {
-  //   this.dataForm = this.formBuilder.group({
-  //     name: ['', [Validators.required]]
-  //   });
-  // }
- 
-  openFormModal() {
-    this.formModal.show();
+  @Output() output: EventEmitter<AbstractControl<any,any>>= new EventEmitter<AbstractControl<any,any>>();
+  constructor() {
+    this._modal = new AlloyModal();
+    this.formData = {};
   }
+
+  showModal(text){
+    this.modalForm = new window.bootstrap.Modal(
+      document.getElementById(this._modal.id)
+    );
+    this.modalForm.show();
+  }
+ 
   submitData() {
     // confirm or save something
-    this.formModal.hide();
-    console.log(this.formControl.name.value)
+    this.modalForm.hide();
+    this.output.emit(this.formData);
+  }
+
+  getText(text){
+    this.formData = text;
   }
 }

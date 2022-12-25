@@ -26,6 +26,7 @@ import { ModalComponent } from './organ/modal/modal/modal.component';
 import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
+import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-button.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/
     ModalComponent,
     InputIconTextComponent,
     InputIconTextLabelComponent,
-    InputTextIconLabelComponent
+    InputTextIconLabelComponent,
+    GalleryButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/
     ModalComponent,
     InputIconTextComponent,
     InputIconTextLabelComponent,
-    InputTextIconLabelComponent
+    InputTextIconLabelComponent,
+    GalleryButtonComponent
   ]
 })
 export class AlloymobileAngularModule { }

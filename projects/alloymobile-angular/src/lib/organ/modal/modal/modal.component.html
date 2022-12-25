@@ -1,25 +1,17 @@
-<div class="container">
-  <div class="row mt-4 mb-2 text-center">
-    <div class="col">
-      <button type="button" (click)="openFormModal()" class="btn btn-dark">
-        Add
-      </button>
-    </div>
-  </div>
-</div>
 
-<!--form modal-->
+<alloy-button-icon [buttonIcon]="_modal.show" (output)="showModal($event)"></alloy-button-icon>
 <div
   class="modal fade"
-  id="myModal"
+  [id]="_modal.id"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
+  role="dialog"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bootstrp Modal</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{_modal.title}}</h5>
         <button
           type="button"
           class="btn-close"
@@ -27,22 +19,8 @@
           aria-label="Close"
         ></button>
       </div>
-      <form
-        [formGroup]="dataForm"
-        (ngSubmit)="submitData()"
-        #loginForm="ngForm"
-      >
         <div class="modal-body">
-          <div class="form-floating p-2">
-            <input
-              type="text"
-              class="form-control"
-              id="folderName"
-              formControlName="name"
-              placeholder="name@example.com"
-            />
-            <label for="folderName">Folder Name</label>
-          </div>
+            <alloy-input-icon-text-label [inputIconTextLabels]="_modal.fields" (output)="getText($event)"></alloy-input-icon-text-label>
         </div>
         <div class="modal-footer">
           <button
@@ -52,9 +30,8 @@
           >
             Close
           </button>
-          <button type="submit" class="btn btn-outline-dark">Create</button>
+          <button type="submit" class="btn btn-outline-dark" (click)="submitData()">Create</button>
         </div>
-      </form>
     </div>
   </div>
 </div>
