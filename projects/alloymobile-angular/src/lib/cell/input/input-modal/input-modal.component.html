@@ -1,0 +1,17 @@
+
+    <form [formGroup]="inputForm" (ngSubmit)="output.emit(inputForm.value)" #form="ngForm">
+        <div *ngFor="let c of _inputModal | keyvalue" class="form-floating">
+          <input
+            [id]="c.key"
+            type="text"
+            [formControlName]="c.key"
+            [placeholder]="c.key"
+            class="form-control"
+            (input)="output.emit(inputForm.value)"
+          />
+          <label [for]="c.key">{{ c.key }}</label>
+        </div>
+    </form>
+
+
+  

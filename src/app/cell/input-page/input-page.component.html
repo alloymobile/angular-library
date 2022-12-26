@@ -20,6 +20,9 @@
             <div>
                 <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
             </div>
+            <div>
+                <alloy-input-modal [inputModal]="inputModal" (output)="getText($event)"></alloy-input-modal>
+            </div>
         </div>
         <div class="col-sm-6 text-center border">
             <h1>Usage</h1>

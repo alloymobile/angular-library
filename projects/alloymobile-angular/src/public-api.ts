@@ -28,20 +28,19 @@ export * from './lib/cell/input/input-text-icon/input-text-icon.component';
 export * from './lib/cell/input/input-icon-text/input-icon-text.component';
 export * from './lib/cell/input/input-icon-text-label/input-icon-text-label.component';
 export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.component';
+export * from './lib/cell/input/input-modal/input-modal.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/icon-navbar/icon-navbar.component';
 export * from './lib/tissue/sidebar/sidebar/sidebar.component';
 export * from './lib/tissue/sidebar/icon-sidebar/icon-sidebar.component';
 export * from './lib/tissue/table/table/table.component';
-export * from './lib/tissue/table/table-action/table-action.component';
 export * from './lib/tissue/searchbar/searchbar/searchbar.component';
 export * from './lib/tissue/gallery/gallery-button/gallery-button.component';
 
 export * from './lib/organ/login/login/login.component';
 export * from './lib/organ/register/register/register.component';
 export * from './lib/organ/forget/forget/forget.component';
-export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-button/modal-button.component';
 export * from './lib/organ/token/token/token.component';
 export * from './lib/organ/crud/crud.component';

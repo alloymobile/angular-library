@@ -10,10 +10,12 @@ export class InputPageComponent {
   inputTexts: AlloyInputText[];
   inputTextIcons: AlloyInputTextIcon[];
   searchbar: AlloySearchBar;
+  inputModal: any;
   constructor(){
     this.inputTexts = InputDB.inputTexts.map((inputText)=> new AlloyInputText(inputText)) ;
     this.inputTextIcons = InputDB.inputTextIcons.map((inputTextIcon)=> new AlloyInputTextIcon(inputTextIcon)) ;
     this.searchbar = new AlloySearchBar(InputDB.searchbar);
+    this.inputModal = {id:"34",name:"fgrt"};
   }
 
   getText(text){

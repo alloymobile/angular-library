@@ -16,13 +16,11 @@ import { LoginComponent } from './organ/login/login/login.component';
 import { RegisterComponent } from './organ/register/register/register.component';
 import { ForgetComponent } from './organ/forget/forget/forget.component';
 import { TableComponent } from './tissue/table/table/table.component';
-import { TableActionComponent } from './tissue/table/table-action/table-action.component';
 import { ButtonIconComponent } from './cell/button/button-icon/button-icon.component';
 import { LinkIconComponent } from './cell/link/link-icon/link-icon.component';
 import { InputTextComponent } from './cell/input/input-text/input-text.component';
 import { InputTextIconComponent } from './cell/input/input-text-icon/input-text-icon.component';
 import { SearchbarComponent } from './tissue/searchbar/searchbar/searchbar.component';
-import { ModalComponent } from './organ/modal/modal/modal.component';
 import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
@@ -30,6 +28,7 @@ import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-
 import { TokenComponent } from './organ/token/token/token.component';
 import { ModalButtonComponent } from './organ/modal/modal-button/modal-button.component';
 import { CrudComponent } from './organ/crud/crud.component';
+import { InputModalComponent } from './cell/input/input-modal/input-modal.component';
 
 
 @NgModule({
@@ -47,18 +46,17 @@ import { CrudComponent } from './organ/crud/crud.component';
     RegisterComponent,
     ForgetComponent,
     TableComponent,
-    TableActionComponent,
     InputTextComponent,
     InputTextIconComponent,
     SearchbarComponent,
-    ModalComponent,
     InputIconTextComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
     ModalButtonComponent,
-    CrudComponent
+    CrudComponent,
+    InputModalComponent
   ],
   imports: [
     BrowserModule,
@@ -81,18 +79,17 @@ import { CrudComponent } from './organ/crud/crud.component';
     RegisterComponent,
     ForgetComponent,
     TableComponent,
-    TableActionComponent,
     InputTextComponent,
     InputTextIconComponent,
     SearchbarComponent,
-    ModalComponent,
     InputIconTextComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
     ModalButtonComponent,
-    CrudComponent
+    CrudComponent,
+    InputModalComponent
   ]
 })
 export class AlloymobileAngularModule { }

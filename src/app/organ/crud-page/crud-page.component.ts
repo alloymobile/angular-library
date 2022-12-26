@@ -12,4 +12,8 @@ export class CrudPageComponent {
   constructor(){
     this.crud = new AlloyCrud(CrudDB);
   }
+
+  crudClicked(hello){
+    console.log(hello);
+  }
 }

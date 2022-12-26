@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { AlloyIcon } from '../../cell/icon/icon.model';
 import { AlloyInputTextIcon } from '../../cell/input/input.model';
-import { Action, AlloyCrud } from './crud.model';
+import { Action } from '../modal/modal.model';
+import { AlloyCrud } from './crud.model';
 declare var window: any;
 @Component({
   selector: 'alloy-crud',
@@ -34,6 +35,10 @@ export class CrudComponent {
   }
 
   onClicked(action:Action,row?: any){
+    this._crud.modal.action = action;
+    if(row){
+      this._crud.modal.row = row;
+    }
     this.modalForm = new window.bootstrap.Modal(
       document.getElementById(this._crud.modal.id)
     );

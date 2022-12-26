@@ -3,11 +3,11 @@
 <!--Search-->    
   <div class="row input-group">
     <div class="col-sm-8">
-        <alloy-input-icon-text-label [inputIconTextLabels]="search"></alloy-input-icon-text-label>
+        <alloy-input-text-icon-label [inputTextIconLabels]="search" (output)="output.emit($event)"></alloy-input-text-icon-label>
     </div>
     <div class="col-sm-4 d-flex justify-content-end">
         <button
-        class="btn btn-outline-dark border-0"
+        class="btn btn-outline-dark"
         (click)="onClicked(action.ADD)"
       >
         <alloy-icon [icon]="addIcon"></alloy-icon>
@@ -91,10 +91,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <alloy-input-icon-text-label
-          [inputIconTextLabels]="_crud.modal.fields"
-          (output)="getText($event)"
-        ></alloy-input-icon-text-label>
+        <alloy-input-modal [inputModal]="_crud.modal.row" (output)="getText($event)"></alloy-input-modal>
       </div>
       <div class="modal-footer">
         <button

@@ -9,7 +9,6 @@ import ButtonDB from "./button.data.json"
 export class ButtonPageComponent {
   buttons: AlloyButtonIcon[]
   button1: AlloyButtonIcon;
-  modal: AlloyModal;
   constructor(){
     this.buttons = ButtonDB.buttons.map(b=>new AlloyButtonIcon(b));
     this.button1 = new AlloyButtonIcon(ButtonDB.button1);
@@ -20,6 +19,5 @@ export class ButtonPageComponent {
 
   showModal(modal){
     console.log(modal);
-    this.modal = new AlloyModal(ButtonDB.modal);
   }
 }
