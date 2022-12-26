@@ -1,0 +1,22 @@
+{
+    "id":"","className":"",
+    "modal":
+    {
+        "id":"myModal","title":"Folder",
+        "fields":
+        [
+            {"id":"1","name":"name","className":"input-group","typeName":"text","placeholder":"tax 2022","label":"Folder name","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        ]
+    },
+    "table":
+    {
+        "id":"table","className":"table table-striped table-hover","link":"/table","name":"Folders",
+        "icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},
+        "rows":
+        [
+            {"id":"1","name":"Hello"},
+            {"id":"1","name":"T4"},
+            {"id":"1","name":"Return"}
+        ]
+    }
+}

@@ -7,12 +7,10 @@ import ButtonDB from "./button.data.json"
   styleUrls: ['./button-page.component.css']
 })
 export class ButtonPageComponent {
-  modalButton: AlloyModalButton;
   buttons: AlloyButtonIcon[]
   button1: AlloyButtonIcon;
   modal: AlloyModal;
   constructor(){
-    this.modalButton = new AlloyModalButton(ButtonDB.modalButton)
     this.buttons = ButtonDB.buttons.map(b=>new AlloyButtonIcon(b));
     this.button1 = new AlloyButtonIcon(ButtonDB.button1);
   }
@@ -23,6 +21,5 @@ export class ButtonPageComponent {
   showModal(modal){
     console.log(modal);
     this.modal = new AlloyModal(ButtonDB.modal);
-    this.modal.open = true;
   }
 }

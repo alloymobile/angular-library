@@ -13,9 +13,6 @@ export class ModalComponent{
   formData: any;
   @Input() set modal(modal: AlloyModal){
     this._modal = modal;
-    if(modal.open){
-      this.showModal();
-    }
   }
 
   @Output() output: EventEmitter<AbstractControl<any,any>>= new EventEmitter<AbstractControl<any,any>>();

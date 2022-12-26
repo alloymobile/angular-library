@@ -15,6 +15,7 @@ import { TablePageComponent } from './tissue/table-page/table-page.component';
 import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
 import { InputPageComponent } from './cell/input-page/input-page.component';
 import { TokenPageComponent } from './organ/token-page/token-page.component';
+import { CrudPageComponent } from './organ/crud-page/crud-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TokenPageComponent } from './organ/token-page/token-page.component';
     TablePageComponent,
     TableDetailPageComponent,
     InputPageComponent,
-    TokenPageComponent
+    TokenPageComponent,
+    CrudPageComponent
   ],
   imports: [
     BrowserModule,

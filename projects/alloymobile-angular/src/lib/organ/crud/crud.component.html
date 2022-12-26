@@ -1,0 +1,117 @@
+
+<div class="container">
+<!--Search-->    
+  <div class="row input-group">
+    <div class="col-sm-8">
+        <alloy-input-icon-text-label [inputIconTextLabels]="search"></alloy-input-icon-text-label>
+    </div>
+    <div class="col-sm-4 d-flex justify-content-end">
+        <button
+        class="btn btn-outline-dark border-0"
+        (click)="onClicked(action.ADD)"
+      >
+        <alloy-icon [icon]="addIcon"></alloy-icon>
+        New
+      </button>
+    </div>
+  </div>
+<!--Table--> 
+  <div class="row">
+    <div class="col-12">
+      <table [class]="_crud.table.className" [id]="_crud.table.id">
+        <caption class="caption-top text-center">
+          {{
+            _crud.table.name
+          }}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col" *ngFor="let h of _crud.table.rows[0] | keyvalue">
+              <span *ngIf="h.key != 'id'">{{ capitalize(h.key) }}</span>
+            </th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let body of _crud.table.rows; index as j">
+            <td>
+              <alloy-icon [icon]="_crud.table.icon"></alloy-icon>
+            </td>
+            <td
+              class="cursor"
+              *ngFor="let col of body | keyvalue"
+              [routerLink]="[_crud.table.link + '/' + body.id]"
+            >
+              <a *ngIf="col.key != 'id'">{{ col.value }}</a>
+            </td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Edit and Delete">
+                <button
+                  class="btn btn-outline-dark btn-sm border-0 mx-1"
+                  (click)="onClicked(action.EDIT,body)"
+                >
+                  <alloy-icon [icon]="editIcon"></alloy-icon>
+                </button>
+                <button
+                  class="btn btn-outline-dark btn-sm border-0 mx-1"
+                  (click)="onClicked(action.DELETE,body)"
+                >
+                  <alloy-icon [icon]="deleteIcon"></alloy-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Modal-->
+<div
+  class="modal fade"
+  [id]="_crud.modal.id"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ _crud.modal.title }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <alloy-input-icon-text-label
+          [inputIconTextLabels]="_crud.modal.fields"
+          (output)="getText($event)"
+        ></alloy-input-icon-text-label>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-dark"
+          (click)="submitData()"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,7 @@ export * from './lib/organ/register/register.model';
 export * from './lib/organ/login/login.model';
 export * from './lib/organ/modal/modal.model';
 export * from './lib/organ/token/token.model';
+export * from './lib/organ/crud/crud.model';
 
 export * from './lib/cell/icon/icon.component';
 export * from './lib/cell/link/link/link.component';
@@ -43,6 +44,7 @@ export * from './lib/organ/forget/forget/forget.component';
 export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-button/modal-button.component';
 export * from './lib/organ/token/token/token.component';
+export * from './lib/organ/crud/crud.component';
 
 
 

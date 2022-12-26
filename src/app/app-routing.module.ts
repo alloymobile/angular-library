@@ -4,6 +4,7 @@ import { ButtonPageComponent } from './cell/button-page/button-page.component';
 import { IconPageComponent } from './cell/icon-page/icon-page.component';
 import { InputPageComponent } from './cell/input-page/input-page.component';
 import { LinkPageComponent } from './cell/link-page/link-page.component';
+import { CrudPageComponent } from './organ/crud-page/crud-page.component';
 import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
 import { LoginPageComponent } from './organ/login-page/login-page.component';
 import { RegisterPageComponent } from './organ/register-page/register-page.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: "register",component: RegisterPageComponent},
   {path: "forget",component: ForgetPageComponent},
   {path: "token",component: TokenPageComponent},
+  {path: "crud",component: CrudPageComponent},
   {path: "table",component: TablePageComponent},
   {path: "table/:id",component: TableDetailPageComponent}
 ];

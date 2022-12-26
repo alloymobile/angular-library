@@ -5,18 +5,15 @@ export class AlloyModal{
     id: string;
     title: string;
     fields: AlloyInputTextIcon[];
-    open: boolean;
     constructor(res?: any){
         if(res){
             this.id = res.id ? res.id : "";
             this.title = res.title ? res.title : "";
             this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
-            this.open = false;
         }else{
             this.id =  "";
             this.title = "";
             this.fields = [];
-            this.open = false;
         }
     }
 }
