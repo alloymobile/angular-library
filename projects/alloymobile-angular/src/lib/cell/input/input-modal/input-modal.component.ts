@@ -7,9 +7,9 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./input-modal.component.css']
 })
 export class InputModalComponent {
-  _inputModal: any;
-  @Input() set inputModal(inputModal) {
-  	this._inputModal = inputModal;
+  _row: any;
+  @Input() set row(row) {
+  	this._row = row;
     this.inputForm = this.createData();
   }
   //reactive form for data input
@@ -19,12 +19,13 @@ export class InputModalComponent {
 
   constructor(){
     this.inputForm = new FormGroup({});
-    this._inputModal = {};
+    this._row = {};
   }
 
   createData() {
+    this.inputForm = new FormGroup({});
     let group = {};
-    Object.entries(this._inputModal).forEach((column: any) => {
+    Object.entries(this._row).forEach((column: any) => {
       group[column[0]] = new FormControl(column[1]); 
     });
     return new FormGroup(group);

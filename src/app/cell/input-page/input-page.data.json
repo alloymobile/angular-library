@@ -13,6 +13,11 @@
         "search":[{"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","text":"","iconClass":"input-group-append","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}}],
         "upload":{"id":"1","name":"Upload","className":"btn btn-outline-dark border-0","icon":{"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}}
     },
-    "inputModal":{"id":"23","name":"dfrg"}
-
+    "inputModal":{"id":"23","name":"dfrg"},
+    "inputFile":{"upload":""},
+    "modalField":{
+        "id":{"id":"id","name":"id","type":"text","placeholder":"Id","readOnly":false},
+        "name":{"id":"name","name":"name","type":"password","placeholder":"name","readOnly":false}
+    }
 }
+

@@ -29,6 +29,9 @@ import { TokenComponent } from './organ/token/token/token.component';
 import { ModalButtonComponent } from './organ/modal/modal-button/modal-button.component';
 import { CrudComponent } from './organ/crud/crud.component';
 import { InputModalComponent } from './cell/input/input-modal/input-modal.component';
+import { PageComponent } from './tissue/page/page.component';
+import { InputFileComponent } from './cell/input/input-file/input-file.component';
+import { InputDataComponent } from './cell/input/input-data/input-data.component';
 
 
 @NgModule({
@@ -56,7 +59,10 @@ import { InputModalComponent } from './cell/input/input-modal/input-modal.compon
     TokenComponent,
     ModalButtonComponent,
     CrudComponent,
-    InputModalComponent
+    InputModalComponent,
+    PageComponent,
+    InputFileComponent,
+    InputDataComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +95,10 @@ import { InputModalComponent } from './cell/input/input-modal/input-modal.compon
     TokenComponent,
     ModalButtonComponent,
     CrudComponent,
-    InputModalComponent
+    InputModalComponent,
+    PageComponent,
+    InputFileComponent,
+    InputDataComponent
   ]
 })
 export class AlloymobileAngularModule { }

@@ -21,7 +21,13 @@
                 <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
             </div>
             <div>
-                <alloy-input-modal [inputModal]="inputModal" (output)="getText($event)"></alloy-input-modal>
+                <alloy-input-modal [row]="row" (output)="getText($event)"></alloy-input-modal>
+            </div>
+            <div>
+                <alloy-input-file [row]="upload" (output)="getText($event)"></alloy-input-file>
+            </div>
+            <div>
+                <alloy-input-data [row]="row"  (output)="getText($event)"></alloy-input-data>
             </div>
         </div>
         <div class="col-sm-6 text-center border">

@@ -3,12 +3,12 @@
 <!--Search-->    
   <div class="row input-group">
     <div class="col-sm-8">
-        <alloy-input-text-icon-label [inputTextIconLabels]="search" (output)="output.emit($event)"></alloy-input-text-icon-label>
+        <alloy-input-text-icon-label [inputTextIconLabels]="search" (output)="getSearch($event)"></alloy-input-text-icon-label>
     </div>
     <div class="col-sm-4 d-flex justify-content-end">
         <button
         class="btn btn-outline-dark"
-        (click)="onClicked(action.ADD)"
+        (click)="onClicked('Add')"
       >
         <alloy-icon [icon]="addIcon"></alloy-icon>
         New
@@ -25,7 +25,8 @@
           }}
         </caption>
         <thead>
-          <tr>
+          <!-- <tr *ngIf="_crud.table.rows[0] != undefined"> -->
+          <tr>  
             <th scope="col">Type</th>
             <th scope="col" *ngFor="let h of _crud.table.rows[0] | keyvalue">
               <span *ngIf="h.key != 'id'">{{ capitalize(h.key) }}</span>
@@ -49,13 +50,13 @@
               <div class="btn-group" role="group" aria-label="Edit and Delete">
                 <button
                   class="btn btn-outline-dark btn-sm border-0 mx-1"
-                  (click)="onClicked(action.EDIT,body)"
+                  (click)="onClicked('Edit',body)"
                 >
                   <alloy-icon [icon]="editIcon"></alloy-icon>
                 </button>
                 <button
                   class="btn btn-outline-dark btn-sm border-0 mx-1"
-                  (click)="onClicked(action.DELETE,body)"
+                  (click)="onClicked('Delete',body)"
                 >
                   <alloy-icon [icon]="deleteIcon"></alloy-icon>
                 </button>
@@ -81,7 +82,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          {{ _crud.modal.title }}
+          {{ modalType +' '+_crud.modal.title }}
         </h5>
         <button
           type="button"
@@ -91,7 +92,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <alloy-input-modal [inputModal]="_crud.modal.row" (output)="getText($event)"></alloy-input-modal>
+        <alloy-input-modal [row]="_crud.modal.row" (output)="getText($event)"></alloy-input-modal>
       </div>
       <div class="modal-footer">
         <button
@@ -99,14 +100,14 @@
           class="btn btn-outline-dark"
           data-bs-dismiss="modal"
         >
-          Close
+          Cancel
         </button>
         <button
           type="submit"
           class="btn btn-outline-dark"
           (click)="submitData()"
         >
-          Create
+          {{modalType}}
         </button>
       </div>
     </div>
