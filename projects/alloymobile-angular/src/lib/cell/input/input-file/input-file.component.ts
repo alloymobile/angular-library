@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AlloyInputText } from '../input.model';
 
 @Component({
   selector: 'alloy-input-file',
@@ -7,41 +8,22 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./input-file.component.css']
 })
 export class InputFileComponent {
-  _row: any;
-  @Input() set row(row) {
-  	this._row = row;
-    this.inputForm = this.createData();
+  _inputFile: AlloyInputText;
+  @Input() set inputFile(inputFile: AlloyInputText) {
+  	this._inputFile = inputFile;
   }
-  //reactive form for data input
-  inputForm: FormGroup;
-  postForm: FormData;
-  hasFile: boolean;
-
   @Output() output: EventEmitter<FormData> = new EventEmitter<FormData>();
 
   constructor(){
-    this.inputForm = new FormGroup({});
-    this._row = {};
-    this.postForm = new FormData();
-    this.hasFile = false;
-  }
-
-  createData() {
-    this.inputForm = new FormGroup({});
-    let group = {};
-    Object.entries(this._row).forEach((column: any) => {
-      group[column[0]] = new FormControl(null); 
-      this.hasFile = true;
-      this.postForm = new FormData();
-    });
-    return new FormGroup(group);
+    this._inputFile = new AlloyInputText();
   }
   
   //called to create form data when there is a file
   onFileChange(event) {
+    let fileData = new FormData();
     let file = event.target.files[0];
     let fileName = event.target.files[0].name;
-    this.postForm.append('file', file, fileName);
-    this.output.emit(this.postForm);
+    fileData.append('file', file, fileName);
+    this.output.emit(fileData);
   }
 }

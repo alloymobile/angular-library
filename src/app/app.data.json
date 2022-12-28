@@ -1,4 +1,10 @@
 {
+  "clientBar":{
+    "id":1,
+    "className":"navbar-light navbar-sticky border-bottom",
+    "backButton":{"id":"1","name":"Back","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faArrowLeftLong","size":"lg","spin":false,"className":""}},
+    "clientButton":{"id":"dropdownMenuButton1","name":"Client","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faUser","size":"lg","spin":false,"className":""}}
+  },
   "navBar":{
     "id":1,
     "className":"navbar-light navbar-sticky border-bottom",
@@ -9,8 +15,8 @@
       {"id":2,"name":"About us","className":"btn btn-outline-dark border-0 rounded px-1","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Gallery","className":"btn btn-outline-dark border-0 rounded px-1","link":"gallery","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
       {"id":4,"name":"Blog","className":"btn btn-outline-dark border-0 rounded px-1","link":"blog","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Teaching","className":"btn btn-outline-dark border-0 rounded px-1","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Contact us","className":"btn btn-outline-dark border-0 rounded px-1","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
+      {"id":5,"name":"Teaching","className":"btn btn-outline-dark border-0 rounded px-1","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
+      {"id":6,"name":"Contact us","className":"btn btn-outline-dark border-0 rounded px-1","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
     ]
   },
   "cellBar":{

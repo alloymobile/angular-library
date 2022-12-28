@@ -1,9 +1,9 @@
-<header [id]="_iconNavBar.id" [class]="_iconNavBar.className">
+<header [id]="_navBarIcon.id" [class]="_navBarIcon.className">
     <!-- Logo Nav START -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <!-- Logo START -->
-          <alloy-link-icon [linkIcon]="_iconNavBar.logo"></alloy-link-icon>
+          <alloy-link-icon [linkIcon]="_navBarIcon.logo"></alloy-link-icon>
         <!-- Logo END -->
   
         <!-- Responsive navbar toggler -->
@@ -31,7 +31,7 @@
           <!-- Nav Search END -->
           <ul class="navbar-nav navbar-nav-scroll">
             <!-- Nav item 4 link-->
-            <li *ngFor="let i of _iconNavBar.linkIcon" class="nav-item">
+            <li *ngFor="let i of _navBarIcon.linkIcon" class="nav-item">
               <alloy-link-icon [linkIcon]="i"></alloy-link-icon>
             </li>
           </ul>

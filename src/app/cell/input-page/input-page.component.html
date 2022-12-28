@@ -3,31 +3,22 @@
         <div class="col-sm-6 text-center border">
             <h1>Input</h1>
             <div class="m-2">
-                <alloy-input-text [inputTexts]="inputTexts" (output)="getText($event)"></alloy-input-text>
+                <alloy-input-text [inputText]="inputText" (output)="getText($event)"></alloy-input-text>
             </div>
             <div class="m-2">
-                <alloy-input-text-icon [inputTextIcons]="inputTextIcons" (output)="getText($event)"></alloy-input-text-icon>
+                <alloy-input-icon-text-label [inputIconTextLabel]="inputTextIcon" (output)="getText($event)"></alloy-input-icon-text-label>
             </div>
             <div class="m-2">
-                <alloy-input-icon-text [inputIconTexts]="inputTextIcons" (output)="getText($event)"></alloy-input-icon-text>
-            </div>
-            <div class="m-2">
-                <alloy-input-icon-text-label [inputIconTextLabels]="inputTextIcons" (output)="getText($event)"></alloy-input-icon-text-label>
-            </div>
-            <div class="m-2">
-                <alloy-input-text-icon-label [inputTextIconLabels]="inputTextIcons" (output)="getText($event)"></alloy-input-text-icon-label>
+                <alloy-input-text-icon-label [inputTextIconLabel]="inputTextIcon" (output)="getText($event)"></alloy-input-text-icon-label>
             </div>
             <div>
                 <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
             </div>
             <div>
-                <alloy-input-modal [row]="row" (output)="getText($event)"></alloy-input-modal>
+                <alloy-input-file [inputFile]="upload" (output)="getText($event)"></alloy-input-file>
             </div>
             <div>
-                <alloy-input-file [row]="upload" (output)="getText($event)"></alloy-input-file>
-            </div>
-            <div>
-                <alloy-input-data [row]="row"  (output)="getText($event)"></alloy-input-data>
+                <alloy-input-texts [inputTexts]="fields" (output)="getText($event)"></alloy-input-texts>
             </div>
         </div>
         <div class="col-sm-6 text-center border">

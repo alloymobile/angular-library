@@ -2,18 +2,18 @@
     "id":"","className":"",
     "modal":
     {
-        "id":"myModal","title":"Folder","action":"Add",
-        "row":{"name":"","date":""}
+        "id":"myModal","title":"File","action":"Add",
+        "file":{"id":"2","name":"name","className":"form-floating mb-3","type":"file","label":"Upload file","placeholder":"Upload file"}
     },
     "table":
     {
-        "id":"table","className":"table table-striped table-hover","link":"/table","name":"Folders",
-        "icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},
+        "id":"table","className":"table table-striped table-hover","link":"/table","name":"Files",
+        "icon":{"id":1,"icon":"faFilePdf","size":"lg","spin":false,"className":""},
         "rows":
         [
-            {"id":"1","name":"Hello","date":"12-12-2022"},
-            {"id":"1","name":"T4","date":"12-12-2022"},
-            {"id":"1","name":"Return","date":"12-12-2022"}
+            {"id":"1","name":"Hello","url":"12-12-2022"},
+            {"id":"1","name":"T4","url":"12-12-2022"},
+            {"id":"1","name":"Return","url":"12-12-2022"}
         ]
     }
 }

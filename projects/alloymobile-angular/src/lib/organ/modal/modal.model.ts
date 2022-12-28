@@ -1,7 +1,7 @@
 import { AlloyButtonIcon } from "../../cell/button/button.model";
 import { AlloyInputTextIcon } from "../../cell/input/input.model";
 
-export class AlloyModal{
+export class Modal{
     id: string;
     title: string;
     constructor(res?: any){
@@ -15,31 +15,43 @@ export class AlloyModal{
     }
 }
 
-export class AlloyModalButton extends AlloyModal{
-    fields: AlloyInputTextIcon[];
-    show: AlloyButtonIcon;
+export class AlloyModalFile extends Modal{
+    file: AlloyInputTextIcon;
     constructor(res?: any){
         if(res){
             super(res);
-            this.show = res.show ?  new AlloyButtonIcon(res.show) : new AlloyButtonIcon();
+            this.file = res.file ?  new AlloyInputTextIcon(res.file) : new AlloyInputTextIcon();
+        }else{
+            super();
+            this.file = new AlloyInputTextIcon();
+        }
+    }
+}
+
+
+export class AlloyModal extends Modal{
+    fields: AlloyInputTextIcon[];
+    constructor(res?: any){
+        if(res){
+            super(res);
             this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
         }else{
             super();
-            this.show = new AlloyButtonIcon();
             this.fields = [];
         }
     }
 }
 
-export class AlloyInputModal extends AlloyModal{
-    row: any;
+export class AlloyModalButton extends AlloyModal{
+    show: AlloyButtonIcon;
     constructor(res?: any){
         if(res){
             super(res);
-            this.row = res.row;
+            this.show = res.show ?  new AlloyButtonIcon(res.show) : new AlloyButtonIcon();
+
         }else{
             super();
-            this.row = {};
+            this.show = new AlloyButtonIcon();
         }
     }
 }

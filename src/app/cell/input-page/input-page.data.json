@@ -1,12 +1,6 @@
 {
-    "inputTexts":
-    [
-        {"id":"2","name":"password","className":"form-floating mb-3","typeName":"password","label":"My Password","placeholder":"john@example.com"}
-    ],
-    "inputTextIcons":
-    [
-        {"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","label":"My Password","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}}
-    ],
+    "inputText":{"id":"2","name":"password","className":"form-floating mb-3","type":"password","label":"My Password","placeholder":"john@example.com"},
+    "inputTextIcon":{"id":"1","name":"search","className":"input-group mb-3 border border-dark rounded-pill","typeName":"text","placeholder":"john@example.com","label":"My Password","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
     "searchbar":
     {
         "id":"1","className":"input-group mb-3",
@@ -14,10 +8,16 @@
         "upload":{"id":"1","name":"Upload","className":"btn btn-outline-dark border-0","icon":{"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}}
     },
     "inputModal":{"id":"23","name":"dfrg"},
-    "inputFile":{"upload":""},
+    "inputFile":{"id":"2","name":"name","className":"form-floating mb-3","type":"file","label":"Upload file","placeholder":"Upload file"},
     "modalField":{
         "id":{"id":"id","name":"id","type":"text","placeholder":"Id","readOnly":false},
         "name":{"id":"name","name":"name","type":"password","placeholder":"name","readOnly":false}
-    }
+    },
+    "fields":
+    [
+        {"id":"1","name":"id","className":"input-group","type":"text","text":"","placeholder":"id","readonly":true,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+        {"id":"2","name":"name","className":"input-group","type":"text","text":"","placeholder":"Name","readonly":false,"label":"Name","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+        {"id":"3","name":"date","className":"input-group","type":"text","text":"","placeholder":"Date","readonly":false,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+    ]
 }
 

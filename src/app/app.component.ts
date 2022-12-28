@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyIconNavBar, AlloyIconSideBar } from 'alloymobile-angular';
+import { AlloyClientBar,AlloyNavBarIcon,AlloyIconSideBar } from 'alloymobile-angular';
 import AppDB from './app.data.json';
 
 @Component({
@@ -10,11 +10,13 @@ import AppDB from './app.data.json';
 export class AppComponent {
   title = 'angular-library';
   sideBar: AlloyIconSideBar;
-  navBar: AlloyIconNavBar;
+  navBar: AlloyNavBarIcon;
   selected = "cell";
+  clientBar: AlloyClientBar;
   constructor(){
     this.sideBar = new AlloyIconSideBar(AppDB.cellBar) 
-    this.navBar =  new AlloyIconNavBar(AppDB.navBar);
+    this.navBar =  new AlloyNavBarIcon(AppDB.navBar);
+    this.clientBar = new AlloyClientBar(AppDB.clientBar);
   }
   setActive(comp: string){
     switch(comp){

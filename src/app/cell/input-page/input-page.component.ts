@@ -7,21 +7,23 @@ import InputDB from './input-page.data.json';
   styleUrls: ['./input-page.component.css']
 })
 export class InputPageComponent {
-  inputTexts: AlloyInputText[];
-  inputTextIcons: AlloyInputTextIcon[];
+  inputText: AlloyInputText;
+  inputTextIcon: AlloyInputTextIcon;
   searchbar: AlloySearchBar;
   row: any;
   upload: any;
+  fields: AlloyInputTextIcon[];
   constructor(){
-    this.inputTexts = InputDB.inputTexts.map((inputText)=> new AlloyInputText(inputText)) ;
-    this.inputTextIcons = InputDB.inputTextIcons.map((inputTextIcon)=> new AlloyInputTextIcon(inputTextIcon)) ;
+    this.inputText =  new AlloyInputText(InputDB.inputText) ;
+    this.inputTextIcon = new AlloyInputTextIcon(InputDB.inputTextIcon) ;
     this.searchbar = new AlloySearchBar(InputDB.searchbar);
     this.row = {id:"34",name:"fgrt"};
-    this.upload = { upload:""};
+    this.upload = new AlloyInputText(InputDB.inputFile)
     this.row = {
       id:{id:"id",name:"id",type:"text",placeholder:"Id",readOnly:false},
       name:{id:"name",name:"name",type:"text",placeholder:"name",readOnly:false}
     }
+    this.fields = InputDB.fields.map(f=>new AlloyInputTextIcon(f));
   }
 
   getText(text){

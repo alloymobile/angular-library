@@ -8,10 +8,10 @@ import { AlloyInputTextIcon } from '../input.model';
   styleUrls: ['./input-text-icon-label.component.css']
 })
 export class InputTextIconLabelComponent {
-  _inputTextIconLabels: AlloyInputTextIcon[];
-  @Input() set inputTextIconLabels(inputTextIconLabels: AlloyInputTextIcon[]) {
-  	this._inputTextIconLabels = inputTextIconLabels;
-    this.createForm();
+  _inputTextIconLabel: AlloyInputTextIcon;
+  @Input() set inputTextIconLabel(inputTextIconLabel: AlloyInputTextIcon) {
+  	this._inputTextIconLabel = inputTextIconLabel;
+    this.inputForm = this.createData(this._inputTextIconLabel);
   }
   //reactive form for data input
   inputForm: FormGroup;
@@ -19,24 +19,19 @@ export class InputTextIconLabelComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputTextIconLabels = [];
-  }
-
-  createForm() {
+    this._inputTextIconLabel = new AlloyInputTextIcon();
     this.inputForm = new FormGroup({});
-    this.inputForm = this.createData(this._inputTextIconLabels);
   }
 
   //Used to create the form group
-  createData(data: AlloyInputTextIcon[]) {
+  createData(data: AlloyInputTextIcon) {
+    this.inputForm = new FormGroup({});
     let group = {};
-    data.forEach(d=>{
-      Object.entries(d).forEach((column: any) => {
-        if (column[0] === 'name') {
-          group[column[1]] = new FormControl(); 
-        }
-      });
-    })
+    Object.entries(data).forEach((column: any) => {
+      if (column[0] === 'name') {
+        group[column[1]] = new FormControl(data.text); 
+      }
+    });
     return new FormGroup(group);
   }
 }

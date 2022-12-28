@@ -8,10 +8,10 @@ import { AlloyInputText } from '../input.model';
   styleUrls: ['./input-text.component.css']
 })
 export class InputTextComponent {
-  _inputTexts: AlloyInputText[];
-  @Input() set inputTexts(inputTexts: AlloyInputText[]) {
-  	this._inputTexts = inputTexts;
-    this.createForm();
+  _inputText: AlloyInputText;
+  @Input() set inputText(inputText: AlloyInputText) {
+  	this._inputText = inputText;
+    this.inputForm = this.createData(this._inputText);
   }
 
   //reactive form for data input
@@ -20,24 +20,20 @@ export class InputTextComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputTexts = [];
-  }
-
-  createForm() {
+    this._inputText = new AlloyInputText();
     this.inputForm = new FormGroup({});
-    this.inputForm = this.createData(this._inputTexts);
   }
 
   //Used to create the form group
-  createData(data: AlloyInputText[]) {
+  // only the name field used to create the form control
+  createData(data: AlloyInputText) {
+    this.inputForm = new FormGroup({});
     let group = {};
-    data.forEach(d=>{
-      Object.entries(d).forEach((column: any) => {
+      Object.entries(data).forEach((column: any) => {
         if (column[0] === 'name') {
-          group[column[1]] = new FormControl(); 
+          group[column[1]] = new FormControl(data.text); 
         }
       });
-    })
     return new FormGroup(group);
   }
 }

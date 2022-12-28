@@ -30,7 +30,7 @@ export class AlloyNavBar extends NavBar {
   }
 }
 
-export class AlloyIconNavBar extends NavBar{
+export class AlloyNavBarIcon extends NavBar{
   linkIcon: AlloyLinkIcon[];
   constructor(response?: any) {
     if (response) {

@@ -1,0 +1,154 @@
+<div class="container">
+  <!--Search-->
+  <div class="row input-group mt-2">
+    <div class="col-sm-8">
+      <alloy-input-text-icon-label
+        [inputTextIconLabel]="search"
+        (output)="getSearch($event)"
+      ></alloy-input-text-icon-label>
+    </div>
+    <div class="col-sm-4 d-flex justify-content-end">
+      <button class="btn btn-outline-dark m-2" (click)="onClicked('Add')">
+        <alloy-icon [icon]="uploadIcon"></alloy-icon>
+        Upload
+      </button>
+    </div>
+  </div>
+  <!--Table-->
+  <div class="row">
+    <div class="col-12">
+      <table [class]="_crudFile.table.className" [id]="_crudFile.table.id">
+        <caption class="caption-top text-center">
+          {{
+            _crudFile.table.name
+          }}
+        </caption>
+        <thead>
+          <!-- <tr *ngIf="_crudFile.table.rows[0] != undefined"> -->
+          <tr>
+            <th scope="col">Type</th>
+            <th
+              scope="col"
+              *ngFor="let h of _crudFile.table.rows[0] | keyvalue"
+            >
+              <span *ngIf="h.key == 'name'">{{ capitalize(h.key) }}</span>
+            </th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let body of _crudFile.table.rows; index as j">
+            <td>
+              <alloy-icon [icon]="_crudFile.table.icon"></alloy-icon>
+            </td>
+            <td class="cursor" *ngFor="let col of body | keyvalue" (click)="onClicked('Select', body)">
+              <a *ngIf="col.key == 'name'">{{ col.value }}</a>
+            </td>
+            <td>
+              <div class="btn-group" role="group" aria-label="Delete file">
+                <button
+                  class="btn btn-outline-dark btn-sm border-0 mx-1"
+                  (click)="onClicked('Delete', body)"
+                >
+                  <alloy-icon [icon]="deleteIcon"></alloy-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--Upload Modal-->
+<div
+  class="modal fade"
+  [id]="_crudFile.modal.id"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ modalType + " " + _crudFile.modal.title }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <alloy-input-file
+          [inputFile]="_crudFile.modal.file"
+          (output)="getText($event)"
+        ></alloy-input-file>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-dark"
+          (click)="submitData()"
+        >
+          {{ modalType }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Delete Modal-->
+<div
+  class="modal fade"
+  id="DeleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ modalType }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h3>Are you sure!</h3>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-outline-dark"
+          (click)="submitData()"
+        >
+          {{ modalType }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

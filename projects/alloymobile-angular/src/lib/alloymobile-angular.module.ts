@@ -11,7 +11,6 @@ import { LinkComponent } from './cell/link/link/link.component';
 import { SidebarComponent } from './tissue/sidebar/sidebar/sidebar.component';
 import { IconSidebarComponent } from './tissue/sidebar/icon-sidebar/icon-sidebar.component';
 import { NavbarComponent } from './tissue/navbar/navbar/navbar.component';
-import { IconNavbarComponent } from './tissue/navbar/icon-navbar/icon-navbar.component';
 import { LoginComponent } from './organ/login/login/login.component';
 import { RegisterComponent } from './organ/register/register/register.component';
 import { ForgetComponent } from './organ/forget/forget/forget.component';
@@ -19,19 +18,20 @@ import { TableComponent } from './tissue/table/table/table.component';
 import { ButtonIconComponent } from './cell/button/button-icon/button-icon.component';
 import { LinkIconComponent } from './cell/link/link-icon/link-icon.component';
 import { InputTextComponent } from './cell/input/input-text/input-text.component';
-import { InputTextIconComponent } from './cell/input/input-text-icon/input-text-icon.component';
 import { SearchbarComponent } from './tissue/searchbar/searchbar/searchbar.component';
-import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
 import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-button.component';
 import { TokenComponent } from './organ/token/token/token.component';
 import { ModalButtonComponent } from './organ/modal/modal-button/modal-button.component';
-import { CrudComponent } from './organ/crud/crud.component';
-import { InputModalComponent } from './cell/input/input-modal/input-modal.component';
+import { CrudComponent } from './organ/crud/crud/crud.component';
 import { PageComponent } from './tissue/page/page.component';
 import { InputFileComponent } from './cell/input/input-file/input-file.component';
-import { InputDataComponent } from './cell/input/input-data/input-data.component';
+import { InputTextsComponent } from './cell/input/input-texts/input-texts.component';
+import { CrudFileComponent } from './organ/crud/crud-file/crud-file.component';
+import { NavbarIconComponent } from './tissue/navbar/navbar-icon/navbar-icon.component';
+import { ClientbarComponent } from './tissue/clientbar/clientbar/clientbar.component';
+import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboard.component';
 
 
 @NgModule({
@@ -44,25 +44,25 @@ import { InputDataComponent } from './cell/input/input-data/input-data.component
     SidebarComponent,
     IconSidebarComponent,
     NavbarComponent,
-    IconNavbarComponent,
     LoginComponent,
     RegisterComponent,
     ForgetComponent,
     TableComponent,
     InputTextComponent,
-    InputTextIconComponent,
     SearchbarComponent,
-    InputIconTextComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
     ModalButtonComponent,
     CrudComponent,
-    InputModalComponent,
     PageComponent,
     InputFileComponent,
-    InputDataComponent
+    InputTextsComponent,
+    CrudFileComponent,
+    NavbarIconComponent,
+    ClientbarComponent,
+    CardDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -80,25 +80,25 @@ import { InputDataComponent } from './cell/input/input-data/input-data.component
     SidebarComponent,
     IconSidebarComponent,
     NavbarComponent,
-    IconNavbarComponent,
     LoginComponent,
     RegisterComponent,
     ForgetComponent,
     TableComponent,
     InputTextComponent,
-    InputTextIconComponent,
     SearchbarComponent,
-    InputIconTextComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
     ModalButtonComponent,
     CrudComponent,
-    InputModalComponent,
     PageComponent,
     InputFileComponent,
-    InputDataComponent
+    InputTextsComponent,
+    CrudFileComponent,
+    NavbarIconComponent,
+    ClientbarComponent,
+    CardDashboardComponent
   ]
 })
 export class AlloymobileAngularModule { }

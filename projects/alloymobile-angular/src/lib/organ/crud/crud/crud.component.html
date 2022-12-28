@@ -1,13 +1,13 @@
 
 <div class="container">
 <!--Search-->    
-  <div class="row input-group">
+  <div class="row input-group mt-2">
     <div class="col-sm-8">
-        <alloy-input-text-icon-label [inputTextIconLabels]="search" (output)="getSearch($event)"></alloy-input-text-icon-label>
+        <alloy-input-text-icon-label [inputTextIconLabel]="search" (output)="getSearch($event)"></alloy-input-text-icon-label>
     </div>
     <div class="col-sm-4 d-flex justify-content-end">
         <button
-        class="btn btn-outline-dark"
+        class="btn btn-outline-dark m-2"
         (click)="onClicked('Add')"
       >
         <alloy-icon [icon]="addIcon"></alloy-icon>
@@ -92,7 +92,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <alloy-input-modal [row]="_crud.modal.row" (output)="getText($event)"></alloy-input-modal>
+        <alloy-input-texts [inputTexts]="_crud.modal.fields" (output)="getText($event)"></alloy-input-texts>
       </div>
       <div class="modal-footer">
         <button

@@ -1,17 +1,15 @@
-<form [formGroup]="inputForm" #form="ngForm">
-    <div *ngFor="let c of _row | keyvalue" class="form-floating mb-2">
-        <input
-        [id]="c.key"
-        type="file"
-        [formControlName]="c.key"
-        [placeholder]="c.key"
-        class="form-control"
-        (change)="onFileChange($event)"
-        [readonly]="c.key === 'id'"
-        />
-        <label [for]="c.key">{{ c.key }}</label>
-    </div>
-</form>
+<div [class]="_inputFile.className">
+    <input
+    [id]="_inputFile.id"
+    [type]="_inputFile.type"
+    [placeholder]="_inputFile.placeholder"
+    [readonly]="_inputFile.readonly"
+    class="form-control"
+    (change)="onFileChange($event)"
+    />
+    <label [for]="_inputFile.id">{{ _inputFile.label }}</label>
+</div>
 
+  
 
   
