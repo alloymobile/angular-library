@@ -70,7 +70,7 @@
 </div>
 
 <!--Modal-->
-<div
+<!-- <div
   class="modal fade"
   [id]="_crud.modal.id"
   tabindex="-1"
@@ -112,4 +112,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+<alloy-modal [modal]="_crud.modal" (output)="submitData($event)"></alloy-modal>

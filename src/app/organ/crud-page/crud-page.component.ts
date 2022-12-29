@@ -9,9 +9,9 @@ import CrudDB from "./crud-page.data.json";
   styleUrls: ['./crud-page.component.css']
 })
 export class CrudPageComponent {
-  crud: AlloyCrudFile;
+  crud: AlloyCrud;
   constructor(){
-    this.crud = new AlloyCrudFile(CrudDB);
+    this.crud = new AlloyCrud(CrudDB.modal);
   }
 
   crudClicked(hello){

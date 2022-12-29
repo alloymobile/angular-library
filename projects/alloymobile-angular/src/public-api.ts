@@ -46,7 +46,7 @@ export * from './lib/tissue/clientbar/clientbar/clientbar.component';
 export * from './lib/organ/login/login/login.component';
 export * from './lib/organ/register/register/register.component';
 export * from './lib/organ/forget/forget/forget.component';
-export * from './lib/organ/modal/modal-button/modal-button.component';
+export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-toast/modal-toast.component';
 export * from './lib/organ/token/token/token.component';
 export * from './lib/organ/crud/crud/crud.component';

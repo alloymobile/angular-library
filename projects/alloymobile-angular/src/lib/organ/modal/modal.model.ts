@@ -55,13 +55,16 @@ export class AlloyModalFile extends Modal{
 
 export class AlloyModal extends Modal{
     fields: AlloyInputTextIcon[];
+    data: any;
     constructor(res?: any){
         if(res){
             super(res);
             this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
+            this.data={};
         }else{
             super();
             this.fields = [];
+            this.data = {}
         }
     }
 }

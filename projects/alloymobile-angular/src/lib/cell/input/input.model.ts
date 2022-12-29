@@ -18,7 +18,7 @@ export class Input {
     } else {
       this.id = '';
       this.name = 'name';
-      this.type = '';
+      this.type = 'text';
       this.placeholder = '';
       this.className = 'input-group';
       this.readonly = false;

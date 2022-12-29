@@ -42,12 +42,14 @@ export class CrudComponent {
   onClicked(action:string , row?: any){
     this.formData = {};
     this.modalType = action;
+    this._crud.modal.action = action;
     if(row){
       this.selectedRow = row;
       this._crud.modal.fields = this.getDataType(row).map(f => new AlloyInputTextIcon(f));
     }else{
       this._crud.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
     }
+    this._crud.modal.data = {};
     this.modalForm = new window.bootstrap.Modal(
       document.getElementById(this._crud.modal.id)
     );
@@ -75,18 +77,33 @@ export class CrudComponent {
     return JSON.stringify(val);
   }
 
-  submitData() {
+  // submitData() {
+  //   this.modalForm.hide();
+  //   if(this.modalType === 'Add' ||this.modalType === 'Edit' ){
+  //     if(Object.keys(this.formData).length > 0){
+  //       let data = {...this.formData}
+  //       data["action"]=this.modalType;
+  //       this.output.emit(data);
+  //     }
+  //   }else if(this.modalType === 'Delete'){
+  //     this.formData = this.selectedRow;
+  //     let data = {...this.formData}
+  //     data["action"]=this.modalType;
+  //     this.output.emit(data);
+  //   }
+  // }
+
+  //The input event will only trigger if there is a change
+  //for delete the is no change so we have two step
+  submitData(data) {
     this.modalForm.hide();
-    if(this.modalType === 'Add' ||this.modalType === 'Edit' ){
-      if(Object.keys(this.formData).length > 0){
-        let data = {...this.formData}
-        data["action"]=this.modalType;
+    if(data.action === 'Add' || data.action === 'Edit' ){
+      if(Object.keys(data).length > 1){
         this.output.emit(data);
       }
-    }else if(this.modalType === 'Delete'){
-      this.formData = this.selectedRow;
-      let data = {...this.formData}
-      data["action"]=this.modalType;
+    }else if(data.action === 'Delete'){
+      let data = {...this.selectedRow}
+      data["action"]='Delete';
       this.output.emit(data);
     }
   }

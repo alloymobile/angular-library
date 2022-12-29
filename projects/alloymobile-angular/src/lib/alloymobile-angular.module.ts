@@ -23,7 +23,6 @@ import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
 import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-button.component';
 import { TokenComponent } from './organ/token/token/token.component';
-import { ModalButtonComponent } from './organ/modal/modal-button/modal-button.component';
 import { CrudComponent } from './organ/crud/crud/crud.component';
 import { PageComponent } from './tissue/page/page.component';
 import { InputFileComponent } from './cell/input/input-file/input-file.component';
@@ -34,7 +33,6 @@ import { ClientbarComponent } from './tissue/clientbar/clientbar/clientbar.compo
 import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboard.component';
 import { ModalComponent } from './organ/modal/modal/modal.component';
 import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.component';
-import { ModalInputComponent } from './organ/modal/modal-input/modal-input.component';
 
 
 @NgModule({
@@ -57,7 +55,6 @@ import { ModalInputComponent } from './organ/modal/modal-input/modal-input.compo
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
-    ModalButtonComponent,
     CrudComponent,
     PageComponent,
     InputFileComponent,
@@ -67,8 +64,7 @@ import { ModalInputComponent } from './organ/modal/modal-input/modal-input.compo
     ClientbarComponent,
     CardDashboardComponent,
     ModalComponent,
-    ModalToastComponent,
-    ModalInputComponent
+    ModalToastComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +92,6 @@ import { ModalInputComponent } from './organ/modal/modal-input/modal-input.compo
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     TokenComponent,
-    ModalButtonComponent,
     CrudComponent,
     PageComponent,
     InputFileComponent,
@@ -105,7 +100,8 @@ import { ModalInputComponent } from './organ/modal/modal-input/modal-input.compo
     NavbarIconComponent,
     ClientbarComponent,
     CardDashboardComponent,
-    ModalToastComponent,
+    ModalComponent,
+    ModalToastComponent
   ]
 })
 export class AlloymobileAngularModule { }
