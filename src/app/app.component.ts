@@ -34,4 +34,8 @@ export class AppComponent {
         break;      
     }
   }
+
+  back(text){
+    console.log(text);
+  }
 }

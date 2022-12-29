@@ -64,7 +64,7 @@
 <!--Upload Modal-->
 <div
   class="modal fade"
-  [id]="_crudFile.modal.id"
+  [id]="_crudFile.modalFile.id"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -74,7 +74,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          {{ modalType + " " + _crudFile.modal.title }}
+          {{ modalType + " " + _crudFile.modalFile.title }}
         </h5>
         <button
           type="button"
@@ -85,7 +85,7 @@
       </div>
       <div class="modal-body">
         <alloy-input-file
-          [inputFile]="_crudFile.modal.file"
+          [inputFile]="_crudFile.modalFile.file"
           (output)="getText($event)"
         ></alloy-input-file>
       </div>
@@ -109,7 +109,7 @@
   </div>
 </div>
 <!--Delete Modal-->
-<div
+<!-- <div
   class="modal fade"
   id="DeleteModal"
   tabindex="-1"
@@ -151,4 +151,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<alloy-modal-toast [modalToast]="_crudFile.modalToast" (output)="submitData()"></alloy-modal-toast>

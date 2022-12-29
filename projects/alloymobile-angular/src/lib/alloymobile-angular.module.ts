@@ -32,6 +32,9 @@ import { CrudFileComponent } from './organ/crud/crud-file/crud-file.component';
 import { NavbarIconComponent } from './tissue/navbar/navbar-icon/navbar-icon.component';
 import { ClientbarComponent } from './tissue/clientbar/clientbar/clientbar.component';
 import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboard.component';
+import { ModalComponent } from './organ/modal/modal/modal.component';
+import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.component';
+import { ModalInputComponent } from './organ/modal/modal-input/modal-input.component';
 
 
 @NgModule({
@@ -62,7 +65,10 @@ import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboar
     CrudFileComponent,
     NavbarIconComponent,
     ClientbarComponent,
-    CardDashboardComponent
+    CardDashboardComponent,
+    ModalComponent,
+    ModalToastComponent,
+    ModalInputComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +104,8 @@ import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboar
     CrudFileComponent,
     NavbarIconComponent,
     ClientbarComponent,
-    CardDashboardComponent
+    CardDashboardComponent,
+    ModalToastComponent,
   ]
 })
 export class AlloymobileAngularModule { }

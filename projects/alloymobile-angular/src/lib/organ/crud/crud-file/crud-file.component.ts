@@ -42,12 +42,12 @@ export class CrudFileComponent  {
     }
     if(action=="Add"){
       this.modalForm = new window.bootstrap.Modal(
-        document.getElementById(this._crudFile.modal.id)
+        document.getElementById(this._crudFile.modalFile.id)
       );
       this.modalForm.show();
     }else if(action=="Delete"){
       this.modalForm = new window.bootstrap.Modal(
-        document.getElementById("DeleteModal")
+        document.getElementById(this._crudFile.modalToast.id)
       );
       this.modalForm.show();
     }else if(action=="Select"){

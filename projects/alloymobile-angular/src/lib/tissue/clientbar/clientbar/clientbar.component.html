@@ -3,7 +3,7 @@
     <div class="container-fluid justify-content-between">
       <alloy-button-icon
         [buttonIcon]="_clientBar.backButton"
-        (output)="backOutput($event)"
+        (output)="output.emit($event)"
       ></alloy-button-icon>
       <ng-container *ngIf="_clientBar.client.name != ''; then loggedIn">
       </ng-container>

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AlloyButtonIcon } from '../../../cell/button/button.model';
 import { AlloyIcon } from '../../../cell/icon/icon.model';
 import { AlloyLink } from '../../../cell/link/link.model';
 import { AlloyClientBar } from '../clientbar.model';
@@ -24,9 +25,7 @@ export class ClientbarComponent {
     this.roles = [];
   }
 
-  backOutput(back){
-
-  }
+  @Output() output: EventEmitter<AlloyButtonIcon>= new EventEmitter<AlloyButtonIcon>();
 
   getRoles(){
     let roles = this._clientBar.client.roles.map(r=>new AlloyLink(r));
