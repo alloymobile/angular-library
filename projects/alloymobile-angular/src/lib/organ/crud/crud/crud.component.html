@@ -69,48 +69,4 @@
   </div>
 </div>
 
-<!--Modal-->
-<!-- <div
-  class="modal fade"
-  [id]="_crud.modal.id"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
-  role="dialog"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          {{ modalType +' '+_crud.modal.title }}
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <alloy-input-texts [inputTexts]="_crud.modal.fields" (output)="getText($event)"></alloy-input-texts>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          data-bs-dismiss="modal"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          class="btn btn-outline-dark"
-          (click)="submitData()"
-        >
-          {{modalType}}
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
 <alloy-modal [modal]="_crud.modal" (output)="submitData($event)"></alloy-modal>

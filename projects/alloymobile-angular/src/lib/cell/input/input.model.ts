@@ -47,10 +47,18 @@ export class AlloyInputTextIcon extends AlloyInputText {
   constructor(response?: any) {
     if (response) {
       super(response);
-      this.icon = response.icon ? new AlloyIcon(response.icon) : new AlloyIcon();
+      this.icon = response.icon ?  this.getIcon(response.icon) : new AlloyIcon();
     } else {
       super();
       this.icon = new AlloyIcon();
+    }
+  }
+
+  getIcon(icon){
+    if(icon instanceof AlloyIcon){
+      return icon;
+    }else{
+      return( new AlloyIcon(icon));
     }
   }
 }

@@ -4,11 +4,11 @@
     <div class="col-sm-8">
       <alloy-input-text-icon-label
         [inputTextIconLabel]="search"
-        (output)="getSearch($event)"
+        (output)="onSearchClick($event)"
       ></alloy-input-text-icon-label>
     </div>
     <div class="col-sm-4 d-flex justify-content-end">
-      <button class="btn btn-outline-dark m-2" (click)="onClicked('Add')">
+      <button class="btn btn-outline-dark m-2" (click)="onAddClicked('Add')">
         <alloy-icon [icon]="uploadIcon"></alloy-icon>
         Upload
       </button>
@@ -41,14 +41,14 @@
             <td>
               <alloy-icon [icon]="_crudFile.table.icon"></alloy-icon>
             </td>
-            <td class="cursor" *ngFor="let col of body | keyvalue" (click)="onClicked('Select', body)">
+            <td class="cursor" *ngFor="let col of body | keyvalue" (click)="onFileClicked('Select', body)">
               <a *ngIf="col.key == 'name'">{{ col.value }}</a>
             </td>
             <td>
               <div class="btn-group" role="group" aria-label="Delete file">
                 <button
                   class="btn btn-outline-dark btn-sm border-0 mx-1"
-                  (click)="onClicked('Delete', body)"
+                  (click)="onDeleteClicked('Delete', body)"
                 >
                   <alloy-icon [icon]="deleteIcon"></alloy-icon>
                 </button>
@@ -60,53 +60,5 @@
     </div>
   </div>
 </div>
-
-<!--Upload Modal-->
-<div
-  class="modal fade"
-  [id]="_crudFile.modalFile.id"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
-  role="dialog"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          {{ modalType + " " + _crudFile.modalFile.title }}
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <alloy-input-file
-          [inputFile]="_crudFile.modalFile.file"
-          (output)="getText($event)"
-        ></alloy-input-file>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          data-bs-dismiss="modal"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          class="btn btn-outline-dark"
-          (click)="submitData()"
-        >
-          {{ modalType }}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<alloy-modal-file [modalFile]="_crudFile.modalFile" (output)="submitData($event)"></alloy-modal-file>
 <alloy-modal-toast [modalToast]="_crudFile.modalToast" (output)="submitData()"></alloy-modal-toast>

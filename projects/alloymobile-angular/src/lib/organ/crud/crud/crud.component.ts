@@ -16,22 +16,17 @@ export class CrudComponent {
     this.createRow = [...this._crud.modal.fields]
   }
   modalForm: any;
-  formData: any;
   createRow: AlloyInputTextIcon[];
   addIcon: AlloyIcon;
   editIcon: AlloyIcon;
   deleteIcon: AlloyIcon;
   search: AlloyInputTextIcon;
-  //specifies the crud modals
-  modalType: string;
   selectedRow: any;
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor(private cdr:ChangeDetectorRef) {
     this._crud = new AlloyCrud();
-    this.formData = {};
     this.search = new AlloyInputTextIcon({id:"1",name:"search",className:"input-group border border-dark rounded-pill",type:"search",placeholder:"john@example.com",readonly:false,label:"Search..",icon:{id:1,icon:"faSearch",size:"lg",spin:false,className:""}});
-    this.modalType = "";
     this.addIcon = new AlloyIcon({id:1,icon:"faPlus",size:"lg",spin:false,className:""});
     this.editIcon = new AlloyIcon({id:1,icon:"faEdit",size:"lg",spin:false,className:""});
     this.deleteIcon = new AlloyIcon({id:2,icon:"faTrashAlt",size:"lg",spin:false,className:""});
@@ -40,9 +35,8 @@ export class CrudComponent {
   }
 
   onClicked(action:string , row?: any){
-    this.formData = {};
-    this.modalType = action;
     this._crud.modal.action = action;
+    this._crud.modal.submit.name = action;
     if(row){
       this.selectedRow = row;
       this._crud.modal.fields = this.getDataType(row).map(f => new AlloyInputTextIcon(f));
@@ -73,26 +67,6 @@ export class CrudComponent {
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
-  toString(val): string {
-    return JSON.stringify(val);
-  }
-
-  // submitData() {
-  //   this.modalForm.hide();
-  //   if(this.modalType === 'Add' ||this.modalType === 'Edit' ){
-  //     if(Object.keys(this.formData).length > 0){
-  //       let data = {...this.formData}
-  //       data["action"]=this.modalType;
-  //       this.output.emit(data);
-  //     }
-  //   }else if(this.modalType === 'Delete'){
-  //     this.formData = this.selectedRow;
-  //     let data = {...this.formData}
-  //     data["action"]=this.modalType;
-  //     this.output.emit(data);
-  //   }
-  // }
-
   //The input event will only trigger if there is a change
   //for delete the is no change so we have two step
   submitData(data) {
@@ -106,10 +80,6 @@ export class CrudComponent {
       data["action"]='Delete';
       this.output.emit(data);
     }
-  }
-
-  getText(text){
-    this.formData = text;
   }
 
   getSearch(text){

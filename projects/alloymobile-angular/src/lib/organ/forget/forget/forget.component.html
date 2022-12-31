@@ -5,7 +5,7 @@
           {{ _forget.error }}
         </div>
       </div>
-      <alloy-link [link]="forgetLink"></alloy-link>
+      <alloy-link-icon [linkIcon]="forgetLink"></alloy-link-icon>
       <div class="form-floating p-2">
         <input
           type="email"
@@ -25,9 +25,10 @@
       </div>
       <div class="p-2">
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_forget.showSpinner">
-          <alloy-icon [icon]="loadingIcon" *ngIf="loadingIcon.spin"></alloy-icon>
+          <alloy-icon [icon]="loadingIcon" *ngIf="_forget.showSpinner"></alloy-icon>
           Send email
         </button>
       </div>
+      <alloy-link [link]="loginLink"></alloy-link>
     </form>
   </div>

@@ -5,26 +5,28 @@
           {{ _token.error }}
         </div>
       </div>
-      <alloy-link [link]="tokenLink"></alloy-link>
+      <alloy-link-icon [linkIcon]="tokenLink"></alloy-link-icon>
       <div class="form-floating p-2">
         <input
           type="text"
           class="form-control"
-          id="inputEmail"
-          formControlName="email"
-          placeholder="name@example.com"
+          id="token"
+          formControlName="token"
+          placeholder="code"
         />
         <label for="inputEmail">Enter code</label>
+        <small id="tokenHelp" class="form-text text-muted ml-2"
+        >Please enter the token received in your email or phone.</small>
         <div *ngIf="_token.submitted && formControl.email.errors" class="alert alert-danger m-0 p-0">
-          <div *ngIf="formControl.email.errors.email">Email must be valid.</div>
-          <div *ngIf="formControl.email.errors.required">Email is required.</div>
+          <div *ngIf="formControl.token.errors.required">Token is required.</div>
         </div>
       </div>
       <div class="p-2">
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_token.showSpinner">
-          <alloy-icon [icon]="loadingIcon" *ngIf="loadingIcon.spin"></alloy-icon>
+          <alloy-icon [icon]="loadingIcon" *ngIf="_token.showSpinner"></alloy-icon>
           Verify
         </button>
       </div>
+      <alloy-link [link]="loginLink"></alloy-link>
     </form>
   </div>

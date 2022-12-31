@@ -33,6 +33,7 @@ import { ClientbarComponent } from './tissue/clientbar/clientbar/clientbar.compo
 import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboard.component';
 import { ModalComponent } from './organ/modal/modal/modal.component';
 import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.component';
+import { ModalFileComponent } from './organ/modal/modal-file/modal-file.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.compo
     ClientbarComponent,
     CardDashboardComponent,
     ModalComponent,
-    ModalToastComponent
+    ModalToastComponent,
+    ModalFileComponent
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,33 @@
           {{ _register.error  }}
         </div>
       </div>
-      <alloy-link [link]="registerLink"></alloy-link>
+      <alloy-link-icon [linkIcon]="registerLink"></alloy-link-icon>
+      <div class="form-floating p-2">
+        <input
+          type="email"
+          class="form-control"
+          id="inputEmail"
+          formControlName="email"
+          placeholder="name@example.com"
+          readonly="true"
+        />
+        <label for="inputEmail">Email address</label>
+        <small id="emailHelp" class="form-text text-muted ml-2"
+          >We'll never share your email with anyone else.</small
+        >
+      </div>
+      <div class="form-floating p-2">
+        <label for="clientType">Client Type</label>
+        <select
+          id="clientType"
+          class="form-control"
+          formControlName="clientType"
+        >
+          <option *ngFor="let opt of clientType">
+            {{ opt }}
+          </option>
+        </select>
+      </div>
       <div class="form-floating p-2">
         <input
           type="text"
@@ -16,26 +42,24 @@
         />
         <label for="inputName">Full Name</label>
         <div *ngIf="_register.submitted && formControl.email.errors" class="alert alert-danger m-0 p-0">
-          <div *ngIf="formControl.email.errors.required">
+          <div *ngIf="formControl.name.errors.required">
             Full name is required.
           </div>
         </div>
       </div>
       <div class="form-floating p-2">
         <input
-          type="email"
+          type="text"
           class="form-control"
-          id="inputEmail"
-          formControlName="email"
-          placeholder="name@example.com"
+          id="inputPhone"
+          formControlName="phone"
+          placeholder="Phone number"
         />
-        <label for="inputEmail">Email address</label>
-        <small id="emailHelp" class="form-text text-muted ml-2"
-          >We'll never share your email with anyone else.</small
-        >
+        <label for="inputPhone">Phone number</label>
         <div *ngIf="_register.submitted && formControl.email.errors" class="alert alert-danger m-0 p-0">
-          <div *ngIf="formControl.email.errors.email">Email must be valid.</div>
-          <div *ngIf="formControl.email.errors.required">Email is required.</div>
+          <div *ngIf="formControl.phone.errors.required">
+            Phone number is required.
+          </div>
         </div>
       </div>
       <div class="form-floating p-2">
@@ -94,7 +118,7 @@
       </div>
       <div class="p-2">
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_register.showSpinner">
-            <alloy-icon [icon]="loadingIcon" *ngIf="loadingIcon.spin"></alloy-icon>
+            <alloy-icon [icon]="loadingIcon" *ngIf="_register.showSpinner"></alloy-icon>
             Sign up
         </button>
       </div>

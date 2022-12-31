@@ -5,7 +5,7 @@
           {{ _login.error }}
         </div>
       </div>
-      <alloy-link [link]="loginLink"></alloy-link>
+      <alloy-link-icon [linkIcon]="loginLink"></alloy-link-icon>
       <div class="form-floating p-2">
         <input
           type="email"
@@ -43,9 +43,10 @@
       </div>
       <div class="p-2">
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_login.showSpinner">
-          <alloy-icon [icon]="loadingIcon" *ngIf="loadingIcon.spin"></alloy-icon>
+          <alloy-icon [icon]="loadingIcon" *ngIf="_login.showSpinner"></alloy-icon>
           Sign in
         </button>
       </div>
+      <alloy-link [link]="forgetLink"></alloy-link>
     </form>
   </div>

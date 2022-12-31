@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlloyIcon } from '../../../cell/icon/icon.model';
-import { AlloyLink } from '../../../cell/link/link.model';
+import { AlloyLink, AlloyLinkIcon } from '../../../cell/link/link.model';
 import { Forget } from '../forget.model';
 
 @Component({
@@ -12,8 +12,9 @@ import { Forget } from '../forget.model';
 export class ForgetComponent {
   _forget: Forget;
   forgetForm: FormGroup;
-  loadingIcon = new AlloyIcon({id:5,icon:"faSpinner",size:"lg",spin:false,className:""});
-  forgetLink = new AlloyLink({id:1,name:"Forget password",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"forget",icon:{id:1,icon:"faUser",size:"2x",spin:false,className:""}});
+  loadingIcon = new AlloyIcon({id:5,icon:"faSpinner",size:"lg",spin:true,className:""});
+  forgetLink = new AlloyLinkIcon({id:1,name:"Forget password",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/forget",icon:{id:1,icon:"faUser",size:"2x",spin:false,className:""}});
+  loginLink = new AlloyLink({id:1,name:"Login",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/login"});
 
   @Input() set forget(forget: Forget){
     this._forget = forget;
@@ -46,11 +47,11 @@ export class ForgetComponent {
       this._forget.submitted = false;
       this._forget.error ="";
       this._forget.email = this.formControl.email.value;
-      this.loadingIcon.spin = true;
+      this._forget.showSpinner = true;
       this.output.emit(this._forget);
     }else{
       this._forget.error = "There are form errors please fix them"
-      this.loadingIcon.spin = false;
+      this._forget.showSpinner = false;
     }
   }
 }

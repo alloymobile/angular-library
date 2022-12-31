@@ -12,7 +12,7 @@
                 <alloy-input-text-icon-label [inputTextIconLabel]="inputTextIcon" (output)="getText($event)"></alloy-input-text-icon-label>
             </div>
             <div>
-                <alloy-searchbar [searchBar]="searchbar"></alloy-searchbar>
+                <alloy-searchbar [searchBar]="searchbar" (output)="getText($event)"></alloy-searchbar>
             </div>
             <div>
                 <alloy-input-file [inputFile]="upload" (output)="getText($event)"></alloy-input-file>

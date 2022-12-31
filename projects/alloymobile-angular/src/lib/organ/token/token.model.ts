@@ -5,8 +5,6 @@ export class Token{
     submitted: boolean;
     error: string;
     showSpinner: boolean;
-    login: AlloyLink;
-    register: AlloyLink;
   
     static createDTO(forget: Token){
       return {
@@ -20,15 +18,11 @@ export class Token{
         this.submitted = response.submitted ? response.submitted : false;
         this.error = response.error ? response.error : "";
         this.showSpinner = response.showSpinner ? response.showSpinner : false;
-        this.login = response.login ?  new AlloyLink(response.login) : new AlloyLink();
-        this.register = response.register ?  new AlloyLink(response.register) : new AlloyLink();
       }else{
         this.token = "";
         this.submitted = false;
         this.error = "";
         this.showSpinner = false;
-        this.login = new AlloyLink();
-        this.register =  new AlloyLink();
       }
     }
   }

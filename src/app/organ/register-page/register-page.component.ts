@@ -10,6 +10,7 @@ export class RegisterPageComponent {
   client: Register;
   constructor() { 
    this.client = new Register();
+   this.client.email = "tapas@alloymobile.com";
   }
 
   ngOnInit(): void {
