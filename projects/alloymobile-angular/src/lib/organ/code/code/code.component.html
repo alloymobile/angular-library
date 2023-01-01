@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center text-center mt-5">
+  <form [formGroup]="codeForm" (ngSubmit)="codeClient()">
+    <div class="form-group m-2">
+      <div class="alert alert-danger" *ngIf="_code.error != ''">
+        {{ _code.error }}
+      </div>
+    </div>
+    <alloy-link-icon [linkIcon]="codeLink"></alloy-link-icon>
+    <div class="form-floating p-2">
+      <input
+        type="text"
+        class="form-control"
+        id="code"
+        formControlName="code"
+        placeholder="code"
+      />
+      <label for="inputEmail">Enter code</label>
+      <small id="codeHelp" class="form-text text-muted ml-2"
+        >Please enter the code received in your email or phone.</small
+      >
+      <div
+        *ngIf="_code.submitted && formControl.email.errors"
+        class="alert alert-danger m-0 p-0"
+      >
+        <div *ngIf="formControl.code.errors.required">Code is required.</div>
+      </div>
+    </div>
+    <div class="p-2">
+      <button
+        class="w-100 btn btn-lg btn-dark"
+        type="submit"
+        [disabled]="_code.showSpinner"
+      >
+        <alloy-icon
+          [icon]="loadingIcon"
+          *ngIf="_code.showSpinner"
+        ></alloy-icon>
+        Verify
+      </button>
+    </div>
+    <alloy-link [link]="loginLink"></alloy-link>
+  </form>
+</div>

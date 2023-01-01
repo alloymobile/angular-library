@@ -1,3 +1,4 @@
+import { AlloyButtonIcon } from "../../cell/button/button.model";
 import { AlloyIcon } from "../../cell/icon/icon.model";
 
 export class Table{
@@ -24,4 +25,17 @@ export class Table{
         this.link = "";
       }
     }
+}
+
+export class TableAction extends Table{
+   actionButton: AlloyButtonIcon;
+   constructor(res?){
+    if(res){
+      super(res);
+      this.actionButton = res.icon ? new AlloyButtonIcon(res.actionButton) : new AlloyButtonIcon();
+    }else{
+      super();
+      this.actionButton = new AlloyButtonIcon();
+    }
+   }
 }

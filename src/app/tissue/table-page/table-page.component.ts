@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Table } from 'alloymobile-angular';
+import { TableAction } from 'projects/alloymobile-angular/src/public-api';
 import TableDB from './table-page.data.json'
 
 @Component({
@@ -8,9 +9,9 @@ import TableDB from './table-page.data.json'
   styleUrls: ['./table-page.component.css']
 })
 export class TablePageComponent {
-  table: Table ;
+  table: TableAction ;
   constructor(){
-    this.table = new Table(TableDB);
+    this.table = new TableAction(TableDB);
   }
 
   selectedRow(row){

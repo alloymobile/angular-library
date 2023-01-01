@@ -110,7 +110,7 @@ export class AlloyIcon{
       case "faDashboard":
         return faDashboard;   
       case "faArrowLeftLong":
-        return faArrowLeftLong;                              
+        return faArrowLeftLong;                                 
       default:
         return faAsymmetrik;
     }

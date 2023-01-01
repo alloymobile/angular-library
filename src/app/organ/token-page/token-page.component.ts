@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { Token } from 'alloymobile-angular';
+import { Code } from 'alloymobile-angular';
 @Component({
   selector: 'app-token-page',
   templateUrl: './token-page.component.html',
   styleUrls: ['./token-page.component.css']
 })
 export class TokenPageComponent {
-  client: Token;
+  client: Code;
   constructor() { 
-    this.client = new Token();
+    this.client = new Code();
   }
 
 
-  onForget(client: Token){
+  onForget(client: Code){
     console.log(client);
   }
 }

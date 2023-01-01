@@ -22,7 +22,6 @@ import { SearchbarComponent } from './tissue/searchbar/searchbar/searchbar.compo
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
 import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-button.component';
-import { TokenComponent } from './organ/token/token/token.component';
 import { CrudComponent } from './organ/crud/crud/crud.component';
 import { PageComponent } from './tissue/page/page.component';
 import { InputFileComponent } from './cell/input/input-file/input-file.component';
@@ -34,6 +33,8 @@ import { CardDashboardComponent } from './cell/card/card-dashboard/card-dashboar
 import { ModalComponent } from './organ/modal/modal/modal.component';
 import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.component';
 import { ModalFileComponent } from './organ/modal/modal-file/modal-file.component';
+import { CodeComponent } from './organ/code/code/code.component';
+import { TableActionComponent } from './tissue/table/table-action/table-action.component';
 
 
 @NgModule({
@@ -55,7 +56,6 @@ import { ModalFileComponent } from './organ/modal/modal-file/modal-file.componen
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
-    TokenComponent,
     CrudComponent,
     PageComponent,
     InputFileComponent,
@@ -66,7 +66,9 @@ import { ModalFileComponent } from './organ/modal/modal-file/modal-file.componen
     CardDashboardComponent,
     ModalComponent,
     ModalToastComponent,
-    ModalFileComponent
+    ModalFileComponent,
+    CodeComponent,
+    TableActionComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,6 @@ import { ModalFileComponent } from './organ/modal/modal-file/modal-file.componen
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
     GalleryButtonComponent,
-    TokenComponent,
     CrudComponent,
     PageComponent,
     InputFileComponent,
@@ -103,7 +104,9 @@ import { ModalFileComponent } from './organ/modal/modal-file/modal-file.componen
     ClientbarComponent,
     CardDashboardComponent,
     ModalComponent,
-    ModalToastComponent
+    ModalToastComponent,
+    CodeComponent,
+    TableActionComponent
   ]
 })
 export class AlloymobileAngularModule { }
