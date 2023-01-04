@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container-fluid">
 <!--Search-->    
   <div class="row input-group mt-2">
     <div class="col-sm-8">
@@ -8,7 +8,7 @@
     <div class="col-sm-4 d-flex justify-content-end">
         <button
         class="btn btn-outline-dark m-2"
-        (click)="onClicked('Add')"
+        (click)="onClicked({action:'Add'})"
       >
         <alloy-icon [icon]="addIcon"></alloy-icon>
         New
@@ -16,7 +16,8 @@
     </div>
   </div>
 <!--Table--> 
-  <div class="row">
+  <alloy-table-action [tableAction]="_crud.table" (output)="onClicked($event)"></alloy-table-action>
+  <!-- <div class="row">
     <div class="col-12">
       <table [class]="_crud.table.className" [id]="_crud.table.id">
         <caption class="caption-top text-center">
@@ -26,7 +27,7 @@
         </caption>
         <thead>
           <!-- <tr *ngIf="_crud.table.rows[0] != undefined"> -->
-          <tr>  
+          <!-- <tr>  
             <th scope="col">Type</th>
             <th scope="col" *ngFor="let h of _crud.table.rows[0] | keyvalue">
               <span *ngIf="h.key != 'id'">{{ capitalize(h.key) }}</span>
@@ -66,7 +67,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <alloy-modal [modal]="_crud.modal" (output)="submitData($event)"></alloy-modal>

@@ -6,6 +6,7 @@
     [readonly]="_inputFile.readonly"
     class="form-control"
     (change)="onFileChange($event)"
+    multiple
     />
     <label [for]="_inputFile.id">{{ _inputFile.label }}</label>
 </div>

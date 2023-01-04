@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AlloyCrud } from 'alloymobile-angular';
+import { AlloyCrudFileAction } from 'alloymobile-angular';
+import { AlloyCrud } from 'projects/alloymobile-angular/src/public-api';
 import { AlloyCrudFile } from 'projects/alloymobile-angular/src/public-api';
 import CrudDB from "./crud-page.data.json";
 
@@ -9,9 +10,9 @@ import CrudDB from "./crud-page.data.json";
   styleUrls: ['./crud-page.component.css']
 })
 export class CrudPageComponent {
-  crud: AlloyCrudFile;
+  crud: AlloyCrudFileAction;
   constructor(){
-    this.crud = new AlloyCrudFile(CrudDB.modalFile);
+    this.crud = new AlloyCrudFileAction(CrudDB.modalFile);
   }
 
   crudClicked(hello){

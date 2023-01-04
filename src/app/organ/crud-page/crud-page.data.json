@@ -37,7 +37,12 @@
         "table":
         {
             "id":"table","className":"table table-striped table-hover","link":"./","name":"Folders",
-            "icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},
+            "icon":{"id":1,"icon":"faFilePdf","size":"lg","spin":false,"className":""},
+            "actions":
+            [
+                {"id":"Edit","icon":"faEdit","size":"lg","spin":false,"className":""},
+                {"id":"Delete","icon":"faTrashAlt","size":"lg","spin":false,"className":""}
+            ],
             "rows":
             [
                 {"id":"1","name":"Hello","url":"12-12-2022"},
@@ -51,25 +56,27 @@
         "modalFile":
         {
             "id":"myModal","title":"File","action":"Add","className":"modal fade","submit":{"id":"1","name":"Add","className":"btn btn-outline-dark","type":"submit"},
-            "files":[{"id":"2","name":"name","className":"form-floating mb-3","type":"file","label":"Upload file","placeholder":"Upload file"}],
-            "add":{"id":"1","name":"Add","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faPlus","size":"lg","spin":false,"className":""}}
-
+            "file":{"id":"2","name":"name","className":"form-floating mb-3","type":"file","label":"Upload file","placeholder":"Upload file"}
         },
         "modalToast":
         {
             "id":"deleteModal","title":"File","action":"Delete","message":"Are you sure!","className":"modal fade",
             "submit":{"id":"1","name":"Delete","className":"btn btn-outline-dark border-0","type":"submit"}
-
+    
         },
         "table":
         {
-            "id":"table","className":"table table-striped table-hover","link":"./","name":"Folders",
-            "icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},
+            "id":"table","className":"table table-striped table-hover table-responsive table-sm","link":"./","name":"Files",
+            "icon":{"id":1,"icon":"faFilePdf","size":"lg","spin":false,"className":""},
+            "actions":
+            [
+                {"id":"Delete","icon":"faTrashAlt","size":"lg","spin":false,"className":""}
+            ],
             "rows":
             [
                 {"id":"1","name":"Hello","url":"12-12-2022"},
-                {"id":"1","name":"T4","url":"12-12-2022"},
-                {"id":"1","name":"Return","url":"12-12-2022"}
+                {"id":"2","name":"T4","url":"12-12-2022"},
+                {"id":"3","name":"Return","url":"12-12-2022"}
             ]
         }
     }     

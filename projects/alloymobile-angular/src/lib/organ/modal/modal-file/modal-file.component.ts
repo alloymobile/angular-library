@@ -13,20 +13,18 @@ export class ModalFileComponent {
   @Input() set modalFile(modalFile: AlloyModalFile){
     this._modalFile = modalFile;
   }
-  @Output() output: EventEmitter<FormData> = new EventEmitter<FormData>();
+  files:any;
+  @Output() output: EventEmitter<any> = new EventEmitter<any>();
   constructor() {
     this._modalFile = new AlloyModalFile();
+    this.files = [];
   }
 
-  getText(text){
-    this._modalFile.data.push(text);
+  getText(data){
+    this.files = data;
   }
 
-  submitData(action){
-    this.output.emit(this._modalFile.data );
-  }
-
-  addFile(file){
-    this._modalFile.files.push(new AlloyInputText({id:"2",name:"name",className:"form-floating mb-3",type:"file",label:"Upload file",placeholder:"Upload file"}))
+  submitData(){
+    this.output.emit(this.files);
   }
 }

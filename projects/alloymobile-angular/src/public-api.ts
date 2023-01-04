@@ -32,6 +32,7 @@ export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.comp
 export * from './lib/cell/input/input-file/input-file.component';
 export * from './lib/cell/input/input-texts/input-texts.component';
 export * from './lib/cell/card/card-dashboard/card-dashboard.component';
+export * from './lib/cell/card/card-gallery/card-gallery.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/navbar-icon/navbar-icon.component';
@@ -51,6 +52,7 @@ export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-toast/modal-toast.component';
 export * from './lib/organ/crud/crud/crud.component';
 export * from './lib/organ/crud/crud-file/crud-file.component';
+export * from './lib/organ/crud/crud-file-action/crud-file-action.component';
 export * from './lib/organ/code/code/code.component';
 
 

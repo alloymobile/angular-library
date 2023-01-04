@@ -1,6 +1,6 @@
 import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
 import { faApple, faAsymmetrik, faFacebook, faGoogle, faInstagram, faLinkedin, faMicrosoft, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faAddressCard, faArrowLeftLong, faAt, faBlog, faBorderAll, faCamera, faChalkboardTeacher, faDashboard, faDollarSign, faDownload, faEdit, faEnvelope, faEnvelopeOpenText, faFilePdf, faFolder, faHome, faIcons, faKeyboard, faLink, faList, faLocation, faLock, faPhoneAlt, faPlus, faRightToBracket, faSearch, faSpinner, faTh, faToggleOff, faTrashAlt, faUpload, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAddressCard, faArrowLeftLong, faAt, faBars, faBlog, faBorderAll, faCamera, faChalkboardTeacher, faDashboard, faDollarSign, faDownload, faEdit, faEnvelope, faEnvelopeOpenText, faFilePdf, faFolder, faHome, faIcons, faKeyboard, faLink, faList, faLocation, faLock, faPhoneAlt, faPlus, faRightToBracket, faSearch, faSpinner, faTh, faToggleOff, faTrashAlt, faUpload, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon{
   id: string;
@@ -110,7 +110,9 @@ export class AlloyIcon{
       case "faDashboard":
         return faDashboard;   
       case "faArrowLeftLong":
-        return faArrowLeftLong;                                 
+        return faArrowLeftLong;       
+      case "faBars":
+        return faBars;                              
       default:
         return faAsymmetrik;
     }

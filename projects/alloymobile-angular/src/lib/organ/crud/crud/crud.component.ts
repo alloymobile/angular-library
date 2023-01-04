@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { AlloyIcon } from '../../../cell/icon/icon.model';
 import { AlloyInputTextIcon } from '../../../cell/input/input.model';
@@ -18,28 +18,23 @@ export class CrudComponent {
   modalForm: any;
   createRow: AlloyInputTextIcon[];
   addIcon: AlloyIcon;
-  editIcon: AlloyIcon;
-  deleteIcon: AlloyIcon;
   search: AlloyInputTextIcon;
   selectedRow: any;
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
-  constructor(private cdr:ChangeDetectorRef) {
+  constructor() {
     this._crud = new AlloyCrud();
     this.search = new AlloyInputTextIcon({id:"1",name:"search",className:"input-group border border-dark rounded-pill",type:"search",placeholder:"john@example.com",readonly:false,label:"Search..",icon:{id:1,icon:"faSearch",size:"lg",spin:false,className:""}});
     this.addIcon = new AlloyIcon({id:1,icon:"faPlus",size:"lg",spin:false,className:""});
-    this.editIcon = new AlloyIcon({id:1,icon:"faEdit",size:"lg",spin:false,className:""});
-    this.deleteIcon = new AlloyIcon({id:2,icon:"faTrashAlt",size:"lg",spin:false,className:""});
     this.createRow = [];
-
   }
 
-  onClicked(action:string , row?: any){
-    this._crud.modal.action = action;
-    this._crud.modal.submit.name = action;
-    if(row){
-      this.selectedRow = row;
-      this._crud.modal.fields = this.getDataType(row).map(f => new AlloyInputTextIcon(f));
+  onClicked(data: any){
+    this._crud.modal.action = data.action;
+    this._crud.modal.submit.name = data.action;
+    if(data.row){
+      this.selectedRow = data.row;
+      this._crud.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
     }else{
       this._crud.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
     }

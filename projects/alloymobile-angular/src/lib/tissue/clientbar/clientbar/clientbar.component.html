@@ -7,29 +7,29 @@
       ></alloy-button-icon>
       <ng-container *ngIf="_clientBar.client.name != ''; then loggedIn">
       </ng-container>
-      <ng-template #loggedIn>
-        <div class="text-center dropdown">
-          <button
-            class="btn btn-outline-dark btn-sm border-1 mx-1 dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <alloy-icon [icon]="clientIcon"></alloy-icon>
-            <small class="p-1">{{ _clientBar.client.name }}</small>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li *ngFor="let role of roles; index as i">
-              <alloy-link [link]="role"></alloy-link>
-              <div class="dropdown-divider"></div>
-            </li>
-            <li>
-              <alloy-link [link]="logout"></alloy-link>
-            </li>
-          </ul>
-        </div>
-      </ng-template>
-    </div>
+        <ng-template #loggedIn>
+          <div class="text-center dropdown">
+            <button
+              class="btn btn-outline-dark btn-sm border-1 mx-1 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <alloy-icon [icon]="clientIcon"></alloy-icon>
+              <small class="p-1">{{ _clientBar.client.name }}</small>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li *ngFor="let role of roles; index as i">
+                <alloy-link [link]="role"></alloy-link>
+                <div class="dropdown-divider"></div>
+              </li>
+              <li>
+                <alloy-link [link]="logout"></alloy-link>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </div>
   </nav>
 </header>

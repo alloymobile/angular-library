@@ -40,20 +40,14 @@ export class AlloyModalToast extends Modal{
 
 
 export class AlloyModalFile extends Modal{
-    files: AlloyInputText[];
-    add: AlloyButtonIcon;
-    data: any;
+    file: AlloyInputText;
     constructor(res?: any){
         if(res){
             super(res);
-            this.files = res.files ? res.files.map(f => new AlloyInputText(f)) :[];
-            this.add = res.add ? new AlloyButtonIcon(res.add) : new AlloyButtonIcon();
-            this.data = [];
+            this.file = res.file ? res.file : new AlloyInputText();
         }else{
             super();
-            this.files = [];
-            this.add = new AlloyButtonIcon();
-            this.data = [];
+            this.file = new AlloyInputText();
         }
     }
 }

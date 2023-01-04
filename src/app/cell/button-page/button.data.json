@@ -22,5 +22,13 @@
         {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
         {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
         {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}}
-    ]
+    ],
+    "clientBar":{
+        "id":1,
+        "className":"navbar-light navbar-sticky border-bottom",
+        "backButton":{"id":"1","name":"Back","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faArrowLeftLong","size":"lg","spin":false,"className":""}},
+        "barIcon": {"id":1,"icon":"faBars","size":"lg","spin":false,"className":"btn btn-outline-dark border-0"},
+        "clientButton":{"id":"dropdownMenuButton1","name":"Client","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faUser","size":"lg","spin":false,"className":""}},
+        "client":{"id":"1","name":"Tapas","roles":[{"id":"1","name":"Client"}]}
+      }
 }

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { AlloyInputText } from '../input.model';
 
 @Component({
@@ -20,10 +19,6 @@ export class InputFileComponent {
   
   //called to create form data when there is a file
   onFileChange(event) {
-    let fileData = new FormData();
-    let file = event.target.files[0];
-    let fileName = event.target.files[0].name;
-    fileData.append('file', file, fileName);
-    this.output.emit(fileData);
+    this.output.emit(event.target.files);
   }
 }

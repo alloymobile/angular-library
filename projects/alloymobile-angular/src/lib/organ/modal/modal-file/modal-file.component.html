@@ -20,8 +20,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <alloy-button-icon [buttonIcon]="_modalFile.add" (output)="addFile($event)"></alloy-button-icon>
-        <alloy-input-file *ngFor="let file of _modalFile.files" [inputFile]="file" (output)="getText($event)"></alloy-input-file>
+        <alloy-input-file [inputFile]="_modalFile.file" (output)="getText($event)"></alloy-input-file>
       </div>
       <div class="modal-footer">
         <button
@@ -31,7 +30,7 @@
         >
           Cancel
         </button>
-        <alloy-button [button]="_modalFile.submit" (output)="submitData(_modalFile.action)"></alloy-button>
+        <alloy-button [button]="_modalFile.submit" (output)="submitData()"></alloy-button>
       </div>
     </div>
   </div>

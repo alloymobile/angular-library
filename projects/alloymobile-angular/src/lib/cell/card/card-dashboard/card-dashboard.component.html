@@ -3,7 +3,7 @@
         <!-- Digit -->
         <div>
             <h2 class="mb-0 fw-bold text-center">{{_cardDashboard.count}}</h2>
-            <span class="mb-0 h6 fw-light">{{_cardDashboard.name}}</span>
+            <alloy-link [link]="_cardDashboard.name"></alloy-link>
         </div>
         <!-- Icon -->
         <div [class]="_cardDashboard.iconClass">

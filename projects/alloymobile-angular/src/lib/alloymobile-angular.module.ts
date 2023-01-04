@@ -35,7 +35,8 @@ import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.compo
 import { ModalFileComponent } from './organ/modal/modal-file/modal-file.component';
 import { CodeComponent } from './organ/code/code/code.component';
 import { TableActionComponent } from './tissue/table/table-action/table-action.component';
-
+import { CrudFileActionComponent } from './organ/crud/crud-file-action/crud-file-action.component';
+import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,9 @@ import { TableActionComponent } from './tissue/table/table-action/table-action.c
     ModalToastComponent,
     ModalFileComponent,
     CodeComponent,
-    TableActionComponent
+    TableActionComponent,
+    CrudFileActionComponent,
+    CardGalleryComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +109,9 @@ import { TableActionComponent } from './tissue/table/table-action/table-action.c
     ModalComponent,
     ModalToastComponent,
     CodeComponent,
-    TableActionComponent
+    TableActionComponent,
+    CrudFileActionComponent,
+    CardGalleryComponent
   ]
 })
 export class AlloymobileAngularModule { }

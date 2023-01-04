@@ -28,14 +28,14 @@ export class Table{
 }
 
 export class TableAction extends Table{
-   actionButton: AlloyButtonIcon;
+   actions: AlloyIcon[];
    constructor(res?){
     if(res){
       super(res);
-      this.actionButton = res.icon ? new AlloyButtonIcon(res.actionButton) : new AlloyButtonIcon();
+      this.actions = res.actions ? res.actions.map(i=> new AlloyIcon(i)) : [];
     }else{
       super();
-      this.actionButton = new AlloyButtonIcon();
+      this.actions = [];
     }
    }
 }
