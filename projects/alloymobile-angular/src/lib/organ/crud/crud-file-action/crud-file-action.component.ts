@@ -95,7 +95,8 @@ export class CrudFileActionComponent  {
     this.modalForm.hide();
     if(files){
       if(this._crudFileAction.modalFile.action === 'Add' ){
-        let data = {...files};
+        let data = {rows:[],action:""};
+        data.rows = [...files];
         data["action"]=this._crudFileAction.modalFile.action;
         this.output.emit(data);
       }

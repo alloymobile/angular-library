@@ -32,11 +32,13 @@ export class CrudComponent {
   onClicked(data: any){
     this._crud.modal.action = data.action;
     this._crud.modal.submit.name = data.action;
-    if(data.row){
-      this.selectedRow = data.row;
-      this._crud.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
-    }else{
+    if(data.action == "Add"){
       this._crud.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
+    }else if(data.action == "Edit" || data.action == "Delete"){
+      if(data.row){
+        this.selectedRow = data.row;
+        this._crud.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
+      }
     }
     this._crud.modal.data = {};
     this.modalForm = new window.bootstrap.Modal(
