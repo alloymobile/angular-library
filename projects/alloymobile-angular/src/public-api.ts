@@ -24,6 +24,7 @@ export * from './lib/organ/reset/reset.model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';
+export * from './lib/cell/icon/icon-button/icon-button.component';
 export * from './lib/cell/link/link/link.component';
 export * from './lib/cell/link/link-icon/link-icon.component';
 export * from './lib/cell/link/link-logo/link-logo.component';

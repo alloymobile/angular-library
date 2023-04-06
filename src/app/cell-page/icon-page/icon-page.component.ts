@@ -11,6 +11,7 @@ export class IconPageComponent {
   usageString: string;
   example: AlloyIcon;
   exampleData: string;
+  selected = "tag";
   constructor(){
     this.usageString = '<alloy-icon [icon]="icon"></alloy-icon>';
     this.exampleData = "";
@@ -26,5 +27,19 @@ export class IconPageComponent {
 
   update(){
     this.example = new AlloyIcon(JSON.parse(this.exampleData));
+  }
+
+  setActive(comp: string){
+    switch(comp){
+      case "tag":
+        this.selected = "tag";
+        break;
+      case "object":
+        this.selected = "object";
+        break;
+      case "output":
+        this.selected = "output";
+        break;      
+    }
   }
 }

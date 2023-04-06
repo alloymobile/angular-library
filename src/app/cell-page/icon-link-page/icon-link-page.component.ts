@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlloyIconLink } from 'alloymobile-angular';
-import IconLinkDB from './icon-link-page.data.json'
+import IconLinkDB from './icon-link-page.data.json';
 @Component({
   selector: 'app-icon-link-page',
   templateUrl: './icon-link-page.component.html',

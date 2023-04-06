@@ -2085,3 +2085,23 @@ export class AlloyIconLink {
     }
   }
 }
+
+export class AlloyIconButton {
+  id: string;
+  name: string;
+  className: string;
+  icon: AlloyIcon;
+  constructor(res?: any) {
+    if (res) {
+      this.id = res.id ? res.id : 'iconButton1';
+      this.className = res.className ? res.className : 'btn btn-outline-primary';
+      this.name = res.name ? res.name : "AlloyMobile";
+      this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+    } else {
+      this.id = 'iconButton1';
+      this.name = "AlloyMobile";
+      this.className = 'btn btn-outline-primary';
+      this.icon = new AlloyIcon();
+    }
+  }
+}

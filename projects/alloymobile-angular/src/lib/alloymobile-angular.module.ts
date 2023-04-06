@@ -41,6 +41,7 @@ import { ResetComponent } from './organ/reset/reset/reset.component';
 import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
 import { LinkExternalComponent } from './cell/link/link-external/link-external.component';
 import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
+import { IconButtonComponent } from './cell/icon/icon-button/icon-button.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
     CardGalleryComponent,
     ResetComponent,
     LinkLogoComponent,
-    LinkExternalComponent
+    LinkExternalComponent,
+    IconButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +93,7 @@ import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
   exports: [
     IconComponent,
     IconLinkComponent,
+    IconButtonComponent,
     ButtonComponent,
     ButtonIconComponent,
     LinkComponent,

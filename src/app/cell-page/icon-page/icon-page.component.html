@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 text-center border-end border-dark border-2">
+          <h4>Icons</h4>
+          <div class="row">
+              <div class="col-sm-4 col-md-3 col-lg-2 p-1 text-center border rounded" *ngFor="let i of icons">
+                  <button class="btn btn-outline-dark" (click)="iconClick(i)">
+                      <alloy-icon [icon]="i"></alloy-icon>
+                  </button>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-6 text-center text-wrap">
+          <h4>Usage</h4>
+          <div class="container-fluid">
+            <ul class="nav nav-tabs nav-fill">
+                <li class="nav-item" [ngClass]="{' border-bottom border-5 border-dark': selected === 'tag'}">
+                  <button class="nav-link text-dark" [ngClass]="{'active': selected === 'cell'}" aria-current="page" (click)="setActive('tag')" >Tag</button>
+                </li>
+                <li class="nav-item" [ngClass]="{' border-bottom border-5 border-dark': selected === 'object'}">
+                  <button class="nav-link text-dark" [ngClass]="{'active': selected === 'object'}" (click)="setActive('object')" >Object</button>
+                </li>
+                <li class="nav-item" [ngClass]="{' border-bottom border-5 border-dark': selected === 'output'}">
+                  <button class="nav-link text-dark" [ngClass]="{'active': selected === 'output'}" (click)="setActive('output')" >Output</button>
+                </li>
+              </ul>
+              <div class="mt-5" *ngIf="selected === 'tag'">
+                <h6>{{usageString}}</h6>
+              </div>
+              <div class="mt-5" *ngIf="selected === 'object'">
+                <div class="form-group">
+                  <label for="tryOut">Try Out</label>
+                  <textarea type="text" class="form-control" id="tryOut" row="10" [(ngModel)]="exampleData" (blur)="update()"></textarea>
+                </div>
+              </div>
+              <div class="mt-5" *ngIf="selected === 'output'">
+                <alloy-icon [icon]="example"></alloy-icon>
+              </div>
+          </div>          
+      </div>
+  </div>
+</div>

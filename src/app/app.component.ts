@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlloyClientBar,AlloyNavBarIcon,AlloyIconSideBar } from 'alloymobile-angular';
 import AppDB from './app.data.json';
 
@@ -13,7 +14,7 @@ export class AppComponent {
   navBar: AlloyNavBarIcon;
   selected = "cell";
   clientBar: AlloyClientBar;
-  constructor(){
+  constructor(private router: Router){
     this.sideBar = new AlloyIconSideBar(AppDB.cellBar) 
     this.navBar =  new AlloyNavBarIcon(AppDB.navBar);
     this.clientBar = new AlloyClientBar(AppDB.clientBar);
@@ -22,15 +23,18 @@ export class AppComponent {
     switch(comp){
       case "cell":
         this.selected = "cell";
-        this.sideBar = new AlloyIconSideBar(AppDB.cellBar) 
+        this.sideBar = new AlloyIconSideBar(AppDB.cellBar);
+        this.router.navigate(['']);
         break;
       case "tissue":
         this.selected = "tissue";
-        this.sideBar = new AlloyIconSideBar(AppDB.tissueBar) 
+        this.sideBar = new AlloyIconSideBar(AppDB.tissueBar);
+        this.router.navigate(['tissue']);
         break;
       case "organ":
         this.selected = "organ";
-        this.sideBar = new AlloyIconSideBar(AppDB.organBar) 
+        this.sideBar = new AlloyIconSideBar(AppDB.organBar);
+        this.router.navigate(['organ']);
         break;      
     }
   }
