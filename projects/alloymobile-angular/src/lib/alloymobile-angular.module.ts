@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IconComponent } from './cell/icon/icon.component';
+import { IconComponent } from './cell/icon/icon/icon.component';
 import { ButtonComponent } from './cell/button/button/button.component';
 import { LinkComponent } from './cell/link/link/link.component';
 
@@ -37,10 +37,15 @@ import { CodeComponent } from './organ/code/code/code.component';
 import { TableActionComponent } from './tissue/table/table-action/table-action.component';
 import { CrudFileActionComponent } from './organ/crud/crud-file-action/crud-file-action.component';
 import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.component';
+import { ResetComponent } from './organ/reset/reset/reset.component';
+import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
+import { LinkExternalComponent } from './cell/link/link-external/link-external.component';
+import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
 
 @NgModule({
   declarations: [
     IconComponent,
+    IconLinkComponent,
     ButtonComponent,
     ButtonIconComponent,
     LinkComponent,
@@ -71,7 +76,10 @@ import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.comp
     CodeComponent,
     TableActionComponent,
     CrudFileActionComponent,
-    CardGalleryComponent
+    CardGalleryComponent,
+    ResetComponent,
+    LinkLogoComponent,
+    LinkExternalComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +90,7 @@ import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.comp
   ],
   exports: [
     IconComponent,
+    IconLinkComponent,
     ButtonComponent,
     ButtonIconComponent,
     LinkComponent,
@@ -111,7 +120,10 @@ import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.comp
     CodeComponent,
     TableActionComponent,
     CrudFileActionComponent,
-    CardGalleryComponent
+    CardGalleryComponent,
+    ResetComponent,
+    LinkLogoComponent,
+    LinkExternalComponent
   ]
 })
 export class AlloymobileAngularModule { }

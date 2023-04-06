@@ -1,20 +1,33 @@
-import { AlloyLink,AlloyLinkIcon } from "../../cell/link/link.model";
+import { AlloyLink,AlloyLinkIcon, AlloyLinkLogo } from "../../cell/link/link.model";
 
 export class NavBar {
     id: string;
     className: string;
-    logo: AlloyLinkIcon;
+    logo: AlloyLinkLogo;
     constructor(response?: any) {
       if (response) {
         this.id = response.id ? response.id : "";
         this.className = response.className ? response.className : '';
-        this.logo =  response.logo ? new AlloyLinkIcon(response.logo) : new AlloyLinkIcon();
+        this.logo =  response.logo ? new AlloyLinkLogo(response.logo) :  new AlloyLinkLogo();
       } else {
         this.id = "";
         this.className = '';
-        this.logo =  new AlloyLinkIcon();
+        this.logo = new AlloyLinkLogo();
       }
     }
+}
+
+export class AlloyNavBarLogo extends NavBar{
+  linkIcon: AlloyLinkIcon[];
+  constructor(response?: any) {
+    if (response) {
+      super(response);
+      this.linkIcon = response.linkIcon ? response.linkIcon.map((linkIcon: AlloyLinkIcon)=>new AlloyLinkIcon(linkIcon)) : []; 
+    } else {
+      super();
+      this.linkIcon = [];
+    }
+  }
 }
 
 export class AlloyNavBar extends NavBar {

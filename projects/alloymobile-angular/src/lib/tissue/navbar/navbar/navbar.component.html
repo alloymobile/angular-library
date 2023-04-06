@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <!-- Logo START -->
-          <alloy-link-icon [linkIcon]="_navBar.logo"></alloy-link-icon>
+          <alloy-link-logo [linkLogo]="_navBar.logo"></alloy-link-logo>
         <!-- Logo END -->
   
         <!-- Responsive navbar toggler -->
@@ -16,11 +16,7 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-animation">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+          <alloy-icon [icon]="toggleBars"></alloy-icon>
         </button>
   
         <!-- Main navbar START -->

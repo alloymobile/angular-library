@@ -30,7 +30,10 @@
           <thead>
             <!-- <tr *ngIf="_crudFileAction.table.rows[0] != undefined"> -->
             <tr>
-              <th scope="col">Type</th>
+              <th scope="col">
+                <input class="form-check-input me-1" type="checkbox" value="all" [ngModel]="checked" id="checkAll" (change)="onSelectAll()">
+                Type
+              </th>
               <th
                 scope="col"
                 *ngFor="let h of _crudFileAction.table.rows[0] | keyvalue"
@@ -43,7 +46,7 @@
           <tbody>
             <tr *ngFor="let body of _crudFileAction.table.rows; index as j">
               <td>
-                <input class="form-check-input me-1" type="checkbox" [value]="body" id="flexCheckDefault" (change)="onSelectedRow(body)">
+                <input class="form-check-input me-1" type="checkbox" [(ngModel)]="body.checked" [value]="body" [id]="'flexCheckDefault'+j" (change)="onSelectedRow(body)">
                 <alloy-icon [icon]="_crudFileAction.table.icon"></alloy-icon>
               </td>
               <td class="cursor" *ngFor="let col of body | keyvalue" (click)="onFileClicked('Select', body)">

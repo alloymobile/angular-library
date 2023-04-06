@@ -1,5 +1,5 @@
 import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
-import { faApple, faAsymmetrik, faFacebook, faGoogle, faInstagram, faLinkedin, faMicrosoft, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faApple, faFacebook, faGoogle, faInstagram, faLinkedin, faMicrosoft, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faAddressCard, faArrowLeftLong, faAt, faBars, faBlog, faBorderAll, faCamera, faChalkboardTeacher, faDashboard, faDollarSign, faDownload, faEdit, faEnvelope, faEnvelopeOpenText, faFilePdf, faFolder, faHome, faIcons, faKeyboard, faLink, faList, faLocation, faLock, faPhoneAlt, faPlus, faRightToBracket, faSearch, faSpinner, faTh, faToggleOff, faTrashAlt, faUpload, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon{
@@ -10,17 +10,17 @@ export class AlloyIcon{
   className: string;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : "";
-      this.icon = res.icon ? AlloyIcon.getIcon(res.icon) : AlloyIcon.getIcon("");
+      this.id = res.id ? res.id : "icon1";
+      this.icon = res.icon ? AlloyIcon.getIcon(res.icon) : AlloyIcon.getIcon("faMicrochip");
       this.size = res.size ? AlloyIcon.getSizeProp(res.size) : AlloyIcon.getSizeProp("lg");
       this.spin = res.spin ? res.spin : false;
-      this.className = res.className ? res.className : '';
+      this.className = res.className ? res.className : 'text-primary';
     }else{
-      this.id = "";
-      this.icon = AlloyIcon.getIcon("");
+      this.id = "icon1";
+      this.icon = AlloyIcon.getIcon("faMicrochip");
       this.size = AlloyIcon.getSizeProp("lg");
       this.spin = false;
-      this.className = "";
+      this.className = 'text-primary';
     }
 
   }
@@ -53,7 +53,7 @@ export class AlloyIcon{
         return faMicrosoft;
       case "faApple":
         return faApple;
-      case "faGoogle":
+      case 'faGoogle':
         return faGoogle;
       case "faFacebook":
         return faFacebook;
@@ -112,9 +112,23 @@ export class AlloyIcon{
       case "faArrowLeftLong":
         return faArrowLeftLong;       
       case "faBars":
-        return faBars;                              
+        return faBars;  
+      case "faUsers":
+        return faUsers;  
+      case "faGear":
+        return faGear;   
+      case "faGears":
+        return faGears;      
+      case "faMessage":
+        return faMessage;      
+      case "faMicrochip":
+        return faMicrochip;  
+      case "faKey":
+        return faKey;     
+      case "faSignature":
+        return faSignature;                                    
       default:
-        return faAsymmetrik;
+        return faMicrochip;
     }
   }
 
@@ -138,6 +152,26 @@ export class AlloyIcon{
         return "5x";
       default:
         return "lg";
+    }
+  }
+}
+
+export class AlloyIconLink{
+  id: string;
+  className: string;
+  link: string;
+  icon: AlloyIcon;
+  constructor(res?: any){
+    if(res){
+      this.id = res.id ? res.id : "iconLink1";
+      this.className = res.className ? res.className : "bg-dark";
+      this.link = res.link ? res.link : "https://alloymobile.com";
+      this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+    }else{
+      this.id = "iconLink1";
+      this.className =  "bg-dark";
+      this.link = "https://alloymobile.com";
+      this.icon = new AlloyIcon();
     }
   }
 }

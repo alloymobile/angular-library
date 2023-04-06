@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Register } from 'alloymobile-angular';
+import { Router } from '@angular/router';
+import { AlloyLink, Register } from 'alloymobile-angular';
 
 @Component({
   selector: 'app-register-page',
@@ -8,9 +9,13 @@ import { Register } from 'alloymobile-angular';
 })
 export class RegisterPageComponent {
   client: Register;
-  constructor() { 
+  _link: any;
+  constructor(private router:Router) { 
    this.client = new Register();
    this.client.email = "tapas@alloymobile.com";
+   this.client.privacyLink = new AlloyLink({id:"privacy",name:"privacy policy",link:"https://cpagarg.com/privacy/",className:"text-decoration-none fw-bold"}) ;
+   this.client.termsLink = new AlloyLink({id:"terms",name:"terms and condition",link:"https://cpagarg.com/terms/",className:"text-decoration-none fw-bold"}) ;
+    this._link = {id:"terms",name:"terms and condition",link:"https://cpagarg.com/terms/",className:"text-decoration-none fw-bold"};
   }
 
   ngOnInit(): void {
@@ -19,4 +24,5 @@ export class RegisterPageComponent {
   onRegister(client: Register){
     console.log(client);
   }
+
 }

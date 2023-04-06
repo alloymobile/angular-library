@@ -24,6 +24,7 @@ export class CrudFileActionComponent  {
   search: AlloyInputTextIcon;
   selectedRow: any;
   selectedRows: any;
+  checked: boolean
   @Output() output: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
@@ -34,6 +35,7 @@ export class CrudFileActionComponent  {
     this.deleteIcon = new AlloyIcon({id:2,icon:"faTrashAlt",size:"lg",spin:false,className:""});
     this.createRow = new AlloyInputText();
     this.selectedRows = [];
+    this.checked = false;
   }
 
   onClicked(action:string){
@@ -83,6 +85,22 @@ export class CrudFileActionComponent  {
        }else{
         this.selectedRows.splice(index,1);
        }
+    }
+    if(this.selectedRows.length === this._crudFileAction.table.rows.length){
+      this.checked = true;
+    }else{
+      this.checked = false;
+    }
+  }
+
+  onSelectAll(){
+    this.checked = !this.checked;
+    if(this.checked){
+      this._crudFileAction.table.rows.forEach(r=>r.checked = true);
+      this.selectedRows = [...this._crudFileAction.table.rows];
+    }else{
+      this._crudFileAction.table.rows.forEach(r=>r.checked = false);
+      this.selectedRows = [];
     }
   }
 

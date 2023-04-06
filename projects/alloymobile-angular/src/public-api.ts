@@ -20,10 +20,13 @@ export * from './lib/organ/modal/modal.model';
 export * from './lib/organ/crud/crud.model';
 export * from './lib/organ/code/code.model';
 export * from './lib/tissue/clientbar/clientbar.model';
+export * from './lib/organ/reset/reset.model';
 
-export * from './lib/cell/icon/icon.component';
+export * from './lib/cell/icon/icon/icon.component';
+export * from './lib/cell/icon/icon-link/icon-link.component';
 export * from './lib/cell/link/link/link.component';
 export * from './lib/cell/link/link-icon/link-icon.component';
+export * from './lib/cell/link/link-logo/link-logo.component';
 export * from './lib/cell/button/button/button.component';
 export * from './lib/cell/button/button-icon/button-icon.component';
 export * from './lib/cell/input/input-text/input-text.component';
@@ -33,6 +36,7 @@ export * from './lib/cell/input/input-file/input-file.component';
 export * from './lib/cell/input/input-texts/input-texts.component';
 export * from './lib/cell/card/card-dashboard/card-dashboard.component';
 export * from './lib/cell/card/card-gallery/card-gallery.component';
+export * from './lib/cell/link/link-external/link-external.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/navbar-icon/navbar-icon.component';
@@ -54,6 +58,7 @@ export * from './lib/organ/crud/crud/crud.component';
 export * from './lib/organ/crud/crud-file/crud-file.component';
 export * from './lib/organ/crud/crud-file-action/crud-file-action.component';
 export * from './lib/organ/code/code/code.component';
+export * from './lib/organ/reset/reset/reset.component';
 
 
 

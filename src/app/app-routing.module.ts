@@ -8,6 +8,7 @@ import { CrudPageComponent } from './organ/crud-page/crud-page.component';
 import { ForgetPageComponent } from './organ/forget-page/forget-page.component';
 import { LoginPageComponent } from './organ/login-page/login-page.component';
 import { RegisterPageComponent } from './organ/register-page/register-page.component';
+import { ResetPageComponent } from './organ/reset-page/reset-page.component';
 import { TokenPageComponent } from './organ/token-page/token-page.component';
 import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
 import { TablePageComponent } from './tissue/table-page/table-page.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: "login",component: LoginPageComponent},
   {path: "register",component: RegisterPageComponent},
   {path: "forget",component: ForgetPageComponent},
+  {path: "reset",component: ResetPageComponent},
   {path: "token",component: TokenPageComponent},
   {path: "crud",component: CrudPageComponent},
   {path: "table",component: TablePageComponent},

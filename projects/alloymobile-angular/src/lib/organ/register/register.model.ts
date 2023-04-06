@@ -11,6 +11,8 @@ export class Register{
     submitted: boolean;
     error: string;
     showSpinner: boolean;
+    privacyLink: AlloyLink;
+    termsLink: AlloyLink;
   
     static createDTO(register: Register){
       return {
@@ -35,6 +37,8 @@ export class Register{
         this.submitted = response.submitted ? response.submitted : false;
         this.error = response.error ? response.error : "";
         this.showSpinner = response.showSpinner ? response.showSpinner : false;
+        this.privacyLink = response.privacyLink ? new AlloyLink(response.privacyLink) : new AlloyLink();
+        this.termsLink = response.termsLink ? new AlloyLink(response.termsLink) : new AlloyLink();
       }else{
         this.id = "";
         this.name = "";
@@ -46,6 +50,8 @@ export class Register{
         this.submitted = false;
         this.error = "";
         this.showSpinner = false;
+        this.privacyLink = new AlloyLink();
+        this.termsLink = new AlloyLink();
       }
     }
   }

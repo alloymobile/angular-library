@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AlloyIcon } from './icon.model';
+import { AlloyIcon } from '../icon.model';
 
 @Component({
   selector: 'alloy-icon',

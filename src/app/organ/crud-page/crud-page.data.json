@@ -74,9 +74,9 @@
             ],
             "rows":
             [
-                {"id":"1","name":"Hello","url":"12-12-2022"},
-                {"id":"2","name":"T4","url":"12-12-2022"},
-                {"id":"3","name":"Return","url":"12-12-2022"}
+                {"id":"1","name":"Hello","url":"12-12-2022","checked": false },
+                {"id":"2","name":"T4","url":"12-12-2022","checked": false },
+                {"id":"3","name":"Return","url":"12-12-2022","checked": false }
             ]
         }
     }     

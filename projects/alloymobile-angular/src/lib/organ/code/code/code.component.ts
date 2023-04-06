@@ -40,6 +40,10 @@ export class CodeComponent {
       code: ['', [Validators.required]]
     });
   }
+  resendCode(){
+    this._code.resend = true;
+    this.output.emit(this._code);
+  }
 
   codeClient(){
     this._code.submitted = true;

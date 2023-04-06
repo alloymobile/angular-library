@@ -38,6 +38,15 @@
     {"id":"37","icon":"faUserPlus","size":"lg","spin":false,"className":""},
     {"id":"38","icon":"faFilePdf","size":"lg","spin":false,"className":""},
     {"id":"39","icon":"faFolder","size":"lg","spin":false,"className":""},
-    {"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}
-]
-
+    {"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""},
+    {"id":"41","icon":"faDashboard","size":"lg","spin":false,"className":""},
+    {"id":"42","icon":"faArrowLeftLong","size":"lg","spin":false,"className":""},
+    {"id":"43","icon":"faBars","size":"lg","spin":false,"className":""},
+    {"id":"44","icon":"faUsers","size":"lg","spin":false,"className":""},
+    {"id":"45","icon":"faGear","size":"lg","spin":false,"className":""},
+    {"id":"46","icon":"faGears","size":"lg","spin":false,"className":""},
+    {"id":"47","icon":"faMessage","size":"lg","spin":false,"className":""},
+    {"id":"48","icon":"faMicrochip","size":"lg","spin":false,"className":""},
+    {"id":"49","icon":"faKey","size":"lg","spin":false,"className":""},
+    {"id":"50","icon":"faSignature","size":"lg","spin":false,"className":""}
+]                                   

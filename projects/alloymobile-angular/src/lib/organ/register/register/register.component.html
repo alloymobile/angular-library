@@ -13,7 +13,6 @@
           id="inputEmail"
           formControlName="email"
           placeholder="name@example.com"
-          readonly="true"
         />
         <label for="inputEmail">Email address</label>
         <small id="emailHelp" class="form-text text-muted ml-2"
@@ -117,6 +116,13 @@
         </div>
       </div>
       <div class="p-2">
+        <small id="privacy-terms" class="form-text text-muted ml-2">
+          By clicking signup you agree to our <br> 
+          <alloy-link-external [linkExternal]="_register.privacyLink"></alloy-link-external>
+          and 
+          <alloy-link-external [linkExternal]="_register.termsLink"></alloy-link-external>
+          <br> Please click them for more details.
+        </small>
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_register.showSpinner">
             <alloy-icon [icon]="loadingIcon" *ngIf="_register.showSpinner"></alloy-icon>
             Sign up

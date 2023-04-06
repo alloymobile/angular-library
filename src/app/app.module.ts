@@ -16,6 +16,7 @@ import { TableDetailPageComponent } from './table-detail-page/table-detail-page.
 import { InputPageComponent } from './cell/input-page/input-page.component';
 import { TokenPageComponent } from './organ/token-page/token-page.component';
 import { CrudPageComponent } from './organ/crud-page/crud-page.component';
+import { ResetPageComponent } from './organ/reset-page/reset-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CrudPageComponent } from './organ/crud-page/crud-page.component';
     TableDetailPageComponent,
     InputPageComponent,
     TokenPageComponent,
-    CrudPageComponent
+    CrudPageComponent,
+    ResetPageComponent
   ],
   imports: [
     BrowserModule,

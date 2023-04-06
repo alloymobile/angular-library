@@ -1,30 +1,30 @@
-export class Code{
-    email: string;
+
+export class Reset{
     password: string;
-    code: string;
+    reTypePassword: string;
     submitted: boolean;
     error: string;
     showSpinner: boolean;
-    resend: boolean;
+  
+    static createDTO(reset: Reset){
+      return {
+            password: reset.password
+      };
+  }
   
     constructor(response?: any){
       if(response){
-        this.email = response.email ? response.email : '';
-        this.password = response.password ? response.password : '';
-        this.code = response.code ? response.code : "";
+        this.password = response.password ? response.password : "";
+        this.reTypePassword = response.reTypePassword ? response.reTypePassword : "";
         this.submitted = response.submitted ? response.submitted : false;
         this.error = response.error ? response.error : "";
         this.showSpinner = response.showSpinner ? response.showSpinner : false;
-        this.resend = response.resend ? response.resend : false;
       }else{
-        this.email = '';
-        this.password = '';
-        this.code = "";
+        this.password = "";
+        this.reTypePassword = "";
         this.submitted = false;
         this.error = "";
         this.showSpinner = false;
-        this.resend = false;
       }
     }
-  }
-  
+}

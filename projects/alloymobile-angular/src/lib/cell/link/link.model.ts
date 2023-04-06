@@ -33,3 +33,37 @@ export class AlloyLinkIcon extends AlloyLink{
     }
   }
 }
+
+export class Logo{
+  image: string;
+  alt: string;
+  width: string;
+  height: string;
+  constructor(res?: any){
+    if(res){
+      this.image = res.image ? res.image : "";
+      this.alt = res.alt ? res.alt : "Alloymobile";
+      this.width = res.width ? res.width : "auto";
+      this.height = res.height ? res.height : "auto";
+    }else{
+      this.image = "";
+      this.alt = "";
+      this.width = "auto";
+      this.height = "auto";
+    }
+  }
+}
+
+export class AlloyLinkLogo extends AlloyLink{
+  logo: Logo;
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.logo = res.logo ? new Logo(res.logo) : new Logo();
+    }else{
+      super();
+      this.name = "Alloymobile";
+      this.logo = new Logo();
+    }
+  }
+}

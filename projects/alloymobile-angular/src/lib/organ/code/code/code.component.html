@@ -16,8 +16,9 @@
       />
       <label for="inputEmail">Enter code</label>
       <small id="codeHelp" class="form-text text-muted ml-2"
-        >Please enter the code received in your email or phone.</small
-      >
+        >Please enter the code received in your email or phone.<br>
+        <span class="cursor" (click)="resendCode()">Did not receive code <strong>resend again</strong></span>
+        </small>
       <div
         *ngIf="_code.submitted && formControl.email.errors"
         class="alert alert-danger m-0 p-0"
