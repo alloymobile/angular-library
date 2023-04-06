@@ -17,6 +17,7 @@ import { InputPageComponent } from './cell/input-page/input-page.component';
 import { TokenPageComponent } from './organ/token-page/token-page.component';
 import { CrudPageComponent } from './organ/crud-page/crud-page.component';
 import { ResetPageComponent } from './organ/reset-page/reset-page.component';
+import { IconLinkPageComponent } from './cell/icon-link-page/icon-link-page.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ResetPageComponent } from './organ/reset-page/reset-page.component';
     InputPageComponent,
     TokenPageComponent,
     CrudPageComponent,
-    ResetPageComponent
+    ResetPageComponent,
+    IconLinkPageComponent
   ],
   imports: [
     BrowserModule,

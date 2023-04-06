@@ -25,10 +25,11 @@
     "linkIcon":
     [
       {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"icon","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
-      {"id":5,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
+      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
+      {"id":5,"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
+      {"id":6,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
     ]
   },
   "tissueBar":{

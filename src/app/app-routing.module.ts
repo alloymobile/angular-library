@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ButtonPageComponent } from './cell/button-page/button-page.component';
+import { IconLinkPageComponent } from './cell/icon-link-page/icon-link-page.component';
 import { IconPageComponent } from './cell/icon-page/icon-page.component';
 import { InputPageComponent } from './cell/input-page/input-page.component';
 import { LinkPageComponent } from './cell/link-page/link-page.component';
@@ -14,7 +15,8 @@ import { TableDetailPageComponent } from './table-detail-page/table-detail-page.
 import { TablePageComponent } from './tissue/table-page/table-page.component';
 
 const routes: Routes = [
-  {path: "icon",component:IconPageComponent},
+  {path: "",component:IconPageComponent},
+  {path: "icon-link",component:IconLinkPageComponent},
   {path: "link",component:LinkPageComponent},
   {path: "button",component:ButtonPageComponent},
   {path: "input",component:InputPageComponent},
