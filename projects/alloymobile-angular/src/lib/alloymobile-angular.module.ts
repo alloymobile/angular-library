@@ -39,9 +39,11 @@ import { CrudFileActionComponent } from './organ/crud/crud-file-action/crud-file
 import { CardGalleryComponent } from './cell/card/card-gallery/card-gallery.component';
 import { ResetComponent } from './organ/reset/reset/reset.component';
 import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
-import { LinkExternalComponent } from './cell/link/link-external/link-external.component';
 import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
 import { IconButtonComponent } from './cell/icon/icon-button/icon-button.component';
+import { ButtonSubmitComponent } from './cell/button/button-submit/button-submit.component';
+import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dropdown.component';
+import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -80,8 +82,10 @@ import { IconButtonComponent } from './cell/icon/icon-button/icon-button.compone
     CardGalleryComponent,
     ResetComponent,
     LinkLogoComponent,
-    LinkExternalComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    LinkDropdownComponent,
+    ButtonSubmitComponent,
+    ButtonDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +130,9 @@ import { IconButtonComponent } from './cell/icon/icon-button/icon-button.compone
     CardGalleryComponent,
     ResetComponent,
     LinkLogoComponent,
-    LinkExternalComponent
+    LinkDropdownComponent,
+    ButtonSubmitComponent,
+    ButtonDropdownComponent
   ]
 })
 export class AlloymobileAngularModule { }

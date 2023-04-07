@@ -5,10 +5,11 @@
     "backButton":{"id":"1","name":"Back","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faArrowLeftLong","size":"lg","spin":false,"className":""}},
     "clientButton":{"id":"dropdownMenuButton1","name":"Client","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faUser","size":"lg","spin":false,"className":""}}
   },
+
   "navBar":{
     "id":1,
     "className":"navbar-light navbar-sticky border-bottom",
-    "logo":{"id":1,"name":"","className":"btn btn-outline-dark border-0 rounded px-1","link":"","logo":{"image":"https://clientportalcpagarg.blob.core.windows.net/public/logo.png","alt":"CPA Garg","width":"auto","height":"32"}},
+    "logo":{"id":1,"name":"AlloyMobile","className":"navbar-brand me-0 text-dark fs-2","link":"https://alloymobile.com","logo":{"image":"https://alloymobile.blob.core.windows.net/alloymobile/alloymobile.png","alt":"AlloyMobile","width":"64","height":"auto"}},
     "linkIcon":
     [
       {"id":1,"name":"Home","className":"btn btn-outline-dark border-0 rounded px-1","link":"","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
@@ -25,10 +26,16 @@
     "linkIcon":
     [
       {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","icon":{"id":1,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","icon":{"id":1,"icon":"faBorderAll","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link Logo","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faInternetExplorer","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link Dropdown","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faPlay","size":"lg","spin":false,"className":""}},
       {"id":4,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Button Icon","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOn","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Button Submit","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faPause","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Button Dropdown","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faPlay","size":"lg","spin":false,"className":""}},
       {"id":5,"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
       {"id":6,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
     ]
@@ -38,8 +45,8 @@
     "className":"list-group h-100",
     "linkIcon":
     [
-      {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
+      {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"tissue","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"tissue/about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
     ]
   },
   "organBar":{
@@ -47,13 +54,12 @@
     "className":"list-group h-100",
     "linkIcon":
     [
-      {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Forget","className":"list-group-item list-group-item-action","link":"forget","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Reset","className":"list-group-item list-group-item-action","link":"reset","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
-      {"id":5,"name":"Token","className":"list-group-item list-group-item-action","link":"token","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
-      {"id":6,"name":"Crud","className":"list-group-item list-group-item-action","link":"crud","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
-      {"id":7,"name":"Contact us","className":"list-group-item list-group-item-action","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
+      {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"organ","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"organ/register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Forget","className":"list-group-item list-group-item-action","link":"organ/forget","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
+      {"id":4,"name":"Reset","className":"list-group-item list-group-item-action","link":"organ/reset","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
+      {"id":5,"name":"Token","className":"list-group-item list-group-item-action","link":"organ/token","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
+      {"id":6,"name":"Crud","className":"list-group-item list-group-item-action","link":"organ/crud","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}}
     ]
   }
 }

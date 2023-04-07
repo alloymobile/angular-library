@@ -1,4 +1,7 @@
 [
-    {"id":"1","name":"Home","className":"btn btn-outline-dark border-0 rounded px-1","link":"./","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-    {"id":"2","name":"About us","className":"btn btn-outline-dark border-0 rounded px-1 d-flex flex-column align-items-center","link":"/login","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
+    {"id":"1","name":"Home","className":"btn btn-outline-dark border-0 rounded px-1 ","link":"link"},
+    {"id":"2","name":"About","className":"btn btn-outline-dark border-0 rounded px-1","link":"link"},
+    {"id":"3","name":"Terms","className":"btn btn-outline-dark border-0 rounded px-1","link":"link"},
+    {"id":"4","name":"Privacy","className":"btn btn-outline-dark border-0 rounded px-1","link":"link"},
+    {"id":"5","name":"Contact","className":"btn btn-outline-dark border-0 rounded px-1","link":"link"}
 ]

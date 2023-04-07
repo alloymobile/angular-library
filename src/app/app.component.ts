@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlloyClientBar,AlloyNavBarIcon,AlloyIconSideBar } from 'alloymobile-angular';
+import { AlloyClientBar,AlloyNavBarIcon,AlloyIconSideBar, AlloyIcon } from 'alloymobile-angular';
 import AppDB from './app.data.json';
 
 @Component({
@@ -14,10 +14,13 @@ export class AppComponent {
   navBar: AlloyNavBarIcon;
   selected = "cell";
   clientBar: AlloyClientBar;
+  toggleIcon: AlloyIcon;
   constructor(private router: Router){
     this.sideBar = new AlloyIconSideBar(AppDB.cellBar) 
     this.navBar =  new AlloyNavBarIcon(AppDB.navBar);
     this.clientBar = new AlloyClientBar(AppDB.clientBar);
+    this.toggleIcon = new AlloyIcon({id:1,icon:"faBars",size:"lg",spin:false,className:"btn btn-outline-dark border-0"});
+
   }
   setActive(comp: string){
     switch(comp){

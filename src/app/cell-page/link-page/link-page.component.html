@@ -11,14 +11,21 @@
           </div>
       </div>
       <div class="col-sm-6 text-center text-wrap">
-          <h4>Usage</h4>
-          <h6>{{usageString}}</h6>
-          <hr>
-          <div class="form-group">
-              <label for="tryOut">Try Out</label>
-              <textarea type="text" class="form-control" id="tryOut" row="2" [(ngModel)]="exampleData" (blur)="update()"></textarea>
-          </div>
-          <alloy-link [link]="example"></alloy-link>
+        <h4>Usage</h4>
+        <div class="container-fluid d-flex flex-column">
+            <div class="m-2">
+              <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
+            </div>
+            <div class="m-2">
+              <div class="form-group p-2">
+                <label for="tryOut">Try Out</label>
+                <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="5" [(ngModel)]="exampleData" (blur)="update()"></textarea>
+              </div>
+            </div>
+            <div class=" m-2">
+              <alloy-link [link]="example"></alloy-link>
+            </div>
+        </div>   
       </div>
   </div>
 </div>

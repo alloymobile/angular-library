@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlloyLinkLogo } from '../link.model';
 
@@ -13,16 +13,20 @@ export class LinkLogoComponent {
     this._linkLogo = linkLogo;
   }
 
+  @Output() output: EventEmitter<AlloyLinkLogo>= new EventEmitter<AlloyLinkLogo>();
+  
   constructor(private router:Router) { 
     this._linkLogo = new AlloyLinkLogo();
   }
 
+
   //redirect on click
-  routeLink(lnk: any) {
-    if (lnk.includes("http") || lnk.includes("https")) {
-      window.location.href = lnk;
+  redirectLink() {
+    this.output.emit(this._linkLogo);
+    if (this._linkLogo.link.includes("http") || this._linkLogo.link.includes("https")) {
+      window.location.href = this._linkLogo.link;
       return true;
     }
-    return this.router.navigateByUrl(lnk);
+    return this.router.navigateByUrl(this._linkLogo.link);
   }
 }

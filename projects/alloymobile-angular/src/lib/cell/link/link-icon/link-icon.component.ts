@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlloyLinkIcon } from '../link.model';
 
@@ -13,15 +13,18 @@ export class LinkIconComponent {
     this._linkIcon = linkIcon;
   }
 
+  @Output() output: EventEmitter<AlloyLinkIcon>= new EventEmitter<AlloyLinkIcon>();
+
   constructor(private router:Router) { 
     this._linkIcon = new AlloyLinkIcon();
   }
   //redirect on click
-  routeLink(lnk: any) {
-    if (lnk.includes("http") || lnk.includes("https")) {
-      window.location.href = lnk;
+  redirectLink() {
+    this.output.emit(this._linkIcon);
+    if (this._linkIcon.link.includes("http") || this._linkIcon.link.includes("https")) {
+      window.location.href = this._linkIcon.link;
       return true;
     }
-    return this.router.navigateByUrl(lnk);
+    return this.router.navigateByUrl(this._linkIcon.link);
   }
 }

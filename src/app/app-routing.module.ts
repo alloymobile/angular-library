@@ -42,13 +42,13 @@ const routes: Routes = [
       {path: "forget",component: ForgetPageComponent},
       {path: "reset",component: ResetPageComponent},
       {path: "token",component: TokenPageComponent},
-      {path: "crud",component: CrudPageComponent},
+      {path: "crud",component: CrudPageComponent}
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

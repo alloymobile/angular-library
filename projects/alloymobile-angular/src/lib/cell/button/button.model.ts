@@ -28,7 +28,23 @@ export class AlloyButtonIcon extends AlloyButton{
       this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
     }else{
       super();
-     this.icon = new AlloyIcon();
+      this.icon = new AlloyIcon();
+    }
+  }
+}
+
+export class AlloyButtonSubmit extends AlloyButtonIcon{
+  show: boolean;
+  disable: boolean;
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.show = res.show ? res.show : false;
+      this.disable = res.disable ? res.disable : false;
+    }else{
+      super();
+      this.show = false;
+      this.disable = false;
     }
   }
 }

@@ -118,9 +118,9 @@
       <div class="p-2">
         <small id="privacy-terms" class="form-text text-muted ml-2">
           By clicking signup you agree to our <br> 
-          <alloy-link-external [linkExternal]="_register.privacyLink"></alloy-link-external>
+          <alloy-link [link]="_register.privacyLink"></alloy-link>
           and 
-          <alloy-link-external [linkExternal]="_register.termsLink"></alloy-link-external>
+          <alloy-link [link]="_register.termsLink"></alloy-link>
           <br> Please click them for more details.
         </small>
         <button class="w-100 btn btn-lg btn-dark" type="submit" [disabled]="_register.showSpinner">

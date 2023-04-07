@@ -22,6 +22,13 @@ import { IconButtonPageComponent } from './cell-page/icon-button-page/icon-butto
 import { CellPageComponent } from './cell-page/cell-page.component';
 import { TissuePageComponent } from './tissue-page/tissue-page.component';
 import { OrganPageComponent } from './organ-page/organ-page.component';
+import { ButtonIconPageComponent } from './cell-page/button-icon-page/button-icon-page.component';
+import { ButtonDropdownPageComponent } from './cell-page/button-dropdown-page/button-dropdown-page.component';
+import { ButtonSubmitPageComponent } from './cell-page/button-submit-page/button-submit-page.component';
+import { LinkLogoPageComponent } from './cell-page/link-logo-page/link-logo-page.component';
+import { LinkIconPageComponent } from './cell-page/link-icon-page/link-icon-page.component';
+import { LinkDropdownPageComponent } from './cell-page/link-dropdown-page/link-dropdown-page.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -42,7 +49,13 @@ import { OrganPageComponent } from './organ-page/organ-page.component';
     IconButtonPageComponent,
     CellPageComponent,
     TissuePageComponent,
-    OrganPageComponent
+    OrganPageComponent,
+    ButtonIconPageComponent,
+    ButtonDropdownPageComponent,
+    ButtonSubmitPageComponent,
+    LinkLogoPageComponent,
+    LinkIconPageComponent,
+    LinkDropdownPageComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +63,7 @@ import { OrganPageComponent } from './organ-page/organ-page.component';
     FormsModule,
     AlloymobileAngularModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
