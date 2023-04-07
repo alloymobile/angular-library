@@ -1,30 +1,23 @@
+import { AlloyLink } from "../../cell/link/link.model";
+import { AlloyForm } from "../form/form.model";
+
 export class Code{
-    email: string;
-    password: string;
-    code: string;
-    submitted: boolean;
-    error: string;
-    showSpinner: boolean;
-    resend: boolean;
-  
-    constructor(response?: any){
-      if(response){
-        this.email = response.email ? response.email : '';
-        this.password = response.password ? response.password : '';
-        this.code = response.code ? response.code : "";
-        this.submitted = response.submitted ? response.submitted : false;
-        this.error = response.error ? response.error : "";
-        this.showSpinner = response.showSpinner ? response.showSpinner : false;
-        this.resend = response.resend ? response.resend : false;
-      }else{
-        this.email = '';
-        this.password = '';
-        this.code = "";
-        this.submitted = false;
-        this.error = "";
-        this.showSpinner = false;
-        this.resend = false;
-      }
+  id: string; 
+  className: string;
+  codeForm: AlloyForm;
+  loginLink: AlloyLink;
+  constructor(response?: any){
+    if(response){
+      this.id = response.id ?  response.id : "code";
+      this.className = response.className ? response.className : "d-flex justify-content-center flex-column text-center h-100 mt-3";
+      this.codeForm = response.codeForm ? new AlloyForm(response.codeForm) : new AlloyForm();
+      this.loginLink = response.loginLink ? new AlloyLink(response.loginLink) : new AlloyLink();
+    }else{
+      this.id = "code";
+      this.className =  "d-flex justify-content-center flex-column text-center h-100 mt-3";
+      this.codeForm = new AlloyForm();
+      this.loginLink = new AlloyLink();
     }
   }
+}
   

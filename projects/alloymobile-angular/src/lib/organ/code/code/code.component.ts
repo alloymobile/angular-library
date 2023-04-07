@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlloyIcon } from '../../../cell/icon/icon.model';
-import { AlloyLink, AlloyLinkIcon } from '../../../cell/link/link.model';
+import { AbstractControl} from '@angular/forms';
 import { Code } from '../code.model';
 
 @Component({
@@ -11,51 +9,19 @@ import { Code } from '../code.model';
 })
 export class CodeComponent {
   _code: Code;
-  codeForm: FormGroup;
-  loadingIcon = new AlloyIcon({id:5,icon:"faSpinner",size:"lg",spin:true,className:""});
-  codeLink = new AlloyLinkIcon({id:1,name:"Code",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/code",icon:{id:1,icon:"faUser",size:"2x",spin:false,className:""}});
-  loginLink = new AlloyLink({id:1,name:"Login",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/login"});
-
   @Input() set code(code: Code){
     this._code = code;
   };
 
-  @Output() output: EventEmitter<Code> = new EventEmitter<Code>();
+  @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this._code = new Code();
   }
 
-  // convenience getter for easy access to form fields
-  get formControl() {
-    return this.codeForm.controls;
-  }
-
-  ngOnInit(): void {
-    this.createTokenForm();
-  }
-
-  createTokenForm() {
-    this.codeForm = this.formBuilder.group({
-      code: ['', [Validators.required]]
-    });
-  }
   resendCode(){
-    this._code.resend = true;
-    this.output.emit(this._code);
-  }
-
-  codeClient(){
-    this._code.submitted = true;
-    if (this.codeForm.valid) {
-      this._code.submitted = false;
-      this._code.error ="";
-      this._code.code = this.formControl.code.value;
-      this._code.showSpinner = true;
-      this.output.emit(this._code);
-    }else{
-      this._code.error = "There are form errors please fix them"
-      this._code.showSpinner = false;
-    }
+    let _output: any = {};
+    _output["resend"] = true;
+    this.output.emit(_output);
   }
 }

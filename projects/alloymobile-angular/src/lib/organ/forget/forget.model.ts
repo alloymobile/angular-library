@@ -1,32 +1,23 @@
 import { AlloyLink } from "../../cell/link/link.model";
+import { AlloyForm } from "../form/form.model";
 
 export class Forget{
-    email: string;
-    submitted: boolean;
-    error: string;
-    showSpinner: boolean;
-    login: AlloyLink;
-  
-    static createDTO(forget: Forget){
-      return {
-          email: forget.email
-      };
-  }
-  
-    constructor(response?: any){
-      if(response){
-        this.email = response.email ? response.email : "";
-        this.submitted = response.submitted ? response.submitted : false;
-        this.error = response.error ? response.error : "";
-        this.showSpinner = response.showSpinner ? response.showSpinner : false;
-        this.login = response.login ?  new AlloyLink(response.login) : new AlloyLink();
-      }else{
-        this.email = "";
-        this.submitted = false;
-        this.error = "";
-        this.showSpinner = false;
-        this.login = new AlloyLink();
-      }
+  id: string; 
+  className: string;
+  forgetForm: AlloyForm;
+  loginLink: AlloyLink;
+  constructor(response?: any) {
+    if (response) {
+      this.id = response.id ?  response.id : "forget";
+      this.className = response.className ? response.className : "d-flex justify-content-center flex-column text-center h-100 mt-3";
+      this.forgetForm = response.forgetForm ? new AlloyForm(response.forgetForm) : new AlloyForm();
+      this.loginLink = response.loginLink ? new AlloyLink(response.loginLink) : new AlloyLink();
+    } else {
+      this.id = "forget";
+      this.className = "d-flex justify-content-center flex-column text-center h-100 mt-3";
+      this.forgetForm = new AlloyForm();
+      this.loginLink = new AlloyLink();
     }
   }
+}
   

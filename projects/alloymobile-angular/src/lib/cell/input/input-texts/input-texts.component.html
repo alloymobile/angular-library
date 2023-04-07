@@ -3,21 +3,30 @@
   (ngSubmit)="output.emit(inputForm.value)"
   #form="ngForm"
 >
-  <div *ngFor="let _inputText of _inputTexts" [class]="_inputText.className">
-    <span class="input-group-text">
+  <div *ngFor="let _inputText of _inputTexts">
+    <div [class]="_inputText.className">
+      <span class="input-group-text">
         <alloy-icon [icon]="_inputText.icon"></alloy-icon>
-    </span>
-    <div class="form-floating">
-        <input
-        [id]="_inputText.id"
-        [type]="_inputText.type"
-        [formControlName]="_inputText.name"
-        [placeholder]="_inputText.placeholder"
-        [readonly]="_inputText.readonly"
-        class="form-control"
-        (input)="output.emit(inputForm.value)"
-        />
-        <label [for]="_inputText.id">{{ _inputText.label }}</label>
+      </span>
+      <div class="form-floating">
+          <input
+          [id]="_inputText.id"
+          [type]="_inputText.type"
+          [formControlName]="_inputText.name"
+          [placeholder]="_inputText.placeholder"
+          [readonly]="_inputText.readonly"
+          class="form-control"
+          (input)="formOutput(_inputText)"
+          />
+          <label [for]="_inputText.id">{{ _inputText.label }}</label>
+      </div>
+    </div>
+    <div *ngIf="getTouched(_inputText.name)" class="alert text-start alert-text-danger m-0 p-0">
+      <div *ngIf="getError(_inputText)">
+        <div  *ngFor="let error of errors">
+          {{error}}
+        </div>
+      </div>
     </div>
   </div>
 </form>

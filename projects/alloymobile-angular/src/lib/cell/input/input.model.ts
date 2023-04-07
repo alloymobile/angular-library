@@ -1,4 +1,5 @@
 import { AlloyIcon } from "../icon/icon.model";
+import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 export class Input {
   id: string;
@@ -7,14 +8,21 @@ export class Input {
   className: string;
   placeholder: string;
   readonly: boolean;
-  constructor(response?: any) {
-    if (response) {
-      this.id = response.id ? response.id : '';
-      this.name = response.name ? response.name : 'name';
-      this.type = response.type ? response.type : 'text';
-      this.placeholder = response.placeholder ? response.placeholder : '';
-      this.className = response.className ? response.className : 'input-group';
-      this.readonly = response.readonly ? response.readonly : false;
+  validators: [];
+  errors: AlloyValidation[];
+  //Only matches password and confirmPassword please update for generic
+  match: boolean;
+  constructor(res?: any) {
+    if (res) {
+      this.id = res.id ? res.id : '';
+      this.name = res.name ? res.name : 'name';
+      this.type = res.type ? res.type : 'text';
+      this.placeholder = res.placeholder ? res.placeholder : '';
+      this.className = res.className ? res.className : 'input-group';
+      this.readonly = res.readonly ? res.readonly : false;
+      this.match = res.match ? res.match : false;
+      this.errors =  res.errors ? res.errors.map((res: AlloyCustomValidation)=> new AlloyCustomValidation(res)) : []; 
+      this.validators =  res.errors ? res.errors.map((res: AlloyCustomValidation)=>  getValidator(new AlloyCustomValidation(res))) : []; 
     } else {
       this.id = '';
       this.name = 'name';
@@ -22,18 +30,123 @@ export class Input {
       this.placeholder = '';
       this.className = 'input-group';
       this.readonly = false;
+      this.match = false;
+      this.errors = [];
+      this.validators = [];
     }
   }
 }
 
+export function getValidator(validator: AlloyCustomValidation){
+  switch(validator.name){
+    case "required":
+      return Validators.required;
+    case "email":
+      return Validators.email;
+    case "minLength":
+      return Validators.minLength(Number(validator.pattern)); 
+    case "maxLength":
+      return Validators.maxLength(Number(validator.pattern));
+    case "pattern":
+      return Validators.pattern(validator.pattern); 
+    case "custom":
+      switch (validator.type){
+        case "passwordStrength":
+          return passwordStrengthValidator();
+        default:
+          return Validators.required; 
+      }
+      break;  
+    default:
+      return Validators.required;   
+  }
+}
+
+  export function matchValidator(control: AbstractControl): ValidatorFn {
+    const password: string = control.get("password").value; // get password from our password form control
+    const confirmPassword: string = control.get("confirmPassword").value; // get password from our confirmPassword form control
+    
+    // if the confirmPassword value is null or empty, don't return an error.
+    if (!confirmPassword?.length) {
+      return null;
+    }
+    // compare the passwords and see if they match.
+    if (password !== confirmPassword) {
+      let errors = {};
+      if(control.get("confirmPassword").errors != undefined){
+        errors = control.get("confirmPassword").errors;
+      }
+      errors["mismatch"] = true;
+      control.get("confirmPassword").setErrors(errors);
+    } else {
+      // if passwords match, don't return an error.
+      return null;
+    }
+  }
+
+  export function passwordStrengthValidator(): ValidatorFn {
+    return (control:AbstractControl) : ValidationErrors | null => {
+        const value = control.value;
+        if (!value) {
+            return null;
+        }
+        const hasUpperCase = /[A-Z]+/.test(value);
+        const hasLowerCase = /[a-z]+/.test(value);
+        const hasNumeric = /[0-9]+/.test(value);
+        const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
+        return !passwordValid ? {custom:true}: null;
+    }
+  }
+
+export class AlloyValidation{
+  name: string;
+  message: string;
+  constructor(res?: any) {
+    if (res) {
+      this.name = res.name ? res.name : '';
+      this.message = res.message ? res.message : '';
+    } else {
+      this.name = '';
+      this.message = '';
+    }
+  }
+}
+
+export class AlloyPatternValidation extends AlloyValidation{
+  pattern: string;
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.pattern = res.pattern ? res.pattern : '';
+    } else {
+      super();
+      this.pattern = '';
+    }
+  }
+}
+
+export class AlloyCustomValidation extends AlloyPatternValidation{
+  type: string;
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.type = res.type ? res.type : '';
+    } else {
+      super();
+      this.type = '';
+    }
+  }
+}
+
+
 export class AlloyInputText extends Input {
   text: string;
   label: string;
-  constructor(response?: any) {
-    if (response) {
-      super(response);
-      this.text = response.text ? response.text : '';
-      this.label = response.label ? response.label : '';
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.text = res.text ? res.text : '';
+      this.label = res.label ? res.label : '';
     } else {
       super();
       this.text = '';
@@ -44,10 +157,10 @@ export class AlloyInputText extends Input {
 
 export class AlloyInputTextIcon extends AlloyInputText {
   icon: AlloyIcon;
-  constructor(response?: any) {
-    if (response) {
-      super(response);
-      this.icon = response.icon ?  this.getIcon(response.icon) : new AlloyIcon();
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.icon = res.icon ?  this.getIcon(res.icon) : new AlloyIcon();
     } else {
       super();
       this.icon = new AlloyIcon();

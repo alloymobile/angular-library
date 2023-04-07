@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlloyIcon } from '../../../cell/icon/icon.model';
+import { AlloyLinkIcon } from '../../../cell/link/link.model';
 import { AlloyNavBarIcon } from '../navbar.model';
 
 @Component({
@@ -9,12 +10,10 @@ import { AlloyNavBarIcon } from '../navbar.model';
 })
 export class NavbarIconComponent {
   _navBarIcon: AlloyNavBarIcon;
-  toggleBars: AlloyIcon;
   @Input() set navBarIcon(navBarIcon: AlloyNavBarIcon) {
   	this._navBarIcon = navBarIcon;
   }
   constructor(){
     this._navBarIcon = new AlloyNavBarIcon();
-    this.toggleBars = new AlloyIcon({"id":"1","icon":"faBars","size":"lg","spin":false,"className":""});
   }
 }

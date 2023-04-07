@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlloyIcon } from '../../../cell/icon/icon.model';
-import { AlloyLink, AlloyLinkIcon } from '../../../cell/link/link.model';
+import { AbstractControl} from '@angular/forms';
 import { Login } from '../login.model';
 
 @Component({
@@ -11,48 +9,13 @@ import { Login } from '../login.model';
 })
 export class LoginComponent {
   _login: Login;
-  loginForm: FormGroup;
-  loadingIcon = new AlloyIcon({id:5,icon:"faSpinner",size:"lg",spin:true,className:""});
-  loginLink = new AlloyLinkIcon({id:1,name:"Sign in",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/login",icon:{id:1,icon:"faRightToBracket",size:"2x",spin:false,className:""}});
-  forgetLink = new AlloyLink({id:1,name:"Forget password",className:"text-dark text-decoration-none d-flex flex-column align-items-center",link:"/forget"});
   @Input() set login(login: Login){
     this._login = login;
   };
 
-  @Output() output: EventEmitter<Login> = new EventEmitter();
+  @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this._login = new Login();
-  }
-
-  // convenience getter for easy access to form fields
-  get formControl() {
-    return this.loginForm.controls;
-  }
-
-  ngOnInit(): void {
-    this.createLoginForm();
-  }
-
-  createLoginForm() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]]
-    });
-  }
-
-  loginClient(){
-    this._login.submitted = true;
-    if (this.loginForm.valid) {
-      this._login.submitted = false;
-      this._login.error ="";
-      this._login.email = this.formControl.email.value;
-      this._login.password = this.formControl.password.value;
-      this._login.showSpinner = true;
-      this.output.emit(this._login);
-    }else{
-      this._login.error = "There are form errors please fix them";
-      this._login.showSpinner = false;
-    }
   }
 }

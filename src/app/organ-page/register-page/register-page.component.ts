@@ -12,7 +12,6 @@ export class RegisterPageComponent {
   _link: any;
   constructor(private router:Router) { 
    this.client = new Register();
-   this.client.email = "tapas@alloymobile.com";
    this.client.privacyLink = new AlloyLink({id:"privacy",name:"privacy policy",link:"https://cpagarg.com/privacy/",className:"text-decoration-none fw-bold"}) ;
    this.client.termsLink = new AlloyLink({id:"terms",name:"terms and condition",link:"https://cpagarg.com/terms/",className:"text-decoration-none fw-bold"}) ;
     this._link = {id:"terms",name:"terms and condition",link:"https://cpagarg.com/terms/",className:"text-decoration-none fw-bold"};

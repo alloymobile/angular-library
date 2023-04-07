@@ -43,6 +43,7 @@ export * from './lib/cell/card/card-gallery/card-gallery.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/navbar-icon/navbar-icon.component';
+export * from './lib/tissue/navbar/navbar-link-icon/navbar-link-icon.component';
 export * from './lib/tissue/sidebar/sidebar/sidebar.component';
 export * from './lib/tissue/sidebar/icon-sidebar/icon-sidebar.component';
 export * from './lib/tissue/table/table/table.component';
@@ -51,6 +52,7 @@ export * from './lib/tissue/gallery/gallery-button/gallery-button.component';
 export * from './lib/tissue/page/page.component';
 export * from './lib/tissue/clientbar/clientbar/clientbar.component';
 export * from './lib/tissue/table/table-action/table-action.component';
+export * from './lib/tissue/footer/footer/footer.component';
 
 export * from './lib/organ/login/login/login.component';
 export * from './lib/organ/register/register/register.component';
@@ -62,6 +64,7 @@ export * from './lib/organ/crud/crud-file/crud-file.component';
 export * from './lib/organ/crud/crud-file-action/crud-file-action.component';
 export * from './lib/organ/code/code/code.component';
 export * from './lib/organ/reset/reset/reset.component';
+export * from './lib/organ/form/form/form.component';
 
 
 

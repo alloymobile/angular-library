@@ -17,19 +17,6 @@ export class NavBar {
     }
 }
 
-export class AlloyNavBarLogo extends NavBar{
-  linkIcon: AlloyLinkIcon[];
-  constructor(response?: any) {
-    if (response) {
-      super(response);
-      this.linkIcon = response.linkIcon ? response.linkIcon.map((linkIcon: AlloyLinkIcon)=>new AlloyLinkIcon(linkIcon)) : []; 
-    } else {
-      super();
-      this.linkIcon = [];
-    }
-  }
-}
-
 export class AlloyNavBar extends NavBar {
   link: AlloyLink[];
   constructor(response?: any) {
@@ -55,3 +42,17 @@ export class AlloyNavBarIcon extends NavBar{
     }
   }
 }
+
+export class AlloyNavBarLinkIcon extends AlloyNavBar{
+  linkIcon: AlloyLinkIcon[];
+  constructor(response?: any) {
+    if (response) {
+      super(response);
+      this.linkIcon = response.linkIcon ? response.linkIcon.map((linkIcon: AlloyLinkIcon)=>new AlloyLinkIcon(linkIcon)) : []; 
+    } else {
+      super();
+      this.linkIcon = [];
+    }
+  }
+}
+
