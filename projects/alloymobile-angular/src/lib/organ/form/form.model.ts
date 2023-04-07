@@ -10,16 +10,16 @@ export class Form{
     action: string;
     constructor(res?: any){
         if(res){
-            this.id = res.id ? res.id : "";
-            this.title = res.title ? res.title : "";
-            this.className = res.className ? res.className : "";
+            this.id = res.id ? res.id : "form";
+            this.title = res.title ? res.title : "AlloyMobile";
+            this.className = res.className ? res.className : "col m-2";
             this.message = res.message ? res.message : "";
             this.submit = res.submit ? new AlloyButtonSubmit(res.submit) : new AlloyButtonSubmit();
             this.action = res.action ? res.action : "";
         }else{
-            this.id =  "";
-            this.title = "";
-            this.className = "";
+            this.id =  "form";
+            this.title = "AlloyMobile";
+            this.className = "col m-2";
             this.message = "";
             this.submit = new AlloyButtonSubmit();
             this.action = "";

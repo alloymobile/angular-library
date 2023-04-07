@@ -7,15 +7,15 @@ export class AlloyButton{
   className: string;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : "";
-      this.name = res.name ? res.name : "";
+      this.id = res.id ? res.id : "button";
+      this.name = res.name ? res.name : "Submit";
       this.type = res.type ? res.type : 'button';
-      this.className = res.className ? res.className : "btn btn-primary m-1";
+      this.className = res.className ? res.className : "w-100 btn btn-lg btn-info mt-1";
     }else{
-      this.id = "";
-      this.name = "";
+      this.id = "button";
+      this.name = "Submit";
       this.type = 'button';
-      this.className =  "btn btn-primary m-1";
+      this.className =  "w-100 btn btn-lg btn-info mt-1";
     }
   }
 }

@@ -13,10 +13,10 @@ import { ForgetPageComponent } from './organ-page/forget-page/forget-page.compon
 import { LoginPageComponent } from './organ-page/login-page/login-page.component';
 import { RegisterPageComponent } from './organ-page/register-page/register-page.component';
 import { ResetPageComponent } from './organ-page/reset-page/reset-page.component';
-import { TokenPageComponent } from './organ-page/token-page/token-page.component';
 import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
 import { TissuePageComponent } from './tissue-page/tissue-page.component';
 import { TablePageComponent } from './tissue-page/table-page/table-page.component';
+import { CodePageComponent } from './organ-page/code-page/code-page.component';
 
 const routes: Routes = [
   { path: '', component: CellPageComponent, children:
@@ -41,7 +41,7 @@ const routes: Routes = [
       {path: "register",component: RegisterPageComponent},
       {path: "forget",component: ForgetPageComponent},
       {path: "reset",component: ResetPageComponent},
-      {path: "token",component: TokenPageComponent},
+      {path: "code",component: CodePageComponent},
       {path: "crud",component: CrudPageComponent}
     ]
   }

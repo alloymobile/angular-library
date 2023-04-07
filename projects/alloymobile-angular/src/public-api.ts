@@ -21,6 +21,8 @@ export * from './lib/organ/crud/crud.model';
 export * from './lib/organ/code/code.model';
 export * from './lib/tissue/clientbar/clientbar.model';
 export * from './lib/organ/reset/reset.model';
+export * from './lib/organ/form/form.model';
+export * from './lib/tissue/footer/footer-model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';

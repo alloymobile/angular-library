@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { Login } from 'alloymobile-angular';
-
+import { Login} from 'alloymobile-angular';
+import LoginDB from './login-page.data.json';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent {
-  client: Login;
-  constructor() {
-    this.client = new Login();
-   }
+export class LoginPageComponent{
+  login: Login;
 
-  onLogin(client: Login){
-    console.log(client);
+  constructor() {
+      this.login = new Login(LoginDB);
+    }
+
+  onLogin(form){
+    console.log(form);
   }
 }

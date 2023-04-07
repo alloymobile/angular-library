@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TokenPageComponent } from './token-page.component';
+import { CodePageComponent } from './code-page.component';
 
-describe('TokenPageComponent', () => {
-  let component: TokenPageComponent;
-  let fixture: ComponentFixture<TokenPageComponent>;
+describe('CodePageComponent', () => {
+  let component: CodePageComponent;
+  let fixture: ComponentFixture<CodePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TokenPageComponent ]
+      declarations: [ CodePageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TokenPageComponent);
+    fixture = TestBed.createComponent(CodePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

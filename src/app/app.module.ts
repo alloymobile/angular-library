@@ -14,7 +14,6 @@ import { ForgetPageComponent } from './organ-page/forget-page/forget-page.compon
 import { TablePageComponent } from './tissue-page/table-page/table-page.component';
 import { TableDetailPageComponent } from './table-detail-page/table-detail-page.component';
 import { InputPageComponent } from './cell-page/input-page/input-page.component';
-import { TokenPageComponent } from './organ-page/token-page/token-page.component';
 import { CrudPageComponent } from './organ-page/crud-page/crud-page.component';
 import { ResetPageComponent } from './organ-page/reset-page/reset-page.component';
 import { IconLinkPageComponent } from './cell-page/icon-link-page/icon-link-page.component';
@@ -29,6 +28,7 @@ import { LinkLogoPageComponent } from './cell-page/link-logo-page/link-logo-page
 import { LinkIconPageComponent } from './cell-page/link-icon-page/link-icon-page.component';
 import { LinkDropdownPageComponent } from './cell-page/link-dropdown-page/link-dropdown-page.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CodePageComponent } from './organ-page/code-page/code-page.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     TablePageComponent,
     TableDetailPageComponent,
     InputPageComponent,
-    TokenPageComponent,
     CrudPageComponent,
     ResetPageComponent,
     IconLinkPageComponent,
@@ -55,7 +54,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ButtonSubmitPageComponent,
     LinkLogoPageComponent,
     LinkIconPageComponent,
-    LinkDropdownPageComponent
+    LinkDropdownPageComponent,
+    CodePageComponent
   ],
   imports: [
     BrowserModule,

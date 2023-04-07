@@ -1033,6 +1033,10 @@ export class AlloyIcon {
 
   static getIcon(icon: string): IconDefinition {
     switch (icon) {
+      case 'faSignature' :  return  faSignature;
+      case 'faGear' :  return  faGear;
+      case 'faGears' :  return  faGears;
+      case 'faMessage' :  return  faMessage;
       case 'faArrowLeftLong' :  return  faArrowLeftLong;
       case 'faBlog' :  return  faBlog;
       case 'faBorderAll' :  return  faBorderAll;
