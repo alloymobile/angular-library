@@ -1,6 +1,6 @@
 {
     "id":"1",
-    "className":"d-flex justify-content-center flex-column text-center h-100 mt-3",
+    "className":"col-sm-12 mx-auto m-3",
     "loginForm":
     {
         "id":"Login",
@@ -8,7 +8,7 @@
         "message":"",
         "action":"Login",
         "className":"col m-2",
-        "submit":{"id":"1","name":"Submit","className":"w-100 btn btn-lg btn-primary mt-1","type":"submit","disable":true,"show":false,
+        "submit":{"id":"1","name":"Submit","className":"w-100 btn btn-lg btn-info mt-1","type":"submit","disable":true,"show":false,
         "icon":{"id":31,"icon":"faSpinner","size":"lg","spin":true,"className":""}},
         "fields":[
             {"id":"1","name":"email","className":"input-group py-2",

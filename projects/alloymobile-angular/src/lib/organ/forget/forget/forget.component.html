@@ -1,6 +1,6 @@
-<div [id]="_forget.id" [class]="_forget.className">
+<div [id]="_forget.id" class="d-flex justify-content-center flex-column text-center h-100 mt-3" >
   <div class="row">
-      <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 mx-auto m-3">
+      <div [class]="_forget.className">
           <alloy-form [form]="_forget.forgetForm" (output)="output.emit($event)"></alloy-form>
           <div class="px-2">
             <small id="codeHelp" class="form-text text-dark ml-2">

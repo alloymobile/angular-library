@@ -8,12 +8,23 @@ import LoginDB from './login-page.data.json';
 })
 export class LoginPageComponent{
   login: Login;
-
+  usageString: string;
+  exampleData: string;
+  outputString: string;
   constructor() {
-      this.login = new Login(LoginDB);
-    }
+    this.usageString = '<alloy-login [login]="login" (output)="onLogin($event)"></alloy-login>';
+    this.login = new Login(LoginDB);
+    this.exampleData = JSON.stringify(LoginDB);
+    this.outputString = "";
+  }
 
   onLogin(form){
-    console.log(form);
+    this.outputString = JSON.stringify(form);
+    this.login = new Login(JSON.parse(this.exampleData));
+  }
+
+
+  update(){
+    this.login = new Login(JSON.parse(this.exampleData));
   }
 }
