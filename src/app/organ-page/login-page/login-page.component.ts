@@ -14,7 +14,7 @@ export class LoginPageComponent{
   constructor() {
     this.usageString = '<alloy-login [login]="login" (output)="onLogin($event)"></alloy-login>';
     this.login = new Login(LoginDB);
-    this.exampleData = JSON.stringify(LoginDB);
+    this.exampleData = JSON.stringify(LoginDB, null, 2);
     this.outputString = "";
   }
 

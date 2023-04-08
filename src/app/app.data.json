@@ -19,47 +19,5 @@
       {"id":5,"name":"Teaching","className":"btn btn-outline-dark border-0 rounded px-1","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
       {"id":6,"name":"Contact us","className":"btn btn-outline-dark border-0 rounded px-1","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
     ]
-  },
-  "cellBar":{
-    "id":1,
-    "className":"list-group h-100",
-    "linkIcon":
-    [
-      {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","icon":{"id":1,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","icon":{"id":1,"icon":"faBorderAll","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link Logo","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faInternetExplorer","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link Dropdown","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faPlay","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Button Icon","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOn","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Button Submit","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faPause","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Button Dropdown","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faPlay","size":"lg","spin":false,"className":""}},
-      {"id":5,"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}},
-      {"id":6,"name":"Card dashboard","className":"list-group-item list-group-item-action","link":"card-dashboard","icon":{"id":5,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
-    ]
-  },
-  "tissueBar":{
-    "id":1,
-    "className":"list-group h-100",
-    "linkIcon":
-    [
-      {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"tissue","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"tissue/about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
-    ]
-  },
-  "organBar":{
-    "id":1,
-    "className":"list-group h-100",
-    "linkIcon":
-    [
-      {"id":1,"name":"Login","className":"list-group-item list-group-item-action","link":"organ","icon":{"id":1,"icon":"faUser","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Register","className":"list-group-item list-group-item-action","link":"organ/register","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Forget","className":"list-group-item list-group-item-action","link":"organ/forget","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
-      {"id":4,"name":"Reset","className":"list-group-item list-group-item-action","link":"organ/reset","icon":{"id":3,"icon":"faCamera","size":"lg","spin":false,"className":""}},
-      {"id":5,"name":"Code","className":"list-group-item list-group-item-action","link":"organ/code","icon":{"id":4,"icon":"faBlog","size":"lg","spin":false,"className":""}},
-      {"id":6,"name":"Crud","className":"list-group-item list-group-item-action","link":"organ/crud","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}}
-    ]
   }
 }
