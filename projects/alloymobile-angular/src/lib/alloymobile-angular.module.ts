@@ -47,6 +47,8 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
 import { FooterComponent } from './tissue/footer/footer/footer.component';
 import { FormComponent } from './organ/form/form/form.component';
 import { NavbarLinkIconComponent } from './tissue/navbar/navbar-link-icon/navbar-link-icon.component';
+import { InputFloatingTextsComponent } from './cell/input/input-floating-texts/input-floating-texts.component';
+import { InputIconTextsComponent } from './cell/input/input-icon-texts/input-icon-texts.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { NavbarLinkIconComponent } from './tissue/navbar/navbar-link-icon/navbar
     ButtonDropdownComponent,
     FormComponent,
     NavbarLinkIconComponent,
-    FooterComponent
+    FooterComponent,
+    InputFloatingTextsComponent,
+    InputIconTextsComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +145,9 @@ import { NavbarLinkIconComponent } from './tissue/navbar/navbar-link-icon/navbar
     ButtonDropdownComponent,
     FormComponent,
     NavbarLinkIconComponent,
-    FooterComponent
+    FooterComponent,
+    InputFloatingTextsComponent,
+    InputIconTextsComponent
   ]
 })
 export class AlloymobileAngularModule { }

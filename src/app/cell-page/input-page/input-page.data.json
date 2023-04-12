@@ -15,9 +15,9 @@
     },
     "fields":
     [
-        {"id":"1","name":"id","className":"input-group","type":"text","text":"","placeholder":"id","readonly":true,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-        {"id":"2","name":"name","className":"input-group","type":"text","text":"","placeholder":"Name","readonly":false,"label":"Name","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-        {"id":"3","name":"date","className":"input-group","type":"text","text":"","placeholder":"Date","readonly":false,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        {"id":"1","name":"id","className":"col-12","type":"text","text":"","placeholder":"id","readonly":true,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+        {"id":"2","name":"name","className":"col-12","type":"text","text":"","placeholder":"Name","readonly":false,"label":"Name","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+        {"id":"3","name":"date","className":"col-12","type":"text","text":"","placeholder":"Date","readonly":false,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
     ]
 }
 

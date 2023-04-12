@@ -11,7 +11,7 @@
         "submit":{"id":"1","name":"Submit","className":"w-100 btn btn-lg btn-info mt-1","type":"submit","disable":true,"show":false,
         "icon":{"id":31,"icon":"faSpinner","size":"lg","spin":true,"className":""}},
         "fields":[
-            {"id":"1","name":"code","className":"input-group py-2",
+            {"id":"1","name":"code","className":"col-sm-12",
             "errors":[
                 {"name":"required","message":"Code is required.","pattern":""},
                 {"name":"pattern","message":"Provide exactly six digits","pattern":"^[0-9]{6}$"}

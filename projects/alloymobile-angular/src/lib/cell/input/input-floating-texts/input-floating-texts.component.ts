@@ -3,15 +3,15 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { AlloyInputText, matchValidator } from '../input.model';
 
 @Component({
-  selector: 'alloy-input-texts',
-  templateUrl: './input-texts.component.html',
-  styleUrls: ['./input-texts.component.css']
+  selector: 'alloy-input-floating-texts',
+  templateUrl: './input-floating-texts.component.html',
+  styleUrls: ['./input-floating-texts.component.css']
 })
-export class InputTextsComponent {
-  _inputTexts: AlloyInputText[];
-  @Input() set inputTexts(inputTexts: AlloyInputText[]) {
-  	this._inputTexts = inputTexts;
-    this.inputForm = this.createData(this._inputTexts);
+export class InputFloatingTextsComponent {
+  _inputFloatingTexts: AlloyInputText[];
+  @Input() set inputFloatingTexts(inputFloatingTexts: AlloyInputText[]) {
+  	this._inputFloatingTexts = inputFloatingTexts;
+    this.inputForm = this.createData(this._inputFloatingTexts);
   }
   //reactive form for data input
   inputForm: FormGroup;
@@ -21,7 +21,7 @@ export class InputTextsComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputTexts = [];
+    this._inputFloatingTexts = [];
     this.inputForm = new FormGroup({});
     this.errors = [];
     this.match = false;

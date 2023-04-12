@@ -56,7 +56,6 @@ export function getValidator(validator: AlloyCustomValidation){
         default:
           return Validators.required; 
       }
-      break;  
     default:
       return Validators.required;   
   }

@@ -1,0 +1,37 @@
+<form
+  [formGroup]="inputForm"
+  (ngSubmit)="output.emit(inputForm.value)"
+  #form="ngForm"
+>
+  <div class="row">
+    <div [class]="_inputIconText.className" *ngFor="let _inputIconText of _inputIconTexts">
+      <div class="input-group py-2">
+        <span class="input-group-text">
+          <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+        </span>
+        <div class="form-floating">
+          <input
+            [id]="_inputIconText.id"
+            [type]="_inputIconText.type"
+            [formControlName]="_inputIconText.name"
+            [placeholder]="_inputIconText.placeholder"
+            [readonly]="_inputIconText.readonly"
+            class="form-control"
+            (input)="formOutput(_inputIconText)"
+          />
+          <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+        </div>
+      </div>
+      <div
+        *ngIf="getTouched(_inputIconText.name)"
+        class="alert text-start alert-text-danger m-0 p-0"
+      >
+        <div *ngIf="getError(_inputIconText)">
+          <div *ngFor="let error of errors">
+            {{ error }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

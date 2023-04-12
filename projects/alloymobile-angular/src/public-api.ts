@@ -40,6 +40,8 @@ export * from './lib/cell/input/input-icon-text-label/input-icon-text-label.comp
 export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.component';
 export * from './lib/cell/input/input-file/input-file.component';
 export * from './lib/cell/input/input-texts/input-texts.component';
+export * from './lib/cell/input/input-floating-texts/input-floating-texts.component';
+export * from './lib/cell/input/input-icon-texts/input-icon-texts.component';
 export * from './lib/cell/card/card-dashboard/card-dashboard.component';
 export * from './lib/cell/card/card-gallery/card-gallery.component';
 

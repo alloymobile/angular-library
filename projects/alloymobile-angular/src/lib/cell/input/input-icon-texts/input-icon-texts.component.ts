@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { AlloyInputText, matchValidator } from '../input.model';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AlloyInputTextIcon, matchValidator } from '../input.model';
 
 @Component({
-  selector: 'alloy-input-texts',
-  templateUrl: './input-texts.component.html',
-  styleUrls: ['./input-texts.component.css']
+  selector: 'alloy-input-icon-texts',
+  templateUrl: './input-icon-texts.component.html',
+  styleUrls: ['./input-icon-texts.component.css']
 })
-export class InputTextsComponent {
-  _inputTexts: AlloyInputText[];
-  @Input() set inputTexts(inputTexts: AlloyInputText[]) {
-  	this._inputTexts = inputTexts;
-    this.inputForm = this.createData(this._inputTexts);
+export class InputIconTextsComponent {
+  _inputIconTexts: AlloyInputTextIcon[];
+  @Input() set inputIconTexts(inputIconTexts: AlloyInputTextIcon[]) {
+  	this._inputIconTexts = inputIconTexts;
+    this.inputForm = this.createData(this._inputIconTexts);
   }
   //reactive form for data input
   inputForm: FormGroup;
@@ -21,7 +21,7 @@ export class InputTextsComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputTexts = [];
+    this._inputIconTexts = [];
     this.inputForm = new FormGroup({});
     this.errors = [];
     this.match = false;
@@ -33,7 +33,7 @@ export class InputTextsComponent {
   }
 
   //Used to create the form group
-  createData(columns: AlloyInputText[]) {
+  createData(columns: AlloyInputTextIcon[]) {
     this.inputForm = new FormGroup({});
     let group = {};
     columns.forEach(record=>{
@@ -58,12 +58,12 @@ export class InputTextsComponent {
     this.output.emit(this.inputForm.value);
   }
 
-  getError(inputField: AlloyInputText){
+  getError(inputField: AlloyInputTextIcon){
     this.getErrorMessage(inputField)
     return this.inputForm.get(inputField.name).errors;
   }
 
-  getErrorMessage(inputField: AlloyInputText){
+  getErrorMessage(inputField: AlloyInputTextIcon){
     this.errors = [];
     if(this.inputForm.get(inputField.name).errors != undefined){
       Object.entries(this.inputForm.get(inputField.name).errors).forEach((row: any) => {
@@ -80,4 +80,5 @@ export class InputTextsComponent {
   getTouched(name){
     return this.inputForm.get(name).touched;
   }
+
 }
