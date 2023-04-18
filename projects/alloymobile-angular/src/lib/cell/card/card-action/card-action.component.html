@@ -1,0 +1,37 @@
+<div [id]="_cardAction.id" [class]="_cardAction.className">
+  <div
+    *ngIf="_cardAction.header.className != ''"
+    [id]="_cardAction.header.id"
+    [class]="_cardAction.header.className"
+    [attr.aria-label]="_cardAction.header.name"
+  >
+    {{ _cardAction.header.name }}
+  </div>
+  <div
+    [id]="_cardAction.body.id"
+    [class]="_cardAction.body.className"
+    [attr.aria-label]="_cardAction.body.name"
+  >
+    <div
+      [id]="field.id"
+      [class]="field.className"
+      *ngFor="let field of _cardAction.fields"
+      [routerLink]="[_cardAction.link + '/' + _cardAction.id]"
+    >
+      {{ field.name }}
+    </div>
+  </div>
+  <div
+    [id]="_cardAction.footer.id"
+    [class]="_cardAction.footer.className"
+    role="group"
+    [attr.aria-label]="_cardAction.footer.name"
+  >
+    <alloy-icon-button
+      [iconButton]="i"
+      *ngFor="let i of _cardAction.actions"
+      (output)="getAction($event)"
+    >
+    </alloy-icon-button>
+  </div>
+</div>

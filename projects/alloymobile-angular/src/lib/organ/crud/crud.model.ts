@@ -1,23 +1,46 @@
+import { AlloyCardIconAction } from "../../cell/card/card.model";
 import { Table,TableAction } from "../../tissue/table/table.model";
 import { AlloyModal, AlloyModalFile, AlloyModalToast} from "../modal/modal.model";
 
- 
- export class AlloyCrud{
+export class Crud{
     id: string;
     className: string;
     modal: AlloyModal;
-    table: TableAction
     constructor(res?: any){
         if(res){
             this.id = res.id ? res.id : "";
             this.className = res.className ? res.className : "";
             this.modal = res.modal ? new AlloyModal(res.modal) : new AlloyModal();
-            this.table = res.table ? new TableAction(res.table) : new TableAction();
         }else{
             this.id =  "";
             this.className = "";
             this.modal =  new AlloyModal();
+        }
+    }
+}
+
+ export class AlloyCrudTable extends Crud{
+    table: TableAction
+    constructor(res?: any){
+        if(res){
+            super(res);
+            this.table = res.table ? new TableAction(res.table) : new TableAction();
+        }else{
+            super();
             this.table =  new TableAction();
+        }
+    }
+}
+
+export class AlloyCrudCard extends Crud{
+    cards: AlloyCardIconAction[]
+    constructor(res?: any){
+        if(res){
+            super(res);
+            this.cards = res.cards ? res.cards.map(f=>new AlloyCardIconAction(f)) : [];
+        }else{
+            super();
+            this.cards =  [];
         }
     }
 }

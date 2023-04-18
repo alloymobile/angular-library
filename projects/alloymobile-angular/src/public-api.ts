@@ -23,6 +23,7 @@ export * from './lib/tissue/clientbar/clientbar.model';
 export * from './lib/organ/reset/reset.model';
 export * from './lib/organ/form/form.model';
 export * from './lib/tissue/footer/footer-model';
+export * from './lib/organ/profile/profile.model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';
@@ -42,8 +43,12 @@ export * from './lib/cell/input/input-file/input-file.component';
 export * from './lib/cell/input/input-texts/input-texts.component';
 export * from './lib/cell/input/input-floating-texts/input-floating-texts.component';
 export * from './lib/cell/input/input-icon-texts/input-icon-texts.component';
-export * from './lib/cell/card/card-dashboard/card-dashboard.component';
-export * from './lib/cell/card/card-gallery/card-gallery.component';
+export * from './lib/cell/card/card/card.component';
+export * from './lib/cell/card/card-action/card-action.component';
+export * from './lib/cell/card/card-icon/card-icon.component';
+export * from './lib/cell/card/card-icon-action/card-icon-action.component';
+export * from './lib/cell/card/card-image/card-image.component';
+export * from './lib/cell/card/card-image-action/card-image-action.component';
 
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/navbar-icon/navbar-icon.component';
@@ -63,12 +68,14 @@ export * from './lib/organ/register/register/register.component';
 export * from './lib/organ/forget/forget/forget.component';
 export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-toast/modal-toast.component';
-export * from './lib/organ/crud/crud/crud.component';
+export * from './lib/organ/crud/crud-table/crud-table.component';
+export * from './lib/organ/crud/crud-card/crud-card.component';
 export * from './lib/organ/crud/crud-file/crud-file.component';
 export * from './lib/organ/crud/crud-file-action/crud-file-action.component';
 export * from './lib/organ/code/code/code.component';
 export * from './lib/organ/reset/reset/reset.component';
 export * from './lib/organ/form/form/form.component';
+export * from './lib/organ/profile/profile/profile.component';
 
 
 

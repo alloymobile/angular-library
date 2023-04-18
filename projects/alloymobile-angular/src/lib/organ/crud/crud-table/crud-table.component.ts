@@ -1,19 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { AlloyIcon } from '../../../cell/icon/icon.model';
 import { AlloyInputTextIcon } from '../../../cell/input/input.model';
-import { AlloyCrud } from '../crud.model';
+import { AlloyIcon } from '../../../cell/icon/icon.model';
+import { AbstractControl } from '@angular/forms';
+import { AlloyCrudTable } from '../crud.model';
 declare var window: any;
+
 @Component({
-  selector: 'alloy-crud',
-  templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.css']
+  selector: 'alloy-crud-table',
+  templateUrl: './crud-table.component.html',
+  styleUrls: ['./crud-table.component.css']
 })
-export class CrudComponent {
-  _crud: AlloyCrud;
-  @Input() set crud(crud: AlloyCrud){
-    this._crud = crud;
-    this.createRow = [...this._crud.modal.fields]
+export class CrudTableComponent {
+
+  _crudTable: AlloyCrudTable;
+  @Input() set crudTable(crudTable: AlloyCrudTable){
+    this._crudTable = crudTable;
+    this.createRow = [...this._crudTable.modal.fields]
   }
   modalForm: any;
   createRow: AlloyInputTextIcon[];
@@ -23,26 +25,26 @@ export class CrudComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() {
-    this._crud = new AlloyCrud();
+    this._crudTable = new AlloyCrudTable();
     this.search = new AlloyInputTextIcon({id:"1",name:"search",className:"input-group border border-dark rounded-pill",type:"search",placeholder:"john@example.com",readonly:false,label:"Search..",icon:{id:1,icon:"faSearch",size:"lg",spin:false,className:""}});
     this.addIcon = new AlloyIcon({id:1,icon:"faPlus",size:"lg",spin:false,className:""});
     this.createRow = [];
   }
 
   onClicked(data: any){
-    this._crud.modal.action = data.action;
-    this._crud.modal.submit.name = data.action;
+    this._crudTable.modal.action = data.action;
+    this._crudTable.modal.submit.name = data.action;
     if(data.action == "Add"){
-      this._crud.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
+      this._crudTable.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
     }else if(data.action == "Edit" || data.action == "Delete"){
       if(data.row){
         this.selectedRow = data.row;
-        this._crud.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
+        this._crudTable.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
       }
     }
-    this._crud.modal.data = {};
+    this._crudTable.modal.data = {};
     this.modalForm = new window.bootstrap.Modal(
-      document.getElementById(this._crud.modal.id)
+      document.getElementById(this._crudTable.modal.id)
     );
     this.modalForm.show();
   }
@@ -50,7 +52,7 @@ export class CrudComponent {
   getDataType(row){
     let fields = [];
     Object.entries(row).forEach(column=>{
-      let metadata = this._crud.modal.fields.find(f=>f.name === column[0])
+      let metadata = this._crudTable.modal.fields.find(f=>f.name === column[0])
       if(metadata != undefined){
         metadata.text = column[1].toString();
         fields.push(metadata);

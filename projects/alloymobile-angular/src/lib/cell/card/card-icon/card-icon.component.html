@@ -1,0 +1,37 @@
+<div [id]="_cardIcon.id" [class]="_cardIcon.className">
+  <div
+    *ngIf="_cardIcon.header.className != ''"
+    [id]="_cardIcon.header.id"
+    [class]="_cardIcon.header.className"
+    [attr.aria-label]="_cardIcon.header.name"
+  >
+    {{ _cardIcon.header.name }}
+  </div>
+  <div
+    [id]="_cardIcon.body.id"
+    [class]="_cardIcon.body.className"
+    [attr.aria-label]="_cardIcon.body.name"
+  >
+    <div [class]="_cardIcon.iconClass">
+      <alloy-icon [icon]="_cardIcon"></alloy-icon>
+    </div>
+    <div class="row">
+        <div
+        [id]="field.id"
+        [class]="field.className"
+        *ngFor="let field of _cardIcon.fields"
+        [routerLink]="[_cardIcon.link + '/' + _cardIcon.id]"
+      >
+        {{ field.name }}
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="_cardIcon.footer.className != ''"
+    [id]="_cardIcon.footer.id"
+    [class]="_cardIcon.footer.className"
+    [attr.aria-label]="_cardIcon.footer.name"
+  >
+    {{ _cardIcon.footer.name }}
+  </div>
+</div>

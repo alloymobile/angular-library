@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { AlloyIcon } from '../../../cell/icon/icon.model';
 import { TableAction } from '../table.model';
 
 @Component({

@@ -1038,6 +1038,7 @@ export class AlloyIcon {
 
   static getIcon(icon: string): IconDefinition {
     switch (icon) {
+      case 'faSignature' :  return  faSignature;
       case 'faLocationPin' :  return  faLocationPin;
       case 'faLocationPinLock' :  return  faLocationPinLock;
       case 'faLocationDot' :  return  faLocationDot;
