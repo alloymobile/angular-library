@@ -3,13 +3,16 @@ import { AlloyLinkIcon, AlloyLink } from "../../cell/link/link.model";
 export class SideBar {
     id: string;
     className: string;
+    close: string;
     constructor(response?: any) {
       if (response) {
-        this.id = response.id ? response.id : "";
-        this.className = response.className ? response.className : '';
+        this.id = response.id ? response.id : "sidebar";
+        this.className = response.className ? response.className : 'list-group h-100';
+        this.close = response.close ? response.close : '';
       } else {
-        this.id = "";
-        this.className = '';
+        this.id = "sidebar";
+        this.className = 'list-group h-100';
+        this.close = '';
       }
     }
 }

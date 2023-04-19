@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlloyNavBarLinkIcon } from '../navbar.model';
 import { Router } from "@angular/router";
-import { AlloyLink } from '../../../cell/link/link.model';
 @Component({
   selector: 'alloy-navbar-link-icon',
   templateUrl: './navbar-link-icon.component.html',

@@ -1,10 +1,27 @@
 <header [id]="_clientBar.id" [class]="_clientBar.className">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid justify-content-between">
+      <div class="mx-2 d-flex">
+        <!-- Responsive navbar toggler -->
+        <button 
+        class="navbar-toggler ms-auto bar" 
+        type="button" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasExample" 
+        aria-controls="offcanvasExample" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-animation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+      </button>
       <alloy-button-icon
-        [buttonIcon]="_clientBar.backButton"
-        (output)="output.emit($event)"
-      ></alloy-button-icon>
+      [buttonIcon]="_clientBar.backButton"
+      (output)="output.emit($event)"
+    ></alloy-button-icon>
+      </div>
       <ng-container *ngIf="_clientBar.client.name != ''; then loggedIn">
       </ng-container>
         <ng-template #loggedIn>

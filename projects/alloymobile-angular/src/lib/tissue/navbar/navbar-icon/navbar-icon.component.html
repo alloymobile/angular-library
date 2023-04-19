@@ -23,7 +23,7 @@
           <!-- Nav Search END -->
           <ul class="navbar-nav navbar-nav-scroll">
             <!-- Nav item 4 link-->
-            <li *ngFor="let i of _navBarIcon.linkIcon" class="nav-item">
+            <li *ngFor="let i of _navBarIcon.linkIcon" class="nav-item"  data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
               <alloy-link-icon [linkIcon]="i"></alloy-link-icon>
             </li>
           </ul>
