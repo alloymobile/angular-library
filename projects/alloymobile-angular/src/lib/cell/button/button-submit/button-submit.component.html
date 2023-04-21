@@ -1,6 +1,6 @@
 <button
   [id]="_buttonSubmit.id"
-  [class]="_buttonSubmit.className"
+  [class]="_buttonSubmit.className+' '+ _buttonSubmit.active"
   [type]="_buttonSubmit.type"
   (click)="output.emit(_buttonSubmit)"
   [disabled]="_buttonSubmit.disable"

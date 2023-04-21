@@ -6,17 +6,20 @@ export class AlloyLink{
   name: string;
   className: string;
   link: string;
+  active: string;
   constructor(res?: any){
     if(res){
       this.id = res.id ? res.id : "link1";
       this.name = res.name ? res.name : "AlloyMobile";
       this.className = res.className ? res.className : "nav-link";
+      this.active = res.active ? res.active : "";
       this.link = res.link ? res.link : "";
     }else{
       this.id = "link1";
       this.name = "AlloyMobile";
       this.className =  "nav-link";
       this.link = "";
+      this.active = "";
     }
   }
 }

@@ -1,6 +1,6 @@
 <button
   [id]="_button.id"
-  [class]="_button.className"
+  [class]="_button.className+' '+ _button.active"
   [type]="_button.type"
   (click)="output.emit(_button)"
 >

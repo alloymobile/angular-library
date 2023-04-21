@@ -1008,6 +1008,11 @@ import {
   faLocationDot,
   faMapLocation,
   faMapLocationDot,
+  faHouse,
+  faHouseChimney,
+  faHouseUser,
+  faHouseLock,
+  faHouseLaptop,
 } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon {
@@ -1038,6 +1043,11 @@ export class AlloyIcon {
 
   static getIcon(icon: string): IconDefinition {
     switch (icon) {
+      case 'faHouse' :  return  faHouse;
+      case 'faHouseChimney' :  return  faHouseChimney;
+      case 'faHouseUser' :  return  faHouseUser;
+      case 'faHouseLock' :  return  faHouseLock;
+      case 'faHouseLaptop' :  return  faHouseLaptop;
       case 'faSignature' :  return  faSignature;
       case 'faLocationPin' :  return  faLocationPin;
       case 'faLocationPinLock' :  return  faLocationPinLock;
