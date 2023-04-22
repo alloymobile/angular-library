@@ -16,7 +16,7 @@
       [id]="field.id"
       [class]="field.className"
       *ngFor="let field of _card.fields"
-      [routerLink]="[_card.link + '/' + _card.id]"
+      [routerLink]="[_card.link]"
     >
       {{ field.name }}
     </div>

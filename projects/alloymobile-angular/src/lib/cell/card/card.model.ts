@@ -84,15 +84,18 @@ export class AlloyCardAction extends AlloyCard{
 export class AlloyCardIcon extends AlloyCard {
   icon: AlloyIcon;
   iconClass: string;
+  textClass: string;
   constructor(response?: any) {
     if (response) {
         super(response)  
         this.icon = response.icon ? new AlloyIcon(response.icon) : new AlloyIcon();
-        this.iconClass = response.iconClass ? response.iconClass : 'icon-lg rounded-circle bg-warning text-white mb-0';
+        this.iconClass = response.iconClass ? response.iconClass : 'col-4 icon-lg rounded-circle bg-warning text-white mb-0';
+        this.textClass = response.textClass ? response.textClass : 'col-8';
     } else {
         super()  
         this.iconClass = 'icon-lg rounded-circle bg-warning text-white mb-0';
         this.icon = new AlloyIcon();
+        this.textClass = 'col-8';
     }
   }
 }
@@ -113,15 +116,18 @@ export class AlloyCardIconAction extends AlloyCardIcon{
 export class AlloyCardImage extends AlloyCard {
   image: AlloyLogo;
   imageClass: string;
+  textClass: string;
   constructor(response?: any) {
     if (response) {
         super(response)  
         this.image = response.image ? new AlloyLogo(response.image) :  new AlloyLogo();
         this.imageClass = response.imageClass ? response.imageClass : "card-img-top rounded p-2";
+        this.textClass = response.textClass ? response.textClass : 'col-8';
     } else {
         super()  
         this.image = new AlloyLogo();
         this.imageClass = 'card-img-top rounded p-2';
+        this.textClass = 'col-8';
     }
   }
 }

@@ -20,14 +20,16 @@
         [attr.height]="_cardImageAction.image.height"
       />
     </div>
-    <div class="row">
-      <div
-        [id]="field.id"
-        [class]="field.className"
-        *ngFor="let field of _cardImageAction.fields"
-        [routerLink]="[_cardImageAction.link + '/' + _cardImageAction.id]"
-      >
-        {{ field.name }}
+    <div [class]="_cardImageAction.textClass">
+      <div class="row p-1">
+        <div
+          [id]="field.id"
+          [class]="field.className"
+          *ngFor="let field of _cardImageAction.fields"
+          [routerLink]="[_cardImageAction.link]"
+        >
+          {{ field.name }}
+        </div>
       </div>
     </div>
   </div>

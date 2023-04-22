@@ -15,14 +15,16 @@
     <div [class]="_cardIconAction.iconClass">
       <alloy-icon [icon]="_cardIconAction.icon"></alloy-icon>
     </div>
-    <div class="row">
-        <div
-        [id]="field.id"
-        [class]="field.className"
-        *ngFor="let field of _cardIconAction.fields"
-        [routerLink]="[_cardIconAction.link + '/' + _cardIconAction.id]"
-      >
-        {{ field.name }}
+    <div [class]="_cardIconAction.textClass">
+      <div class="row p-1">
+          <div
+          [id]="field.id"
+          [class]="field.className"
+          *ngFor="let field of _cardIconAction.fields"
+          [routerLink]="[_cardIconAction.link]"
+        >
+          {{ field.name }}
+        </div>
       </div>
     </div>
   </div>

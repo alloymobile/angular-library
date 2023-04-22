@@ -44,3 +44,50 @@ export class AlloyIconSideBar extends SideBar  {
     }
   }
 }
+
+
+export class Tab{
+  id: string;
+  className: string;
+  selected: string;
+  constructor(response?: any){
+    if(response){
+      this.id = response.id ? response.id : "alloyTab";
+      this.className = response.className ? response.className : "nav nav-pills nav-fill";
+      this.selected = response.selected ? response.selected : "";
+    }else{
+      this.id = "alloyTab";
+      this.className = 'nav nav-pills nav-fill';
+      this.selected = "";
+    }
+  }
+}
+
+export class AlloyTabButton extends Tab {
+  tabs: AlloyButtonIcon[];
+  constructor(response?: any){
+    if(response){
+      super(response);
+      this.tabs = response.tabs ? response.tabs.map(n => new AlloyButtonIcon(n)) : [];
+    }else{
+      super();
+      this.tabs = [];
+    }
+  }
+}
+
+export class AlloyTabLink extends Tab {
+  tabs: AlloyLinkIcon[];
+  constructor(response?: any){
+    if(response){
+      super(response)
+      this.tabs = response.tabs ? response.tabs.map(n => new AlloyLinkIcon(n)) : [];
+      if(this.tabs.length > 0){
+        this.tabs[0].active = this.selected;
+      }
+    }else{
+      super();
+      this.tabs = [];
+    }
+  }
+}

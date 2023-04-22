@@ -13,17 +13,19 @@
     [attr.aria-label]="_cardIcon.body.name"
   >
     <div [class]="_cardIcon.iconClass">
-      <alloy-icon [icon]="_cardIcon"></alloy-icon>
+      <alloy-icon [icon]="_cardIcon.icon"></alloy-icon>
     </div>
-    <div class="row">
+    <div [class]="_cardIcon.textClass">
+      <div class="row p-1">
         <div
         [id]="field.id"
         [class]="field.className"
         *ngFor="let field of _cardIcon.fields"
-        [routerLink]="[_cardIcon.link + '/' + _cardIcon.id]"
+        [routerLink]="[_cardIcon.link]"
       >
         {{ field.name }}
       </div>
+    </div>
     </div>
   </div>
   <div
