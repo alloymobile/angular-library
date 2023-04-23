@@ -19,8 +19,8 @@ import { ButtonIconComponent } from './cell/button/button-icon/button-icon.compo
 import { LinkIconComponent } from './cell/link/link-icon/link-icon.component';
 import { InputTextComponent } from './cell/input/input-text/input-text.component';
 
-import { SidebarComponent } from './tissue/sidebar/sidebar/sidebar.component';
-import { IconSidebarComponent } from './tissue/sidebar/icon-sidebar/icon-sidebar.component';
+import { SidebarComponent } from './tissue/nav/sidebar/sidebar.component';
+import { IconSidebarComponent } from './tissue/nav/icon-sidebar/icon-sidebar.component';
 import { NavbarComponent } from './tissue/navbar/navbar/navbar.component';
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
@@ -57,6 +57,9 @@ import { ForgetComponent } from './organ/forget/forget/forget.component';
 import { CrudTableComponent } from './organ/crud/crud-table/crud-table.component';
 import { CrudCardComponent } from './organ/crud/crud-card/crud-card.component';
 import { ProfileComponent } from './organ/profile/profile/profile.component';
+import { TabLinkComponent } from './tissue/nav/tab-link/tab-link.component';
+import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
+
 
 @NgModule({
   declarations: [
@@ -109,7 +112,9 @@ import { ProfileComponent } from './organ/profile/profile/profile.component';
     CardIconComponent,
     CrudTableComponent,
     CrudCardComponent,
-    ProfileComponent
+    ProfileComponent,
+    TabLinkComponent,
+    TabButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -167,7 +172,9 @@ import { ProfileComponent } from './organ/profile/profile/profile.component';
     CardIconComponent,
     CrudTableComponent,
     CrudCardComponent,
-    ProfileComponent
+    ProfileComponent,
+    TabLinkComponent,
+    TabButtonComponent
   ]
 })
 export class AlloymobileAngularModule { }

@@ -1,13 +1,5 @@
 <div [id]="_cardImageAction.id" [class]="_cardImageAction.className">
   <div
-    *ngIf="_cardImageAction.header.className != ''"
-    [id]="_cardImageAction.header.id"
-    [class]="_cardImageAction.header.className"
-    [attr.aria-label]="_cardImageAction.header.name"
-  >
-    {{ _cardImageAction.header.name }}
-  </div>
-  <div
     [id]="_cardImageAction.body.id"
     [class]="_cardImageAction.body.className"
     [attr.aria-label]="_cardImageAction.body.name"
@@ -26,7 +18,6 @@
           [id]="field.id"
           [class]="field.className"
           *ngFor="let field of _cardImageAction.fields"
-          [routerLink]="[_cardImageAction.link]"
         >
           {{ field.name }}
         </div>
@@ -37,13 +28,31 @@
     [id]="_cardImageAction.footer.id"
     [class]="_cardImageAction.footer.className"
     role="group"
-    [attr.aria-label]="_cardImageAction.footer.name"
+    [ngSwitch]="_cardImageAction.footer.name"
   >
-    <alloy-icon-button
+    <div *ngSwitchCase="'AlloyIconButton'">
+      <alloy-icon-button
       [iconButton]="i"
-      *ngFor="let i of _cardImageAction.actions"
+      *ngFor="let i of _cardAction.actions"
       (output)="getAction($event)"
-    >
-    </alloy-icon-button>
+      >
+      </alloy-icon-button>
+    </div>
+    <div *ngSwitchCase="'AlloyButton'">
+      <alloy-button
+      [button]="i"
+      *ngFor="let i of _cardAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button>
+    </div>
+    <div *ngSwitchCase="'AlloyButtonIcon'">
+      <alloy-button-icon
+      [buttonIcon]="i"
+      *ngFor="let i of _cardAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button-icon>
+    </div>
   </div>
 </div>

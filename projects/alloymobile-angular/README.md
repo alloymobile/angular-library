@@ -1,5 +1,7 @@
 # AlloymobileAngular
-
+Very simple, easy to use, drag and drop angular components using Bootstrap 5 and Fontawasome. 
+More than 1000 fontawasome free icons included using string names.
+visit https://angular.alloymobile.com for how to use the library
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
 
 ## Code scaffolding

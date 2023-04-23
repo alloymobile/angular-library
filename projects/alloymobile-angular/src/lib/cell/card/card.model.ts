@@ -1,5 +1,5 @@
 import { AlloyIcon, AlloyIconButton } from "../icon/icon.model";
-
+import { AlloyButton, AlloyButtonIcon } from "../button/button.model";
 
 export class CardItem {
   id: string;
@@ -38,43 +38,50 @@ export class AlloyLogo{
   }
 }
 
-export class AlloyCard {
-    id: string;
-    className: string;
+export class Card{
+  id: string;
+  className: string;
+  fields: CardItem[];
+  constructor(response?: any) {
+    if (response) {
+      this.id = response.id ? response.id : 'card';
+      this.className = response.className ? response.className : 'card border m-2 shadow';
+      this.fields = response.fields ? response.fields.map(field=>new CardItem(field)) : [];
+    } else {
+      this.id = 'card';
+      this.className = 'card border m-2 shadow';
+      this.fields = [];
+    }
+  }
+}
+
+export class AlloyCard extends Card{
     link: string;
-    fields: CardItem[];
-    body: CardItem;
-    header: CardItem;
-    footer: CardItem;
     constructor(response?: any) {
       if (response) {
-        this.id = response.id ? response.id : 'card';
-        this.className = response.className ? response.className : 'card border m-2 shadow';
+        super(response);
         this.link = response.link ? response.link : '';
-        this.fields = response.fields ? response.fields.map(field=>new CardItem(field)) : [];
-        this.body = response.body ? new CardItem(response.body) : new CardItem();
-        this.header = response.header ? new CardItem(response.header) : new CardItem();
-        this.footer = response.footer ? new CardItem(response.footer) : new CardItem();
       } else {
-        this.id = 'card';
-        this.className = 'card border m-2 shadow';
+        super();
         this.link = '';
-        this.fields = [];
-        this.body = new CardItem();
-        this.header = new CardItem();
-        this.footer = new CardItem();
       }
     }
 }
 
-export class AlloyCardAction extends AlloyCard{
-  actions: AlloyIconButton[];
+export class AlloyCardAction extends Card{
+  body: CardItem;
+  footer: CardItem;
+  actions: Action[];
   constructor(res?){
    if(res){
      super(res);
+     this.body = res.body ? new CardItem(res.body) : new CardItem();
+     this.footer = res.footer ? new CardItem(res.footer) : new CardItem();
      this.actions = res.actions ? res.actions.map(i=> new AlloyIconButton(i)) : [];
    }else{
      super();
+     this.body = new CardItem();
+     this.footer = new CardItem();
      this.actions = [];
    }
   }
@@ -100,15 +107,21 @@ export class AlloyCardIcon extends AlloyCard {
   }
 }
 
-export class AlloyCardIconAction extends AlloyCardIcon{
-  actions: AlloyIconButton[];
+export class AlloyCardIconAction extends AlloyCardAction{
+  icon: AlloyIcon;
+  iconClass: string;
+  textClass: string;
   constructor(res?){
    if(res){
      super(res);
-     this.actions = res.actions ? res.actions.map(i=> new AlloyIconButton(i)) : [];
+     this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+     this.iconClass = res.iconClass ? res.iconClass : 'col-4 icon-lg rounded-circle bg-warning text-white mb-0';
+     this.textClass = res.textClass ? res.textClass : 'col-8';
    }else{
      super();
-     this.actions = [];
+     this.iconClass = 'icon-lg rounded-circle bg-warning text-white mb-0';
+     this.icon = new AlloyIcon();
+     this.textClass = 'col-8';
    }
   }
 }
@@ -132,16 +145,40 @@ export class AlloyCardImage extends AlloyCard {
   }
 }
 
-export class AlloyCardImageAction extends AlloyCardImage{
-  actions: AlloyIconButton[];
-  constructor(res?){
-   if(res){
-     super(res);
-     this.actions = res.actions ? res.actions.map(i=> new AlloyIconButton(i)) : [];
-   }else{
-     super();
-     this.actions = [];
-   }
+export class AlloyCardImageAction extends AlloyCardAction{
+  image: AlloyLogo;
+  imageClass: string;
+  textClass: string;
+  constructor(response?: any) {
+    if (response) {
+        super(response)  
+        this.image = response.image ? new AlloyLogo(response.image) :  new AlloyLogo();
+        this.imageClass = response.imageClass ? response.imageClass : "card-img-top rounded p-2";
+        this.textClass = response.textClass ? response.textClass : 'col-8';
+    } else {
+        super()  
+        this.image = new AlloyLogo();
+        this.imageClass = 'card-img-top rounded p-2';
+        this.textClass = 'col-8';
+    }
   }
 }
 
+export const ActionName: any = {
+  AlloyIconButton,
+  AlloyButton,
+  AlloyButtonIcon,
+};
+
+export class Action {
+  constructor(className: string, opts?: any) {
+    if (ActionName[className] === undefined || ActionName[className] === null) {
+      throw new Error(`Class type of \'${className}\' is not a table`);
+    }
+    if (opts) {
+      return new ActionName[className](opts);
+    } else {
+      return new ActionName[className]();
+    }
+  }
+}

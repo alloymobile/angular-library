@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { AlloyIconSideBar } from '../sidebar.model';
+import { AlloyIconSideBar } from '../nav.model';
+
 
 @Component({
   selector: 'alloy-icon-sidebar',
