@@ -5,93 +5,119 @@
 >
   <div class="row">
     <div [class]="_inputIconText.className" *ngFor="let _inputIconText of _inputIconTexts">
-      <div class="input-group py-2">
-        <span class="input-group-text">
-          <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
-        </span>
         <div [ngSwitch]="_inputIconText.type">
           <div *ngSwitchCase="'text'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (input)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'email'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (input)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'password'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (input)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'file'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (change)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (change)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'number'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (input)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'date'">
-            <div class="form-floating">
-              <input
-                [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
-                [formControlName]="_inputIconText.name"
-                [placeholder]="_inputIconText.placeholder"
-                [readonly]="_inputIconText.readonly"
-                class="form-control"
-                (input)="formOutput(_inputIconText)"
-              />
-              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconText.id"
+                  [type]="_inputIconText.type"
+                  [formControlName]="_inputIconText.name"
+                  [placeholder]="_inputIconText.placeholder"
+                  [readonly]="_inputIconText.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+              </div>
             </div>
           </div>
           <div *ngSwitchCase="'textarea'">
@@ -105,7 +131,7 @@
                 class="form-control"
                 style="min-width: 100%"
                 [ngStyle]="{'height': _inputIconText.height}"
-                (input)="formOutput(_inputIconText)"
+                (input)="formOutput()"
               ></textarea>
               <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
             </div>
@@ -118,7 +144,7 @@
                 [placeholder]="_inputIconText.placeholder"
                 aria-label="Floating label select"
                 class="form-select"
-                (change)="formOutput(_inputIconText)"
+                (change)="formOutput()"
               >
                 <option selected></option>
                 <option *ngFor="let option of _inputIconText.options"  [value]="option">
@@ -128,8 +154,34 @@
               <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
             </div>
           </div>
+          <div *ngSwitchCase="'checkbox'">
+            <div class="form-check">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                class="form-check-input"
+                [value]="!_inputIconText.text"
+                (change)="formOutput()"
+              />
+              <label [for]="_inputIconText.id" class="form-check-label">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'radio'">
+            <div class="form-check">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [name]=""
+                class="form-check-input"
+                [value]="!_inputIconText.text"
+                (change)="formOutput()"
+              />
+              <label [for]="_inputIconText.id" class="form-check-label">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
         </div>
-      </div>
       <div
         *ngIf="getTouched(_inputIconText.name)"
         class="alert text-start alert-text-danger m-0 p-0"
