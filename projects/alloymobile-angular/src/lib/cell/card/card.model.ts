@@ -1,6 +1,7 @@
 import { AlloyIcon, AlloyIconButton } from "../icon/icon.model";
 import { AlloyButton, AlloyButtonIcon } from "../button/button.model";
 
+
 export class CardItem {
   id: string;
   name: string;
@@ -41,15 +42,18 @@ export class AlloyLogo{
 export class Card{
   id: string;
   className: string;
+  body: CardItem;
   fields: CardItem[];
   constructor(response?: any) {
     if (response) {
       this.id = response.id ? response.id : 'card';
       this.className = response.className ? response.className : 'card border m-2 shadow';
+      this.body = response.body ? new CardItem(response.body) : new CardItem();
       this.fields = response.fields ? response.fields.map(field=>new CardItem(field)) : [];
     } else {
       this.id = 'card';
       this.className = 'card border m-2 shadow';
+      this.body = new CardItem();
       this.fields = [];
     }
   }
@@ -69,18 +73,15 @@ export class AlloyCard extends Card{
 }
 
 export class AlloyCardAction extends Card{
-  body: CardItem;
   footer: CardItem;
   actions: Action[];
   constructor(res?){
    if(res){
      super(res);
-     this.body = res.body ? new CardItem(res.body) : new CardItem();
      this.footer = res.footer ? new CardItem(res.footer) : new CardItem();
-     this.actions = res.actions ? res.actions.map(i=> new AlloyIconButton(i)) : [];
+     this.actions = res.actions ? res.actions.map(i=> new Action(this.footer.name,i)) : [];
    }else{
      super();
-     this.body = new CardItem();
      this.footer = new CardItem();
      this.actions = [];
    }

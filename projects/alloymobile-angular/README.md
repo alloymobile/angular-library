@@ -3,6 +3,11 @@ Very simple, easy to use, drag and drop angular components using Bootstrap 5 and
 More than 1000 fontawasome free icons included using string names.
 visit https://angular.alloymobile.com for how to use the library
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+Please follow the usage licence of Bootstrap while using the library.
+https://getbootstrap.com/docs/4.0/about/license/
+Please follow usage licence for Fontawasom while using the library.
+https://fontawesome.com/v3/license/#:~:text=Font%20Awesome%20is%20fully%20open,just%20about%20whatever%20you%20want.
+
 
 ## Code scaffolding
 

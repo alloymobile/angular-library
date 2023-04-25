@@ -33,7 +33,7 @@
     <div *ngSwitchCase="'AlloyIconButton'">
       <alloy-icon-button
       [iconButton]="i"
-      *ngFor="let i of _cardAction.actions"
+      *ngFor="let i of _cardImageAction.actions"
       (output)="getAction($event)"
       >
       </alloy-icon-button>
@@ -41,7 +41,7 @@
     <div *ngSwitchCase="'AlloyButton'">
       <alloy-button
       [button]="i"
-      *ngFor="let i of _cardAction.actions"
+      *ngFor="let i of _cardImageAction.actions"
       (output)="getAction($event)"
       >
       </alloy-button>
@@ -49,7 +49,7 @@
     <div *ngSwitchCase="'AlloyButtonIcon'">
       <alloy-button-icon
       [buttonIcon]="i"
-      *ngFor="let i of _cardAction.actions"
+      *ngFor="let i of _cardImageAction.actions"
       (output)="getAction($event)"
       >
       </alloy-button-icon>

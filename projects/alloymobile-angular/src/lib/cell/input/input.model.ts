@@ -61,41 +61,41 @@ export function getValidator(validator: AlloyCustomValidation){
   }
 }
 
-  export function matchValidator(control: AbstractControl): ValidatorFn {
-    const password: string = control.get("password").value; // get password from our password form control
-    const confirmPassword: string = control.get("confirmPassword").value; // get password from our confirmPassword form control
-    
-    // if the confirmPassword value is null or empty, don't return an error.
-    if (!confirmPassword?.length) {
-      return null;
-    }
-    // compare the passwords and see if they match.
-    if (password !== confirmPassword) {
-      let errors = {};
-      if(control.get("confirmPassword").errors != undefined){
-        errors = control.get("confirmPassword").errors;
-      }
-      errors["mismatch"] = true;
-      control.get("confirmPassword").setErrors(errors);
-    } else {
-      // if passwords match, don't return an error.
-      return null;
-    }
+export function matchValidator(control: AbstractControl): ValidatorFn {
+  const password: string = control.get("password").value; // get password from our password form control
+  const confirmPassword: string = control.get("confirmPassword").value; // get password from our confirmPassword form control
+  
+  // if the confirmPassword value is null or empty, don't return an error.
+  if (!confirmPassword?.length) {
+    return null;
   }
+  // compare the passwords and see if they match.
+  if (password !== confirmPassword) {
+    let errors = {};
+    if(control.get("confirmPassword").errors != undefined){
+      errors = control.get("confirmPassword").errors;
+    }
+    errors["mismatch"] = true;
+    control.get("confirmPassword").setErrors(errors);
+  } else {
+    // if passwords match, don't return an error.
+    return null;
+  }
+}
 
-  export function passwordStrengthValidator(): ValidatorFn {
-    return (control:AbstractControl) : ValidationErrors | null => {
-        const value = control.value;
-        if (!value) {
-            return null;
-        }
-        const hasUpperCase = /[A-Z]+/.test(value);
-        const hasLowerCase = /[a-z]+/.test(value);
-        const hasNumeric = /[0-9]+/.test(value);
-        const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
-        return !passwordValid ? {custom:true}: null;
-    }
+export function passwordStrengthValidator(): ValidatorFn {
+  return (control:AbstractControl) : ValidationErrors | null => {
+      const value = control.value;
+      if (!value) {
+          return null;
+      }
+      const hasUpperCase = /[A-Z]+/.test(value);
+      const hasLowerCase = /[a-z]+/.test(value);
+      const hasNumeric = /[0-9]+/.test(value);
+      const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
+      return !passwordValid ? {custom:true}: null;
   }
+}
 
 export class AlloyValidation{
   name: string;
@@ -137,19 +137,24 @@ export class AlloyCustomValidation extends AlloyPatternValidation{
   }
 }
 
-
 export class AlloyInputText extends Input {
   text: string;
   label: string;
+  height: string;
+  options: String[];
   constructor(res?: any) {
     if (res) {
       super(res);
       this.text = res.text ? res.text : '';
       this.label = res.label ? res.label : 'Name';
+      this.height = res.height ? res.height : '100px';
+      this.options = res.options ? res.options : [];
     } else {
       super();
       this.text = '';
       this.label = 'Name';
+      this.height = '100px';
+      this.options = [];
     }
   }
 }
@@ -175,15 +180,18 @@ export class AlloyInputTextIcon extends AlloyInputText {
   }
 }
 
+export class AlloyInputCheck{
+
+}
+
+export class AlloyInputRadio{
+
+}
 
 export class AlloyInputFile{
 
 }
 
 export class AlloyInputSelect{
-
-}
-
-export class AlloyInputTextarea{
 
 }

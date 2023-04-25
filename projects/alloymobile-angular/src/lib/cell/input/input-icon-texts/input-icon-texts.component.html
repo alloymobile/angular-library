@@ -9,17 +9,125 @@
         <span class="input-group-text">
           <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
         </span>
-        <div class="form-floating">
-          <input
-            [id]="_inputIconText.id"
-            [type]="_inputIconText.type"
-            [formControlName]="_inputIconText.name"
-            [placeholder]="_inputIconText.placeholder"
-            [readonly]="_inputIconText.readonly"
-            class="form-control"
-            (input)="formOutput(_inputIconText)"
-          />
-          <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+        <div [ngSwitch]="_inputIconText.type">
+          <div *ngSwitchCase="'text'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (input)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'email'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (input)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'password'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (input)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'file'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (change)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'number'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (input)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'date'">
+            <div class="form-floating">
+              <input
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                (input)="formOutput(_inputIconText)"
+              />
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'textarea'">
+            <div class="form-floating">
+              <textarea
+                [id]="_inputIconText.id"
+                [type]="_inputIconText.type"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                [readonly]="_inputIconText.readonly"
+                class="form-control"
+                style="min-width: 100%"
+                [ngStyle]="{'height': _inputIconText.height}"
+                (input)="formOutput(_inputIconText)"
+              ></textarea>
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'select'">
+            <div class="form-floating">
+              <select
+                [id]="_inputIconText.id"
+                [formControlName]="_inputIconText.name"
+                [placeholder]="_inputIconText.placeholder"
+                aria-label="Floating label select"
+                class="form-select"
+                (change)="formOutput(_inputIconText)"
+              >
+                <option selected></option>
+                <option *ngFor="let option of _inputIconText.options"  [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+              <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
+            </div>
+          </div>
         </div>
       </div>
       <div

@@ -15,9 +15,9 @@
     },
     "fields":
     [
-        {"id":"1","name":"id","className":"col-12","type":"text","text":"","placeholder":"id","readonly":true,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-        {"id":"2","name":"name","className":"col-12","type":"text","text":"","placeholder":"Name","readonly":false,"label":"Name","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-        {"id":"3","name":"date","className":"col-12","type":"text","text":"","placeholder":"Date","readonly":false,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        {"id":"1","name":"id","className":"col-12","type":"file","text":"","placeholder":"id","readonly":false,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+        {"id":"select1","name":"name","className":"col-12","type":"select","text":"","placeholder":"his is a select","readonly":false,"label":"This is a select","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},"options":["Hello","Tapas"]},
+        {"id":"3","name":"date","className":"col-12","type":"date","text":"","placeholder":"Date","readonly":false,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
     ]
 }
 

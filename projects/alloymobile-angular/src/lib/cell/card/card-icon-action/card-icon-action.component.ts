@@ -10,6 +10,7 @@ export class CardIconActionComponent {
   _cardIconAction: AlloyCardIconAction;
   @Input() set cardIconAction(cardIconAction: AlloyCardIconAction){
     this._cardIconAction = cardIconAction;
+    console.log(this._cardIconAction);
   }
 
   @Output() output: EventEmitter<any>= new EventEmitter<any>();
