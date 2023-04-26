@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyIcon, AlloyIconSideBar } from 'alloymobile-angular';
+import { AlloyIcon, AlloyIconSideBar, AlloyTabButton } from 'alloymobile-angular';
 import CellDB from './cell-page.data.json';
 import { AlloyCardIconAction } from 'projects/alloymobile-angular/src/public-api';
 @Component({

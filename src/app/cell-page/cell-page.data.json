@@ -2,13 +2,14 @@
   "sidebar":{
     "id":1,
     "className":"list-group h-100",
+    "selected": "border border-dark",
     "linkIcon":
     [
-      {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","icon":{"id":1,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","icon":{"id":1,"icon":"faBorderAll","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"id":3,"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
+      {"id":1,"name":"Icon","className":"list-group-item list-group-item-action","link":"","active":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"id":2,"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","active":"","icon":{"id":1,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","active":"","icon":{"id":1,"icon":"faBorderAll","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link","className":"list-group-item list-group-item-action","link":"link","active":"","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
+      {"id":3,"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link","active":"","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Link Logo","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faInternetExplorer","size":"lg","spin":false,"className":""}},
       {"id":3,"name":"Link Dropdown","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faPlay","size":"lg","spin":false,"className":""}},
       {"id":4,"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},

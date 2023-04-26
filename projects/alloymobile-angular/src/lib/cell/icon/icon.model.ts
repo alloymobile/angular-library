@@ -1013,6 +1013,8 @@ import {
   faHouseUser,
   faHouseLock,
   faHouseLaptop,
+  faCircleDot,
+  faTableColumns,
 } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon {
@@ -1021,9 +1023,10 @@ export class AlloyIcon {
   size: SizeProp;
   spin: boolean;
   className: string;
+  static idGenerator: number = 0;
   constructor(res?: any) {
+    this.id = 'icon' + ++AlloyIcon.idGenerator;
     if (res) {
-      this.id = res.id ? res.id : 'icon1';
       this.icon = res.icon
         ? AlloyIcon.getIcon(res.icon)
         : AlloyIcon.getIcon('faMicrochip');
@@ -1033,7 +1036,6 @@ export class AlloyIcon {
       this.spin = res.spin ? res.spin : false;
       this.className = res.className ? res.className : '';
     } else {
-      this.id = 'icon1';
       this.icon = AlloyIcon.getIcon('faMicrochip');
       this.size = AlloyIcon.getSizeProp('lg');
       this.spin = false;
@@ -1043,6 +1045,8 @@ export class AlloyIcon {
 
   static getIcon(icon: string): IconDefinition {
     switch (icon) {
+      case 'faTableColumns' :  return  faTableColumns;
+      case 'faCircleDot' :  return  faCircleDot;
       case 'faHouse' :  return  faHouse;
       case 'faHouseChimney' :  return  faHouseChimney;
       case 'faHouseUser' :  return  faHouseUser;
@@ -2095,14 +2099,15 @@ export class AlloyIconLink {
   className: string;
   link: string;
   icon: AlloyIcon;
+  static idGenerator: number = 0;
   constructor(res?: any) {
+    this.id = 'iconLink' + ++AlloyIconLink.idGenerator;
     if (res) {
       this.id = res.id ? res.id : 'iconLink1';
       this.className = res.className ? res.className : 'btn btn-outline-primary';
       this.link = res.link ? res.link : 'https://alloymobile.com';
       this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
     } else {
-      this.id = 'iconLink1';
       this.className = 'btn btn-outline-primary';
       this.link = 'https://alloymobile.com';
       this.icon = new AlloyIcon();
@@ -2115,14 +2120,14 @@ export class AlloyIconButton {
   name: string;
   className: string;
   icon: AlloyIcon;
+  static idGenerator: number = 0;
   constructor(res?: any) {
+    this.id = 'iconButton' + ++AlloyIconButton.idGenerator;
     if (res) {
-      this.id = res.id ? res.id : 'iconButton1';
       this.className = res.className ? res.className : 'btn btn-outline-primary';
       this.name = res.name ? res.name : "AlloyMobile";
       this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
     } else {
-      this.id = 'iconButton1';
       this.name = "AlloyMobile";
       this.className = 'btn btn-outline-primary';
       this.icon = new AlloyIcon();

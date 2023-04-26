@@ -16,8 +16,14 @@
     "fields":
     [
         {"id":"1","name":"id","className":"col-12","type":"file","text":"","placeholder":"id","readonly":false,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-        {"id":"select1","name":"name","className":"col-12","type":"select","text":"","placeholder":"his is a select","readonly":false,"label":"This is a select","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""},"options":["Hello","Tapas"]},
-        {"id":"3","name":"date","className":"col-12","type":"radio","text":"","placeholder":"Date","readonly":true,"label":"Date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
+        {"id":"select1","name":"name","className":"col-12","type":"select","text":"","placeholder":"his is a select","readonly":false,"label":"This is a select","options":["Hello","Tapas"]},
+        {"id":"radio3","name":"date1","className":"col-12","type":"checkbox","text":"","placeholder":"Date","readonly":true,"label":"This is todays date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+        {"id":"radio4","name":"date2","className":"col-12","type":"checkbox","text":"","placeholder":"Date","readonly":true,"label":"Lovely","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
+        {"id":"profile5","name":"Image","className":"col-lg-12","height":"200px",
+        "errors":[
+            {"name":"required","message":"Image is required.","pattern":""}             
+            ],"type":"textarea","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*","icon":{"id":1,"icon":"faCamera","size":"lg","spin":false,"className":""}
+        }
     ]
 }
 

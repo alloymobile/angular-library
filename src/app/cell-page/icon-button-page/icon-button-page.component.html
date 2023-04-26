@@ -10,20 +10,21 @@
       </div>
       <div class="col-sm-6 text-center text-wrap">
         <h4>Usage</h4>
+        <alloy-tab-button [tabButton]="usageBar" (output)="getSelected($event)"></alloy-tab-button>
         <div class="container-fluid d-flex flex-column">
-            <div class="m-2">
-              <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
-            </div>
-            <div class="m-2">
+            <div class="m-2" *ngIf="tab.id == 'tab1'">
               <div class="form-group p-2">
                 <label for="tryOut">Try Out</label>
-                <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="5" [(ngModel)]="exampleData" (blur)="update()"></textarea>
+                <div class=" m-2">
+                  <alloy-icon-button [iconButton]="example"></alloy-icon-button>
+                </div>
+                <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="20" [(ngModel)]="exampleData" (blur)="update()"></textarea>
               </div>
             </div>
-            <div class=" m-2">
-              <alloy-icon-button [iconButton]="example"></alloy-icon-button>
+            <div class="m-2 mt-5"  *ngIf="tab.id == 'tab2'">
+              <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
             </div>
-        </div>          
+        </div>            
     </div>
   </div>
 </div>

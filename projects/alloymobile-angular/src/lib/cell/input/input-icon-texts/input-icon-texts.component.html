@@ -72,11 +72,11 @@
                 <input
                   [id]="_inputIconText.id"
                   [type]="_inputIconText.type"
-                  [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
                   class="form-control"
-                  (change)="formOutput()"
+                  (change)="onFileChange($event,_inputIconText)"
+                  multiple
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
               </div>
@@ -124,13 +124,11 @@
             <div class="form-floating">
               <textarea
                 [id]="_inputIconText.id"
-                [type]="_inputIconText.type"
                 [formControlName]="_inputIconText.name"
                 [placeholder]="_inputIconText.placeholder"
                 [readonly]="_inputIconText.readonly"
                 class="form-control"
-                style="min-width: 100%"
-                [ngStyle]="{'height': _inputIconText.height}"
+                [style.height]="_inputIconText.height"
                 (input)="formOutput()"
               ></textarea>
               <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -161,8 +159,7 @@
                 [type]="_inputIconText.type"
                 [formControlName]="_inputIconText.name"
                 class="form-check-input"
-                [value]="!_inputIconText.text"
-                (change)="formOutput()"
+                (change)="selectCheck($event,_inputIconText)"
               />
               <label [for]="_inputIconText.id" class="form-check-label">{{ _inputIconText.label }}</label>
             </div>
@@ -173,10 +170,9 @@
                 [id]="_inputIconText.id"
                 [type]="_inputIconText.type"
                 [formControlName]="_inputIconText.name"
-                [name]=""
+                [name]="_inputIconText.name"
                 class="form-check-input"
-                [value]="!_inputIconText.text"
-                (change)="formOutput()"
+                (change)="selectedRadio(_inputIconText)"
               />
               <label [for]="_inputIconText.id" class="form-check-label">{{ _inputIconText.label }}</label>
             </div>

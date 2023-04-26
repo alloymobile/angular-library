@@ -19,5 +19,15 @@
       {"id":5,"name":"Teaching","className":"btn btn-outline-dark border-0 rounded px-1","link":"teaching","icon":{"id":3,"icon":"faChalkboardTeacher","size":"lg","spin":false,"className":""}},
       {"id":6,"name":"Contact us","className":"btn btn-outline-dark border-0 rounded px-1","link":"contact","icon":{"id":4,"icon":"faEnvelope","size":"lg","spin":false,"className":""}}
     ]
+  },
+  "tabBar":{
+    "id":"tabBar",
+    "className":"nav nav-pills nav-fill justify-content-center",
+    "selected":"border-bottom border-5 border-dark",
+    "tabs":[
+        {"id":"tab1","name":"Cell","className":"nav-link text-dark fs-3","active":"","link":"","icon":{"id":"icon1","icon":"faSquare","size":"sm","spin":false,"className":""}},
+        {"id":"tab2","name":"Tissue","className":"nav-link text-dark fs-3","active":"","link":"tissue","icon":{"id":"icon2","icon":"faCube","size":"sm","spin":false,"className":""}},
+        {"id":"tab3","name":"Organ","className":"nav-link text-dark fs-3","active":"","link":"organ","icon":{"id":"icon3","icon":"faCubes","size":"sm","spin":false,"className":""}}
+    ]
   }
 }

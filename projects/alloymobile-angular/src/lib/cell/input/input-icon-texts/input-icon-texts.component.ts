@@ -81,4 +81,24 @@ export class InputIconTextsComponent {
     return this.inputForm.get(name).touched;
   }
 
+  selectedRadio(input){
+    this.inputForm.get(input.name).patchValue(input.label);
+    this.formOutput();
+  }
+
+  selectCheck(event,input){
+    if(event.target.checked){
+      this.inputForm.get(input.name).patchValue(input.label);
+    }else{
+      this.inputForm.get(input.name).patchValue("");
+    }
+    this.formOutput();
+  }
+
+  onFileChange(event,input) {
+    if (event.target.files && event.target.files.length) {
+      this.inputForm.get(input.name).patchValue(event.target.files);
+      this.formOutput();
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {AlloyNavBarIcon} from 'alloymobile-angular';
+import {AlloyNavBarIcon, AlloyTabLink} from 'alloymobile-angular';
 import AppDB from './app.data.json';
 
 @Component({
@@ -12,8 +12,10 @@ export class AppComponent {
   title = 'angular-library';
   navBar: AlloyNavBarIcon;
   selected = "cell";
+  tabBar: AlloyTabLink;
   constructor(private router: Router){
     this.navBar =  new AlloyNavBarIcon(AppDB.navBar);
+    this.tabBar = new AlloyTabLink(AppDB.tabBar);
   }
   setActive(comp: string){
     switch(comp){

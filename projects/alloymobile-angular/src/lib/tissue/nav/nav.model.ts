@@ -51,16 +51,13 @@ export class AlloyTabLink extends Nav {
 }
   
 export class AlloySideBar extends Nav {
-    close: string;
     link: AlloyLink[];
   constructor(response?: any) {
     if (response) {
       super(response);
-      this.close = response.close ? response.close : '';
       this.link = response.link ? response.link.map((link: AlloyLink)=>new AlloyLink(link)) : []; 
     } else {
       super();
-      this.close = '';
       this.link = [];
     }
   }

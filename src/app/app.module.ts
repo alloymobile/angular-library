@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AlloymobileAngularModule } from 'alloymobile-angular';
 
@@ -61,6 +61,7 @@ import { CodePageComponent } from './organ-page/code-page/code-page.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AlloymobileAngularModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

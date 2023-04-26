@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyIconLink } from 'alloymobile-angular';
+import { AlloyButtonIcon, AlloyIconLink, AlloyTabButton } from 'alloymobile-angular';
 import IconLinkDB from './icon-link-page.data.json';
 @Component({
   selector: 'app-icon-link-page',
@@ -11,20 +11,28 @@ export class IconLinkPageComponent {
   usageString: string;
   example: AlloyIconLink;
   exampleData: string;
+  usageBar: AlloyTabButton
+  tab: AlloyButtonIcon;
   constructor(){
-    this.iconLinks = IconLinkDB.map((icon)=>new AlloyIconLink(icon));
+    this.iconLinks = IconLinkDB.icons.map((icon)=>new AlloyIconLink(icon));
     this.usageString = '<alloy-icon-link [iconLink]="iconLink"></alloy-icon-link>';
-    this.exampleData = "";
+    this.exampleData = JSON.stringify(IconLinkDB.example,null,2);
     this.example = new AlloyIconLink(this.exampleData);
+    this.usageBar = new AlloyTabButton(IconLinkDB.tabBar);
+    this.tab = this.usageBar.tabs[0];
   }
 
   iconClick(icon: AlloyIconLink){
-    let ico = IconLinkDB.find(i=>i.id === icon.id);
-    this.exampleData = JSON.stringify(ico);
+    let ico = IconLinkDB.icons.find(i=>i.id === icon.id);
+    this.exampleData = JSON.stringify(ico,null,2);
     this.update();
   }
 
   update(){
     this.example = new AlloyIconLink(JSON.parse(this.exampleData));
+  }
+
+  getSelected(tab: AlloyButtonIcon){
+    this.tab = tab;
   }
 }

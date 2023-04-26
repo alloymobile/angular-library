@@ -37,6 +37,133 @@ export class Input {
   }
 }
 
+export class AlloyInputText extends Input {
+  text: string;
+  label: string;
+  options: String[];
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.text = res.text ? res.text : '';
+      this.label = res.label ? res.label : 'Name';
+      this.options = res.options ? res.options : [];
+    } else {
+      super();
+      this.text = '';
+      this.label = 'Name';
+      this.options = [];
+    }
+  }
+}
+
+export class AlloyInputTextIcon extends AlloyInputText {
+  icon: AlloyIcon;
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.icon = res.icon ?  this.getIcon(res.icon) : new AlloyIcon();
+    } else {
+      super();
+      this.icon = new AlloyIcon();
+    }
+  }
+
+  getIcon(icon){
+    if(icon instanceof AlloyIcon){
+      return icon;
+    }else{
+      return( new AlloyIcon(icon));
+    }
+  }
+}
+
+export class AlloyInputTextArea extends AlloyInputText{
+  height: string;
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.height = res.height ? res.height : '100px';
+    } else {
+      super();
+      this.height = '100px';
+    }
+  }
+}
+
+
+export class AlloyInputCheck extends AlloyInputText{
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+    } else {
+      super();
+    }
+  }
+}
+
+export class AlloyInputRadio extends AlloyInputText{
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+    } else {
+      super();
+    }
+  }
+}
+
+export class AlloyInputSelect extends AlloyInputText{
+  options: String[];
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.options = res.options ? res.options : [];
+    } else {
+      super();
+      this.options = [];
+    }
+  }
+}
+
+export const InputName: any = {
+  AlloyInputTextIcon,
+  AlloyInputTextArea,
+  AlloyInputSelect,
+  AlloyInputCheck,
+  AlloyInputRadio
+};
+
+export class AlloyInput {
+  constructor(input: string, opts?: any) {
+    let className = getInputClass(input);
+    if (InputName[className] === undefined || InputName[className] === null) {
+      throw new Error(`Class type of \'${className}\' is not a table`);
+    }
+    if (opts) {
+      return new InputName[className](opts);
+    } else {
+      return new InputName[className]();
+    }
+  }
+}
+
+export function getInputClass(input: string): string{
+  switch(input){
+    case 'text'||'email'||'password'||'date'||'number'||'file':
+      return 'AlloyInputTextIcon';
+    case 'textarea':
+      return 'AlloyInputTextArea';  
+    case 'select':
+      return 'AlloyInputSelect';
+    case 'checkbox':
+      return 'AlloyInputCheck';
+    case 'radio':
+      return 'AlloyInputRadio';   
+    default:
+      return 'AlloyInputTextIcon';
+  }
+}
+
+/*---------------------------Validation-----------------*/
 export function getValidator(validator: AlloyCustomValidation){
   switch(validator.name){
     case "required":
@@ -135,63 +262,4 @@ export class AlloyCustomValidation extends AlloyPatternValidation{
       this.type = '';
     }
   }
-}
-
-export class AlloyInputText extends Input {
-  text: string;
-  label: string;
-  height: string;
-  options: String[];
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-      this.text = res.text ? res.text : '';
-      this.label = res.label ? res.label : 'Name';
-      this.height = res.height ? res.height : '100px';
-      this.options = res.options ? res.options : [];
-    } else {
-      super();
-      this.text = '';
-      this.label = 'Name';
-      this.height = '100px';
-      this.options = [];
-    }
-  }
-}
-
-export class AlloyInputTextIcon extends AlloyInputText {
-  icon: AlloyIcon;
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-      this.icon = res.icon ?  this.getIcon(res.icon) : new AlloyIcon();
-    } else {
-      super();
-      this.icon = new AlloyIcon();
-    }
-  }
-
-  getIcon(icon){
-    if(icon instanceof AlloyIcon){
-      return icon;
-    }else{
-      return( new AlloyIcon(icon));
-    }
-  }
-}
-
-export class AlloyInputCheck{
-
-}
-
-export class AlloyInputRadio{
-
-}
-
-export class AlloyInputFile{
-
-}
-
-export class AlloyInputSelect{
-
 }
