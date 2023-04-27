@@ -1015,6 +1015,7 @@ import {
   faHouseLaptop,
   faCircleDot,
   faTableColumns,
+  faWater,
 } from '@fortawesome/free-solid-svg-icons';
 
 export class AlloyIcon {
@@ -1045,6 +1046,7 @@ export class AlloyIcon {
 
   static getIcon(icon: string): IconDefinition {
     switch (icon) {
+      case 'faWater' :  return  faWater; 
       case 'faTableColumns' :  return  faTableColumns;
       case 'faCircleDot' :  return  faCircleDot;
       case 'faHouse' :  return  faHouse;

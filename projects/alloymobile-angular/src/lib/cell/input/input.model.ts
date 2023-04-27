@@ -41,17 +41,20 @@ export class AlloyInputText extends Input {
   text: string;
   label: string;
   options: String[];
+  height: string;
   constructor(res?: any) {
     if (res) {
       super(res);
       this.text = res.text ? res.text : '';
       this.label = res.label ? res.label : 'Name';
       this.options = res.options ? res.options : [];
+      this.height = res.height ? res.height : '100px';
     } else {
       super();
       this.text = '';
       this.label = 'Name';
       this.options = [];
+      this.height ='100px';
     }
   }
 }
@@ -74,92 +77,6 @@ export class AlloyInputTextIcon extends AlloyInputText {
     }else{
       return( new AlloyIcon(icon));
     }
-  }
-}
-
-export class AlloyInputTextArea extends AlloyInputText{
-  height: string;
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-      this.height = res.height ? res.height : '100px';
-    } else {
-      super();
-      this.height = '100px';
-    }
-  }
-}
-
-
-export class AlloyInputCheck extends AlloyInputText{
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-    } else {
-      super();
-    }
-  }
-}
-
-export class AlloyInputRadio extends AlloyInputText{
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-    } else {
-      super();
-    }
-  }
-}
-
-export class AlloyInputSelect extends AlloyInputText{
-  options: String[];
-  constructor(res?: any) {
-    if (res) {
-      super(res);
-      this.options = res.options ? res.options : [];
-    } else {
-      super();
-      this.options = [];
-    }
-  }
-}
-
-export const InputName: any = {
-  AlloyInputTextIcon,
-  AlloyInputTextArea,
-  AlloyInputSelect,
-  AlloyInputCheck,
-  AlloyInputRadio
-};
-
-export class AlloyInput {
-  constructor(input: string, opts?: any) {
-    let className = getInputClass(input);
-    if (InputName[className] === undefined || InputName[className] === null) {
-      throw new Error(`Class type of \'${className}\' is not a table`);
-    }
-    if (opts) {
-      return new InputName[className](opts);
-    } else {
-      return new InputName[className]();
-    }
-  }
-}
-
-export function getInputClass(input: string): string{
-  switch(input){
-    case 'text'||'email'||'password'||'date'||'number'||'file':
-      return 'AlloyInputTextIcon';
-    case 'textarea':
-      return 'AlloyInputTextArea';  
-    case 'select':
-      return 'AlloyInputSelect';
-    case 'checkbox':
-      return 'AlloyInputCheck';
-    case 'radio':
-      return 'AlloyInputRadio';   
-    default:
-      return 'AlloyInputTextIcon';
   }
 }
 

@@ -1,5 +1,5 @@
 import { AlloyButtonSubmit } from "../../cell/button/button.model";
-import { AlloyInputTextIcon } from "../../cell/input/input.model";
+import {AlloyInputTextIcon } from "../../cell/input/input.model";
 
 export class Form{
     id: string;
