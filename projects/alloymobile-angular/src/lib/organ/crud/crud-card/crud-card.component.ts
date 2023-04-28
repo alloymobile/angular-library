@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlloyCrudCard } from '../crud.model';
 import { AlloyInputTextIcon } from '../../../cell/input/input.model';
-import { AlloyIconButton } from '../../../cell/icon/icon.model';
 import { AbstractControl } from '@angular/forms';
 import { AlloyCardAction } from '../../../cell/card/card.model';
+import { AlloyButtonIcon } from '../../../cell/button/button.model';
 declare var window: any;
 @Component({
   selector: 'alloy-crud-card',
@@ -19,14 +19,14 @@ export class CrudCardComponent {
 
   modalForm: any;
   createRow: AlloyInputTextIcon[];
-  addButton: AlloyIconButton;
+  addButton: AlloyButtonIcon;
   selectedRow: any;
 
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor(){
     this._crudCard = new AlloyCrudCard();
-    this.addButton = new AlloyIconButton({id:"addButton",name:"Add",className:"btn btn-outline-dark m-2",icon:{id:"icon1",icon:"faPlus",size:"lg",spin:false,className:""}});
+    this.addButton = new AlloyButtonIcon({id:"addButton",name:"Add",className:"btn btn-outline-dark m-2",icon:{id:"icon1",icon:"faPlus",size:"lg",spin:false,className:""}});
     this.createRow = [];
   }
 

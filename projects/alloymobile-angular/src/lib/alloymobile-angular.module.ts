@@ -58,8 +58,6 @@ import { CrudTableComponent } from './organ/crud/crud-table/crud-table.component
 import { CrudCardComponent } from './organ/crud/crud-card/crud-card.component';
 import { ProfileComponent } from './organ/profile/profile/profile.component';
 import { TabLinkComponent } from './tissue/nav/tab-link/tab-link.component';
-import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
-import { FormTextComponent } from './organ/form/form-text/form-text.component';
 import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
 
 
@@ -116,8 +114,6 @@ import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
     CrudCardComponent,
     ProfileComponent,
     TabLinkComponent,
-    TabButtonComponent,
-    FormTextComponent,
     TabFormComponent
   ],
   imports: [
@@ -178,8 +174,7 @@ import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
     CrudCardComponent,
     ProfileComponent,
     TabLinkComponent,
-    TabButtonComponent,
-    FormTextComponent
+    TabFormComponent
   ]
 })
 export class AlloymobileAngularModule { }

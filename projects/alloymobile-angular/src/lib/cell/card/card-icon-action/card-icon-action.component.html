@@ -23,7 +23,7 @@
     [id]="_cardIconAction.footer.id"
     [class]="_cardIconAction.footer.className"
     role="group"
-    [ngSwitch]="_cardIconAction.footer.name"
+    [ngSwitch]="_cardIconAction.type"
   >
     <div *ngSwitchCase="'AlloyIconButton'">
       <alloy-icon-button
@@ -48,6 +48,14 @@
       (output)="getAction($event)"
       >
       </alloy-button-icon>
+    </div>
+    <div *ngSwitchDefault>
+      <alloy-button
+      [button]="i"
+      *ngFor="let i of _cardAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button>
     </div>
   </div>
 </div>

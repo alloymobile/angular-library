@@ -1,4 +1,4 @@
-import { AlloyCardIconAction } from "../../cell/card/card.model";
+import { AlloyCardAction, AlloyCardIconAction, AlloyCardImageAction} from "../../cell/card/card.model";
 import { Table,TableAction } from "../../tissue/table/table.model";
 import { AlloyModal, AlloyModalFile, AlloyModalToast} from "../modal/modal.model";
 
@@ -33,13 +33,29 @@ export class Crud{
 }
 
 export class AlloyCrudCard extends Crud{
-    cards: AlloyCardIconAction[]
+    type: string;
+    cards: AlloyCardAction[]
     constructor(res?: any){
         if(res){
             super(res);
-            this.cards = res.cards ? res.cards.map(f=>new AlloyCardIconAction(f)) : [];
+            this.type = res.type ? res.type : "AlloyCardAction";
+            switch(this.type){
+                case "AlloyCardAction":
+                    this.cards = res.cards ? res.cards.map(f=>new AlloyCardAction(f)) : [];
+                    break;
+                case "AlloyCardIconAction":
+                    this.cards = res.cards ? res.cards.map(f=>new AlloyCardIconAction(f)) : [];
+                    break;    
+                case "AlloyCardImageAction":
+                    this.cards = res.cards ? res.cards.map(f=>new AlloyCardImageAction(f)) : [];
+                    break;   
+                default:
+                    this.cards = res.cards ? res.cards.map(f=>new AlloyCardAction(f)) : [];
+                    break;                 
+            }
         }else{
             super();
+            this.type = res.type ? res.type : "AlloyCardAction";
             this.cards =  [];
         }
     }

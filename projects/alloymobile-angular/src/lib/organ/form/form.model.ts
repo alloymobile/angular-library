@@ -21,7 +21,7 @@ export class Form{
         }else{
             this.id =  "form";
             this.title = "AlloyMobile";
-            this.title = "AlloyInputTextIcon";
+            this.type = "AlloyInputTextIcon";
             this.className = "col m-2";
             this.message = "";
             this.action = "";
@@ -44,31 +44,6 @@ export class AlloyForm extends Form{
             super();
             this.submit = new AlloyButtonSubmit();
             this.fields = [];
-            this.data = {}
-        }
-    }   
-}
-
-export class AlloyFormText extends Form{
-    actionClass: string;
-    texts: CardItem[]
-    fields: AlloyInputTextIcon[];
-    actions: AlloyButtonIcon[];
-    data: any;
-    constructor(res?: any){
-        if(res){
-            super(res);
-            this.actionClass = res.actionClass ? res.actionClass : "row";
-            this.texts = res.texts ? res.texts.map(f=>new CardItem(f)) : [];
-            this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
-            this.actions = res.actions ? res.actions.map(f=>new AlloyInputTextIcon(f)) : [];
-            this.data={};
-        }else{
-            super();
-            this.actionClass = "row";
-            this.texts = [];
-            this.fields = [];
-            this.actions = [];
             this.data = {}
         }
     }   

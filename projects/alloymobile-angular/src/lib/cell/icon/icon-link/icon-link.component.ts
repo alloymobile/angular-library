@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlloyIconLink } from '../icon.model';
+import { AlloyLinkIcon } from '../../link/link.model';
+
 
 @Component({
   selector: 'alloy-icon-link',
@@ -8,15 +9,15 @@ import { AlloyIconLink } from '../icon.model';
   styleUrls: ['./icon-link.component.css']
 })
 export class IconLinkComponent {
-  _iconLink: AlloyIconLink;
-  @Input() set iconLink(iconLink: AlloyIconLink){
+  _iconLink: AlloyLinkIcon;
+  @Input() set iconLink(iconLink: AlloyLinkIcon){
     this._iconLink = iconLink;
   }
 
-  @Output() output: EventEmitter<AlloyIconLink>= new EventEmitter<AlloyIconLink>();
+  @Output() output: EventEmitter<AlloyLinkIcon>= new EventEmitter<AlloyLinkIcon>();
 
   constructor(private router:Router) { 
-    this._iconLink = new AlloyIconLink();
+    this._iconLink = new AlloyLinkIcon();
   }
   //redirect on click
   redirectLink() {

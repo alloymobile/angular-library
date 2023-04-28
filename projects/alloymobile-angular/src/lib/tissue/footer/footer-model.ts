@@ -1,5 +1,5 @@
-import { AlloyIconLink } from "../../cell/icon/icon.model";
-import { AlloyLink, AlloyLinkLogo } from "../../cell/link/link.model";
+
+import { AlloyLink, AlloyLinkIcon, AlloyLinkLogo } from "../../cell/link/link.model";
 
 export class AlloyFooter{
     id: string;
@@ -7,7 +7,7 @@ export class AlloyFooter{
     className: string;
     logo: AlloyLinkLogo;
     link: AlloyLink[];
-    social: AlloyIconLink[];
+    social: AlloyLinkIcon[];
     constructor(res?: any){
         if(res){
             this.id = res.id ? res.id : "";
@@ -15,7 +15,7 @@ export class AlloyFooter{
             this.className = res.className ? res.className : "";
             this.logo =  res.logo ? new AlloyLinkLogo(res.logo) :  new AlloyLinkLogo();
             this.link = res.link ? res.link.map((link: AlloyLink)=>new AlloyLink(link)) : []; 
-            this.social = res.social ? res.social.map((social: AlloyIconLink)=>new AlloyIconLink(social)) : []; 
+            this.social = res.social ? res.social.map((social: AlloyLinkIcon)=>new AlloyLinkIcon(social)) : []; 
         }else{
             this.id =  "";
             this.title = "";

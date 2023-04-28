@@ -1,7 +1,6 @@
 import { AlloyButtonIcon } from "../../cell/button/button.model";
 import { AlloyInputTextIcon } from "../../cell/input/input.model";
 import { AlloyLinkIcon, AlloyLink } from "../../cell/link/link.model";
-import { AlloyForm } from "../../organ/form/form.model";
 
 export class Nav{
     id: string;
@@ -20,28 +19,14 @@ export class Nav{
     }
 }
 
-export class AlloyTabButton extends Nav {
-    tabs: AlloyButtonIcon[];
-    forms: AlloyForm[];
-    constructor(response?: any){
-      if(response){
-        super(response);
-        this.tabs = response.tabs ? response.tabs.map(n => new AlloyButtonIcon(n)) : [];
-        if(this.tabs.length > 0){
-            this.tabs[0].active = this.selected;
-        }
-      }else{
-        super();
-        this.tabs = [];
-      }
-    }
-}
-
 export class AlloyTabForm extends Nav{
     tabs: AlloyButtonIcon[];
     id: string;
     title: string;
     className: string;
+    tabClass: string
+    formClass: string;
+    messageClass: string;
     message: string;
     type: string;
     action: string;
@@ -60,6 +45,9 @@ export class AlloyTabForm extends Nav{
         this.title = res.title ? res.title : "AlloyMobile";
         this.type = res.type ? res.type : "AlloyInputTextIcon";
         this.className = res.className ? res.className : "col m-2";
+        this.tabClass = res.tabClass ? res.tabClass : "col m-2";
+        this.formClass = res.formClass ? res.formClass : "col m-2";
+        this.messageClass = res.messageClass ? res.messageClass : "alert alert-text-danger m-0 p-0";
         this.message = res.message ? res.message : "";
         this.action = res.action ? res.action : "";
         this.actionClass = res.actionClass ? res.actionClass : "row";
@@ -73,6 +61,9 @@ export class AlloyTabForm extends Nav{
         this.title = "AlloyMobile";
         this.title = "AlloyInputTextIcon";
         this.className = "col m-2";
+        this.tabClass = "m-2";
+        this.formClass = "m-2";
+        this.messageClass = "alert alert-text-danger m-0 p-0";
         this.message = "";
         this.action = "";
         this.actionClass = "row";
@@ -85,16 +76,19 @@ export class AlloyTabForm extends Nav{
   
 export class AlloyTabLink extends Nav {
     tabs: AlloyLinkIcon[];
-    constructor(response?: any){
-      if(response){
-        super(response)
-        this.tabs = response.tabs ? response.tabs.map(n => new AlloyLinkIcon(n)) : [];
+    tabClass: string;
+    constructor(res?: any){
+      if(res){
+        super(res)
+        this.tabs = res.tabs ? res.tabs.map(n => new AlloyLinkIcon(n)) : [];
         if(this.tabs.length > 0){
           this.tabs[0].active = this.selected;
         }
+        this.tabClass = res.tabClass ? res.tabClass : "col m-2";
       }else{
         super();
         this.tabs = [];
+        this.tabClass = "m-2";
       }
     }
 }

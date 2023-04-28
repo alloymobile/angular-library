@@ -56,7 +56,7 @@ export * from './lib/tissue/navbar/navbar-link-icon/navbar-link-icon.component';
 export * from './lib/tissue/nav/sidebar/sidebar.component';
 export * from './lib/tissue/nav/icon-sidebar/icon-sidebar.component';
 export * from './lib/tissue/nav/tab-link/tab-link.component';
-export * from './lib/tissue/nav/tab-button/tab-button.component';
+export * from './lib/tissue/nav/tab-form/tab-form.component';
 export * from './lib/tissue/table/table/table.component';
 export * from './lib/tissue/searchbar/searchbar/searchbar.component';
 export * from './lib/tissue/gallery/gallery-button/gallery-button.component';
@@ -78,7 +78,6 @@ export * from './lib/organ/code/code/code.component';
 export * from './lib/organ/reset/reset/reset.component';
 export * from './lib/organ/form/form/form.component';
 export * from './lib/organ/profile/profile/profile.component';
-export * from './lib/organ/form/form-text/form-text.component';
 
 
 

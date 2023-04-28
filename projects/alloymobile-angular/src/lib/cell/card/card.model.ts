@@ -1,5 +1,5 @@
-import { AlloyIcon, AlloyIconButton } from "../icon/icon.model";
-import { AlloyButton, AlloyButtonIcon } from "../button/button.model";
+import { AlloyIcon} from "../icon/icon.model";
+import { AlloyButton, AlloyButtonIcon} from "../button/button.model";
 
 
 export class CardItem {
@@ -74,14 +74,27 @@ export class AlloyCard extends Card{
 
 export class AlloyCardAction extends Card{
   footer: CardItem;
-  actions: Action[];
+  actions: AlloyButton[];
+  type: string
   constructor(res?){
    if(res){
      super(res);
+     this.type = res.type ? res.type : "AlloyButton";
      this.footer = res.footer ? new CardItem(res.footer) : new CardItem();
-     this.actions = res.actions ? res.actions.map(i=> new Action(this.footer.name,i)) : [];
+     switch(this.type){
+      case "AlloyButton":
+        this.actions = res.actions ? res.actions.map(i=> new AlloyButton(i)) : [];
+        break;
+      case "AlloyButtonIcon" || "AlloyIconButton" :
+        this.actions = res.actions ? res.actions.map(i=> new AlloyButtonIcon(i)) : [];
+        break;  
+      default:
+        this.actions = res.actions ? res.actions.map(i=> new AlloyButton(i)) : [];
+        break;
+     }
    }else{
      super();
+     this.type = "AlloyButton";
      this.footer = new CardItem();
      this.actions = [];
    }
@@ -161,25 +174,6 @@ export class AlloyCardImageAction extends AlloyCardAction{
         this.image = new AlloyLogo();
         this.imageClass = 'card-img-top rounded p-2';
         this.textClass = 'col-8';
-    }
-  }
-}
-
-export const ActionName: any = {
-  AlloyIconButton,
-  AlloyButton,
-  AlloyButtonIcon,
-};
-
-export class Action {
-  constructor(className: string, opts?: any) {
-    if (ActionName[className] === undefined || ActionName[className] === null) {
-      throw new Error(`Class type of \'${className}\' is not a table`);
-    }
-    if (opts) {
-      return new ActionName[className](opts);
-    } else {
-      return new ActionName[className]();
     }
   }
 }
