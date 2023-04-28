@@ -5,7 +5,7 @@
 >
   <div class="row">
     <div [class]="_inputText.className" *ngFor="let _inputText of _inputTexts">
-      <label [for]="_inputText.id" class="form-label">{{ _inputText.label }}</label>
+      <label [for]="_inputText.id" class="form-label m-2">{{ _inputText.label }}</label>
       <input
         [id]="_inputText.id"
         [type]="_inputText.type"

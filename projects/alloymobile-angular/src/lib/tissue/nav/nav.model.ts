@@ -1,5 +1,7 @@
 import { AlloyButtonIcon } from "../../cell/button/button.model";
+import { AlloyInputTextIcon } from "../../cell/input/input.model";
 import { AlloyLinkIcon, AlloyLink } from "../../cell/link/link.model";
+import { AlloyForm } from "../../organ/form/form.model";
 
 export class Nav{
     id: string;
@@ -20,6 +22,7 @@ export class Nav{
 
 export class AlloyTabButton extends Nav {
     tabs: AlloyButtonIcon[];
+    forms: AlloyForm[];
     constructor(response?: any){
       if(response){
         super(response);
@@ -32,6 +35,52 @@ export class AlloyTabButton extends Nav {
         this.tabs = [];
       }
     }
+}
+
+export class AlloyTabForm extends Nav{
+    tabs: AlloyButtonIcon[];
+    id: string;
+    title: string;
+    className: string;
+    message: string;
+    type: string;
+    action: string;
+    actionClass: string;
+    fields: AlloyInputTextIcon[];
+    actions: AlloyButtonIcon[];
+    data: any;
+    constructor(res?: any){
+      if(res){
+        super(res);
+        this.tabs = res.tabs ? res.tabs.map(n => new AlloyButtonIcon(n)) : [];
+        if(this.tabs.length > 0){
+            this.tabs[0].active = this.selected;
+        }
+        this.id = res.id ? res.id : "form";
+        this.title = res.title ? res.title : "AlloyMobile";
+        this.type = res.type ? res.type : "AlloyInputTextIcon";
+        this.className = res.className ? res.className : "col m-2";
+        this.message = res.message ? res.message : "";
+        this.action = res.action ? res.action : "";
+        this.actionClass = res.actionClass ? res.actionClass : "row";
+        this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
+        this.actions = res.actions ? res.actions.map(f=>new AlloyInputTextIcon(f)) : [];
+        this.data={};
+      }else{
+        super();
+        this.tabs = [];
+        this.id =  "form";
+        this.title = "AlloyMobile";
+        this.title = "AlloyInputTextIcon";
+        this.className = "col m-2";
+        this.message = "";
+        this.action = "";
+        this.actionClass = "row";
+        this.fields = [];
+        this.actions = [];
+        this.data = {}
+      }
+    } 
 }
   
 export class AlloyTabLink extends Nav {

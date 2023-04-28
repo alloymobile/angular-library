@@ -1,4 +1,54 @@
 {
+  "homeForm":{
+    "id":"homeForm",
+    "title":"Add a Home",
+    "message":"",
+    "action":"Add",
+    "className":"col m-2",
+    "previous":{"id":"tab1","name":"Add Home","className":"nav-link fs-5 d-flex justify-content-between flex-row-reverse","type":"button","active":"","icon":{"id":"icon1","icon":"faPlay","size":"lg","spin":false,"className":""}},
+    "next":{"id":"tab1","name":"Add Home","className":"nav-link fs-5 d-flex justify-content-between flex-row-reverse","type":"button","active":"","icon":{"id":"icon1","icon":"faPlay","size":"lg","spin":false,"className":""}},
+    "type":"AlloyInputTextIcon",
+    "texts":[],
+    "fields":[
+      {"id":"home1","name":"details","className":"col-lg-12","type":"textarea","text":"","height":"100px","placeholder":"Home Details","readonly":false,"label":"Home Details*",
+      "errors":[
+          {"name":"required","message":"Home details is required.","pattern":""}             
+        ]
+      },
+      {"id":"home2","name":"image","className":"col-lg-12",
+      "errors":[
+          {"name":"required","message":"Image is required.","pattern":""}             
+          ],"type":"file","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*","icon":{"id":1,"icon":"faCamera","size":"lg","spin":false,"className":""}
+      },
+      {"id":"home3","name":"address","className":"col-lg-12 border-top border-dark mt-3 pt-3",
+      "errors":[
+          {"name":"required","message":"Complete address is required.","pattern":""}             
+          ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*","icon":{"id":1,"icon":"faAddressCard","size":"lg","spin":false,"className":""}
+      },
+      {"id":"home4","name":"city","className":"col-lg-6",
+      "errors":[
+          {"name":"required","message":"City is required.","pattern":""}             
+          ],"type":"text","text":"","placeholder":"city","readonly":false,"label":"City*","icon":{"id":1,"icon":"faLocation","size":"lg","spin":false,"className":""}
+      },
+      {"id":"home7","name":"postalCode","className":"col-lg-6",
+      "errors":[
+          {"name":"required","message":"Postal code is required.","pattern":""}             
+          ],"type":"text","text":"","placeholder":"postalCode","readonly":false,"label":"Postal Code*","icon":{"id":1,"icon":"faMapPin","size":"lg","spin":false,"className":""}
+      },
+      {"id":"home5","name":"province","className":"col-lg-6","type":"select","text":"","placeholder":"province","readonly":false,"label":"Province*",
+      "options":["ON"],
+      "errors":[
+          {"name":"required","message":"Province is required.","pattern":""}             
+          ]
+      },
+      {"id":"home6","name":"country","className":"col-lg-6","type":"select","text":"","placeholder":"country","readonly":false,"label":"Country*",
+      "options":["Canada"],
+      "errors":[
+          {"name":"required","message":"Country is required.","pattern":""}             
+          ]
+      }         
+    ]
+  },
   "clientBar":{
     "id":1,
     "className":"navbar-light navbar-sticky border-bottom",

@@ -78,6 +78,7 @@ export * from './lib/organ/code/code/code.component';
 export * from './lib/organ/reset/reset/reset.component';
 export * from './lib/organ/form/form/form.component';
 export * from './lib/organ/profile/profile/profile.component';
+export * from './lib/organ/form/form-text/form-text.component';
 
 
 
