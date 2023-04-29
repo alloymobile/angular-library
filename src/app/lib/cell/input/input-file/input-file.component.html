@@ -1,0 +1,16 @@
+<div [class]="_inputFile.className">
+    <input
+    [id]="_inputFile.id"
+    [type]="_inputFile.type"
+    [placeholder]="_inputFile.placeholder"
+    [readonly]="_inputFile.readonly"
+    class="form-control"
+    (change)="onFileChange($event)"
+    multiple
+    />
+    <label [for]="_inputFile.id">{{ _inputFile.label }}</label>
+</div>
+
+  
+
+  

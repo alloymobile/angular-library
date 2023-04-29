@@ -1,0 +1,25 @@
+<form
+  [formGroup]="inputForm"
+  (ngSubmit)="output.emit(inputForm.value)"
+  #form="ngForm"
+>
+  <div
+    [class]="_inputIconTextLabel.className"
+  >
+    <span class="input-group-text">
+        <alloy-icon [icon]="_inputIconTextLabel.icon"></alloy-icon>
+    </span>
+    <div class="form-floating">
+        <input
+        [id]="_inputIconTextLabel.id"
+        [type]="_inputIconTextLabel.type"
+        [formControlName]="_inputIconTextLabel.name"
+        [placeholder]="_inputIconTextLabel.placeholder"
+        [readonly]="_inputIconTextLabel.readonly"
+        class="form-control"
+        (input)="output.emit(inputForm.value)"
+        />
+        <label [for]="_inputIconTextLabel.id">{{ _inputIconTextLabel.label }}</label>
+    </div>
+  </div>
+</form>

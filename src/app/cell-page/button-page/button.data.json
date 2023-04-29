@@ -19,7 +19,7 @@
     },
     "buttons":
     [
-        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
+        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","type":"","active":"","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
         {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
         {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}}
     ],

@@ -1,4 +1,4 @@
-import { AlloyButton, AlloyButtonIcon } from "../../cell/button/button.model";
+import { AlloyButton } from "../../cell/button/button.model";
 import { AlloyInputText, AlloyInputTextIcon } from "../../cell/input/input.model";
 
 export class Modal{

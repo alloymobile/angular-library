@@ -1,0 +1,61 @@
+<div [id]="_cardIconAction.id" [class]="_cardIconAction.className">
+  <div
+    [id]="_cardIconAction.body.id"
+    [class]="_cardIconAction.body.className"
+    [attr.aria-label]="_cardIconAction.body.name"
+  >
+    <div [class]="_cardIconAction.iconClass">
+      <alloy-icon [icon]="_cardIconAction.icon"></alloy-icon>
+    </div>
+    <div [class]="_cardIconAction.textClass">
+      <div class="row p-1">
+          <div
+          [id]="field.id"
+          [class]="field.className"
+          *ngFor="let field of _cardIconAction.fields"
+        >
+          {{ field.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    [id]="_cardIconAction.footer.id"
+    [class]="_cardIconAction.footer.className"
+    role="group"
+    [ngSwitch]="_cardIconAction.type"
+  >
+    <div *ngSwitchCase="'AlloyIconButton'">
+      <alloy-icon-button
+      [iconButton]="i"
+      *ngFor="let i of _cardIconAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-icon-button>
+    </div>
+    <div *ngSwitchCase="'AlloyButton'">
+      <alloy-button
+      [button]="i"
+      *ngFor="let i of _cardIconAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button>
+    </div>
+    <div *ngSwitchCase="'AlloyButtonIcon'">
+      <alloy-button-icon
+      [buttonIcon]="i"
+      *ngFor="let i of _cardIconAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button-icon>
+    </div>
+    <div *ngSwitchDefault>
+      <alloy-button
+      [button]="i"
+      *ngFor="let i of _cardAction.actions"
+      (output)="getAction($event)"
+      >
+      </alloy-button>
+    </div>
+  </div>
+</div>

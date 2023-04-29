@@ -1,6 +1,7 @@
 import { AlloyButtonIcon } from "../../cell/button/button.model";
 import { AlloyInputTextIcon } from "../../cell/input/input.model";
 import { AlloyLinkIcon, AlloyLink } from "../../cell/link/link.model";
+import { AlloyForm } from "../../organ/form/form.model";
 
 export class Nav{
     id: string;
@@ -121,5 +122,22 @@ export class AlloyIconSideBar extends Nav  {
       this.linkIcon = [];
     }
   }
+}
+
+export class AlloyTabButton extends Nav {
+    tabs: AlloyButtonIcon[];
+    forms: AlloyForm[];
+    constructor(response?: any){
+      if(response){
+        super(response);
+        this.tabs = response.tabs ? response.tabs.map(n => new AlloyButtonIcon(n)) : [];
+        if(this.tabs.length > 0){
+            this.tabs[0].active = this.selected;
+        }
+      }else{
+        super();
+        this.tabs = [];
+      }
+    }
 }
 

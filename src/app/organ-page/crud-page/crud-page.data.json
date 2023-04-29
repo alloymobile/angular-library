@@ -79,5 +79,86 @@
                 {"id":"3","name":"Return","url":"12-12-2022","checked": false }
             ]
         }
-    }     
+    },  
+    "details":
+    {
+        "id": "details",
+        "className":"col-md-12 col-lg-6 col-xl-4",
+        "type": "AlloyCardImageAction",
+        "modal":
+        {
+            "id":"myModal","title":"Address","action":"Add","className":"modal fade","submit":{"id":"1","name":"Edit","className":"btn btn-outline-dark","type":"submit"},
+            "fields":[
+                {"id":"profile6","name":"address","className":"col-lg-12 border-top mt-3",
+                "errors":[
+                    {"name":"required","message":"Complete address is required.","pattern":""}             
+                    ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*","icon":{"id":1,"icon":"faAddressCard","size":"lg","spin":false,"className":""}
+                },
+                {"id":"profile7","name":"city","className":"col-lg-6",
+                "errors":[
+                    {"name":"required","message":"City is required.","pattern":""}             
+                    ],"type":"text","text":"","placeholder":"city","readonly":false,"label":"City*","icon":{"id":1,"icon":"faLocation","size":"lg","spin":false,"className":""}
+                },
+                {"id":"profile8","name":"province","className":"col-lg-6",
+                "errors":[
+                    {"name":"required","message":"Province is required.","pattern":""}             
+                    ],"type":"text","text":"","placeholder":"province","readonly":false,"label":"Province*","icon":{"id":1,"icon":"faMap","size":"lg","spin":false,"className":""}
+                },
+                {"id":"profile9","name":"country","className":"col-lg-6",
+                "errors":[
+                    {"name":"required","message":"Country is required.","pattern":""}             
+                    ],"type":"text","text":"","placeholder":"country","readonly":false,"label":"Country*","icon":{"id":1,"icon":"faFlag","size":"lg","spin":false,"className":""}
+                },
+                {"id":"profile10","name":"postalCode","className":"col-lg-6",
+                "errors":[
+                    {"name":"required","message":"Postal code is required.","pattern":""}             
+                    ],"type":"text","text":"","placeholder":"postalCode","readonly":false,"label":"Postal Code*","icon":{"id":1,"icon":"faMapPin","size":"lg","spin":false,"className":""}
+                }            
+            ]
+        },
+        "cards":[
+            {
+                "id":"cardAddress1",
+                "className": "card border m-2 shadow",
+                "header":{"id":"header","className":"card-header","name":"Billing"},
+                "body":{"id":"body","className":"card-body row curser","name":"Card Body"},
+                "icon":{"id":"icon28","icon":"faEdit","size":"lg","spin":false,"className":""},
+                "link":"role",
+                "fields":[
+                    {"id":"address","className":"card-title h5 col-sm-12","name":"33 Alderney Avenue"},
+                    {"id":"city","className":"card-text col-sm-6","name":"Hamilton"},
+                    {"id":"province","className":"card-text col-sm-6","name":"Ontario"},
+                    {"id":"country","className":"card-text col-sm-6","name":"Canada"},
+                    {"id":"postalCode","className":"card-text col-sm-6","name":"L9A2A6"}
+                ],
+                "footer":{"id":"footer","className":"input-group justify-content-end p-2","name":"AlloyIconButton"},
+                "type":"AlloyIconButton",
+                "actions":[
+                    {"id":"action1","className":"btn btn-outline-dark btn-sm m-1 p-2","name":"Edit","icon":{"id":"icon28","icon":"faEdit","size":"lg","spin":false,"className":""}},
+                    {"id":"action2","className":"btn btn-outline-dark btn-sm m-1 p-2","name":"Delete","icon":{"id":"icon28","icon":"faTrash","size":"lg","spin":false,"className":""}}
+                ]
+            },
+            {
+                "id":"cardAddress2",
+                "className": "card border m-2 shadow",
+                "header":{"id":"header","className":"card-header","name":"Card head"},
+                "body":{"id":"body","className":"card-body row curser","name":"Card Body"},
+                "icon":{"id":"icon28","icon":"faEdit","size":"lg","spin":false,"className":""},
+                "link":"role",
+                "fields":[
+                    {"id":"address","className":"card-title h5 col-sm-12","name":"33 Alderney Avenue"},
+                    {"id":"city","className":"card-text col-sm-6","name":"Hamilton"},
+                    {"id":"province","className":"card-text col-sm-6","name":"Ontario"},
+                    {"id":"country","className":"card-text col-sm-6","name":"Canada"},
+                    {"id":"postalCode","className":"card-text col-sm-6","name":"L9A2A6"}
+                ],
+                "footer":{"id":"footer","className":"input-group justify-content-end p-2","name":"AlloyIconButton"},
+                "type":"AlloyIconButton",
+                "actions":[
+                    {"id":"action1","className":"btn btn-outline-dark btn-sm m-1 p-2","name":"Edit","icon":{"id":"icon28","icon":"faEdit","size":"lg","spin":false,"className":""}},
+                    {"id":"action2","className":"btn btn-outline-dark btn-sm m-1 p-2","name":"Delete","icon":{"id":"icon28","icon":"faTrash","size":"lg","spin":false,"className":""}}
+                ]
+            }
+        ] 
+    }   
 }

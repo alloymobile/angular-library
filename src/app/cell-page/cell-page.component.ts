@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AlloyIcon, AlloyIconSideBar, AlloyTabButton } from 'alloymobile-angular';
 import CellDB from './cell-page.data.json';
-import { AlloyCardIconAction } from 'projects/alloymobile-angular/src/public-api';
+import { AlloyIconSideBar } from '../lib/tissue/nav/nav.model';
+import { AlloyIcon } from '../lib/cell/icon/icon.model';
+import { AlloyCardIconAction } from '../lib/cell/card/card.model';
+
 @Component({
   selector: 'app-cell-page',
   templateUrl: './cell-page.component.html',

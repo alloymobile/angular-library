@@ -1,0 +1,14 @@
+<form [formGroup]="inputForm" (ngSubmit)="output.emit(inputForm.value)" #form="ngForm">
+  <div [class]="_inputText.className">
+    <input
+      [id]="_inputText.id"
+      [type]="_inputText.type"
+      [formControlName]="_inputText.name"
+      [placeholder]="_inputText.placeholder"
+      [readonly]="_inputText.readonly"
+      class="form-control"
+      (input)="output.emit(inputForm.value)"
+    />
+    <label [for]="_inputText.id">{{ _inputText.label }}</label>
+  </div>
+</form>

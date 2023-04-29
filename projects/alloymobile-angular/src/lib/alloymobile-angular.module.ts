@@ -59,6 +59,7 @@ import { CrudCardComponent } from './organ/crud/crud-card/crud-card.component';
 import { ProfileComponent } from './organ/profile/profile/profile.component';
 import { TabLinkComponent } from './tissue/nav/tab-link/tab-link.component';
 import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
+import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
 
 
 @NgModule({
@@ -114,7 +115,8 @@ import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
     CrudCardComponent,
     ProfileComponent,
     TabLinkComponent,
-    TabFormComponent
+    TabFormComponent,
+    TabButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -174,7 +176,8 @@ import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
     CrudCardComponent,
     ProfileComponent,
     TabLinkComponent,
-    TabFormComponent
+    TabFormComponent,
+    TabButtonComponent
   ]
 })
 export class AlloymobileAngularModule { }
