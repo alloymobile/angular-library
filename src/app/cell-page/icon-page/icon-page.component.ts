@@ -23,7 +23,7 @@ export class IconPageComponent {
   }
 
   iconClick(icon: AlloyIcon){
-    let ico = IconDB.icons.find(i=>i.id === icon.id);
+    let ico = {id: icon.id, icon: AlloyIcon.getIconText(icon.icon), size: icon.size, spin: icon.spin, className: icon.className};
     this.exampleData = JSON.stringify(ico,null,2);
     this.update();
   }

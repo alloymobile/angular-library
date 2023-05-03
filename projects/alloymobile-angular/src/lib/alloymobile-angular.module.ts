@@ -60,6 +60,8 @@ import { ProfileComponent } from './organ/profile/profile/profile.component';
 import { TabLinkComponent } from './tissue/nav/tab-link/tab-link.component';
 import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
 import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
+import { LinkBarComponent } from './cell/link/link-bar/link-bar.component';
+import { ButtonBarComponent } from './cell/button/button-bar/button-bar.component';
 
 
 @NgModule({
@@ -116,7 +118,9 @@ import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component
     ProfileComponent,
     TabLinkComponent,
     TabFormComponent,
-    TabButtonComponent
+    TabButtonComponent,
+    LinkBarComponent,
+    ButtonBarComponent
   ],
   imports: [
     BrowserModule,

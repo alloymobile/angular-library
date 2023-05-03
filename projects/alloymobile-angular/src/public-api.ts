@@ -24,6 +24,7 @@ export * from './lib/organ/form/form.model';
 export * from './lib/tissue/footer/footer-model';
 export * from './lib/organ/profile/profile.model';
 export * from './lib/tissue/nav/nav.model';
+export * from './lib/alloy.model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';

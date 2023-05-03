@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { AlloyCrudFileAction } from 'alloymobile-angular';
+import { AlloyCrudCard, AlloyCrudFileAction } from 'alloymobile-angular';
 import { AlloyCrudTable } from 'projects/alloymobile-angular/src/public-api';
 import { AlloyCrudFile } from 'projects/alloymobile-angular/src/public-api';
 import CrudDB from "./crud-page.data.json";
-import { AlloyCrudCard } from 'src/app/lib/organ/crud/crud.model';
 
 @Component({
   selector: 'app-crud-page',

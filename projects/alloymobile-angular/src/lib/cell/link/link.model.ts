@@ -29,7 +29,7 @@ export class AlloyLinkIcon extends AlloyLink{
   constructor(res?: any){
     if(res){
       super(res);
-      this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+      this.icon = res.icon ? AlloyIcon.getAlloyIcon(res.icon) : new AlloyIcon();
     }else{
       super();
       this.icon = new AlloyIcon();

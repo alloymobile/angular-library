@@ -1,17 +1,19 @@
+import { Alloy } from "../../alloy.model";
 import { AlloyIcon} from "../icon/icon.model";
 
-export class Button{
+export class Button extends Alloy{
   id: string;
   name: string;
   type: string;
-  className: string;
   constructor(res?: any){
     if(res){
+      super(res);
       this.id = res.id ? res.id : "button";
       this.name = res.name ? res.name : "Submit";
       this.type = res.type ? res.type : 'button';
       this.className = res.className ? res.className : "w-100 btn btn-lg btn-info mt-1";
     }else{
+      super();
       this.id = "button";
       this.name = "Submit";
       this.type = 'button';
@@ -39,7 +41,7 @@ export class AlloyButtonIcon extends AlloyButton{
   constructor(res?: any){
     if(res){
       super(res);
-      this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+      this.icon = res.icon ? AlloyIcon.getAlloyIcon(res.icon) : new AlloyIcon();
     }else{
       super();
       this.icon = new AlloyIcon();
@@ -54,7 +56,7 @@ export class AlloyButtonSubmit extends Button{
   constructor(res?: any){
     if(res){
       super(res);
-      this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+      this.icon = res.icon ? AlloyIcon.getAlloyIcon(res.icon) : new AlloyIcon();
       this.show = res.show ? res.show : false;
       this.disable = res.disable ? res.disable : false;
     }else{
@@ -64,4 +66,8 @@ export class AlloyButtonSubmit extends Button{
       this.disable = false;
     }
   }
+}
+
+export class AlloyButtonBar{
+  
 }

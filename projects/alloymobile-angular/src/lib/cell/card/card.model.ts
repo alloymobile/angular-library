@@ -129,7 +129,7 @@ export class AlloyCardIconAction extends AlloyCardAction{
   constructor(res?){
    if(res){
      super(res);
-     this.icon = res.icon ? new AlloyIcon(res.icon) : new AlloyIcon();
+     this.icon = res.icon ? AlloyIcon.getAlloyIcon(res.icon) : new AlloyIcon();
      this.iconClass = res.iconClass ? res.iconClass : 'col-4 icon-lg rounded-circle bg-warning text-white mb-0';
      this.textClass = res.textClass ? res.textClass : 'col-8';
    }else{
