@@ -18,13 +18,13 @@
         <label [for]="_inputTextIconLabel.id">{{ _inputTextIconLabel.label }}</label>
     </div>
     <span class="input-group-text my-1 rounded-pill bg-white border-0">
-        <button
+      <button
         class="input-group-text p-0 border-0 bg-white"
         type="button"
         (click)="output.emit(inputForm.value)"
         >
         <alloy-icon [icon]="_inputTextIconLabel.icon"></alloy-icon>
-        </button>
+      </button>
     </span>
   </div>
 </form>

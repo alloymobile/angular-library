@@ -1,4 +1,5 @@
 {
+    "search":{"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","text":"","iconClass":"input-group-append","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
     "example":
     {
         "id": "iconLink1",

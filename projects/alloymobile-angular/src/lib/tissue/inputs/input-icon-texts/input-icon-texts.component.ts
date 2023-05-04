@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AlloyInputTextIcon, matchValidator } from '../input.model';
+import { AlloyInputTextIcon, matchValidator } from '../../../cell/input/input.model';
 
 @Component({
   selector: 'alloy-input-icon-texts',

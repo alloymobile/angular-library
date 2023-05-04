@@ -12,9 +12,10 @@ export class Input {
   errors: AlloyValidation[];
   //Only matches password and confirmPassword please update for generic
   match: boolean;
+  static idGenerator: number = 0;
   constructor(res?: any) {
     if (res) {
-      this.id = res.id ? res.id : 'input';
+      this.id = res.id ? res.id : 'input' + ++Input.idGenerator;
       this.name = res.name ? res.name : 'name';
       this.type = res.type ? res.type : 'text';
       this.placeholder = res.placeholder ? res.placeholder : '';
@@ -24,7 +25,7 @@ export class Input {
       this.errors =  res.errors ? res.errors.map((res: AlloyCustomValidation)=> new AlloyCustomValidation(res)) : []; 
       this.validators =  res.errors ? res.errors.map((res: AlloyCustomValidation)=>  getValidator(new AlloyCustomValidation(res))) : []; 
     } else {
-      this.id = 'input';
+      this.id = 'input' + ++Input.idGenerator;
       this.name = 'name';
       this.type = 'text';
       this.placeholder = '';

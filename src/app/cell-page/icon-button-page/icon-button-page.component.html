@@ -1,16 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-6 text-center border-end border-dark border-2">
-          <h4>Icons</h4>
-          <div class="row">
-              <div class="col-sm-4 col-md-3 col-lg-2 p-1 text-center border rounded" *ngFor="let i of iconButtons">
-                <alloy-icon-button [iconButton]="i" (output)="iconClick(i)"></alloy-icon-button>
-              </div>
-          </div>
-      </div>
       <div class="col-sm-6 text-center text-wrap">
         <h4>Usage</h4>
-        <!-- <alloy-tab-button [tabButton]="usageBar" (output)="getSelected($event)"></alloy-tab-button> -->
         <div class="container-fluid d-flex flex-column">
             <div class="m-2" *ngIf="tab.id == 'tab1'">
               <div class="form-group p-2">
@@ -25,6 +16,21 @@
               <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
             </div>
         </div>            
-    </div>
+      </div>
+      <div class="col-sm-6 text-center border-end border-dark border-2">
+        <h4>Icons</h4>
+        <div class="row">
+          <div class="col-12 p-3">
+            <alloy-input-text-icon-label [inputTextIconLabel]="search" (output)="getText($event)"></alloy-input-text-icon-label>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-sm-4 col-md-3 col-lg-2 p-1 text-center border rounded" *ngFor="let i of iconButtons">
+                <alloy-icon-button [iconButton]="i" (output)="iconClick(i)"></alloy-icon-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </div>

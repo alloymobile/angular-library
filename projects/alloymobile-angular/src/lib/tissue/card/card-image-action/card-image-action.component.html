@@ -25,42 +25,18 @@
     </div>
   </div>
   <div
-    [id]="_cardImageAction.footer.id"
-    [class]="_cardImageAction.footer.className"
+    [id]="_cardImageAction.action.id"
+    [class]="_cardImageAction.action.className"
     role="group"
     [ngSwitch]="_cardImageAction.type"
   >
-    <div *ngSwitchCase="'AlloyIconButton'">
-      <alloy-icon-button
-      [iconButton]="i"
-      *ngFor="let i of _cardImageAction.actions"
-      (output)="getAction($event)"
-      >
-      </alloy-icon-button>
+    <div *ngSwitchCase="'AlloyButtonBar'">
+      <alloy-button-bar [buttonBar]="_cardImageAction.action" ></alloy-button-bar>
     </div>
-    <div *ngSwitchCase="'AlloyButton'">
-      <alloy-button
-      [button]="i"
-      *ngFor="let i of _cardImageAction.actions"
-      (output)="getAction($event)"
-      >
-      </alloy-button>
-    </div>
-    <div *ngSwitchCase="'AlloyButtonIcon'">
-      <alloy-button-icon
-      [buttonIcon]="i"
-      *ngFor="let i of _cardImageAction.actions"
-      (output)="getAction($event)"
-      >
-      </alloy-button-icon>
+    <div *ngSwitchCase="'AlloyLinkBar'">
     </div>
     <div *ngSwitchDefault>
-      <alloy-button
-      [button]="i"
-      *ngFor="let i of _cardAction.actions"
-      (output)="getAction($event)"
-      >
-      </alloy-button>
+      <alloy-link-bar [linkBar]="_cardImageAction.action"></alloy-link-bar>
     </div>
   </div>
 </div>

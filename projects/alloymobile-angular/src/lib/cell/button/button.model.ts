@@ -1,23 +1,22 @@
-import { Alloy } from "../../alloy.model";
 import { AlloyIcon} from "../icon/icon.model";
 
-export class Button extends Alloy{
+export class Button{
   id: string;
   name: string;
   type: string;
+  className: string;
+  static idGenerator: number = 0;
   constructor(res?: any){
     if(res){
-      super(res);
-      this.id = res.id ? res.id : "button";
-      this.name = res.name ? res.name : "Submit";
+      this.id = res.id ? res.id : "button" + ++Button.idGenerator;
+      this.name = res.name ? res.name : "Button";
       this.type = res.type ? res.type : 'button';
-      this.className = res.className ? res.className : "w-100 btn btn-lg btn-info mt-1";
+      this.className = res.className ? res.className : "btn btn-lg btn-info mt-1";
     }else{
-      super();
-      this.id = "button";
-      this.name = "Submit";
+      this.id = "button" + ++Button.idGenerator;
+      this.name = "Button";
       this.type = 'button';
-      this.className =  "w-100 btn btn-lg btn-info mt-1";
+      this.className =  "btn btn-lg btn-info mt-1";
     }
   }
 }
@@ -66,8 +65,4 @@ export class AlloyButtonSubmit extends Button{
       this.disable = false;
     }
   }
-}
-
-export class AlloyButtonBar{
-  
 }

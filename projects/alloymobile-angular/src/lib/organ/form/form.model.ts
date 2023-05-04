@@ -1,6 +1,6 @@
 
 import { AlloyButtonIcon, AlloyButtonSubmit } from "../../cell/button/button.model";
-import { CardItem } from "../../cell/card/card.model";
+import { CardItem } from "../../tissue/card/card.model";
 import {AlloyInputTextIcon } from "../../cell/input/input.model";
 
 export class Form{

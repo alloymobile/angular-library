@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { AlloyInputText, matchValidator } from '../input.model';
+import { AlloyInputText, matchValidator } from '../../../cell/input/input.model';
 
 @Component({
   selector: 'alloy-input-floating-texts',

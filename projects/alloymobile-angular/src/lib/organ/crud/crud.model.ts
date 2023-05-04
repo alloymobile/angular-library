@@ -1,4 +1,4 @@
-import { AlloyCardAction, AlloyCardIconAction, AlloyCardImageAction} from "../../cell/card/card.model";
+import { AlloyCardAction, AlloyCardIconAction, AlloyCardImageAction} from "../../tissue/card/card.model";
 import { Table,TableAction } from "../../tissue/table/table.model";
 import { AlloyModal, AlloyModalFile, AlloyModalToast} from "../modal/modal.model";
 

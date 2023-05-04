@@ -1,6 +1,6 @@
 
 import { AlloyCrudCard } from "../crud/crud.model";
-import { AlloyCardIconAction } from "../../cell/card/card.model";
+import { AlloyCardIconAction } from "../../tissue/card/card.model";
 import { AlloyForm } from "../form/form.model";
 
 export class AlloyProfile{

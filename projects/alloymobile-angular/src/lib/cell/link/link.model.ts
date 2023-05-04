@@ -7,18 +7,19 @@ export class AlloyLink{
   className: string;
   link: string;
   active: string;
+  static idGenerator: number = 0;
   constructor(res?: any){
     if(res){
-      this.id = res.id ? res.id : "link1";
+      this.id = res.id ? res.id : "link" + ++AlloyLink.idGenerator;
       this.name = res.name ? res.name : "AlloyMobile";
       this.className = res.className ? res.className : "nav-link";
       this.active = res.active ? res.active : "";
-      this.link = res.link ? res.link : "";
+      this.link = res.link ? res.link : "https://alloymobile.com";
     }else{
-      this.id = "link1";
+      this.id = "link" + ++AlloyLink.idGenerator;
       this.name = "AlloyMobile";
       this.className =  "nav-link";
-      this.link = "";
+      this.link = "https://alloymobile.com";
       this.active = "";
     }
   }

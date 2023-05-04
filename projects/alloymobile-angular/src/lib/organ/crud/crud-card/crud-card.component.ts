@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlloyCrudCard } from '../crud.model';
 import { AlloyInputTextIcon } from '../../../cell/input/input.model';
 import { AbstractControl } from '@angular/forms';
-import { AlloyCardAction } from '../../../cell/card/card.model';
+import { AlloyCardAction } from '../../../tissue/card/card.model';
 import { AlloyButtonIcon } from '../../../cell/button/button.model';
 declare var window: any;
 @Component({

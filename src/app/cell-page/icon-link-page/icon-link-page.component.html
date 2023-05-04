@@ -21,11 +21,18 @@
     <div class="col-sm-6 text-center border-start border-dark border-2">
       <h4>Icons</h4>
       <div class="row">
-          <div class="col-sm-4 col-md-3 col-lg-2 p-1 text-center border rounded" *ngFor="let i of iconLinks">
-            <button class="btn btn-outline-dark" (focus)="iconClick(i)" (mouseover)="iconClick(i)">
-              <alloy-icon-link [iconLink]="i"></alloy-icon-link>
-            </button>
+        <div class="col-12 p-3">
+          <alloy-input-text-icon-label [inputTextIconLabel]="search" (output)="getText($event)"></alloy-input-text-icon-label>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2 p-1 text-center border rounded" *ngFor="let i of iconLinks">
+              <button class="btn btn-outline-dark" (focus)="iconClick(i)" (mouseenter)="iconClick(i)">
+                <alloy-icon-link [iconLink]="i"></alloy-icon-link>
+              </button>
+            </div>
           </div>
+        </div>
       </div>
     </div>
   </div>

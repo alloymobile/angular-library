@@ -1017,7 +1017,6 @@ import {
   faTableColumns,
   faWater,
 } from '@fortawesome/free-solid-svg-icons';
-import { Alloy } from '../../alloy.model';
 
 export class AlloyIcon {
   id: string;
@@ -1028,7 +1027,7 @@ export class AlloyIcon {
   static idGenerator: number = 0;
   constructor(res?: any) {
     if (res) {
-      this.id = res.icon ? res.icon : "icon" + ++Alloy.idGenerator;
+      this.id = res.id ? res.id : "icon" + ++AlloyIcon.idGenerator;
       this.icon = res.icon
         ? AlloyIcon.getIcon(res.icon)
         : AlloyIcon.getIcon('faMicrochip');
@@ -1037,7 +1036,7 @@ export class AlloyIcon {
         : AlloyIcon.getSizeProp('lg');
       this.spin = res.spin ? res.spin : false;
     } else {
-      this.id = "icon" + ++Alloy.idGenerator;
+      this.id = "icon" + ++AlloyIcon.idGenerator;
       this.icon = AlloyIcon.getIcon('faMicrochip');
       this.size = AlloyIcon.getSizeProp('lg');
       this.spin = false;
