@@ -13,15 +13,14 @@ export class LinkPageComponent {
   example: AlloyLink;
   exampleData: string;
   constructor(){
-    this.usageString = '<alloy-link [link]="link"></alloy-link>';
-    this.exampleData = "";
+    this.usageString = '<alloy-link-icon [linkIcon]="linkIcon"></alloy-link>';
+    this.exampleData = JSON.stringify(LinkDB.example,null,2);
     this.example = new AlloyLink(this.exampleData);
-    this.links = LinkDB.map((link)=>new AlloyLink(link))
+    this.links = LinkDB.links.map((link)=>new AlloyLink(link))
   }
 
   linkClick(link: AlloyLink){
-    let ico = LinkDB.find(i=>i.id === link.id);
-    this.exampleData = JSON.stringify(ico);
+    this.exampleData = JSON.stringify(link,null,2);
     this.update();
   }
 

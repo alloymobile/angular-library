@@ -1,22 +1,5 @@
 {
-"search":{"name":"search","className":"input-group border border-dark rounded-pill","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
-"example":
-    {
-    "id": "icon1",
-    "icon": "faMicrochip",
-    "size": "lg",
-    "spin": false,
-    "className": ""
-    },
-"tabBar":{
-        "id":"tabBar",
-        "className":"nav nav-tabs nav-fill justify-content-center",
-        "selected":"active",
-        "tabs":[
-            {"id":"tab1","name":"Object","className":"nav-link fs-5 ","active":"","icon":{"id":"icon2","icon":"faFileCode","size":"lg","spin":false,"className":""}},
-            {"id":"tab2","name":"Usage","className":"nav-link fs-5","active":"","icon":{"id":"icon1","icon":"faCode","size":"lg","spin":false,"className":""}}
-        ]
-    },
+"search":{"name":"search","className":"input-group border border-dark","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
 "icons":
     [
         {"icon":"faWater","size":"lg","spin":false,"className":"text-primary"},

@@ -1,12 +1,41 @@
 import { AlloyIcon } from "../icon/icon.model";
 import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
+export class AlloyInput{
+  type: string;
+  constructor(res?: any) {
+    if(res){
+      this.type = res.type ? res.type : 'text';
+      switch (this.type){
+        case "text":
+        case "email":
+        case "file":
+        case "date":  
+        case "number":       
+          return new AlloyInputTextIcon(res);
+        case "textarea":
+          return new AlloyInputTextArea(res);
+        case "select":
+          return new AlloyInputSelect(res); 
+        case "radio":
+        case "checkbox":  
+          return new Input(res);   
+        default:
+          return new AlloyInputTextIcon(res);
+      }
+    }else{
+      return new AlloyInputTextIcon(res);
+    }
+  }
+}
+
+
 export class Input {
   id: string;
   name: string;
   type: string;
+  label: string;
   className: string;
-  placeholder: string;
   readonly: boolean;
   validators: [];
   errors: AlloyValidation[];
@@ -18,7 +47,7 @@ export class Input {
       this.id = res.id ? res.id : 'input' + ++Input.idGenerator;
       this.name = res.name ? res.name : 'name';
       this.type = res.type ? res.type : 'text';
-      this.placeholder = res.placeholder ? res.placeholder : '';
+      this.label = res.label ? res.label : 'Name';
       this.className = res.className ? res.className : 'input-group';
       this.readonly = res.readonly ? res.readonly : false;
       this.match = res.match ? res.match : false;
@@ -28,7 +57,7 @@ export class Input {
       this.id = 'input' + ++Input.idGenerator;
       this.name = 'name';
       this.type = 'text';
-      this.placeholder = '';
+      this.label = 'Name';
       this.className = 'input-group';
       this.readonly = false;
       this.match = false;
@@ -36,26 +65,106 @@ export class Input {
       this.validators = [];
     }
   }
+
+  // toString(){
+  //   return {
+  //     id: this.id ?? "input1",
+  //     name: this.name ?? "AlloyInputTextIcon",
+  //     type: this.type ?? "text",
+  //     className: this.className ?? "",
+  //     readonly: this.readonly ?? false,
+  //     errors: this.errors ?? [],
+  //     validators: this.validators ?? [],
+  //     match: this.match ?? false,
+  //     label: this.label ?? ""
+  //   }
+  // }
 }
 
 export class AlloyInputText extends Input {
   text: string;
-  label: string;
-  options: String[];
-  height: string;
+  placeholder: string;
   constructor(res?: any) {
     if (res) {
       super(res);
       this.text = res.text ? res.text : '';
-      this.label = res.label ? res.label : 'Name';
-      this.options = res.options ? res.options : [];
-      this.height = res.height ? res.height : '100px';
+      this.placeholder = res.placeholder ? res.placeholder : '';
     } else {
       super();
       this.text = '';
-      this.label = 'Name';
-      this.options = [];
+      this.placeholder = '';
+    }
+  }
+  
+  // toString(){
+  //   return {
+  //     id: this.id ?? "input1",
+  //     name: this.name ?? "AlloyInputTextIcon",
+  //     type: this.type ?? "text",
+  //     className: this.className ?? "",
+  //     placeholder: this.placeholder ?? "",
+  //     readonly: this.readonly ?? false,
+  //     errors: this.errors ?? [],
+  //     validators: this.validators ?? [],
+  //     match: this.match ?? false,
+  //     text: this.text ?? "",
+  //     label: this.label ?? "",
+  //   }
+  // }
+}
+
+export class AlloyInputTextArea extends AlloyInputText{
+  height: string;
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.height = res.height ? res.height : '100px';
+    } else {
+      super();
       this.height ='100px';
+    }
+  }
+  toString(){
+    return {
+      id: this.id ?? "input1",
+      name: this.name ?? "AlloyInputTextArea",
+      type: this.type ?? "textarea",
+      className: this.className ?? "",
+      placeholder: this.placeholder ?? "",
+      readonly: this.readonly ?? false,
+      errors: this.errors ?? [],
+      match: this.match ?? false,
+      text: this.text ?? "",
+      label: this.label ?? "",
+      height: this.height ?? "100px"
+    }
+  }
+}
+
+export class AlloyInputSelect extends AlloyInputText{
+  options: String[];
+  constructor(res?: any) {
+    if (res) {
+      super(res);
+      this.options = res.options ? res.options : [];
+    } else {
+      super();
+      this.options = [];
+    }
+  }
+  toString(){
+    return {
+      id: this.id ?? "input1",
+      name: this.name ?? "AlloyInputSelect",
+      type: this.type ?? "select",
+      className: this.className ?? "",
+      placeholder: this.placeholder ?? "",
+      readonly: this.readonly ?? false,
+      errors: this.errors ?? [],
+      match: this.match ?? false,
+      text: this.text ?? "",
+      label: this.label ?? "",
+      options: this.options ?? []
     }
   }
 }
@@ -65,18 +174,26 @@ export class AlloyInputTextIcon extends AlloyInputText {
   constructor(res?: any) {
     if (res) {
       super(res);
-      this.icon = res.icon ?  this.getIcon(res.icon) : new AlloyIcon();
+      this.icon = res.icon ?  new AlloyIcon(res.icon) : new AlloyIcon();
     } else {
       super();
       this.icon = new AlloyIcon();
     }
   }
 
-  getIcon(icon){
-    if(icon instanceof AlloyIcon){
-      return icon;
-    }else{
-      return( new AlloyIcon(icon));
+  toString(){
+    return {
+      id: this.id ?? "input1",
+      name: this.name ?? "AlloyInputTextIcon",
+      type: this.type ?? "text",
+      className: this.className ?? "",
+      placeholder: this.placeholder ?? "",
+      readonly: this.readonly ?? false,
+      errors: this.errors ?? [],
+      match: this.match ?? false,
+      text: this.text ?? "",
+      label: this.label ?? "",
+      icon: this.icon.tostring() 
     }
   }
 }

@@ -36,6 +36,17 @@ export class AlloyLinkIcon extends AlloyLink{
       this.icon = new AlloyIcon();
     }
   }
+
+  tostring(){
+    return { 
+      id: this.id ?? "link1",
+      name: this.name ?? "AlloyLinkIcon",
+      className: this.className ?? "",
+      link: this.link ?? "/",
+      active: this.active ?? "",
+      icon:this.icon.tostring()
+    }
+  }
 }
 
 export class Logo{

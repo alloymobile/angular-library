@@ -17,6 +17,10 @@ import { TableDetailPageComponent } from './table-detail-page/table-detail-page.
 import { TissuePageComponent } from './tissue-page/tissue-page.component';
 import { TablePageComponent } from './tissue-page/table-page/table-page.component';
 import { CodePageComponent } from './organ-page/code-page/code-page.component';
+import { LinkLogoPageComponent } from './cell-page/link-logo-page/link-logo-page.component';
+import { LinkIconPageComponent } from './cell-page/link-icon-page/link-icon-page.component';
+import { ButtonIconPageComponent } from './cell-page/button-icon-page/button-icon-page.component';
+import { ButtonSubmitPageComponent } from './cell-page/button-submit-page/button-submit-page.component';
 
 const routes: Routes = [
   { path: '', component: CellPageComponent, children:
@@ -25,7 +29,11 @@ const routes: Routes = [
       {path: "icon-link",component:IconLinkPageComponent},
       {path: "icon-button",component:IconButtonPageComponent},
       {path: "link",component:LinkPageComponent},
+      {path: "link-icon",component:LinkIconPageComponent},
+      {path: "link-logo",component:LinkLogoPageComponent},
       {path: "button",component:ButtonPageComponent},
+      {path: "button-icon",component:ButtonIconPageComponent},
+      {path: "button-submit",component:ButtonSubmitPageComponent},
       {path: "input",component:InputPageComponent}
     ]
   },

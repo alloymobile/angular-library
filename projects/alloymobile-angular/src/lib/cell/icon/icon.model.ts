@@ -3129,4 +3129,14 @@ export class AlloyIcon {
         return 'lg';
     }
   }
+
+  tostring(){
+    return { 
+      id:this.id ?? "icon1",
+      classname: this.className ?? "",
+      icon:AlloyIcon.getIconText(this.icon) ?? "faMicrochip",
+      size:this.size ?? "lg",
+      spin:this.spin ?? false
+    }
+  }
 }

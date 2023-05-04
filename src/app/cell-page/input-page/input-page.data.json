@@ -1,29 +1,29 @@
 {
-    "inputText":{"id":"2","name":"password","className":"form-floating mb-3","type":"password","label":"My Password","placeholder":"john@example.com"},
-    "inputTextIcon":{"id":"1","name":"search","className":"input-group mb-3 border border-dark rounded-pill","typeName":"text","placeholder":"john@example.com","label":"My Password","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
-    "searchbar":
-    {
-        "id":"1","className":"input-group mb-3",
-        "search":[{"id":"1","name":"search","className":"input-group mb-3","typeName":"text","placeholder":"john@example.com","text":"","iconClass":"input-group-append","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}}],
-        "upload":{"id":"1","name":"Upload","className":"btn btn-outline-dark border-0","icon":{"id":"40","icon":"faUpload","size":"lg","spin":false,"className":""}}
-    },
-    "inputModal":{"id":"23","name":"dfrg"},
-    "inputFile":{"id":"2","name":"name","className":"form-floating mb-3","type":"file","label":"Upload file","placeholder":"Upload file"},
-    "modalField":{
-        "id":{"id":"id","name":"id","type":"text","placeholder":"Id","readOnly":false},
-        "name":{"id":"name","name":"name","type":"password","placeholder":"name","readOnly":false}
-    },
-    "fields":
+    "inputs":
     [
-        {"id":"1","name":"id","className":"col-12","type":"file","text":"","placeholder":"id","readonly":false,"label":"id","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-        {"id":"select1","name":"name","className":"col-12","type":"select","text":"","placeholder":"his is a select","readonly":false,"label":"This is a select","options":["Hello","Tapas"]},
-        {"id":"radio3","name":"date1","className":"col-12","type":"checkbox","text":"","placeholder":"Date","readonly":true,"label":"This is todays date","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-        {"id":"radio4","name":"date2","className":"col-12","type":"checkbox","text":"","placeholder":"Date","readonly":true,"label":"Lovely","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-        {"id":"profile5","name":"Image","className":"col-lg-12","height":"200px",
+        {"id":"input1","name":"details","className":"col-12","type":"textarea","text":"","height":"100px","placeholder":"Home Details","readonly":false,"label":"Home Details*",
+        "errors":[
+            {"name":"required","message":"Home details is required.","pattern":""}             
+            ]
+        },
+        {"id":"input2","name":"image","className":"col-12",
         "errors":[
             {"name":"required","message":"Image is required.","pattern":""}             
-            ],"type":"textarea","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*","icon":{"id":1,"icon":"faCamera","size":"lg","spin":false,"className":""}
-        }
+            ],"type":"file","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*","icon":{"id":1,"icon":"faCamera","size":"lg","spin":false,"className":""}
+        },
+        {"id":"input3","name":"address","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Complete address is required.","pattern":""}             
+            ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*","icon":{"id":1,"icon":"faAddressCard","size":"lg","spin":false,"className":""}
+        },
+        {"id":"input4","name":"country","className":"col-12","type":"select","text":"","placeholder":"country","readonly":false,"label":"Country*",
+        "options":["Canada","USA"],
+        "errors":[
+            {"name":"required","message":"Country is required.","pattern":""}             
+        ]
+        },
+        {"id":"input5","name":"hydro","className":"col-12","type":"checkbox","text":"","placeholder":"","readonly":false,"label":"Hydro"}, 
+        {"id":"input6","name":"gender","className":"col-12","type":"radio","text":"","placeholder":"","readonly":false,"label":"Male"}            
     ]
 }
 

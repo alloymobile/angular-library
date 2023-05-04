@@ -5,15 +5,15 @@
     "selected": "border border-dark",
     "linkIcon":
     [
-      {"name":"Icon","className":"list-group-item list-group-item-action","link":"","active":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"name":"Icon","className":"list-group-item list-group-item-action","link":"/","active":"","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
       {"name":"Icon Link","className":"list-group-item list-group-item-action","link":"icon-link","active":"","icon":{"id":1,"icon":"faLink","size":"lg","spin":false,"className":""}},
       {"name":"Icon Button","className":"list-group-item list-group-item-action","link":"icon-button","active":"","icon":{"id":1,"icon":"faBorderAll","size":"lg","spin":false,"className":""}},
       {"name":"Link","className":"list-group-item list-group-item-action","link":"link","active":"","icon":{"id":2,"icon":"faLink","size":"lg","spin":false,"className":""}},
-      {"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link","active":"","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
-      {"name":"Link Logo","className":"list-group-item list-group-item-action","link":"link","icon":{"id":2,"icon":"faInternetExplorer","size":"lg","spin":false,"className":""}},
+      {"name":"Link Icon","className":"list-group-item list-group-item-action","link":"link-icon","active":"","icon":{"id":2,"icon":"faGlobe","size":"lg","spin":false,"className":""}},
+      {"name":"Link Logo","className":"list-group-item list-group-item-action","link":"link-logo","icon":{"id":2,"icon":"faInternetExplorer","size":"lg","spin":false,"className":""}},
       {"name":"Button","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOff","size":"lg","spin":false,"className":""}},
-      {"name":"Button Icon","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faToggleOn","size":"lg","spin":false,"className":""}},
-      {"name":"Button Submit","className":"list-group-item list-group-item-action","link":"button","icon":{"id":3,"icon":"faPlay","size":"lg","spin":false,"className":""}},
+      {"name":"Button Icon","className":"list-group-item list-group-item-action","link":"button-icon","icon":{"id":3,"icon":"faToggleOn","size":"lg","spin":false,"className":""}},
+      {"name":"Button Submit","className":"list-group-item list-group-item-action","link":"button-submit","icon":{"id":3,"icon":"faPlay","size":"lg","spin":false,"className":""}},
       {"name":"InputBox","className":"list-group-item list-group-item-action","link":"input","icon":{"id":4,"icon":"faKeyboard","size":"lg","spin":false,"className":""}}
     ]
   },

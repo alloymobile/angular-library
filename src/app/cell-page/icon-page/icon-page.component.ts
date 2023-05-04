@@ -11,31 +11,22 @@ export class IconPageComponent {
   usageString: string;
   example: AlloyIcon;
   exampleData: string;
-  usageBar: AlloyTabButton
-  tab: AlloyButtonIcon;
   search: AlloyInputTextIcon;
   constructor(){
     this.usageString = '<alloy-icon [icon]="icon"></alloy-icon>';
-    this.exampleData = JSON.stringify(IconDB.example,null,2);
-    this.example = new AlloyIcon(IconDB.example);
+    this.example = new AlloyIcon();
+    this.exampleData = JSON.stringify(this.example.tostring(),null,2);
     this.icons = IconDB.icons.map((icon)=>new AlloyIcon(icon));
-    this.usageBar = new AlloyTabButton(IconDB.tabBar);
-    this.tab = this.usageBar.tabs[0];
     this.search = new AlloyInputTextIcon(IconDB.search);
   }
 
   iconClick(icon: AlloyIcon){
-    let ico = {id: icon.id, icon: AlloyIcon.getIconText(icon.icon), size: icon.size, spin: icon.spin, className: icon.className};
-    this.exampleData = JSON.stringify(ico,null,2);
+    this.exampleData = JSON.stringify(icon.tostring(),null,2);
     this.update();
   }
 
   update(){
     this.example = new AlloyIcon(JSON.parse(this.exampleData));
-  }
-
-  getSelected(tab: AlloyButtonIcon){
-    this.tab = tab;
   }
 
   getText(icon){

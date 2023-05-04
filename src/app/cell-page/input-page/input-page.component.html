@@ -1,34 +1,30 @@
 <div class="container-fluid">
     <div class="row mt-2">
-        <div class="col-sm-6 border">
-            <h1>Input</h1>
-            <!-- <div class="m-2">
-                <alloy-input-text [inputText]="inputText" (output)="getText($event)"></alloy-input-text>
-            </div>
-            <div class="m-2">
-                <alloy-input-icon-text-label [inputIconTextLabel]="inputTextIcon" (output)="getText($event)"></alloy-input-icon-text-label>
-            </div>
-            <div class="m-2">
-                <alloy-input-text-icon-label [inputTextIconLabel]="inputTextIcon" (output)="getText($event)"></alloy-input-text-icon-label>
-            </div>
-            <div>
-                <alloy-searchbar [searchBar]="searchbar" (output)="getText($event)"></alloy-searchbar>
-            </div>
-            <div>
-                <alloy-input-file [inputFile]="upload" (output)="getText($event)"></alloy-input-file>
-            </div>
-            <div>
-                <alloy-input-floating-texts [inputFloatingTexts]="fields" (output)="getText($event)"></alloy-input-floating-texts>
-            </div> -->
-            <!-- <div>
-                <alloy-input-texts [inputTexts]="fields" (output)="getText($event)"></alloy-input-texts>
-            </div> -->
-            <div>
-                <alloy-input-icon-texts [inputIconTexts]="fields" (output)="getText($event)"></alloy-input-icon-texts>
+        <div class="col-sm-4 border">
+            <h1 class="text-center">Input</h1>
+            <div class="m-2" *ngFor="let input of inputs">
+                <div (click) ="inputClick(input)">
+                    <alloy-input-icon-text-label [inputIconTextLabel]="input" (output)="onInput($event)"></alloy-input-icon-text-label>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6 text-center border">
+        <div class="col-sm-8 text-center border">
             <h1>Usage</h1>
+            <div class="container-fluid d-flex flex-column">
+                <div class="m-2">
+                    <p class="border border-dark rounded-pill p-2">{{usageString}}</p>
+                  </div>
+                  <div class="m-2 text-wrap">
+                    <h6>Output</h6>
+                    <p class="border border-dark rounded-pill p-2">{{outputString}}</p>
+                  </div>
+                  <div class="m-2">
+                    <div class="form-group p-2">
+                      <label for="tryOut">Try Out</label>
+                      <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="25" [(ngModel)]="exampleData" (blur)="update()"></textarea>
+                    </div>
+                  </div>
+            </div> 
         </div>
     </div>
 </div>

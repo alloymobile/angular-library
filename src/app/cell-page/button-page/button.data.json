@@ -1,34 +1,11 @@
 {
-    "button1":{"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-    "modal":{
-        "id":"myModal","title":"Create Folder","open":false,
-        "fields":
-        [
-            {"id":"1","name":"email","className":"input-group mb-3","typeName":"text","placeholder":"tax 2022","label":"Email address","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-            {"id":"1","name":"password","className":"input-group mb-3","typeName":"password","placeholder":"tax 2022","label":"Password","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
-        ]
-    },
-    "modalButton":{
-        "id":"myModal","title":"Create Folder","open":false,
-        "fields":
-        [
-            {"id":"1","name":"email","className":"input-group mb-3","typeName":"text","placeholder":"tax 2022","label":"Email address","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}},
-            {"id":"1","name":"password","className":"input-group mb-3","typeName":"password","placeholder":"tax 2022","label":"Password","icon":{"id":1,"icon":"faFolder","size":"lg","spin":false,"className":""}}
-        ],
-        "show":{"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFolder","size":"lg","spin":false,"className":""}}
-    },
     "buttons":
     [
-        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","type":"","active":"","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
-        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}},
-        {"id":"1","name":"Create","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faFilePdf","size":"2x","spin":false,"className":""}}
-    ],
-    "clientBar":{
-        "id":1,
-        "className":"navbar-light navbar-sticky border-bottom",
-        "backButton":{"id":"1","name":"Back","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faArrowLeftLong","size":"lg","spin":false,"className":""}},
-        "barIcon": {"id":1,"icon":"faBars","size":"lg","spin":false,"className":"btn btn-outline-dark border-0"},
-        "clientButton":{"id":"dropdownMenuButton1","name":"Client","className":"btn btn-outline-dark border-0","icon":{"id":31,"icon":"faUser","size":"lg","spin":false,"className":""}},
-        "client":{"id":"1","name":"Tapas","roles":[{"id":"1","name":"Client"}]}
-      }
+        {"name":"Home","className":"btn btn-outline-dark rounded px-1 shadow","active":"","type":"button"},
+        {"name":"About","className":"btn btn-secondary rounded-circle px-1","active":"","type":"button"},
+        {"name":"Terms","className":"btn btn-primary rounded-pill px-1","active":"","type":"button"},
+        {"name":"Privacy","className":"btn btn-success border border-5 border-dark px-1","active":"","type":"button"},
+        {"name":"Blog","className":"fs-2 btn btn-warning","active":"","type":"button"},
+        {"name":"Contact","className":"btn btn-outline-info border-0 btn-sm rounded px-1 shadow","active":"","type":"button"}
+    ]
 }

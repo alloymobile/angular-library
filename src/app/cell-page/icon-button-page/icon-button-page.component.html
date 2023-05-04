@@ -3,25 +3,21 @@
       <div class="col-sm-6 text-center text-wrap">
         <h4>Usage</h4>
         <div class="container-fluid d-flex flex-column">
-            <div class="m-2" *ngIf="tab.id == 'tab1'">
-              <div class="form-group p-2">
-                <label for="tryOut">Try Out</label>
-                <div class=" m-2">
-                  <alloy-icon-button [iconButton]="example"></alloy-icon-button>
-                </div>
-                <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="20" [(ngModel)]="exampleData" (blur)="update()"></textarea>
-              </div>
+          <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
+          <div class="form-group p-2">
+            <label for="tryOut">Try Out</label>
+            <div class=" m-2">
+              <alloy-icon-button [iconButton]="example"></alloy-icon-button>
             </div>
-            <div class="m-2 mt-5"  *ngIf="tab.id == 'tab2'">
-              <h6 class="border border-dark rounded-pill p-2">{{usageString}}</h6>
-            </div>
+            <textarea type="text" class="form-control border border-dark rounded" id="tryOut" rows="20" [(ngModel)]="exampleData" (blur)="update()"></textarea>
+          </div>
         </div>            
       </div>
       <div class="col-sm-6 text-center border-end border-dark border-2">
         <h4>Icons</h4>
         <div class="row">
           <div class="col-12 p-3">
-            <alloy-input-text-icon-label [inputTextIconLabel]="search" (output)="getText($event)"></alloy-input-text-icon-label>
+            <alloy-input-icon-text-label [inputIconTextLabel]="search" (output)="getText($event)"></alloy-input-icon-text-label>
           </div>
           <div class="col-12">
             <div class="row">
