@@ -4,8 +4,9 @@
     "className":"list-group h-100",
     "linkIcon":
     [
-      {"id":1,"name":"Table","className":"list-group-item list-group-item-action","link":"tissue","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
-      {"id":2,"name":"About us","className":"list-group-item list-group-item-action","link":"tissue/about","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}}
+      {"name":"Bar","className":"list-group-item list-group-item-action","link":"tissue","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}},
+      {"name":"Card","className":"list-group-item list-group-item-action","link":"tissue/card","icon":{"id":2,"icon":"faUser","size":"lg","spin":false,"className":""}},
+      {"name":"Table","className":"list-group-item list-group-item-action","link":"tissue/table","icon":{"id":1,"icon":"faHome","size":"lg","spin":false,"className":""}}
     ]
   }
 }

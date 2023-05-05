@@ -71,7 +71,7 @@ export class AlloyLinkBar extends Bar{
          }
       }else{
         super();
-        this.type = 'AlloyButton';
+        this.type = 'AlloyLink';
         this.links = [];
       }
     }

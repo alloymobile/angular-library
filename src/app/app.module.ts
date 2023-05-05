@@ -29,6 +29,8 @@ import { LinkDropdownPageComponent } from './cell-page/link-dropdown-page/link-d
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CodePageComponent } from './organ-page/code-page/code-page.component';
 import { AlloymobileAngularModule } from 'alloymobile-angular';
+import { BarPageComponent } from './tissue-page/bar-page/bar-page.component';
+import { CardPageComponent } from './tissue-page/card-page/card-page.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { AlloymobileAngularModule } from 'alloymobile-angular';
     LinkLogoPageComponent,
     LinkIconPageComponent,
     LinkDropdownPageComponent,
-    CodePageComponent
+    CodePageComponent,
+    BarPageComponent,
+    CardPageComponent
   ],
   imports: [
     BrowserModule,

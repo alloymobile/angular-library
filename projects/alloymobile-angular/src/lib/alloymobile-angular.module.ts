@@ -176,7 +176,9 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     TabFormComponent,
     TabButtonComponent,
     InputFloatingTextComponent,
-    InputIconTextComponent
+    InputIconTextComponent,
+    ButtonBarComponent,
+    LinkBarComponent
   ]
 })
 export class AlloymobileAngularModule { }
