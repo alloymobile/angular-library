@@ -101,6 +101,25 @@
               </div>
             </div>
           </div>
+          <div *ngSwitchCase="'search'">
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconTextLabel.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconTextLabel.id"
+                  [type]="_inputIconTextLabel.type"
+                  [formControlName]="_inputIconTextLabel.name"
+                  [placeholder]="_inputIconTextLabel.placeholder"
+                  [readonly]="_inputIconTextLabel.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconTextLabel.id">{{ _inputIconTextLabel.label }}</label>
+              </div>
+            </div>
+          </div>
           <div *ngSwitchCase="'date'">
             <div class="input-group py-2">
               <span class="input-group-text">
@@ -175,6 +194,25 @@
                 (change)="selectedRadio(_inputIconTextLabel)"
               />
               <label [for]="_inputIconTextLabel.id" class="form-check-label">{{ _inputIconTextLabel.label }}</label>
+            </div>
+          </div>
+          <div *ngSwitchDefault>
+            <div class="input-group py-2">
+              <span class="input-group-text">
+                <alloy-icon [icon]="_inputIconTextLabel.icon"></alloy-icon>
+              </span>
+              <div class="form-floating">
+                <input
+                  [id]="_inputIconTextLabel.id"
+                  [type]="_inputIconTextLabel.type"
+                  [formControlName]="_inputIconTextLabel.name"
+                  [placeholder]="_inputIconTextLabel.placeholder"
+                  [readonly]="_inputIconTextLabel.readonly"
+                  class="form-control"
+                  (input)="formOutput()"
+                />
+                <label [for]="_inputIconTextLabel.id">{{ _inputIconTextLabel.label }}</label>
+              </div>
             </div>
           </div>
         </div>

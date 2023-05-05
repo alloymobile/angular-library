@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { AlloyInputText } from '../input.model';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'alloy-input-text',
-  templateUrl: './input-text.component.html',
-  styleUrls: ['./input-text.component.css']
+  selector: 'alloy-input-floating-text',
+  templateUrl: './input-floating-text.component.html',
+  styleUrls: ['./input-floating-text.component.css']
 })
-export class InputTextComponent {
-  _inputText: AlloyInputText;
-  @Input() set inputText(inputText: AlloyInputText) {
-  	this._inputText = inputText;
-    this.inputForm = this.createData(this._inputText);
+export class InputFloatingTextComponent {
+  _inputFloatingText: AlloyInputText;
+  @Input() set inputFloatingText(inputFloatingText: AlloyInputText) {
+  	this._inputFloatingText = inputFloatingText;
+    this.inputForm = this.createData(this._inputFloatingText);
   }
   //reactive form for data input
   inputForm: FormGroup;
@@ -20,7 +20,7 @@ export class InputTextComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputText = new AlloyInputText();
+    this._inputFloatingText = new AlloyInputText();
     this.inputForm = new FormGroup({});
     this.errors = [];
   }

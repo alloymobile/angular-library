@@ -4,7 +4,7 @@
   #form="ngForm"
 >
   <div class="row">
-    <div [class]="_inputIconText.className" *ngFor="let _inputIconText of _inputIconTexts">
+    <div [class]="_inputIconText.className">
         <div [ngSwitch]="_inputIconText.type">
           <div *ngSwitchCase="'text'">
             <div class="input-group py-2">

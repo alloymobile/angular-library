@@ -1,5 +1,5 @@
 {
-"search":{"name":"search","className":"input-group border border-dark","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
+"search":{"name":"search","className":"col-12","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
 "icons":
     [
         {"icon":"faWater","size":"lg","spin":false,"className":"text-primary"},

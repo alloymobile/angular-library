@@ -1,5 +1,15 @@
 {
-    "inputs":
+    "tabBar":{
+        "id":"tabBar",
+        "className":"nav nav-tabs nav-fill justify-content-center",
+        "selected":"active",
+        "tabs":[
+            {"id":"tab1","name":"Icon","className":"nav-link text-dark","active":"","link":"","icon":{"id":"icon1","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
+            {"id":"tab2","name":"Floating","className":"nav-link text-dark","active":"","link":"tissue","icon":{"id":"icon2","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
+            {"id":"tab3","name":"Text","className":"nav-link text-dark","active":"","link":"organ","icon":{"id":"icon3","icon":"faKeyboard","size":"sm","spin":false,"className":""}}
+        ]
+    },
+    "inputIcons":
     [
         {"id":"input1","name":"details","className":"col-12","type":"textarea","text":"","height":"100px","placeholder":"Home Details","readonly":false,"label":"Home Details*",
         "errors":[
@@ -16,14 +26,95 @@
             {"name":"required","message":"Complete address is required.","pattern":""}             
             ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*","icon":{"id":1,"icon":"faAddressCard","size":"lg","spin":false,"className":""}
         },
+        {"id":"input4","name":"date","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Select a date is required.","pattern":""}             
+            ],"type":"date","text":"","placeholder":"date","readonly":false,"label":"Date*","icon":{"id":1,"icon":"faAddressCard","size":"lg","spin":false,"className":""}
+        },
+        {"id":"input5","name":"country","className":"col-12","type":"select","text":"","placeholder":"country","readonly":false,"label":"Country*",
+        "options":["Canada","USA"],
+        "errors":[
+            {"name":"required","message":"Country is required.","pattern":""}             
+        ]
+        },
+        {"id":"input6","name":"hydro","className":"col-12","type":"checkbox","text":"","placeholder":"","readonly":false,"label":"Hydro",
+        "errors":[
+            {"name":"required","message":"Hydro is required.","pattern":""}             
+            ]
+        }, 
+        {"id":"input7","name":"gender","className":"col-12","type":"radio","text":"","placeholder":"","readonly":false,"label":"Male",
+        "errors":[
+                {"name":"required","message":"Gender is required.","pattern":""}             
+            ]
+        }           
+    ],
+    "inputTexts":
+    [
+        {"id":"input1","name":"details","className":"col-12","type":"textarea","text":"","height":"100px","placeholder":"Home Details","readonly":false,"label":"Home Details*",
+        "errors":[
+            {"name":"required","message":"Home details is required.","pattern":""}             
+            ]
+        },
+        {"id":"input2","name":"image","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Image is required.","pattern":""}             
+            ],"type":"file","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*"
+        },
+        {"id":"input3","name":"address","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Complete address is required.","pattern":""}             
+            ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*"
+        },
         {"id":"input4","name":"country","className":"col-12","type":"select","text":"","placeholder":"country","readonly":false,"label":"Country*",
         "options":["Canada","USA"],
         "errors":[
             {"name":"required","message":"Country is required.","pattern":""}             
         ]
         },
-        {"id":"input5","name":"hydro","className":"col-12","type":"checkbox","text":"","placeholder":"","readonly":false,"label":"Hydro"}, 
-        {"id":"input6","name":"gender","className":"col-12","type":"radio","text":"","placeholder":"","readonly":false,"label":"Male"}            
+        {"id":"input5","name":"hydro","className":"col-12","type":"checkbox","text":"","placeholder":"","readonly":false,"label":"Hydro",
+        "errors":[
+            {"name":"required","message":"Hydro is required.","pattern":""}             
+            ]
+        }, 
+        {"id":"input6","name":"gender","className":"col-12","type":"radio","text":"","placeholder":"","readonly":false,"label":"Male",
+        "errors":[
+                {"name":"required","message":"Gender is required.","pattern":""}             
+            ]
+        }           
+    ],
+    "inputFloatingTexts":
+    [
+        {"id":"input1","name":"details","className":"col-12","type":"textarea","text":"","height":"100px","placeholder":"Home Details","readonly":false,"label":"Home Details*",
+        "errors":[
+            {"name":"required","message":"Home details is required.","pattern":""}             
+            ]
+        },
+        {"id":"input2","name":"image","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Image is required.","pattern":""}             
+            ],"type":"file","text":"","placeholder":"Add a image","readonly":false,"label":"Add a image*"
+        },
+        {"id":"input3","name":"address","className":"col-12",
+        "errors":[
+            {"name":"required","message":"Complete address is required.","pattern":""}             
+            ],"type":"text","text":"","placeholder":"address","readonly":false,"label":"Address*"
+        },
+        {"id":"input4","name":"country","className":"col-12","type":"select","text":"","placeholder":"country","readonly":false,"label":"Country*",
+        "options":["Canada","USA"],
+        "errors":[
+            {"name":"required","message":"Country is required.","pattern":""}             
+        ]
+        },
+        {"id":"input5","name":"hydro","className":"col-12","type":"checkbox","text":"","placeholder":"","readonly":false,"label":"Hydro",
+        "errors":[
+            {"name":"required","message":"Hydro is required.","pattern":""}             
+            ]
+        }, 
+        {"id":"input6","name":"gender","className":"col-12","type":"radio","text":"","placeholder":"","readonly":false,"label":"Male",
+        "errors":[
+                {"name":"required","message":"Gender is required.","pattern":""}             
+            ]
+        }           
     ]
 }
 

@@ -24,7 +24,6 @@ import { IconSidebarComponent } from './tissue/nav/icon-sidebar/icon-sidebar.com
 import { NavbarComponent } from './tissue/navbar/navbar/navbar.component';
 import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
 import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
-import { InputFileComponent } from './cell/input/input-file/input-file.component';
 import { InputTextsComponent } from './tissue/inputs/input-texts/input-texts.component';
 import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
 import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
@@ -44,11 +43,8 @@ import { FooterComponent } from './tissue/footer/footer/footer.component';
 import { NavbarLinkIconComponent } from './tissue/navbar/navbar-link-icon/navbar-link-icon.component';
 
 import { FormComponent } from './organ/form/form/form.component';
-import { CrudFileComponent } from './organ/crud/crud-file/crud-file.component';
-import { CrudFileActionComponent } from './organ/crud/crud-file-action/crud-file-action.component';
 import { ModalComponent } from './organ/modal/modal/modal.component';
 import { ModalToastComponent } from './organ/modal/modal-toast/modal-toast.component';
-import { ModalFileComponent } from './organ/modal/modal-file/modal-file.component';
 import { ResetComponent } from './organ/reset/reset/reset.component';
 import { CodeComponent } from './organ/code/code/code.component';
 import { LoginComponent } from './organ/login/login/login.component';
@@ -62,6 +58,8 @@ import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
 import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
 import { LinkBarComponent } from './tissue/bar/link-bar/link-bar.component';
 import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component';
+import { InputFloatingTextComponent } from './cell/input/input-floating-text/input-floating-text.component';
+import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 
 
 @NgModule({
@@ -85,17 +83,13 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     PageComponent,
-    InputFileComponent,
     InputTextsComponent,
-    CrudFileComponent,
     NavbarIconComponent,
     ClientbarComponent,
     ModalComponent,
     ModalToastComponent,
-    ModalFileComponent,
     CodeComponent,
     TableActionComponent,
-    CrudFileActionComponent,
     ResetComponent,
     LinkLogoComponent,
     IconButtonComponent,
@@ -120,7 +114,9 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
     TabFormComponent,
     TabButtonComponent,
     LinkBarComponent,
-    ButtonBarComponent
+    ButtonBarComponent,
+    InputFloatingTextComponent,
+    InputIconTextComponent
   ],
   imports: [
     BrowserModule,
@@ -150,16 +146,13 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
     InputTextIconLabelComponent,
     GalleryButtonComponent,
     PageComponent,
-    InputFileComponent,
     InputTextsComponent,
-    CrudFileComponent,
     NavbarIconComponent,
     ClientbarComponent,
     ModalComponent,
     ModalToastComponent,
     CodeComponent,
     TableActionComponent,
-    CrudFileActionComponent,
     ResetComponent,
     LinkLogoComponent,
     LinkDropdownComponent,
@@ -181,7 +174,9 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
     ProfileComponent,
     TabLinkComponent,
     TabFormComponent,
-    TabButtonComponent
+    TabButtonComponent,
+    InputFloatingTextComponent,
+    InputIconTextComponent
   ]
 })
 export class AlloymobileAngularModule { }

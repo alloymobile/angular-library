@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AlloyInputTextIcon } from '../input.model';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { AlloyInputText } from '../input.model';
 
 @Component({
-  selector: 'alloy-input-text',
-  templateUrl: './input-text.component.html',
-  styleUrls: ['./input-text.component.css']
+  selector: 'alloy-input-icon-text',
+  templateUrl: './input-icon-text.component.html',
+  styleUrls: ['./input-icon-text.component.css']
 })
-export class InputTextComponent {
-  _inputText: AlloyInputText;
-  @Input() set inputText(inputText: AlloyInputText) {
-  	this._inputText = inputText;
-    this.inputForm = this.createData(this._inputText);
+export class InputIconTextComponent {
+  _inputIconText: AlloyInputTextIcon;
+  @Input() set inputIconText(inputIconText: AlloyInputTextIcon) {
+  	this._inputIconText = inputIconText;
+    this.inputForm = this.createData(this._inputIconText);
   }
   //reactive form for data input
   inputForm: FormGroup;
@@ -20,13 +20,13 @@ export class InputTextComponent {
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() { 
-    this._inputText = new AlloyInputText();
+    this._inputIconText = new AlloyInputTextIcon();
     this.inputForm = new FormGroup({});
     this.errors = [];
   }
 
   //Used to create the form group
-  createData(input: AlloyInputText) {
+  createData(input: AlloyInputTextIcon) {
     this.inputForm = new FormGroup({});
     let group = {};
       Object.entries(input).forEach((column: any) => {
@@ -37,12 +37,12 @@ export class InputTextComponent {
     return new FormGroup(group);
   }
 
-  getError(inputField: AlloyInputText){
+  getError(inputField: AlloyInputTextIcon){
     this.getErrorMessage(inputField)
     return this.inputForm.get(inputField.name).errors;
   }
 
-  getErrorMessage(inputField: AlloyInputText){
+  getErrorMessage(inputField: AlloyInputTextIcon){
     this.errors = [];
     if(this.inputForm.get(inputField.name).errors != undefined){
       Object.entries(this.inputForm.get(inputField.name).errors).forEach((row: any) => {

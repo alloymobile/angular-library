@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyInput, AlloyInputTextIcon } from 'alloymobile-angular';
+import { AlloyButtonIcon, AlloyInputType, AlloyTabButton } from 'alloymobile-angular';
 import InputDB from './input-page.data.json';
 
 @Component({
@@ -8,31 +8,43 @@ import InputDB from './input-page.data.json';
   styleUrls: ['./input-page.component.css']
 })
 export class InputPageComponent {
-  inputs: AlloyInput[];
-  example: AlloyInput;
+  inputIcons: AlloyInputType[];
+  inputTexts: AlloyInputType[];
+  inputFloatingTexts: AlloyInputType[];
+  example: AlloyInputType;
   usageString: string;
   exampleData: string;
   outputString: string;
+  usageBar: AlloyTabButton
+  tab: AlloyButtonIcon;
   constructor(){
     this.usageString = '<alloy-input [input]="input"></alloy-input>';
-    this.inputs = InputDB.inputs.map((input)=>new AlloyInput(input));
-    this.example = new AlloyInput();
+    this.inputIcons = InputDB.inputIcons.map((input)=>new AlloyInputType(input));
+    this.inputTexts = InputDB.inputTexts.map((input)=>new AlloyInputType(input));
+    this.inputFloatingTexts = InputDB.inputFloatingTexts.map((input)=>new AlloyInputType(input));
+    this.example = new AlloyInputType();
     this.exampleData = JSON.stringify(this.example.toString(),null,2);
     this.outputString = "";
+    this.usageBar = new AlloyTabButton(InputDB.tabBar);
+    this.tab = this.usageBar.tabs[0];
   }
 
-  inputClick(input: AlloyInputTextIcon){
+  inputClick(input: AlloyInputType){
     this.example = input;
     this.exampleData = JSON.stringify(this.example.toString(),null,2);
     this.update();
   }
 
   update(){
-    this.example = new AlloyInputTextIcon(JSON.parse(this.exampleData));
+    this.example = new AlloyInputType(JSON.parse(this.exampleData));
   }
 
   onInput(form){
     this.outputString = JSON.stringify(form);
+  }
+
+  getSelected(tab: AlloyButtonIcon){
+    this.tab = tab;
   }
 }
 

@@ -1,7 +1,7 @@
 import { AlloyIcon } from "../icon/icon.model";
 import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
-export class AlloyInput{
+export class AlloyInputType{
   type: string;
   constructor(res?: any) {
     if(res){
@@ -11,26 +11,31 @@ export class AlloyInput{
         case "email":
         case "file":
         case "date":  
-        case "number":       
+        case "number":    
+        case "search":   
+        if(res.icon != undefined){
           return new AlloyInputTextIcon(res);
+        }else{
+          return new AlloyInputText(res);
+        } 
         case "textarea":
           return new AlloyInputTextArea(res);
         case "select":
           return new AlloyInputSelect(res); 
         case "radio":
         case "checkbox":  
-          return new Input(res);   
+          return new AlloyInput(res);   
         default:
-          return new AlloyInputTextIcon(res);
+          return new AlloyInputText(res);
       }
     }else{
-      return new AlloyInputTextIcon(res);
+      return new AlloyInput();
     }
   }
 }
 
 
-export class Input {
+export class AlloyInput{
   id: string;
   name: string;
   type: string;
@@ -44,7 +49,7 @@ export class Input {
   static idGenerator: number = 0;
   constructor(res?: any) {
     if (res) {
-      this.id = res.id ? res.id : 'input' + ++Input.idGenerator;
+      this.id = res.id ? res.id : 'input' + ++AlloyInput.idGenerator;
       this.name = res.name ? res.name : 'name';
       this.type = res.type ? res.type : 'text';
       this.label = res.label ? res.label : 'Name';
@@ -54,7 +59,7 @@ export class Input {
       this.errors =  res.errors ? res.errors.map((res: AlloyCustomValidation)=> new AlloyCustomValidation(res)) : []; 
       this.validators =  res.errors ? res.errors.map((res: AlloyCustomValidation)=>  getValidator(new AlloyCustomValidation(res))) : []; 
     } else {
-      this.id = 'input' + ++Input.idGenerator;
+      this.id = 'input' + ++AlloyInput.idGenerator;
       this.name = 'name';
       this.type = 'text';
       this.label = 'Name';
@@ -66,22 +71,21 @@ export class Input {
     }
   }
 
-  // toString(){
-  //   return {
-  //     id: this.id ?? "input1",
-  //     name: this.name ?? "AlloyInputTextIcon",
-  //     type: this.type ?? "text",
-  //     className: this.className ?? "",
-  //     readonly: this.readonly ?? false,
-  //     errors: this.errors ?? [],
-  //     validators: this.validators ?? [],
-  //     match: this.match ?? false,
-  //     label: this.label ?? ""
-  //   }
-  // }
+  toString(){
+    return {
+      id: this.id ?? "input1",
+      name: this.name ?? "AlloyInputTextIcon",
+      type: this.type ?? "text",
+      label: this.label ?? "",
+      className: this.className ?? "",
+      readonly: this.readonly ?? false,
+      match: this.match ?? false,
+      errors: this.errors ?? []
+    }
+  }
 }
 
-export class AlloyInputText extends Input {
+export class AlloyInputText extends AlloyInput {
   text: string;
   placeholder: string;
   constructor(res?: any) {
@@ -96,21 +100,20 @@ export class AlloyInputText extends Input {
     }
   }
   
-  // toString(){
-  //   return {
-  //     id: this.id ?? "input1",
-  //     name: this.name ?? "AlloyInputTextIcon",
-  //     type: this.type ?? "text",
-  //     className: this.className ?? "",
-  //     placeholder: this.placeholder ?? "",
-  //     readonly: this.readonly ?? false,
-  //     errors: this.errors ?? [],
-  //     validators: this.validators ?? [],
-  //     match: this.match ?? false,
-  //     text: this.text ?? "",
-  //     label: this.label ?? "",
-  //   }
-  // }
+  toString(){
+    return {
+      id: this.id ?? "input1",
+      name: this.name ?? "AlloyInputTextIcon",
+      type: this.type ?? "text",
+      className: this.className ?? "",
+      placeholder: this.placeholder ?? "",
+      readonly: this.readonly ?? false,
+      text: this.text ?? "",
+      label: this.label ?? "",
+      match: this.match ?? false,
+      errors: this.errors ?? []
+    }
+  }
 }
 
 export class AlloyInputTextArea extends AlloyInputText{
@@ -132,11 +135,11 @@ export class AlloyInputTextArea extends AlloyInputText{
       className: this.className ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
-      errors: this.errors ?? [],
-      match: this.match ?? false,
       text: this.text ?? "",
       label: this.label ?? "",
-      height: this.height ?? "100px"
+      height: this.height ?? "100px",
+      match: this.match ?? false,
+      errors: this.errors ?? []
     }
   }
 }
@@ -160,11 +163,11 @@ export class AlloyInputSelect extends AlloyInputText{
       className: this.className ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
-      errors: this.errors ?? [],
-      match: this.match ?? false,
       text: this.text ?? "",
       label: this.label ?? "",
-      options: this.options ?? []
+      options: this.options ?? [],
+      match: this.match ?? false,
+      errors: this.errors ?? []
     }
   }
 }
@@ -189,11 +192,11 @@ export class AlloyInputTextIcon extends AlloyInputText {
       className: this.className ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
-      errors: this.errors ?? [],
-      match: this.match ?? false,
       text: this.text ?? "",
       label: this.label ?? "",
-      icon: this.icon.tostring() 
+      icon: this.icon.tostring(),
+      match: this.match ?? false,
+      errors: this.errors ?? []
     }
   }
 }

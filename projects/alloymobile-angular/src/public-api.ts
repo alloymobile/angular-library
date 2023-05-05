@@ -39,7 +39,9 @@ export * from './lib/tissue/dropdown/button-dropdown/button-dropdown.component';
 export * from './lib/cell/input/input-text/input-text.component';
 export * from './lib/cell/input/input-icon-text-label/input-icon-text-label.component';
 export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.component';
-export * from './lib/cell/input/input-file/input-file.component';
+export * from './lib/cell/input/input-floating-text/input-floating-text.component';
+export * from './lib/cell/input/input-icon-text/input-icon-text.component';
+
 export * from './lib/tissue/inputs/input-texts/input-texts.component';
 export * from './lib/tissue/inputs/input-floating-texts/input-floating-texts.component';
 export * from './lib/tissue/inputs/input-icon-texts/input-icon-texts.component';
@@ -49,7 +51,6 @@ export * from './lib/tissue/card/card-icon/card-icon.component';
 export * from './lib/tissue/card/card-icon-action/card-icon-action.component';
 export * from './lib/tissue/card/card-image/card-image.component';
 export * from './lib/tissue/card/card-image-action/card-image-action.component';
-
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/navbar/navbar-icon/navbar-icon.component';
 export * from './lib/tissue/navbar/navbar-link-icon/navbar-link-icon.component';
@@ -73,8 +74,6 @@ export * from './lib/organ/modal/modal/modal.component';
 export * from './lib/organ/modal/modal-toast/modal-toast.component';
 export * from './lib/organ/crud/crud-table/crud-table.component';
 export * from './lib/organ/crud/crud-card/crud-card.component';
-export * from './lib/organ/crud/crud-file/crud-file.component';
-export * from './lib/organ/crud/crud-file-action/crud-file-action.component';
 export * from './lib/organ/code/code/code.component';
 export * from './lib/organ/reset/reset/reset.component';
 export * from './lib/organ/form/form/form.component';
