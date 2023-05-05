@@ -4,9 +4,9 @@
         "className":"nav nav-tabs nav-fill justify-content-center",
         "selected":"active",
         "tabs":[
-            {"id":"tab1","name":"Icon","className":"nav-link text-dark","active":"","link":"","icon":{"id":"icon1","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
-            {"id":"tab2","name":"Floating","className":"nav-link text-dark","active":"","link":"tissue","icon":{"id":"icon2","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
-            {"id":"tab3","name":"Text","className":"nav-link text-dark","active":"","link":"organ","icon":{"id":"icon3","icon":"faKeyboard","size":"sm","spin":false,"className":""}}
+            {"id":"tab1","name":"Icon","className":"nav-link text-dark","active":"","type":"button","icon":{"id":"icon1","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
+            {"id":"tab2","name":"Floating","className":"nav-link text-dark","active":"","type":"button","icon":{"id":"icon2","icon":"faKeyboard","size":"sm","spin":false,"className":""}},
+            {"id":"tab3","name":"Text","className":"nav-link text-dark","active":"","type":"button","icon":{"id":"icon3","icon":"faKeyboard","size":"sm","spin":false,"className":""}}
         ]
     },
     "inputIcons":

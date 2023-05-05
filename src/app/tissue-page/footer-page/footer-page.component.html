@@ -1,20 +1,14 @@
 <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6 text-center border-end border-dark border-2">
-          <h4>Bars</h4>
+          <h4>Footer</h4>
           <div class="row">
-              <div class="col-12 p-1 my-3 text-center border rounded">
-                    <alloy-button-bar [buttonBar]="buttonBar"></alloy-button-bar>
-                </div>
-                <div class="col-12 p-1  my-3 text-center border rounded">
-                    <alloy-button-bar [buttonBar]="buttonIconBar"></alloy-button-bar>
-                </div>
-                <div class="col-12 p-1 my-3 text-center border rounded">
-                    <alloy-button-bar [buttonBar]="iconBar"></alloy-button-bar>
-                </div>
+            <div class="col-12" (click)="footerClick(footer)">
+                <alloy-footer [footer]="footer"></alloy-footer>
             </div>
-        </div>
-        <div class="col-sm-6 text-center text-wrap">
+          </div>
+      </div>
+      <div class="col-sm-6 text-center text-wrap">
         <h4>Usage</h4>
         <div class="container-fluid d-flex flex-column">
             <div class="m-2">

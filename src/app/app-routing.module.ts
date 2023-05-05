@@ -23,6 +23,10 @@ import { ButtonIconPageComponent } from './cell-page/button-icon-page/button-ico
 import { ButtonSubmitPageComponent } from './cell-page/button-submit-page/button-submit-page.component';
 import { CardPageComponent } from './tissue-page/card-page/card-page.component';
 import { BarPageComponent } from './tissue-page/bar-page/bar-page.component';
+import { FooterPageComponent } from './tissue-page/footer-page/footer-page.component';
+import { InputsPageComponent } from './tissue-page/inputs-page/inputs-page.component';
+import { NavPageComponent } from './tissue-page/nav-page/nav-page.component';
+import { PagePageComponent } from './tissue-page/page-page/page-page.component';
 
 const routes: Routes = [
   { path: '', component: CellPageComponent, children:
@@ -44,6 +48,10 @@ const routes: Routes = [
       {path: "",component: BarPageComponent},
       {path: "card",component: CardPageComponent},
       {path: "table",component: TablePageComponent},
+      {path: "footer",component: FooterPageComponent},
+      {path: "input",component: InputsPageComponent},
+      {path: "nav",component: NavPageComponent},
+      {path: "page",component: PagePageComponent},
       {path: "table/:id",component: TableDetailPageComponent}
     ]
   },

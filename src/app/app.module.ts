@@ -31,6 +31,10 @@ import { CodePageComponent } from './organ-page/code-page/code-page.component';
 import { AlloymobileAngularModule } from 'alloymobile-angular';
 import { BarPageComponent } from './tissue-page/bar-page/bar-page.component';
 import { CardPageComponent } from './tissue-page/card-page/card-page.component';
+import { InputsPageComponent } from './tissue-page/inputs-page/inputs-page.component';
+import { FooterPageComponent } from './tissue-page/footer-page/footer-page.component';
+import { NavPageComponent } from './tissue-page/nav-page/nav-page.component';
+import { PagePageComponent } from './tissue-page/page-page/page-page.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { CardPageComponent } from './tissue-page/card-page/card-page.component';
     LinkDropdownPageComponent,
     CodePageComponent,
     BarPageComponent,
-    CardPageComponent
+    CardPageComponent,
+    InputsPageComponent,
+    FooterPageComponent,
+    NavPageComponent,
+    PagePageComponent
   ],
   imports: [
     BrowserModule,
