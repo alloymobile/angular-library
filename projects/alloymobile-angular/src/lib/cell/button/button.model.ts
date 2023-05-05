@@ -50,7 +50,7 @@ export class AlloyButtonIcon extends AlloyButton{
     return { 
       id: this.id ?? "button1",
       name: this.name ?? "AlloyButtonIcon",
-      className: this.className ?? "",
+      className: this.className ?? "btn btn-lg btn-info mt-1",
       type: this.type ?? "button",
       active: this.active ?? "",
       icon:this.icon.tostring()
@@ -79,7 +79,7 @@ export class AlloyButtonSubmit extends Button{
     return { 
       id: this.id ?? "button1",
       name: this.name ?? "AlloyButtonIcon",
-      className: this.className ?? "",
+      className: this.className ?? "btn btn-lg btn-info mt-1",
       type: this.type ?? "button",
       show: this.show ?? false,
       disable: this.disable ?? false,

@@ -8,9 +8,10 @@ export class AlloyFooter{
     logo: AlloyLinkLogo;
     link: AlloyLink[];
     social: AlloyLinkIcon[];
+    static idGenerator: number = 0;
     constructor(res?: any){
         if(res){
-            this.id = res.id ? res.id : "footer1";
+            this.id = res.id ? res.id : "button" + ++AlloyFooter.idGenerator;
             this.title = res.title ? res.title : "AlloyMobile";
             this.className = res.className ? res.className : "bg-info container-fluid";
             this.logo =  res.logo ? new AlloyLinkLogo(res.logo) :  new AlloyLinkLogo();
@@ -30,9 +31,9 @@ export class AlloyFooter{
             id: this.id ?? "footer1",
             title: this.title ?? "AlloyMobile",
             className: this.className ?? "bg-info container-fluid",
-            logo: this.logo ?? "",
+            logo: this.logo ?? new AlloyLinkLogo(),
             link: this.link ?? [],
-            social: this.social ?? []
+            social: this.social.map(s=>s.tostring()) ?? []
         }
     }
 }
