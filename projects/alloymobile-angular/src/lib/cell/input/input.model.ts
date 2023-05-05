@@ -13,6 +13,7 @@ export class AlloyInputType{
         case "date":  
         case "number":    
         case "search":   
+        case "password":   
         if(res.icon != undefined){
           return new AlloyInputTextIcon(res);
         }else{

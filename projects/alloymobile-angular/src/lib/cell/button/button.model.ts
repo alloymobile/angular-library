@@ -75,4 +75,15 @@ export class AlloyButtonSubmit extends Button{
       this.disable = false;
     }
   }
+  tostring(){
+    return { 
+      id: this.id ?? "button1",
+      name: this.name ?? "AlloyButtonIcon",
+      className: this.className ?? "",
+      type: this.type ?? "button",
+      show: this.show ?? false,
+      disable: this.disable ?? false,
+      icon:this.icon.tostring()
+    }
+  }
 }
