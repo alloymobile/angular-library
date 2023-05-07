@@ -4,43 +4,43 @@
   [ngSwitch]="_linkBar.type"
 >
   <div *ngSwitchCase="'AlloyLink'">
-    <alloy-icon-button
-      [iconButton]="i"
+    <alloy-link
+      [link]="i"
       *ngFor="let i of _linkBar.links"
       (output)="getSelected(i)"
     >
-    </alloy-icon-button>
+    </alloy-link>
   </div>
   <div *ngSwitchCase="'AlloyIconLink'">
-    <alloy-button-icon
-      [buttonIcon]="i"
+    <alloy-icon-link
+      [iconLink]="i"
       *ngFor="let i of _linkBar.links"
       (output)="getSelected(i)"
     >
-    </alloy-button-icon>
+    </alloy-icon-link>
   </div>
   <div *ngSwitchCase="'AlloyLinkIcon'">
-    <alloy-button
-      [button]="i"
+    <alloy-link-icon
+      [linkIcon]="i"
       *ngFor="let i of _linkBar.links"
       (output)="getSelected(i)"
     >
-    </alloy-button>
+    </alloy-link-icon>
   </div>
   <div *ngSwitchCase="'AlloyLinkLogo'">
-    <alloy-button-icon
-      [buttonIcon]="i"
+    <alloy-link-logo
+      [linkLogo]="i"
       *ngFor="let i of _linkBar.links"
       (output)="getSelected(i)"
     >
-    </alloy-button-icon>
+    </alloy-link-logo>
   </div>
   <div *ngSwitchDefault>
-    <alloy-button
-      [button]="i"
+    <alloy-link
+      [link]="i"
       *ngFor="let i of _linkBar.links"
       (output)="getSelected(i)"
     >
-    </alloy-button>
+    </alloy-link>
   </div>
 </div>

@@ -33,6 +33,15 @@ export class AlloyButton extends Button{
       this.active = "";
     }
   }
+  tostring(){
+    return { 
+      id: this.id ?? "button1",
+      name: this.name ?? "AlloyButtonIcon",
+      className: this.className ?? "btn btn-lg btn-info mt-1",
+      type: this.type ?? "button",
+      active: this.active ?? ""
+    }
+  }
 }
 
 export class AlloyButtonIcon extends AlloyButton{

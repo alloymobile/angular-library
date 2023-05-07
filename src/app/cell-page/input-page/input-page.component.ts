@@ -15,7 +15,7 @@ export class InputPageComponent {
   usageString: string;
   exampleData: string;
   outputString: string;
-  usageBar: AlloyTabButton
+  usageBar: AlloyTabButton;
   tab: AlloyButtonIcon;
   constructor(){
     this.usageString = '<alloy-input [input]="input"></alloy-input>';

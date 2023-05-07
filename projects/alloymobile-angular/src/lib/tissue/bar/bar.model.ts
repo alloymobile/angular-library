@@ -44,6 +44,16 @@ export class AlloyButtonBar extends Bar{
         this.buttons = [];
       }
     }
+
+    toString(){
+        return {
+            id: this.id ?? "buttonBar1",
+            className: this.className ?? "d-flex justify-content-center",
+            selected: this.selected ?? "active",
+            type: this.type ?? "AlloyButton",
+            buttons: this.buttons.map(s=>s.tostring()) ?? []
+        }
+    }
 }
 
 export class AlloyLinkBar extends Bar{
@@ -74,5 +84,15 @@ export class AlloyLinkBar extends Bar{
         this.type = 'AlloyLink';
         this.links = [];
       }
+    }
+
+    toString(){
+        return {
+            id: this.id ?? "linkBar1",
+            className: this.className ?? "d-flex justify-content-center",
+            selected: this.selected ?? "active",
+            type: this.type ?? "AlloyButton",
+            links: this.links.map(s=>s.tostring()) ?? []
+        }
     }
   }

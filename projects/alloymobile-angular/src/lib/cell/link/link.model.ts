@@ -23,6 +23,15 @@ export class AlloyLink{
       this.active = "";
     }
   }
+  tostring(){
+    return { 
+      id: this.id ?? "link1",
+      name: this.name ?? "AlloyLink",
+      className: this.className ?? "",
+      link: this.link ?? "/",
+      active: this.active ?? ""
+    }
+  }
 }
 
 export class AlloyLinkIcon extends AlloyLink{
