@@ -1,6 +1,6 @@
 {
   "name": "alloymobile-angular",
-  "version": "0.1.60",
+  "version": "0.1.61",
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0"
