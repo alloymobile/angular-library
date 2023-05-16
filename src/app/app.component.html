@@ -1,6 +1,6 @@
 <!-- <alloy-clientbar [clientBar]="clientBar" (output)="back($event)"></alloy-clientbar> -->
-<alloy-navbar-icon [navBarIcon]="navBar"></alloy-navbar-icon>
-  <div class="main">
+<alloy-navbar [navBar]="navBar"></alloy-navbar>
+  <!-- <div class="main">
     <div class="container-fluid">
       <ul class="nav nav-tabs nav-fill">
           <li class="nav-item" [ngClass]="{' border-bottom border-5 border-dark': selected === 'cell'}">
@@ -15,16 +15,16 @@
         </ul>
         <router-outlet></router-outlet>  
     </div>
-</div>
+</div> -->
 
-  <!-- <div class="container-fluid">
+  <div class="container-fluid">
     <div class="col-12">
-      <alloy-tab-link [tabLink]="tabBar"></alloy-tab-link>
+      <alloy-link-bar [linkBar]="linkBar"></alloy-link-bar>
     </div>
     <div class="row">
       <div class="col-12">
         <router-outlet></router-outlet>
       </div>
     </div>
-  </div> -->
+  </div>
 

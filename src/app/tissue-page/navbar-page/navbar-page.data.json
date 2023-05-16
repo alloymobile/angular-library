@@ -1,0 +1,23 @@
+{
+    "navBar":{
+        "id":1,
+        "className":"navbar-light navbar-sticky border-bottom",
+        "logo":{"id":1,"name":"AlloyMobile","className":"navbar-brand me-0 text-dark fs-2","link":"https://alloymobile.com","logo":{"image":"https://alloymobile.blob.core.windows.net/alloymobile/alloymobile.png","alt":"AlloyMobile","width":"64","height":"auto"}},
+        "linkBar":
+        {
+            "id": "linkBar2",
+            "className": "navbar-nav navbar-nav-scroll",
+            "selected": "active",
+            "type": "AlloyLinkIcon",
+            "links": 
+            [
+                {"name":"Home","className":"nav-item btn btn-outline-primary rounded-pill border-0 px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faHome","size":"lg","spin":false,"className":"text-secondary"}},
+                {"name":"About","className":"nav-item btn btn-primary rounded-pill px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faTableColumns","size":"lg","spin":false,"className":"text-secondary"}},
+                {"name":"Terms","className":" nav-item btn btn-primary rounded-pill px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faUser","size":"lg","spin":false,"className":"text-secondary"}},
+                {"name":"Privacy","className":"nav-item btn btn-primary rounded-pill px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faUserLock","size":"lg","spin":false,"className":"text-secondary"}},
+                {"name":"Blog","className":"nav-item btn btn-primary rounded-pill px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faPhoneAlt","size":"lg","spin":false,"className":"text-secondary"}},
+                {"name":"Contact","className":"nav-item btn btn-primary rounded-pill px-1 mx-1 shadow","active":"","link":"/tissue/navbar","icon":{"icon":"faMicrochip","size":"lg","spin":false,"className":"text-secondary"}}
+            ]
+        }
+      }
+}

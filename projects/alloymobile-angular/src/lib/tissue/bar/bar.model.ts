@@ -17,6 +17,13 @@ export class Bar{
         this.selected = "";
       }
     }
+    toString(){
+      return {
+          id: this.id ?? "buttonBar1",
+          className: this.className ?? "d-flex justify-content-center",
+          selected: this.selected ?? "active"
+      }
+  }
 }
 
 export class AlloyButtonBar extends Bar{

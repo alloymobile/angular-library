@@ -10,6 +10,7 @@
       {"name":"Footer","className":"list-group-item list-group-item-action","link":"tissue/footer","icon":{"id":1,"icon":"faCode","size":"lg","spin":false,"className":""}},
       {"name":"Input","className":"list-group-item list-group-item-action","link":"tissue/input","icon":{"id":2,"icon":"faKey","size":"lg","spin":false,"className":""}},
       {"name":"Nav","className":"list-group-item list-group-item-action","link":"tissue/nav","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}},
+      {"name":"Navbar","className":"list-group-item list-group-item-action","link":"tissue/navbar","icon":{"id":1,"icon":"faBars","size":"lg","spin":false,"className":""}},
       {"name":"Page","className":"list-group-item list-group-item-action","link":"tissue/page","icon":{"id":1,"icon":"faIcons","size":"lg","spin":false,"className":""}}
     ]
   }

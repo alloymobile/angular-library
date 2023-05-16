@@ -27,6 +27,7 @@ import { FooterPageComponent } from './tissue-page/footer-page/footer-page.compo
 import { InputsPageComponent } from './tissue-page/inputs-page/inputs-page.component';
 import { NavPageComponent } from './tissue-page/nav-page/nav-page.component';
 import { PagePageComponent } from './tissue-page/page-page/page-page.component';
+import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.component';
 
 const routes: Routes = [
   { path: '', component: CellPageComponent, children:
@@ -51,6 +52,7 @@ const routes: Routes = [
       {path: "footer",component: FooterPageComponent},
       {path: "input",component: InputsPageComponent},
       {path: "nav",component: NavPageComponent},
+      {path: "navbar",component: NavbarPageComponent},
       {path: "page",component: PagePageComponent},
       {path: "table/:id",component: TableDetailPageComponent}
     ]

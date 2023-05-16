@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlloyButtonIcon, AlloyIcon, AlloyInputTextIcon, AlloyTabButton } from 'alloymobile-angular';
+import { AlloyButton, AlloyButtonBar, AlloyButtonIcon, AlloyIcon, AlloyInputTextIcon, AlloyTabButton } from 'alloymobile-angular';
 import IconDB from './icon-page.data.json'
 @Component({
   selector: 'alloy-icon-page',
@@ -12,12 +12,16 @@ export class IconPageComponent {
   example: AlloyIcon;
   exampleData: string;
   search: AlloyInputTextIcon;
+  tabBar: AlloyButtonBar;
+  tab: AlloyButton;
   constructor(){
     this.usageString = '<alloy-icon [icon]="icon"></alloy-icon>';
     this.example = new AlloyIcon();
     this.exampleData = JSON.stringify(this.example.tostring(),null,2);
     this.icons = IconDB.icons.map((icon)=>new AlloyIcon(icon));
     this.search = new AlloyInputTextIcon(IconDB.search);
+    this.tabBar = new AlloyButtonBar(IconDB.buttonBar);
+    this.tab = this.tabBar.buttons[0];
   }
 
   iconClick(icon: AlloyIcon){
@@ -36,5 +40,9 @@ export class IconPageComponent {
     }else{
       this.icons = IconDB.icons.map((icon)=>new AlloyIcon(icon));
     }
+  }
+
+  selectTab(button){
+    this.tab = button;
   }
 }

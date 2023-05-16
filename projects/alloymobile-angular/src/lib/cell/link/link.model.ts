@@ -11,13 +11,13 @@ export class AlloyLink{
   constructor(res?: any){
     if(res){
       this.id = res.id ? res.id : "link" + ++AlloyLink.idGenerator;
-      this.name = res.name ? res.name : "AlloyMobile";
+      this.name = res.name ? res.name : "";
       this.className = res.className ? res.className : "nav-link";
       this.active = res.active ? res.active : "";
       this.link = res.link ? res.link : "https://alloymobile.com";
     }else{
       this.id = "link" + ++AlloyLink.idGenerator;
-      this.name = "AlloyMobile";
+      this.name = "";
       this.className =  "nav-link";
       this.link = "https://alloymobile.com";
       this.active = "";
@@ -87,6 +87,19 @@ export class AlloyLinkLogo extends AlloyLink{
     }else{
       super();
       this.logo = new Logo();
+    }
+  }
+}
+
+export class AlloyLinkDropDown extends AlloyLink{
+  links: AlloyLink[]
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.links = res.links ? res.links.map( l =>new AlloyLink(l)) : [];
+    }else{
+      super();
+      this.links = [];
     }
   }
 }

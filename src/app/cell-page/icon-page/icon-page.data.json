@@ -1,4 +1,14 @@
 {
+"buttonBar":{
+    "id":"buttonBar",
+    "className":"nav nav-tabs",
+    "selected":"border-bottom border-5 border-dark",
+    "type":"AlloyButton",
+    "buttons":[
+        {"id":"tab1","name":"Try out","className":"nav-link text-dark fs-3","active":"border-bottom border-5 border-dark","type":"button"},
+        {"id":"tab2","name":"Tag","className":"nav-link text-dark fs-3","active":"","type":"button"}
+    ]
+},
 "search":{"name":"search","className":"col-12","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":""}},
 "icons":
     [

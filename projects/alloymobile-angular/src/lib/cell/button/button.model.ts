@@ -1,4 +1,5 @@
 import { AlloyIcon} from "../icon/icon.model";
+import { AlloyLink } from "../link/link.model";
 
 export class Button{
   id: string;
@@ -93,6 +94,32 @@ export class AlloyButtonSubmit extends Button{
       show: this.show ?? false,
       disable: this.disable ?? false,
       icon:this.icon.tostring()
+    }
+  }
+}
+
+export class AlloyButtonDropDown extends AlloyButton{
+  links: AlloyLink[]
+  dropDownClass: string;
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.dropDownClass = res.dropDownClass ? res.dropDownClass : "dropdown-menu";
+      this.links = res.links ? res.links.map( l =>new AlloyLink(l)) : [];
+    }else{
+      super();
+      this.dropDownClass = "dropdown-menu";
+      this.links = [];
+    }
+  }
+
+  tostring(){
+    return { 
+      id: this.id ?? "button1",
+      name: this.name ?? "AlloyButtonIcon",
+      className: this.className ?? "btn btn-lg btn-info mt-1",
+      type: this.type ?? "button",
+      active: this.active ?? "",
     }
   }
 }

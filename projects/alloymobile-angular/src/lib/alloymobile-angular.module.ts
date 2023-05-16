@@ -29,18 +29,13 @@ import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
 import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
 import { IconButtonComponent } from './cell/icon/icon-button/icon-button.component';
 import { ButtonSubmitComponent } from './cell/button/button-submit/button-submit.component';
-import { ButtonDropdownComponent } from './tissue/dropdown/button-dropdown/button-dropdown.component';
-import { LinkDropdownComponent } from './tissue/dropdown/link-dropdown/link-dropdown.component';
 
 import { TableComponent } from './tissue/table/table/table.component';
 import { SearchbarComponent } from './tissue/searchbar/searchbar/searchbar.component';
-import { GalleryButtonComponent } from './tissue/gallery/gallery-button/gallery-button.component';
 import { PageComponent } from './tissue/page/page.component';
-import { NavbarIconComponent } from './tissue/navbar/navbar-icon/navbar-icon.component';
 import { ClientbarComponent } from './tissue/clientbar/clientbar/clientbar.component';
 import { TableActionComponent } from './tissue/table/table-action/table-action.component';
 import { FooterComponent } from './tissue/footer/footer/footer.component';
-import { NavbarLinkIconComponent } from './tissue/navbar/navbar-link-icon/navbar-link-icon.component';
 
 import { FormComponent } from './organ/form/form/form.component';
 import { ModalComponent } from './organ/modal/modal/modal.component';
@@ -60,6 +55,8 @@ import { LinkBarComponent } from './tissue/bar/link-bar/link-bar.component';
 import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component';
 import { InputFloatingTextComponent } from './cell/input/input-floating-text/input-floating-text.component';
 import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
+import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dropdown.component';
+import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.component';
 
 
 @NgModule({
@@ -81,10 +78,8 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     SearchbarComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
-    GalleryButtonComponent,
     PageComponent,
     InputTextsComponent,
-    NavbarIconComponent,
     ClientbarComponent,
     ModalComponent,
     ModalToastComponent,
@@ -93,11 +88,8 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     ResetComponent,
     LinkLogoComponent,
     IconButtonComponent,
-    LinkDropdownComponent,
     ButtonSubmitComponent,
-    ButtonDropdownComponent,
     FormComponent,
-    NavbarLinkIconComponent,
     FooterComponent,
     InputFloatingTextsComponent,
     InputIconTextsComponent,
@@ -116,7 +108,9 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     LinkBarComponent,
     ButtonBarComponent,
     InputFloatingTextComponent,
-    InputIconTextComponent
+    InputIconTextComponent,
+    ButtonDropdownComponent,
+    LinkDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -144,10 +138,8 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     SearchbarComponent,
     InputIconTextLabelComponent,
     InputTextIconLabelComponent,
-    GalleryButtonComponent,
     PageComponent,
     InputTextsComponent,
-    NavbarIconComponent,
     ClientbarComponent,
     ModalComponent,
     ModalToastComponent,
@@ -159,7 +151,6 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     ButtonSubmitComponent,
     ButtonDropdownComponent,
     FormComponent,
-    NavbarLinkIconComponent,
     FooterComponent,
     InputFloatingTextsComponent,
     InputIconTextsComponent,
@@ -178,7 +169,9 @@ import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-
     InputFloatingTextComponent,
     InputIconTextComponent,
     ButtonBarComponent,
-    LinkBarComponent
+    LinkBarComponent,
+    ButtonDropdownComponent,
+    LinkDropdownComponent
   ]
 })
 export class AlloymobileAngularModule { }
