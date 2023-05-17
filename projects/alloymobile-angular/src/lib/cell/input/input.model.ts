@@ -42,6 +42,7 @@ export class AlloyInput{
   type: string;
   label: string;
   className: string;
+  inputClass: string;
   readonly: boolean;
   validators: [];
   errors: AlloyValidation[];
@@ -55,6 +56,7 @@ export class AlloyInput{
       this.type = res.type ? res.type : 'text';
       this.label = res.label ? res.label : 'Name';
       this.className = res.className ? res.className : 'input-group';
+      this.inputClass = res.inputClass ? res.inputClass : 'form-control';
       this.readonly = res.readonly ? res.readonly : false;
       this.match = res.match ? res.match : false;
       this.errors =  res.errors ? res.errors.map((res: AlloyCustomValidation)=> new AlloyCustomValidation(res)) : []; 
@@ -65,6 +67,7 @@ export class AlloyInput{
       this.type = 'text';
       this.label = 'Name';
       this.className = 'input-group';
+      this.inputClass = 'form-control';
       this.readonly = false;
       this.match = false;
       this.errors = [];
@@ -79,6 +82,7 @@ export class AlloyInput{
       type: this.type ?? "text",
       label: this.label ?? "",
       className: this.className ?? "",
+      inputClass: this.inputClass ?? "",
       readonly: this.readonly ?? false,
       match: this.match ?? false,
       errors: this.errors ?? []
@@ -107,6 +111,7 @@ export class AlloyInputText extends AlloyInput {
       name: this.name ?? "AlloyInputTextIcon",
       type: this.type ?? "text",
       className: this.className ?? "",
+      inputClass: this.inputClass ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
       text: this.text ?? "",
@@ -134,6 +139,7 @@ export class AlloyInputTextArea extends AlloyInputText{
       name: this.name ?? "AlloyInputTextArea",
       type: this.type ?? "textarea",
       className: this.className ?? "",
+      inputClass: this.inputClass ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
       text: this.text ?? "",
@@ -162,6 +168,7 @@ export class AlloyInputSelect extends AlloyInputText{
       name: this.name ?? "AlloyInputSelect",
       type: this.type ?? "select",
       className: this.className ?? "",
+      inputClass: this.inputClass ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
       text: this.text ?? "",
@@ -175,13 +182,16 @@ export class AlloyInputSelect extends AlloyInputText{
 
 export class AlloyInputTextIcon extends AlloyInputText {
   icon: AlloyIcon;
+  iconClass: string;
   constructor(res?: any) {
     if (res) {
       super(res);
       this.icon = res.icon ?  new AlloyIcon(res.icon) : new AlloyIcon();
+      this.iconClass = res.iconClass ? res.iconClass : 'input-group-text';
     } else {
       super();
       this.icon = new AlloyIcon();
+      this.iconClass = 'input-group-text';
     }
   }
 
@@ -191,6 +201,8 @@ export class AlloyInputTextIcon extends AlloyInputText {
       name: this.name ?? "AlloyInputTextIcon",
       type: this.type ?? "text",
       className: this.className ?? "",
+      inputClass: this.inputClass ?? "",
+      iconClass: this.iconClass ?? "",
       placeholder: this.placeholder ?? "",
       readonly: this.readonly ?? false,
       text: this.text ?? "",

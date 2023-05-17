@@ -8,7 +8,7 @@
         <div [ngSwitch]="_inputIconText.type">
           <div *ngSwitchCase="'text'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -18,7 +18,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -27,7 +27,7 @@
           </div>
           <div *ngSwitchCase="'email'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -37,7 +37,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -46,7 +46,7 @@
           </div>
           <div *ngSwitchCase="'password'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -56,7 +56,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -65,7 +65,7 @@
           </div>
           <div *ngSwitchCase="'file'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -74,7 +74,7 @@
                   [type]="_inputIconText.type"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (change)="onFileChange($event,_inputIconText)"
                   multiple
                 />
@@ -84,7 +84,7 @@
           </div>
           <div *ngSwitchCase="'number'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -94,7 +94,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -103,7 +103,7 @@
           </div>
           <div *ngSwitchCase="'search'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -113,7 +113,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -122,7 +122,7 @@
           </div>
           <div *ngSwitchCase="'date'">
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -132,7 +132,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
@@ -146,7 +146,7 @@
                 [formControlName]="_inputIconText.name"
                 [placeholder]="_inputIconText.placeholder"
                 [readonly]="_inputIconText.readonly"
-                class="form-control"
+                [class]="_inputIconText.inputClass"
                 [style.height]="_inputIconText.height"
                 (input)="formOutput()"
               ></textarea>
@@ -198,7 +198,7 @@
           </div>
           <div *ngSwitchDefault>
             <div class="input-group py-2">
-              <span class="input-group-text">
+              <span [class]="_inputIconText.iconClass">
                 <alloy-icon [icon]="_inputIconText.icon"></alloy-icon>
               </span>
               <div class="form-floating">
@@ -208,7 +208,7 @@
                   [formControlName]="_inputIconText.name"
                   [placeholder]="_inputIconText.placeholder"
                   [readonly]="_inputIconText.readonly"
-                  class="form-control"
+                  [class]="_inputIconText.inputClass"
                   (input)="formOutput()"
                 />
                 <label [for]="_inputIconText.id">{{ _inputIconText.label }}</label>
