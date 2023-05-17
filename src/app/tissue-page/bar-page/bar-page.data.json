@@ -48,12 +48,12 @@
         "type": "AlloyIconButton",
         "buttons": 
         [
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}},
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}},
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}},
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}},
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}},
-            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","classname": "","icon": "faMicrochip","size": "lg","spin": false}}
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}},
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}},
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}},
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}},
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}},
+            {"name": "Button","className": "btn btn-lg btn-info mx-1","type": "button","active": "","icon": {"id": "icon3134","className": "","icon": "faMicrochip","size": "lg","spin": false}}
         ]
     },
     "linkBar":

@@ -13,7 +13,7 @@ export class CrudPageComponent {
   crud: AlloyCrudTable;
   crudCard: AlloyCrudCard;
   constructor(){
-    // this.crud = new AlloyCrudTable(CrudDB.modal);
+    this.crud = new AlloyCrudTable(CrudDB.modal);
     this.crudCard =  new AlloyCrudCard(CrudDB.details);
   }
 

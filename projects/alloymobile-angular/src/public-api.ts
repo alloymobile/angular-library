@@ -38,8 +38,6 @@ export * from './lib/cell/button/button-icon/button-icon.component';
 export * from './lib/cell/button/button-submit/button-submit.component';
 export * from './lib/cell/button/button-dropdown/button-dropdown.component';
 export * from './lib/cell/input/input-text/input-text.component';
-export * from './lib/cell/input/input-icon-text-label/input-icon-text-label.component';
-export * from './lib/cell/input/input-text-icon-label/input-text-icon-label.component';
 export * from './lib/cell/input/input-floating-text/input-floating-text.component';
 export * from './lib/cell/input/input-icon-text/input-icon-text.component';
 

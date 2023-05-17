@@ -22,8 +22,6 @@ import { CardIconComponent } from './tissue/card/card-icon/card-icon.component';
 import { SidebarComponent } from './tissue/nav/sidebar/sidebar.component';
 import { IconSidebarComponent } from './tissue/nav/icon-sidebar/icon-sidebar.component';
 import { NavbarComponent } from './tissue/navbar/navbar/navbar.component';
-import { InputIconTextLabelComponent } from './cell/input/input-icon-text-label/input-icon-text-label.component';
-import { InputTextIconLabelComponent } from './cell/input/input-text-icon-label/input-text-icon-label.component';
 import { InputTextsComponent } from './tissue/inputs/input-texts/input-texts.component';
 import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
 import { IconLinkComponent } from './cell/icon/icon-link/icon-link.component';
@@ -76,8 +74,6 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
     TableComponent,
     InputTextComponent,
     SearchbarComponent,
-    InputIconTextLabelComponent,
-    InputTextIconLabelComponent,
     PageComponent,
     InputTextsComponent,
     ClientbarComponent,
@@ -136,8 +132,6 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
     TableComponent,
     InputTextComponent,
     SearchbarComponent,
-    InputIconTextLabelComponent,
-    InputTextIconLabelComponent,
     PageComponent,
     InputTextsComponent,
     ClientbarComponent,

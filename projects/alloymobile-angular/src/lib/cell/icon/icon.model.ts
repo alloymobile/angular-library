@@ -1035,11 +1035,13 @@ export class AlloyIcon {
         ? AlloyIcon.getSizeProp(res.size)
         : AlloyIcon.getSizeProp('lg');
       this.spin = res.spin ? res.spin : false;
+      this.className = res.className ? res.className : "";
     } else {
       this.id = "icon" + ++AlloyIcon.idGenerator;
       this.icon = AlloyIcon.getIcon('faMicrochip');
       this.size = AlloyIcon.getSizeProp('lg');
       this.spin = false;
+      this.className = "";
     }
   }
 
@@ -3133,7 +3135,7 @@ export class AlloyIcon {
   tostring(){
     return { 
       id:this.id ?? "icon1",
-      classname: this.className ?? "",
+      className: this.className ?? "",
       icon:AlloyIcon.getIconText(this.icon) ?? "faMicrochip",
       size:this.size ?? "lg",
       spin:this.spin ?? false
