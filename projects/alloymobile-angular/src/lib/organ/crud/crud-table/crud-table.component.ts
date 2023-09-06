@@ -19,15 +19,11 @@ export class CrudTableComponent {
   }
   modalForm: any;
   createRow: AlloyInputTextIcon[];
-  addIcon: AlloyIcon;
-  search: AlloyInputTextIcon;
   selectedRow: any;
   @Output() output: EventEmitter<AbstractControl<any,any>> = new EventEmitter<AbstractControl<any,any>>();
 
   constructor() {
     this._crudTable = new AlloyCrudTable();
-    this.search = new AlloyInputTextIcon({id:"1",name:"search",className:"input-group border border-dark rounded-pill",type:"search",placeholder:"john@example.com",readonly:false,label:"Search..",icon:{id:1,icon:"faSearch",size:"lg",spin:false,className:""}});
-    this.addIcon = new AlloyIcon({id:1,icon:"faPlus",size:"lg",spin:false,className:""});
     this.createRow = [];
   }
 
@@ -70,8 +66,11 @@ export class CrudTableComponent {
   //for delete the is no change so we have two step
   submitData(data) {
     this.modalForm.hide();
-    if(data.action === 'Add' || data.action === 'Edit' ){
+    if(data.action === 'Add'){
+      this.output.emit(data);
+    }else if(data.action === 'Edit'){
       if(Object.keys(data).length > 1){
+        data["id"]=this.selectedRow.id;
         this.output.emit(data);
       }
     }else if(data.action === 'Delete'){

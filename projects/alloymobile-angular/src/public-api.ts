@@ -32,7 +32,6 @@ export * from './lib/cell/icon/icon-button/icon-button.component';
 export * from './lib/cell/link/link/link.component';
 export * from './lib/cell/link/link-icon/link-icon.component';
 export * from './lib/cell/link/link-logo/link-logo.component';
-export * from './lib/cell/link/link-dropdown/link-dropdown.component';
 export * from './lib/cell/button/button/button.component';
 export * from './lib/cell/button/button-icon/button-icon.component';
 export * from './lib/cell/button/button-submit/button-submit.component';

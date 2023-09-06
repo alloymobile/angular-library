@@ -90,16 +90,3 @@ export class AlloyLinkLogo extends AlloyLink{
     }
   }
 }
-
-export class AlloyLinkDropDown extends AlloyLink{
-  links: AlloyLink[]
-  constructor(res?: any){
-    if(res){
-      super(res);
-      this.links = res.links ? res.links.map( l =>new AlloyLink(l)) : [];
-    }else{
-      super();
-      this.links = [];
-    }
-  }
-}

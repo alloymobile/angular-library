@@ -25,7 +25,6 @@ import { ButtonDropdownPageComponent } from './cell-page/button-dropdown-page/bu
 import { ButtonSubmitPageComponent } from './cell-page/button-submit-page/button-submit-page.component';
 import { LinkLogoPageComponent } from './cell-page/link-logo-page/link-logo-page.component';
 import { LinkIconPageComponent } from './cell-page/link-icon-page/link-icon-page.component';
-import { LinkDropdownPageComponent } from './cell-page/link-dropdown-page/link-dropdown-page.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CodePageComponent } from './organ-page/code-page/code-page.component';
 import { AlloymobileAngularModule } from 'alloymobile-angular';
@@ -61,7 +60,6 @@ import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.compo
     ButtonSubmitPageComponent,
     LinkLogoPageComponent,
     LinkIconPageComponent,
-    LinkDropdownPageComponent,
     CodePageComponent,
     BarPageComponent,
     CardPageComponent,

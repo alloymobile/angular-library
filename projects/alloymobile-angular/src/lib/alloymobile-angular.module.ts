@@ -54,8 +54,6 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
 import { InputFloatingTextComponent } from './cell/input/input-floating-text/input-floating-text.component';
 import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dropdown.component';
-import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.component';
-
 
 @NgModule({
   declarations: [
@@ -105,8 +103,7 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
     ButtonBarComponent,
     InputFloatingTextComponent,
     InputIconTextComponent,
-    ButtonDropdownComponent,
-    LinkDropdownComponent
+    ButtonDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +138,6 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
     TableActionComponent,
     ResetComponent,
     LinkLogoComponent,
-    LinkDropdownComponent,
     ButtonSubmitComponent,
     ButtonDropdownComponent,
     FormComponent,
@@ -164,8 +160,7 @@ import { LinkDropdownComponent } from './cell/link/link-dropdown/link-dropdown.c
     InputIconTextComponent,
     ButtonBarComponent,
     LinkBarComponent,
-    ButtonDropdownComponent,
-    LinkDropdownComponent
+    ButtonDropdownComponent
   ]
 })
 export class AlloymobileAngularModule { }

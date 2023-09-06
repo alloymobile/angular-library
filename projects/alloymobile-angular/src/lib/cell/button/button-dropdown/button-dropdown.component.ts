@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AlloyButton, AlloyButtonDropDown } from '../button.model';
+import { Component, Input } from '@angular/core';
+import {  AlloyButtonDropDown } from '../button.model';
 
 @Component({
   selector: 'alloy-button-dropdown',
@@ -11,7 +11,6 @@ export class ButtonDropdownComponent {
   @Input() set buttonDropDown(buttonDropDown: AlloyButtonDropDown){
     this._buttonDropDown = buttonDropDown;
   }
-  @Output() output: EventEmitter<AlloyButton>= new EventEmitter<AlloyButton>();
   constructor() {
     this._buttonDropDown = new AlloyButtonDropDown();
   }

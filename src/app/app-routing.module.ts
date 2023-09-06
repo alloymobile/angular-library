@@ -28,6 +28,7 @@ import { InputsPageComponent } from './tissue-page/inputs-page/inputs-page.compo
 import { NavPageComponent } from './tissue-page/nav-page/nav-page.component';
 import { PagePageComponent } from './tissue-page/page-page/page-page.component';
 import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.component';
+import { ButtonDropdownPageComponent } from './cell-page/button-dropdown-page/button-dropdown-page.component';
 
 const routes: Routes = [
   { path: '', component: CellPageComponent, children:
@@ -41,6 +42,7 @@ const routes: Routes = [
       {path: "button",component:ButtonPageComponent},
       {path: "button-icon",component:ButtonIconPageComponent},
       {path: "button-submit",component:ButtonSubmitPageComponent},
+      {path: "button-dropdown",component:ButtonDropdownPageComponent},
       {path: "input",component:InputPageComponent}
     ]
   },

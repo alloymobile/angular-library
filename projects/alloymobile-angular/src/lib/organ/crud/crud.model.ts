@@ -1,3 +1,5 @@
+import { AlloyButtonIcon } from "../../cell/button/button.model";
+import { AlloyInputTextIcon } from "../../cell/input/input.model";
 import { AlloyCardAction, AlloyCardIconAction, AlloyCardImageAction} from "../../tissue/card/card.model";
 import { Table,TableAction } from "../../tissue/table/table.model";
 import { AlloyModal, AlloyModalFile, AlloyModalToast} from "../modal/modal.model";
@@ -6,15 +8,21 @@ export class Crud{
     id: string;
     className: string;
     modal: AlloyModal;
+    search: AlloyInputTextIcon
+    add: AlloyButtonIcon
     constructor(res?: any){
         if(res){
             this.id = res.id ? res.id : "";
             this.className = res.className ? res.className : "";
             this.modal = res.modal ? new AlloyModal(res.modal) : new AlloyModal();
+            this.search = res.search ? new AlloyInputTextIcon(res.search) : new AlloyInputTextIcon();
+            this.add = res.add ? new AlloyButtonIcon(res.add) : new AlloyButtonIcon();
         }else{
             this.id =  "";
             this.className = "";
             this.modal =  new AlloyModal();
+            this.search =  new AlloyInputTextIcon();
+            this.add =  new AlloyButtonIcon();
         }
     }
 }

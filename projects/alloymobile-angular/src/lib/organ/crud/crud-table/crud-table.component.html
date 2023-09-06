@@ -3,16 +3,10 @@
     <!--Search-->    
       <div class="row input-group mt-2">
         <div class="col-sm-8">
-            <alloy-input-icon-text [inputIconText]="search" (output)="getSearch($event)"></alloy-input-icon-text>
+            <alloy-input-icon-text [inputIconText]="_crudTable.search" (output)="getSearch($event)"></alloy-input-icon-text>
         </div>
         <div class="col-sm-4 d-flex justify-content-end">
-            <button
-            class="btn btn-outline-dark m-2"
-            (click)="onClicked({action:'Add'})"
-          >
-            <alloy-icon [icon]="addIcon"></alloy-icon>
-            New
-          </button>
+            <alloy-button-icon [buttonIcon]="_crudTable.add" (output)="onClicked({action:'Add'})"></alloy-button-icon>
         </div>
       </div>
       <alloy-table-action [tableAction]="_crudTable.table" (output)="onClicked($event)"></alloy-table-action>
