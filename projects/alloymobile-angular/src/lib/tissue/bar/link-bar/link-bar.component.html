@@ -1,40 +1,40 @@
-<div [ngSwitch]="_linkBar.type">
-  <div *ngSwitchCase="'AlloyLink'">
+<ng-container [ngSwitch]="_linkBar.type">
+  <ng-container *ngSwitchCase="'AlloyLink'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
       <li *ngFor="let i of _linkBar.links" class="nav-item">
         <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
       </li>
     </ul>
-  </div>
-  <div *ngSwitchCase="'AlloyIconLink'">
+  </ng-container>
+  <ng-container *ngSwitchCase="'AlloyIconLink'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
       <li *ngFor="let i of _linkBar.links" class="nav-item">
         <alloy-icon-link [iconLink]="i" (output)="getSelected(i)">
         </alloy-icon-link>
       </li>
     </ul>
-  </div>
-  <div *ngSwitchCase="'AlloyLinkIcon'">
+  </ng-container>
+  <ng-container *ngSwitchCase="'AlloyLinkIcon'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
       <li *ngFor="let i of _linkBar.links" class="nav-item">
         <alloy-link-icon [linkIcon]="i" (output)="getSelected(i)">
         </alloy-link-icon>
       </li>
     </ul>
-  </div>
-  <div *ngSwitchCase="'AlloyLinkLogo'">
+  </ng-container>
+  <ng-container *ngSwitchCase="'AlloyLinkLogo'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
       <li *ngFor="let i of _linkBar.links" class="nav-item">
         <alloy-link-logo [linkLogo]="i" (output)="getSelected(i)">
         </alloy-link-logo>
       </li>
     </ul>
-  </div>
-  <div *ngSwitchDefault>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
       <li *ngFor="let i of _linkBar.links" class="nav-item">
         <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
       </li>
     </ul>
-  </div>
-</div>
+  </ng-container>
+</ng-container>

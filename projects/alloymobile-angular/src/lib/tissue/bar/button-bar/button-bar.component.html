@@ -1,5 +1,5 @@
-<div [ngSwitch]="_buttonBar.type">
-  <div *ngSwitchCase="'AlloyIconButton'">
+<ng-container [ngSwitch]="_buttonBar.type">
+  <ng-container *ngSwitchCase="'AlloyIconButton'">
     <div [id]="_buttonBar.id" [class]="_buttonBar.className" role="group">
       <alloy-icon-button
         [iconButton]="i"
@@ -8,8 +8,8 @@
       >
       </alloy-icon-button>
     </div>
-  </div>
-  <div *ngSwitchCase="'AlloyButton'">
+  </ng-container>
+  <ng-container *ngSwitchCase="'AlloyButton'">
     <div [id]="_buttonBar.id" [class]="_buttonBar.className" role="group">
       <alloy-button
         [button]="i"
@@ -18,8 +18,8 @@
       >
       </alloy-button>
     </div>
-  </div>
-  <div *ngSwitchCase="'AlloyButtonIcon'">
+  </ng-container>
+  <ng-container *ngSwitchCase="'AlloyButtonIcon'">
     <div [id]="_buttonBar.id" [class]="_buttonBar.className" role="group">
       <alloy-button-icon
         [buttonIcon]="i"
@@ -28,8 +28,8 @@
       >
       </alloy-button-icon>
     </div>
-  </div>
-  <div *ngSwitchDefault>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
     <div [id]="_buttonBar.id" [class]="_buttonBar.className" role="group">
       <alloy-button
         [button]="i"
@@ -38,5 +38,5 @@
       >
       </alloy-button>
     </div>
-  </div>
-</div>
+  </ng-container>
+</ng-container>

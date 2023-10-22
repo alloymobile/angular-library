@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AlloyCard } from '../card.model';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'alloy-card',
@@ -13,5 +14,10 @@ export class CardComponent {
   }
   constructor(){
     this._card = new AlloyCard();
+  }
+
+  // Preserve original property order
+  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return 0;
   }
 }

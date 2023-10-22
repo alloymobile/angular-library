@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -54,7 +54,13 @@ import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component
 import { InputFloatingTextComponent } from './cell/input/input-floating-text/input-floating-text.component';
 import { InputIconTextComponent } from './cell/input/input-icon-text/input-icon-text.component';
 import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dropdown.component';
+import { PayComponent } from './tissue/pay/pay/pay.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutComponent } from './organ/checkout/checkout/checkout.component';
+import { DonateComponent } from './organ/donate/donate/donate.component';
+import { NavbarActionComponent } from './tissue/navbar/navbar-action/navbar-action.component';
 
+var stripekey = "";
 @NgModule({
   declarations: [
     IconComponent,
@@ -103,14 +109,19 @@ import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dr
     ButtonBarComponent,
     InputFloatingTextComponent,
     InputIconTextComponent,
-    ButtonDropdownComponent
+    ButtonDropdownComponent,
+    PayComponent,
+    CheckoutComponent,
+    DonateComponent,
+    NavbarActionComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxStripeModule.forRoot(stripekey ? stripekey : "pk_test_3razFwq1sWDPvXkxGX5C8ORi00HyfFcIeL"),
   ],
   exports: [
     IconComponent,
@@ -160,7 +171,19 @@ import { ButtonDropdownComponent } from './cell/button/button-dropdown/button-dr
     InputIconTextComponent,
     ButtonBarComponent,
     LinkBarComponent,
-    ButtonDropdownComponent
+    ButtonDropdownComponent,
+    PayComponent,
+    CheckoutComponent,
+    DonateComponent,
+    NavbarActionComponent
   ]
 })
-export class AlloymobileAngularModule { }
+export class AlloymobileAngularModule {
+  static forRoot(configuration): ModuleWithProviders<AlloymobileAngularModule> {
+    stripekey = configuration.stripekey;
+    console.log(configuration);
+    return {
+      ngModule: AlloymobileAngularModule
+    };
+  }
+}

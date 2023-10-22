@@ -1,0 +1,66 @@
+<div [id]="_pay.id" [class]="_pay.className">
+  <hr class="my-4" />
+  <h4 class="mb-3">Payment</h4>
+  <div class="my-3">
+    <div class="form-check">
+      <input
+        id="credit"
+        name="paymentMethod"
+        type="radio"
+        class="form-check-input"
+        checked=""
+        required=""
+      />
+      <label class="form-check-label" for="credit">Credit card</label>
+    </div>
+  </div>
+  <h4 class="text-center">
+    <alloy-icon [icon]="_pay.brandIcon"></alloy-icon>
+  </h4>
+  <ngx-stripe-card-group [elementsOptions]="elementsOptions">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="input-group py-2">
+          <span class="input-group-text">
+            <alloy-icon [icon]="_pay.cardIcon"></alloy-icon>
+          </span>
+          <div class="form-control">
+            <label for="cardNumber">Card Number</label>
+            <ngx-stripe-card-number
+              id="cardNumber"
+              [options]="cardOptions"
+            ></ngx-stripe-card-number>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="input-group py-2">
+          <span class="input-group-text">
+            <alloy-icon [icon]="_pay.expiryIcon"></alloy-icon>
+          </span>
+          <div class="form-control">
+            <label for="cardNumber">Expiry Date</label>
+            <ngx-stripe-card-expiry
+              [options]="cardOptions"
+            ></ngx-stripe-card-expiry>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="input-group py-2">
+          <span class="input-group-text">
+            <alloy-icon [icon]="_pay.cvcIcon"></alloy-icon>
+          </span>
+          <div class="form-control">
+            <label for="cardNumber">CVC Number</label>
+            <ngx-stripe-card-cvc [options]="cardOptions"></ngx-stripe-card-cvc>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ngx-stripe-card-group>
+  <alloy-button-submit [buttonSubmit]="_pay.submit" (output)="output.emit(card)"></alloy-button-submit>
+  <p class="m-0 p-0">
+    {{ _pay.disclaimer }}
+  </p>
+</div>

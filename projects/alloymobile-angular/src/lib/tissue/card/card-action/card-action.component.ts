@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlloyCardAction } from '../card.model';
-
+import { KeyValue } from '@angular/common';
 @Component({
   selector: 'alloy-card-action',
   templateUrl: './card-action.component.html',
@@ -23,5 +23,10 @@ export class CardActionComponent {
     data.row = this._cardAction;
     data.action = action.name;
     this.output.emit(data);
+  }
+
+  // Preserve original property order
+  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return 0;
   }
 }

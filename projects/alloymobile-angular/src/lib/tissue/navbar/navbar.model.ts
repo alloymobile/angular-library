@@ -1,5 +1,5 @@
 import { AlloyLinkLogo } from "../../cell/link/link.model";
-import { AlloyLinkBar } from "../bar/bar.model";
+import { AlloyButtonBar, AlloyLinkBar } from "../bar/bar.model";
 
 export class AlloyNavBar {
   id: string;
@@ -18,6 +18,20 @@ export class AlloyNavBar {
       this.className = 'navbar-light';
       this.logo = new AlloyLinkLogo();
       this.linkBar =  new AlloyLinkBar();
+    }
+  }
+}
+
+export class AlloyNavBarAction extends AlloyNavBar {
+  buttonBar: AlloyButtonBar;
+  static idGenerator: number = 0;
+  constructor(response?: any) {
+    if (response) {
+      super(response)
+      this.buttonBar = response.buttonBar ? new AlloyButtonBar(response.buttonBar) : new AlloyButtonBar(); 
+    } else {
+      super();
+      this.buttonBar =  new AlloyButtonBar();
     }
   }
 }

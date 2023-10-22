@@ -14,13 +14,15 @@
     </div>
     <div [class]="_cardImageAction.textClass">
       <div class="row p-1">
-        <div
-          [id]="field.id"
-          [class]="field.className"
-          *ngFor="let field of _cardImageAction.fields"
-        >
-          {{ field.name }}
-        </div>
+        <ng-container  *ngFor="let field of _cardImageAction.fields | keyvalue: originalOrder">
+          <div
+          [id]="field.value.id"
+          [class]="field.value.className"
+          *ngIf="field.value.show"
+          >
+            {{ field.value.name }}
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -30,13 +32,14 @@
     role="group"
     [ngSwitch]="_cardImageAction.type"
   >
-    <div *ngSwitchCase="'AlloyButtonBar'">
+    <ng-container *ngSwitchCase="'AlloyButtonBar'">
       <alloy-button-bar [buttonBar]="_cardImageAction.action" ></alloy-button-bar>
-    </div>
-    <div *ngSwitchCase="'AlloyLinkBar'">
-    </div>
-    <div *ngSwitchDefault>
+    </ng-container>
+    <ng-container *ngSwitchCase="'AlloyLinkBar'">
+      <alloy-link-bar [linkBar]="_cardImageAction.action" ></alloy-link-bar>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
       <alloy-link-bar [linkBar]="_cardImageAction.action"></alloy-link-bar>
-    </div>
+    </ng-container>
   </div>
 </div>

@@ -5,28 +5,18 @@ export class CardItem {
   id: string;
   name: string;
   className: string;
+  show: boolean;
   static idGenerator: number = 0;
   constructor(res?: any) {
     if (res) {
       this.id = res.id ? res.id : 'cardItem' + ++CardItem.idGenerator;
       this.className = res.className ? res.className : '';
       this.name = res.name ? res.name : 'Card Item';
+      this.show = res.show ? res.show : true;
     } else {
       this.id = 'cardItem';
       this.className = '';
-      this.name = 'Card Item'
-    }
-  }
-}
-
-export class CardField extends CardItem {
-  show: boolean;
-  constructor(res?: any) {
-    if (res) {
-      super(res)
-      this.show = res.show ? res.show : true;
-    } else {
-      super();
+      this.name = 'Card Item';
       this.show = true;
     }
   }
@@ -56,7 +46,7 @@ export class AlloyCard{
     id: string;
     className: string;
     body: CardItem;
-    fields: CardField[];
+    fields: any
     link: string;
     static idGenerator: number = 0;
     constructor(res?: any) {
@@ -65,13 +55,13 @@ export class AlloyCard{
         this.className = res.className ? res.className : 'card border m-2 shadow';
         this.link = res.link ? res.link : '';
         this.body = res.body ? new CardItem(res.body) : new CardItem();
-        this.fields = res.fields ? res.fields.map(field=>new CardField(field)) : [];
+        this.fields = res.fields ? res.fields :  new CardItem();
       } else {
         this.id = 'card' + ++AlloyCard.idGenerator;
         this.className = 'card border m-2 shadow';
         this.link = '';
         this.body = new CardItem();
-        this.fields = [];
+        this.fields = new CardItem();
       }
     }
 }

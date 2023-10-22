@@ -14,13 +14,15 @@
     </div>
     <div [class]="_cardImage.textClass">
       <div class="row p-1">
-        <div
-          [id]="field.id"
-          [class]="field.className"
-          *ngFor="let field of _cardImage.fields"
-        >
-          {{ field.name }}
-        </div>
+        <ng-container  *ngFor="let field of _cardImage.fields | keyvalue: originalOrder">
+          <div
+          [id]="field.value.id"
+          [class]="field.value.className"
+          *ngIf="field.value.show"
+          >
+            {{ field.value.name }}
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

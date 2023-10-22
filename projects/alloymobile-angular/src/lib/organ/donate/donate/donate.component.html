@@ -1,0 +1,19 @@
+<div [class]="_donate.className">
+    <h3>{{ _donate.title }}</h3>
+    <div class="alert alert-text-danger m-0 p-0" *ngIf="_donate.message != ''">
+      {{ _donate.message }}
+    </div>
+    <hr class="my-3" />
+    <div class="row m-2">
+      <div class="col-12">
+        <h5>Payment Details:</h5>
+        <alloy-input-icon-texts
+          [inputIconTexts]="_donate.fields"
+          (output)="getText($event)"
+        ></alloy-input-icon-texts>
+        <!-- <alloy-button-bar [buttonBar]="_donate.amountBar" (output)="selectedAmount($event)"></alloy-button-bar> -->
+        <alloy-pay [pay]="_donate.pay" (output)="submitData($event)"></alloy-pay>
+      </div>
+    </div>
+  </div>
+  

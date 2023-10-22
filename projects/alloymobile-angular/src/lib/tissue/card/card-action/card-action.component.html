@@ -4,13 +4,15 @@
     [class]="_cardAction.body.className"
     [attr.aria-label]="_cardAction.body.name"
   >
-    <div
-      [id]="field.id"
-      [class]="field.className"
-      *ngFor="let field of _cardAction.fields"
-    >
-      {{ field.name }}
-    </div>
+    <ng-container  *ngFor="let field of _cardAction.fields | keyvalue: originalOrder">
+      <div
+      [id]="field.value.id"
+      [class]="field.value.className"
+      *ngIf="field.value.show"
+      >
+        {{ field.value.name }}
+      </div>
+    </ng-container>
   </div>
   <div
     [id]="_cardAction.action.id"
@@ -18,13 +20,14 @@
     role="group"
     [ngSwitch]="_cardAction.type"
   >
-    <div *ngSwitchCase="'AlloyButtonBar'">
+    <ng-container *ngSwitchCase="'AlloyButtonBar'">
       <alloy-button-bar [buttonBar]="_cardAction.action" ></alloy-button-bar>
-    </div>
-    <div *ngSwitchCase="'AlloyLinkBar'">
-    </div>
-    <div *ngSwitchDefault>
+    </ng-container>
+    <ng-container *ngSwitchCase="'AlloyLinkBar'">
+      <alloy-link-bar [linkBar]="_cardAction.action" ></alloy-link-bar>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
       <alloy-link-bar [linkBar]="_cardAction.action"></alloy-link-bar>
-    </div>
+    </ng-container>
   </div>
 </div>

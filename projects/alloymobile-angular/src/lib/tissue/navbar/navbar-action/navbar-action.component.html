@@ -1,0 +1,9 @@
+<div class="container-fluid">
+    <header [id]="_navBarAction.id" [class]="_navBarAction.className">
+        <alloy-link-logo [linkLogo]="_navBarAction.logo"></alloy-link-logo>
+
+        <alloy-link-bar [linkBar]="_navBarAction.linkBar"></alloy-link-bar>
+
+        <alloy-button-bar [buttonBar]="_navBarAction.buttonBar" (output)="output.emit($event)"></alloy-button-bar>
+    </header>
+</div>

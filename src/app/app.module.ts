@@ -74,7 +74,9 @@ import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.compo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AlloymobileAngularModule
+    AlloymobileAngularModule.forRoot({
+      configuration: {stripeKey:"pk_test_3razFwq1sWDPvXkxGX5C8ORi00HyfFcIeL"}
+    })
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
