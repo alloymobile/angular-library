@@ -28,6 +28,7 @@ export * from './lib/tissue/nav/nav.model';
 export * from './lib/tissue/pay/pay.model';
 export * from './lib/organ/checkout/checkout.model';
 export * from './lib/organ/donate/donate.model';
+export * from './lib/organ/contact/contact.model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';
@@ -55,8 +56,6 @@ export * from './lib/tissue/card/card-image-action/card-image-action.component';
 export * from './lib/tissue/navbar/navbar/navbar.component';
 export * from './lib/tissue/nav/sidebar/sidebar.component';
 export * from './lib/tissue/nav/icon-sidebar/icon-sidebar.component';
-export * from './lib/tissue/nav/tab-link/tab-link.component';
-export * from './lib/tissue/nav/tab-button/tab-button.component';
 export * from './lib/tissue/nav/tab-form/tab-form.component';
 export * from './lib/tissue/table/table/table.component';
 export * from './lib/tissue/searchbar/searchbar/searchbar.component';
@@ -82,6 +81,7 @@ export * from './lib/organ/form/form/form.component';
 export * from './lib/organ/profile/profile/profile.component';
 export * from './lib/organ/checkout/checkout/checkout.component';
 export * from './lib/organ/donate/donate/donate.component';
+export * from './lib/organ/contact/contact/contact.component';
 
 
 

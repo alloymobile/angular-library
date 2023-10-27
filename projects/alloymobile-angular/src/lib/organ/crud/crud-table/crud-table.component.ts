@@ -15,7 +15,7 @@ export class CrudTableComponent {
   _crudTable: AlloyCrudTable;
   @Input() set crudTable(crudTable: AlloyCrudTable){
     this._crudTable = crudTable;
-    this.createRow = [...this._crudTable.modal.fields]
+    this.createRow = [...this._crudTable.modal.fields] as any;
   }
   modalForm: any;
   createRow: AlloyInputTextIcon[];
@@ -48,7 +48,7 @@ export class CrudTableComponent {
   getDataType(row){
     let fields = [];
     Object.entries(row).forEach(column=>{
-      let metadata = this._crudTable.modal.fields.find(f=>f.name === column[0])
+      let metadata = this._crudTable.modal.fields.find((f: any)=>f.name === column[0]) as any;
       if(metadata != undefined){
         metadata.text = column[1].toString();
         fields.push(metadata);

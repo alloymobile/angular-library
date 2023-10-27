@@ -6,7 +6,7 @@ import { AlloyPay } from '../pay.model';
 @Component({
   selector: 'alloy-pay',
   templateUrl: './pay.component.html',
-  styleUrls: ['./pay.component.scss']
+  styleUrls: ['./pay.component.css']
 })
 export class PayComponent {
   _pay:AlloyPay;

@@ -31,7 +31,7 @@ export class ProfileComponent {
   }
 
   getName(){
-    this._profile.profileForm.fields.forEach(record =>{
+    this._profile.profileForm.fields.forEach((record : any) =>{
       if(record.name == 'name'){
         this.name = record.text;
       }
@@ -39,7 +39,7 @@ export class ProfileComponent {
   }
 
   getEmail(){
-    this._profile.profileForm.fields.forEach(record=>{
+    this._profile.profileForm.fields.forEach((record : any)=>{
       if(record.name == 'email'){
         this.email = record.text;
       }

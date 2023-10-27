@@ -1,8 +1,8 @@
 import { AlloyButtonIcon } from "../../cell/button/button.model";
 import { AlloyInputTextIcon } from "../../cell/input/input.model";
 import { AlloyCardAction, AlloyCardIconAction, AlloyCardImageAction} from "../../tissue/card/card.model";
-import { Table,TableAction } from "../../tissue/table/table.model";
-import { AlloyModal, AlloyModalFile, AlloyModalToast} from "../modal/modal.model";
+import { TableAction } from "../../tissue/table/table.model";
+import { AlloyModal} from "../modal/modal.model";
 
 export class Crud{
     id: string;
@@ -65,39 +65,6 @@ export class AlloyCrudCard extends Crud{
             super();
             this.type = "AlloyCardAction";
             this.cards =  [];
-        }
-    }
-}
-
-export class AlloyCrudFile{
-    id: string;
-    className: string;
-    table: Table
-    constructor(res?: any){
-        if(res){
-            this.id = res.id ? res.id : "";
-            this.className = res.className ? res.className : "";
-            this.table = res.table ? new Table(res.table) : new Table();
-        }else{
-            this.id =  "";
-            this.className = "";
-            this.table =  new Table();
-        }
-    }
-}
-
-export class AlloyCrudFileAction extends AlloyCrudFile{
-    modalFile: AlloyModalFile;
-    modalToast: AlloyModalToast;
-    constructor(res?: any){
-        if(res){
-            super(res);
-            this.modalFile = res.modalFile ? new AlloyModalFile(res.modalFile) : new AlloyModalFile();
-            this.modalToast = res.modalToast ? new AlloyModalToast(res.modalToast) : new AlloyModalToast();
-        }else{
-            super();
-            this.modalFile =  new AlloyModalFile();
-            this.modalToast = new AlloyModalToast();
         }
     }
 }

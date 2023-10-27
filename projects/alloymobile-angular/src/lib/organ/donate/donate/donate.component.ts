@@ -5,7 +5,7 @@ import { AbstractControl } from '@angular/forms';
 @Component({
   selector: 'alloy-donate',
   templateUrl: './donate.component.html',
-  styleUrls: ['./donate.component.scss']
+  styleUrls: ['./donate.component.css']
 })
 export class DonateComponent {
   _donate: AlloyDonate;

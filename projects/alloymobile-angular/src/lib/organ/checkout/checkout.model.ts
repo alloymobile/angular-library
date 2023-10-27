@@ -1,4 +1,4 @@
-import { AlloyInputTextIcon } from "../../cell/input/input.model";
+import { AlloyInputType } from "../../cell/input/input.model";
 import { AlloyPay } from "../../tissue/pay/pay.model";
 
 
@@ -8,7 +8,7 @@ export class AlloyCheckout{
     className: string;
     message: string;
     action: string;
-    fields: AlloyInputTextIcon[];
+    fields: AlloyInputType[];
     pay: AlloyPay;
     data: any;
     constructor(res?: any){
@@ -18,7 +18,7 @@ export class AlloyCheckout{
             this.className = res.className ? res.className : "col m-2";
             this.message = res.message ? res.message : "";
             this.action = res.action ? res.action : "";
-            this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
+            this.fields = res.fields ? res.fields.map(f=>new AlloyInputType(f)) : [];
             this.pay = res.pay ? new AlloyPay(res.pay) : new AlloyPay();
             this.data = {}
         }else{

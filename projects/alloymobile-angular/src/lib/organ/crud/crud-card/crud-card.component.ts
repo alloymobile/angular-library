@@ -14,7 +14,7 @@ export class CrudCardComponent {
   _crudCard: AlloyCrudCard;
   @Input() set crudCard(crudCard: AlloyCrudCard){
     this._crudCard = crudCard;
-    this.createRow = [...this._crudCard.modal.fields]
+    this.createRow = [...this._crudCard.modal.fields] as any
   }
 
   modalForm: any;
@@ -37,7 +37,7 @@ export class CrudCardComponent {
       this._crudCard.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
     }else if(data.action == "Edit" || data.action == "Delete"){
       if(data.row){
-        this.selectedRow = data.row;
+        this.selectedRow = data.row.fields;
         this._crudCard.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
       }
     }
@@ -50,8 +50,8 @@ export class CrudCardComponent {
 
   getDataType(row: AlloyCardAction){
     let fields = [];
-    row.fields.forEach(item=>{
-      let metadata = this._crudCard.modal.fields.find(f=>f.name === item.id)
+    Object.values(row.fields).forEach((item: any)=>{
+      let metadata = this._crudCard.modal.fields.find((f: any)=>f.name === item.id) as any;
       if(metadata != undefined){
         metadata.text = item.name;
         fields.push(metadata);
@@ -68,12 +68,12 @@ export class CrudCardComponent {
       this.output.emit(data);
     }else if(data.action === 'Edit'){
       if(Object.keys(data).length > 1){
-        data["id"] = this.selectedRow.id;
+        data["id"] = this.selectedRow.id.name;
         this.output.emit(data);
       }
     }else if(data.action === 'Delete'){
       data["action"]='Delete';
-      data["id"] = this.selectedRow.id;
+      data["id"] = this.selectedRow.id.name;
       this.output.emit(data);
     }
   }

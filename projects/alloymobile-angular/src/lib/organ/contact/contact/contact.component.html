@@ -1,0 +1,12 @@
+<div [id]="_contact.id" [class]="_contact.className">
+    <h1 class="text-center">{{_contact.title}}</h1>
+    <div class="row d-flex align-items-center">
+        <div [class]="_contact.contactClass">
+            <alloy-form [form]="_contact.contactForm" (output)="output.emit($event)"></alloy-form>
+        </div>
+        <div [class]="_contact.addressClass">
+            <alloy-card [card]="_contact.addressCard"></alloy-card>
+        </div>
+    </div>
+</div>
+

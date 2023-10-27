@@ -5,7 +5,7 @@ import { AbstractControl } from '@angular/forms';
 @Component({
   selector: 'alloy-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.scss']
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
   _checkout: AlloyCheckout;

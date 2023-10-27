@@ -75,25 +75,6 @@ export class AlloyTabForm extends Nav{
     } 
 }
   
-export class AlloyTabLink extends Nav {
-    tabs: AlloyLinkIcon[];
-    tabClass: string;
-    constructor(res?: any){
-      if(res){
-        super(res)
-        this.tabs = res.tabs ? res.tabs.map(n => new AlloyLinkIcon(n)) : [];
-        if(this.tabs.length > 0){
-          this.tabs[0].active = this.selected;
-        }
-        this.tabClass = res.tabClass ? res.tabClass : "col m-2";
-      }else{
-        super();
-        this.tabs = [];
-        this.tabClass = "m-2";
-      }
-    }
-}
-  
 export class AlloySideBar extends Nav {
     link: AlloyLink[];
   constructor(response?: any) {
@@ -125,19 +106,19 @@ export class AlloyIconSideBar extends Nav  {
 }
 
 export class AlloyTabButton extends Nav {
-    tabs: AlloyButtonIcon[];
-    forms: AlloyForm[];
-    constructor(response?: any){
-      if(response){
-        super(response);
-        this.tabs = response.tabs ? response.tabs.map(n => new AlloyButtonIcon(n)) : [];
-        if(this.tabs.length > 0){
-            this.tabs[0].active = this.selected;
-        }
-      }else{
-        super();
-        this.tabs = [];
+  tabs: AlloyButtonIcon[];
+  forms: AlloyForm[];
+  constructor(response?: any){
+    if(response){
+      super(response);
+      this.tabs = response.tabs ? response.tabs.map(n => new AlloyButtonIcon(n)) : [];
+      if(this.tabs.length > 0){
+          this.tabs[0].active = this.selected;
       }
+    }else{
+      super();
+      this.tabs = [];
     }
+  }
 }
 

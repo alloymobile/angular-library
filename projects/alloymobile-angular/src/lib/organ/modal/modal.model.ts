@@ -1,5 +1,5 @@
 import { AlloyButton } from "../../cell/button/button.model";
-import { AlloyInputText, AlloyInputTextIcon } from "../../cell/input/input.model";
+import { AlloyInputType } from "../../cell/input/input.model";
 
 export class Modal{
     id: string;
@@ -39,30 +39,19 @@ export class AlloyModalToast extends Modal{
 }
 
 
-export class AlloyModalFile extends Modal{
-    file: AlloyInputText;
-    constructor(res?: any){
-        if(res){
-            super(res);
-            this.file = res.file ? res.file : new AlloyInputText();
-        }else{
-            super();
-            this.file = new AlloyInputText();
-        }
-    }
-}
-
-
 export class AlloyModal extends Modal{
-    fields: AlloyInputTextIcon[];
+    fields: AlloyInputType[];
     data: any;
+    type: string;
     constructor(res?: any){
         if(res){
             super(res);
-            this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
+            this.type = res.type ? res.type : "AlloyInputTextIcon";
+            this.fields = res.fields ? res.fields.map(f=>new AlloyInputType(f)) : [];
             this.data={};
         }else{
             super();
+            this.type = "AlloyInputTextIcon";
             this.fields = [];
             this.data = {}
         }

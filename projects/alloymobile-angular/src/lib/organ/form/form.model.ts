@@ -1,7 +1,6 @@
 
-import { AlloyButtonIcon, AlloyButtonSubmit } from "../../cell/button/button.model";
-import { CardItem } from "../../tissue/card/card.model";
-import {AlloyInputTextIcon } from "../../cell/input/input.model";
+import { AlloyButtonSubmit } from "../../cell/button/button.model";
+import {AlloyInputType } from "../../cell/input/input.model";
 
 export class Form{
     id: string;
@@ -32,13 +31,13 @@ export class Form{
 
 export class AlloyForm extends Form{
     submit: AlloyButtonSubmit;
-    fields: AlloyInputTextIcon[];
+    fields: AlloyInputType[];
     data: any;
     constructor(res?: any){
         if(res){
             super(res);
             this.submit = res.submit ? new AlloyButtonSubmit(res.submit) : new AlloyButtonSubmit();
-            this.fields = res.fields ? res.fields.map(f=>new AlloyInputTextIcon(f)) : [];
+            this.fields = res.fields ? res.fields.map(f=>new AlloyInputType(f)) : [];
             this.data={};
         }else{
             super();

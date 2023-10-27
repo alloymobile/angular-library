@@ -20,7 +20,20 @@
         ></button>
       </div>
       <div class="modal-body">
-        <alloy-input-icon-texts [inputIconTexts]="_modal.fields" (output)="getText($event)"></alloy-input-icon-texts>
+        <div [ngSwitch]="_modal.type">
+          <div *ngSwitchCase="'AlloyInputTextIcon'">
+              <alloy-input-icon-texts [inputIconTexts]="_modal.fields" (output)="getText($event)"></alloy-input-icon-texts>
+          </div>
+          <div *ngSwitchCase="'AlloyInputFloatingText'">
+              <alloy-input-floating-texts [inputFloatingTexts]="_modal.fields" (output)="getText($event)"></alloy-input-floating-texts>
+          </div>
+          <div *ngSwitchCase="'AlloyInputText'">
+              <alloy-input-texts [inputTexts]="_modal.fields" (output)="getText($event)"></alloy-input-texts>
+          </div>
+          <div *ngSwitchDefault>
+              <alloy-input-icon-texts [inputIconTexts]="_modal.fields" (output)="getText($event)"></alloy-input-icon-texts>
+          </div>
+      </div>
       </div>
       <div class="modal-footer">
         <button

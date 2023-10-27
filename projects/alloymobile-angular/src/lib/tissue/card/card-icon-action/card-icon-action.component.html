@@ -28,13 +28,13 @@
     [ngSwitch]="_cardIconAction.type"
   >
     <ng-container *ngSwitchCase="'AlloyButtonBar'">
-      <alloy-button-bar [buttonBar]="_cardIconAction.action" ></alloy-button-bar>
+      <alloy-button-bar [buttonBar]="_cardIconAction.action" (output)="getAction($event)"></alloy-button-bar>
     </ng-container>
     <ng-container *ngSwitchCase="'AlloyLinkBar'">
-      <alloy-link-bar [linkBar]="_cardIconAction.action" ></alloy-link-bar>
+      <alloy-link-bar [linkBar]="_cardIconAction.action" (output)="getAction($event)"></alloy-link-bar>
     </ng-container>
     <ng-container *ngSwitchDefault>
-      <alloy-link-bar [linkBar]="_cardIconAction.action"></alloy-link-bar>
+      <alloy-link-bar [linkBar]="_cardIconAction.action" (output)="getAction($event)"></alloy-link-bar>
     </ng-container>
   </div>
 </div>

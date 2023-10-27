@@ -46,9 +46,7 @@ import { ForgetComponent } from './organ/forget/forget/forget.component';
 import { CrudTableComponent } from './organ/crud/crud-table/crud-table.component';
 import { CrudCardComponent } from './organ/crud/crud-card/crud-card.component';
 import { ProfileComponent } from './organ/profile/profile/profile.component';
-import { TabLinkComponent } from './tissue/nav/tab-link/tab-link.component';
 import { TabFormComponent } from './tissue/nav/tab-form/tab-form.component';
-import { TabButtonComponent } from './tissue/nav/tab-button/tab-button.component';
 import { LinkBarComponent } from './tissue/bar/link-bar/link-bar.component';
 import { ButtonBarComponent } from './tissue/bar/button-bar/button-bar.component';
 import { InputFloatingTextComponent } from './cell/input/input-floating-text/input-floating-text.component';
@@ -59,6 +57,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { CheckoutComponent } from './organ/checkout/checkout/checkout.component';
 import { DonateComponent } from './organ/donate/donate/donate.component';
 import { NavbarActionComponent } from './tissue/navbar/navbar-action/navbar-action.component';
+import { ContactComponent } from './organ/contact/contact/contact.component';
 
 var stripekey = "";
 @NgModule({
@@ -102,9 +101,7 @@ var stripekey = "";
     CrudTableComponent,
     CrudCardComponent,
     ProfileComponent,
-    TabLinkComponent,
     TabFormComponent,
-    TabButtonComponent,
     LinkBarComponent,
     ButtonBarComponent,
     InputFloatingTextComponent,
@@ -113,7 +110,8 @@ var stripekey = "";
     PayComponent,
     CheckoutComponent,
     DonateComponent,
-    NavbarActionComponent
+    NavbarActionComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -164,9 +162,7 @@ var stripekey = "";
     CrudTableComponent,
     CrudCardComponent,
     ProfileComponent,
-    TabLinkComponent,
     TabFormComponent,
-    TabButtonComponent,
     InputFloatingTextComponent,
     InputIconTextComponent,
     ButtonBarComponent,
@@ -175,13 +171,13 @@ var stripekey = "";
     PayComponent,
     CheckoutComponent,
     DonateComponent,
-    NavbarActionComponent
+    NavbarActionComponent,
+    ContactComponent
   ]
 })
 export class AlloymobileAngularModule {
   static forRoot(configuration): ModuleWithProviders<AlloymobileAngularModule> {
     stripekey = configuration.stripekey;
-    console.log(configuration);
     return {
       ngModule: AlloymobileAngularModule
     };
