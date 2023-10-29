@@ -3,20 +3,20 @@
         <div class="text-center">
             <h3>{{_form.title}}</h3>
             <div class="alert alert-text-danger m-0 p-0" *ngIf="_form.message != ''">{{ _form.message }}</div>
-            <div [ngSwitch]="_form.type">
-                <div *ngSwitchCase="'AlloyInputTextIcon'">
+            <ng-container [ngSwitch]="_form.type">
+                <ng-container *ngSwitchCase="'AlloyInputTextIcon'">
                     <alloy-input-icon-texts [inputIconTexts]="_form.fields" (output)="getText($event)"></alloy-input-icon-texts>
-                </div>
-                <div *ngSwitchCase="'AlloyInputFloatingText'">
+                </ng-container>
+                <ng-container *ngSwitchCase="'AlloyInputFloatingText'">
                     <alloy-input-floating-texts [inputFloatingTexts]="_form.fields" (output)="getText($event)"></alloy-input-floating-texts>
-                </div>
-                <div *ngSwitchCase="'AlloyInputText'">
+                </ng-container>
+                <ng-container *ngSwitchCase="'AlloyInputText'">
                     <alloy-input-texts [inputTexts]="_form.fields" (output)="getText($event)"></alloy-input-texts>
-                </div>
-                <div *ngSwitchDefault>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
                     <alloy-input-icon-texts [inputIconTexts]="_form.fields" (output)="getText($event)"></alloy-input-icon-texts>
-                </div>
-            </div>
+                </ng-container>
+            </ng-container>
             <alloy-button-submit [buttonSubmit]="_form.submit" (output)="submitData(_form.action)"></alloy-button-submit>
         </div>
     </div>

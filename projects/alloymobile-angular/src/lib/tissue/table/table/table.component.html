@@ -5,7 +5,7 @@
         <th scope="col">Type</th>
         <th
           scope="col"
-          *ngFor="let h of _table.rows[0] | keyvalue"
+          *ngFor="let h of _table.rows[0] | keyvalue: originalOrder"
         >
           <span *ngIf="h.key != 'id'">{{ capitalize(h.key) }}</span>
         </th>
@@ -16,14 +16,8 @@
         <td>
           <alloy-icon [icon]="_table.icon"></alloy-icon>
         </td>
-        <td  class="cursor"  *ngFor="let col of body | keyvalue" [routerLink]="[_table.link+'/'+body.id]">
-          <ng-container *ngIf="col.key != 'imageUrl'; then value; else image"></ng-container>
-          <ng-template #value>
-              <span *ngIf="col.key != 'id'">{{ col.value }}</span>
-          </ng-template>
-          <ng-template #image>
-            <img [src]="col.value" width="72px" height="auto" />
-          </ng-template>
+        <td  class="cursor"  *ngFor="let col of body | keyvalue: originalOrder" [routerLink]="[_table.link+'/'+body.id]">
+            <span *ngIf="col.key != 'id'">{{ col.value }}</span>
         </td>
       </tr>
     </tbody>

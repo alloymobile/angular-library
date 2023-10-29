@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Table } from '../table.model';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'alloy-table',
@@ -20,5 +21,10 @@ export class TableComponent {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
+
+    // Preserve original property order
+    originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+      return 0;
+    }
 
 }

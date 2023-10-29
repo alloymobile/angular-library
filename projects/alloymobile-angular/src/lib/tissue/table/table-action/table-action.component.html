@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th scope="col">Type</th>
-      <th scope="col" *ngFor="let h of _tableAction.rows[0] | keyvalue">
+      <th scope="col" *ngFor="let h of _tableAction.rows[0] | keyvalue: originalOrder">
         <span *ngIf="h.key != 'id'">{{ capitalize(h.key) }}</span>
       </th>
       <th scope="col">Action</th>
@@ -20,16 +20,10 @@
       </td>
       <td
         class="cursor"
-        *ngFor="let col of body | keyvalue"
+        *ngFor="let col of body | keyvalue: originalOrder"
         [routerLink]="[_tableAction.link + '/' + body.id]"
       >
-        <ng-container *ngIf="col.key != 'imageUrl'; then value; else image"></ng-container>
-        <ng-template #value>
-            <span *ngIf="col.key != 'id'">{{ col.value }}</span>
-        </ng-template>
-        <ng-template #image>
-          <img [src]="col.value" width="72px" height="auto" />
-        </ng-template>
+        <span *ngIf="col.key != 'id'">{{ col.value }}</span>
       </td>
       <td>
         <div class="btn-group" role="group" aria-label="Edit and Delete">

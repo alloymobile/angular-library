@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TableAction } from '../table.model';
+import { KeyValue } from '@angular/common';
 
 @Component({
   selector: 'alloy-table-action',
@@ -28,5 +29,10 @@ export class TableActionComponent {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
+
+    // Preserve original property order
+    originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+      return 0;
+    }
 
 }

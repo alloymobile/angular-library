@@ -186,7 +186,7 @@ export class AlloyInputTextIcon extends AlloyInputText {
   constructor(res?: any) {
     if (res) {
       super(res);
-      this.icon = res.icon ?  new AlloyIcon(res.icon) : new AlloyIcon();
+      this.icon = res.icon ?  AlloyIcon.getAlloyIcon(res.icon) : new AlloyIcon();
       this.iconClass = res.iconClass ? res.iconClass : 'input-group-text';
     } else {
       super();
