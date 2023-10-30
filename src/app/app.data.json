@@ -84,5 +84,90 @@
         {"id":"tab2","name":"Tissue","className":"nav-link text-dark fs-3","active":"","link":"tissue","icon":{"id":"icon2","icon":"faCube","size":"sm","spin":false,"className":""}},
         {"id":"tab3","name":"Organ","className":"nav-link text-dark fs-3","active":"","link":"organ","icon":{"id":"icon3","icon":"faCubes","size":"sm","spin":false,"className":""}}
     ]
+  },
+  "email":
+  {
+    "id":"","className":"container-fluid",
+    "search":{"name":"search","className":"col-12 border border-dark rounded-pill m-2","inputClass":"form-control border-0", "iconClass":"input-group-text bg-white border-0","type":"search","placeholder":"john@example.com","text":"","readonly": false,"label":"Search..","icon":{"id":1,"icon":"faSearch","size":"lg","spin":false,"className":"bg-white"}},
+    "send":{"name":"Send","className":"btn btn-outline-dark rounded p-2","active":"","type":"button","icon":{"icon":"faEnvelope","size":"lg","spin":false,"className":"text-primary"}},
+    "modal":
+    {
+        "id":"myModal","title":"Email","action":"Send","className":"modal fade","submit":{"id":"1","name":"Send","className":"btn btn-outline-dark mt-1","type":"submit"},
+        "type":"AlloyInputTextIcon",
+        "fields":[
+            {"id":"1","name":"name","className":"col-sm-12",
+            "errors":[
+                {"name":"required","message":"Your name is required.","pattern":""}
+                ],"type":"text","text":"","placeholder":"","readonly":false,"label":"*Your Name","icon":{"id":1,"icon":"faSignature","size":"lg","spin":false,"className":""}},
+            {"id":"2","name":"email","className":"col-sm-12",
+            "errors":[
+                {"name":"required","message":"Email address is required.","pattern":""},
+                {"name":"email","message":"Provide a valid email address.","pattern":""}
+                ],"type":"email","text":"","placeholder":"email","readonly":false,"label":"*Email address","icon":{"id":1,"icon":"faEnvelope","size":"lg","spin":false,"className":""}},    
+            {"id":"3","name":"message","className":"col-12","type":"textarea","text":"","height":"100px","placeholder":"","readonly":false,"label":"*Message",
+            "errors":[
+                {"name":"required","message":"Please write your message.","pattern":""}             
+                ]
+            }
+        ]
+    },
+    "table":
+    {
+        "id":"table","className":"table table-striped table-hover table-responsive table-sm","link":"./","name":"Email",
+        "icon":{"id":1,"icon":"faEnvelopeOpenText","size":"lg","spin":false,"className":""},
+        "actions":
+        [
+            {"id":"Reply","icon":"faReply","size":"lg","spin":false,"className":""},
+            {"id":"Delete","icon":"faTrashAlt","size":"lg","spin":false,"className":""}
+        ],
+        "rows":[]
+    }
+  },
+  "sample":
+  {
+    "content": [
+        {
+            "createdDate": "10/30/23, 4:39 PM",
+            "lastModifiedDate": "10/30/23, 4:39 PM",
+            "id": "653fdc43dc46fd76db7516bf",
+            "toMailAddress": "htsmartlabs@gmail.com",
+            "subject": "Good day from you",
+            "body": {
+                "name": "Tapas Mandal",
+                "fromMailAddress": "imtapas@yahoo.com",
+                "message": "I am great"
+            },
+            "host": {
+                "id": "652eeb9bf4b08b98c48a2042",
+                "name": "alloymobile-email-app.azurewebsites.net",
+                "siteUrl": null
+            }
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "unsorted": false,
+            "sorted": true,
+            "empty": false
+        },
+        "pageNumber": 0,
+        "pageSize": 20,
+        "offset": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "totalPages": 1,
+    "totalElements": 1,
+    "last": true,
+    "first": true,
+    "numberOfElements": 1,
+    "sort": {
+        "unsorted": false,
+        "sorted": true,
+        "empty": false
+    },
+    "size": 20,
+    "number": 0,
+    "empty": false
   }
 }

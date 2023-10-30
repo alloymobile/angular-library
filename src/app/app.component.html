@@ -16,7 +16,7 @@
         <router-outlet></router-outlet>  
     </div>
 </div> -->
-
+<!-- 
   <div class="container-fluid">
     <div class="col-12">
       <alloy-link-bar [linkBar]="linkBar"></alloy-link-bar>
@@ -26,5 +26,13 @@
         <router-outlet></router-outlet>
       </div>
     </div>
-  </div>
+  </div> -->
+
+
+<div class="row">
+    <div class="col-12">
+        <alloy-crud-table [crudTable]="userData" (output)="submitData($event)"></alloy-crud-table>
+    </div>
+</div>
+ 
 
