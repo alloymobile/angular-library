@@ -34,11 +34,17 @@ export class CrudCardComponent {
     this._crudCard.modal.action = data.action;
     this._crudCard.modal.submit.name = data.action;
     if(data.action == "Add"){
-      this._crudCard.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
-    }else if(data.action == "Edit" || data.action == "Delete"){
+      this._crudCard.modal.fields = [...this.createRow.map(c => new AlloyInputTextIcon(c))];
+    }else if(data.action == "Edit"){
       if(data.row){
         this.selectedRow = data.row.fields;
-        this._crudCard.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
+        this._crudCard.modal.fields = [...this.getDataType(data.row).map(f => new AlloyInputTextIcon(f))];
+      }
+    }else if(data.action == "Delete"){
+      if(data.row){
+        this.selectedRow = data.row.fields;
+        this._crudCard.modal.fields = [...this.getDataType(data.row).map(f => new AlloyInputTextIcon(f))];
+        this._crudCard.modal.fields.map((f: any) => f.readonly = true);
       }
     }
     this._crudCard.modal.data = {};

@@ -58,6 +58,7 @@ import { CheckoutComponent } from './organ/checkout/checkout/checkout.component'
 import { DonateComponent } from './organ/donate/donate/donate.component';
 import { NavbarActionComponent } from './tissue/navbar/navbar-action/navbar-action.component';
 import { ContactComponent } from './organ/contact/contact/contact.component';
+import { EmailComponent } from './organ/email/email/email.component';
 
 var stripekey = "";
 @NgModule({
@@ -111,7 +112,8 @@ var stripekey = "";
     CheckoutComponent,
     DonateComponent,
     NavbarActionComponent,
-    ContactComponent
+    ContactComponent,
+    EmailComponent
   ],
   imports: [
     BrowserModule,
@@ -172,7 +174,8 @@ var stripekey = "";
     CheckoutComponent,
     DonateComponent,
     NavbarActionComponent,
-    ContactComponent
+    ContactComponent,
+    EmailComponent
   ]
 })
 export class AlloymobileAngularModule {

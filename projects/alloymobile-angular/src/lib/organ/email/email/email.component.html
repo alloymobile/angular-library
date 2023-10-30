@@ -1,0 +1,13 @@
+
+<div class="container-fluid">  
+    <div class="row input-group mt-2 ">
+        <div class="col-sm-8">
+            <alloy-input-icon-text [inputIconText]="_email.search" (output)="getSearch($event)"></alloy-input-icon-text>
+        </div>
+        <div class="col-sm-4 d-flex align-items-center justify-content-end">
+            <alloy-button-icon [buttonIcon]="_email.send" (output)="onClicked({action:$event.name})"></alloy-button-icon>
+        </div>
+    </div>
+    <alloy-table-action [tableAction]="_email.table" (output)="onClicked($event)"></alloy-table-action>
+</div>    
+<alloy-modal [modal]="_email.modal" (output)="submitData($event)"></alloy-modal>

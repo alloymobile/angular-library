@@ -29,6 +29,7 @@ export * from './lib/tissue/pay/pay.model';
 export * from './lib/organ/checkout/checkout.model';
 export * from './lib/organ/donate/donate.model';
 export * from './lib/organ/contact/contact.model';
+export * from './lib/organ/email/email.model';
 
 export * from './lib/cell/icon/icon/icon.component';
 export * from './lib/cell/icon/icon-link/icon-link.component';
@@ -82,6 +83,7 @@ export * from './lib/organ/profile/profile/profile.component';
 export * from './lib/organ/checkout/checkout/checkout.component';
 export * from './lib/organ/donate/donate/donate.component';
 export * from './lib/organ/contact/contact/contact.component';
+export * from './lib/organ/email/email/email.component';
 
 
 

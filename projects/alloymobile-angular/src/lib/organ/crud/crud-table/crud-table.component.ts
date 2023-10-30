@@ -31,11 +31,17 @@ export class CrudTableComponent {
     this._crudTable.modal.action = data.action;
     this._crudTable.modal.submit.name = data.action;
     if(data.action == "Add"){
-      this._crudTable.modal.fields = this.createRow.map(c => new AlloyInputTextIcon(c));
-    }else if(data.action == "Edit" || data.action == "Delete"){
+      this._crudTable.modal.fields = [...this.createRow.map(c => new AlloyInputTextIcon(c))];
+    }else if(data.action == "Edit"){
       if(data.row){
         this.selectedRow = data.row;
-        this._crudTable.modal.fields = this.getDataType(data.row).map(f => new AlloyInputTextIcon(f));
+        this._crudTable.modal.fields = [...this.getDataType(data.row).map(f => new AlloyInputTextIcon(f))];
+      }
+    }else if(data.action == "Delete"){
+      if(data.row){
+        this.selectedRow = data.row;
+        this._crudTable.modal.fields = [...this.getDataType(data.row).map(f => new AlloyInputTextIcon(f))];
+        this._crudTable.modal.fields.map((f: any) => f.readonly = true);
       }
     }
     this._crudTable.modal.data = {};
