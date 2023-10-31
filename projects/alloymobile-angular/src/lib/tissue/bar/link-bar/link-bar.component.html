@@ -1,14 +1,14 @@
 <ng-container [ngSwitch]="_linkBar.type">
   <ng-container *ngSwitchCase="'AlloyLink'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
-      <li *ngFor="let i of _linkBar.links" class="nav-item">
+      <li *ngFor="let i of _linkBar.links" [class]="_linkBar.linkClass">
         <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
       </li>
     </ul>
   </ng-container>
   <ng-container *ngSwitchCase="'AlloyIconLink'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
-      <li *ngFor="let i of _linkBar.links" class="nav-item">
+      <li *ngFor="let i of _linkBar.links" [class]="_linkBar.linkClass">
         <alloy-icon-link [iconLink]="i" (output)="getSelected(i)">
         </alloy-icon-link>
       </li>
@@ -16,7 +16,7 @@
   </ng-container>
   <ng-container *ngSwitchCase="'AlloyLinkIcon'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
-      <li *ngFor="let i of _linkBar.links" class="nav-item">
+      <li *ngFor="let i of _linkBar.links" [class]="_linkBar.linkClass">
         <alloy-link-icon [linkIcon]="i" (output)="getSelected(i)">
         </alloy-link-icon>
       </li>
@@ -24,7 +24,7 @@
   </ng-container>
   <ng-container *ngSwitchCase="'AlloyLinkLogo'">
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
-      <li *ngFor="let i of _linkBar.links" class="nav-item">
+      <li *ngFor="let i of _linkBar.links" [class]="_linkBar.linkClass">
         <alloy-link-logo [linkLogo]="i" (output)="getSelected(i)">
         </alloy-link-logo>
       </li>
@@ -32,7 +32,7 @@
   </ng-container>
   <ng-container *ngSwitchDefault>
     <ul [id]="_linkBar.id" [class]="_linkBar.className">
-      <li *ngFor="let i of _linkBar.links" class="nav-item">
+      <li *ngFor="let i of _linkBar.links" [class]="_linkBar.linkClass">
         <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
       </li>
     </ul>

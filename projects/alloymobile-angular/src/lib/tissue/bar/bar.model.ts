@@ -64,42 +64,61 @@ export class AlloyButtonBar extends Bar{
 }
 
 export class AlloyLinkBar extends Bar{
-    type: string;
-    static idGenerator: number = 0;
-    links: AlloyLink[];
-    constructor(res?: any){
-      if(res){
-        super(res);
-        this.type = res.type ? res.type : 'AlloyLink';
-        switch(this.type){
-          case "AlloyLink":
-            this.links = res.links ? res.links.map(i=> new AlloyLink(i)) : [];
-            break;
-          case "AlloyLinkIcon":
-          case "AlloyIconLink":
-            this.links = res.links ? res.links.map(i=> new AlloyLinkIcon(i)) : [];
-            break;  
-          case "AlloyLinkLogo":
-            this.links = res.links ? res.links.map(i=> new AlloyLinkLogo(i)) : [];
-            break;  
-          default:
-            this.links = res.links ? res.links.map(i=> new AlloyLink(i)) : [];
-            break;
-         }
-      }else{
-        super();
-        this.type = 'AlloyLink';
-        this.links = [];
-      }
-    }
-
-    toString(){
-        return {
-            id: this.id ?? "linkBar1",
-            className: this.className ?? "d-flex justify-content-center",
-            selected: this.selected ?? "active",
-            type: this.type ?? "AlloyButton",
-            links: this.links.map(s=>s.tostring()) ?? []
+  type: string;
+  static idGenerator: number = 0;
+  links: AlloyLink[];
+  linkClass: string;
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.type = res.type ? res.type : 'AlloyLink';
+      this.linkClass = res.linkClass ? res.linkClass : "nav-item";
+      switch(this.type){
+        case "AlloyLink":
+          this.links = res.links ? res.links.map(i=> new AlloyLink(i)) : [];
+          break;
+        case "AlloyLinkIcon":
+        case "AlloyIconLink":
+          this.links = res.links ? res.links.map(i=> new AlloyLinkIcon(i)) : [];
+          break;  
+        case "AlloyLinkLogo":
+          this.links = res.links ? res.links.map(i=> new AlloyLinkLogo(i)) : [];
+          break;  
+        default:
+          this.links = res.links ? res.links.map(i=> new AlloyLink(i)) : [];
+          break;
         }
+    }else{
+      super();
+      this.type = 'AlloyLink';
+      this.linkClass = "nav-item";
+      this.links = [];
     }
   }
+
+  toString(){
+      return {
+          id: this.id ?? "linkBar1",
+          className: this.className ?? "d-flex justify-content-center",
+          selected: this.selected ?? "active",
+          type: this.type ?? "AlloyButton",
+          links: this.links.map(s=>s.tostring()) ?? []
+      }
+  }
+}
+
+export class AlloySideBar extends AlloyLinkBar{
+  logo: AlloyLinkLogo;
+  close: string;
+  constructor(res?: any){
+    if(res){
+      super(res);
+      this.logo =  res.logo ? new AlloyLinkLogo(res.logo) :  new AlloyLinkLogo();
+      this.close = res.close ? res.close : "";
+    }else{
+      super();
+      this.logo = new AlloyLinkLogo();
+      this.close = "";
+    }
+  }
+}

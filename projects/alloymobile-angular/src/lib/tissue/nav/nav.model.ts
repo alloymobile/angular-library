@@ -74,36 +74,9 @@ export class AlloyTabForm extends Nav{
       }
     } 
 }
-  
-export class AlloySideBar extends Nav {
-    link: AlloyLink[];
-  constructor(response?: any) {
-    if (response) {
-      super(response);
-      this.link = response.link ? response.link.map((link: AlloyLink)=>new AlloyLink(link)) : []; 
-    } else {
-      super();
-      this.link = [];
-    }
-  }
-}
 
 
-export class AlloyIconSideBar extends Nav  {
-    close: string;
-    linkIcon: AlloyLinkIcon[];
-  constructor(response?: any) {
-    if (response) {
-      super(response);
-      this.close = response.close ? response.close : '';
-      this.linkIcon = response.linkIcon ? response.linkIcon.map((linkIcon: AlloyLinkIcon)=>new AlloyLinkIcon(linkIcon)) : []; 
-    } else {
-      super();
-      this.close = '';
-      this.linkIcon = [];
-    }
-  }
-}
+
 
 export class AlloyTabButton extends Nav {
   tabs: AlloyButtonIcon[];

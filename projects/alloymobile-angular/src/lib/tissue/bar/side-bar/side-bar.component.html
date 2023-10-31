@@ -1,0 +1,35 @@
+<ng-container [ngSwitch]="_sideBar.type">
+    <ng-container *ngSwitchCase="'AlloyLink'">
+        <ul [id]="_sideBar.id" [class]="_sideBar.className">
+            <alloy-link-logo [linkLogo]="_sideBar.logo"></alloy-link-logo>
+            <li *ngFor="let i of _sideBar.links" [class]="_sideBar.linkClass">
+                <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
+            </li>
+        </ul>
+    </ng-container>
+    <ng-container *ngSwitchCase="'AlloyIconLink'">
+        <ul [id]="_sideBar.id" [class]="_sideBar.className">
+            <alloy-link-logo [linkLogo]="_sideBar.logo"></alloy-link-logo>
+            <li *ngFor="let i of _sideBar.links" [class]="_sideBar.linkClass">
+                <alloy-icon-link [iconLink]="i" (output)="getSelected(i)"></alloy-icon-link>
+            </li>
+        </ul>
+    </ng-container>
+    <ng-container *ngSwitchCase="'AlloyLinkIcon'">
+      <ul [id]="_sideBar.id" [class]="_sideBar.className">
+        <alloy-link-logo [linkLogo]="_sideBar.logo"></alloy-link-logo>
+        <li *ngFor="let i of _sideBar.links" [class]="_sideBar.linkClass">
+            <alloy-link-icon [linkIcon]="i" (output)="getSelected(i)"></alloy-link-icon>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <ul [id]="_sideBar.id" [class]="_sideBar.className">
+        <alloy-link-logo [linkLogo]="_sideBar.logo"></alloy-link-logo>
+        <li *ngFor="let i of _sideBar.links" [class]="_sideBar.linkClass">
+            <alloy-link [link]="i" (output)="getSelected(i)"> </alloy-link>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-container>
+  

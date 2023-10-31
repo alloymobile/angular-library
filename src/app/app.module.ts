@@ -35,6 +35,7 @@ import { FooterPageComponent } from './tissue-page/footer-page/footer-page.compo
 import { NavPageComponent } from './tissue-page/nav-page/nav-page.component';
 import { PagePageComponent } from './tissue-page/page-page/page-page.component';
 import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.component';
+import { SideBarComponent } from './lib/tissue/bar/side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { NavbarPageComponent } from './tissue-page/navbar-page/navbar-page.compo
     FooterPageComponent,
     NavPageComponent,
     PagePageComponent,
-    NavbarPageComponent
+    NavbarPageComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,

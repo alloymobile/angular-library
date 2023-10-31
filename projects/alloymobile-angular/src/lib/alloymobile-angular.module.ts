@@ -19,8 +19,6 @@ import { CardImageActionComponent } from './tissue/card/card-image-action/card-i
 import { CardComponent } from './tissue/card/card/card.component';
 import { CardImageComponent } from './tissue/card/card-image/card-image.component';
 import { CardIconComponent } from './tissue/card/card-icon/card-icon.component';
-import { SidebarComponent } from './tissue/nav/sidebar/sidebar.component';
-import { IconSidebarComponent } from './tissue/nav/icon-sidebar/icon-sidebar.component';
 import { NavbarComponent } from './tissue/navbar/navbar/navbar.component';
 import { InputTextsComponent } from './tissue/inputs/input-texts/input-texts.component';
 import { LinkLogoComponent } from './cell/link/link-logo/link-logo.component';
@@ -59,6 +57,7 @@ import { DonateComponent } from './organ/donate/donate/donate.component';
 import { NavbarActionComponent } from './tissue/navbar/navbar-action/navbar-action.component';
 import { ContactComponent } from './organ/contact/contact/contact.component';
 import { EmailComponent } from './organ/email/email/email.component';
+import { SideBarComponent } from './tissue/bar/side-bar/side-bar.component';
 
 var stripekey = "";
 @NgModule({
@@ -69,8 +68,6 @@ var stripekey = "";
     ButtonIconComponent,
     LinkComponent,
     LinkIconComponent,
-    SidebarComponent,
-    IconSidebarComponent,
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
@@ -113,7 +110,8 @@ var stripekey = "";
     DonateComponent,
     NavbarActionComponent,
     ContactComponent,
-    EmailComponent
+    EmailComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
@@ -131,8 +129,6 @@ var stripekey = "";
     ButtonIconComponent,
     LinkComponent,
     LinkIconComponent,
-    SidebarComponent,
-    IconSidebarComponent,
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
@@ -175,7 +171,8 @@ var stripekey = "";
     DonateComponent,
     NavbarActionComponent,
     ContactComponent,
-    EmailComponent
+    EmailComponent,
+    SideBarComponent
   ]
 })
 export class AlloymobileAngularModule {

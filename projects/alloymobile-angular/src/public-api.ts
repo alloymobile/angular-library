@@ -55,8 +55,6 @@ export * from './lib/tissue/card/card-icon-action/card-icon-action.component';
 export * from './lib/tissue/card/card-image/card-image.component';
 export * from './lib/tissue/card/card-image-action/card-image-action.component';
 export * from './lib/tissue/navbar/navbar/navbar.component';
-export * from './lib/tissue/nav/sidebar/sidebar.component';
-export * from './lib/tissue/nav/icon-sidebar/icon-sidebar.component';
 export * from './lib/tissue/nav/tab-form/tab-form.component';
 export * from './lib/tissue/table/table/table.component';
 export * from './lib/tissue/searchbar/searchbar/searchbar.component';
@@ -68,6 +66,7 @@ export * from './lib/tissue/bar/button-bar/button-bar.component';
 export * from './lib/tissue/bar/link-bar/link-bar.component';
 export * from './lib/tissue/pay/pay/pay.component';
 export * from './lib/tissue/navbar/navbar-action/navbar-action.component';
+export * from './lib/tissue/bar/side-bar/side-bar.component';
 
 export * from './lib/organ/login/login/login.component';
 export * from './lib/organ/register/register/register.component';
