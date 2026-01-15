@@ -1,0 +1,4 @@
+/* src/app/demo/layout/demo-layout/demo-layout.css */
+:host {
+  display: block;
+}

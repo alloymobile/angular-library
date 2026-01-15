@@ -1,0 +1,33 @@
+<div class="min-vh-100 bg-light">
+  <header class="border-bottom bg-white">
+    <div class="container-fluid py-3 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+        <span class="fw-semibold">PLRA</span>
+      </div>
+
+      <nav class="d-flex align-items-center gap-3">
+        <a
+          routerLink="/"
+          routerLinkActive="fw-semibold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="text-decoration-none"
+        >
+          Home
+        </a>
+
+        <a
+          routerLink="/demo"
+          routerLinkActive="fw-semibold"
+          class="text-decoration-none"
+        >
+          Demo
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-fluid py-4">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,9 @@
+{
+  "icon": {
+    "iconClass": "fa-solid fa-building-columns",
+    "className": "d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle p-3 shadow-sm",
+    "ariaLabel": "PLRA",
+    "ariaMode": "labelled",
+    "title": "PLRA"
+  }
+}

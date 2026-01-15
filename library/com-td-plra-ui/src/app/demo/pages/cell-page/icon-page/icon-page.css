@@ -1,0 +1,8 @@
+/* src/app/demo/pages/icon-page/icon-page.css */
+:host {
+  display: block;
+}
+
+.icon-grid-btn {
+  min-height: 56px;
+}
