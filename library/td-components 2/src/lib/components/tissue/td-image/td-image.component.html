@@ -1,0 +1,31 @@
+<!-- src/lib/components/tissue/td-image/td-image.component.html -->
+
+<figure [id]="image.id" [class]="image.wrapperClassName">
+  <ng-container *ngIf="image.hasLink(); else noLink">
+    <a [href]="image.link!.href" [target]="image.link!.target || '_self'">
+      <img 
+        [src]="currentSrc" 
+        [alt]="image.alt"
+        [class]="image.className"
+        [ngStyle]="image.getStyle()"
+        [loading]="image.loading"
+        (error)="onError()"
+        (click)="onClick($event)" />
+    </a>
+  </ng-container>
+
+  <ng-template #noLink>
+    <img 
+      [src]="currentSrc" 
+      [alt]="image.alt"
+      [class]="image.className"
+      [ngStyle]="image.getStyle()"
+      [loading]="image.loading"
+      (error)="onError()"
+      (click)="onClick($event)" />
+  </ng-template>
+
+  <figcaption *ngIf="image.hasCaption()" [class]="image.captionClassName">
+    {{ image.caption }}
+  </figcaption>
+</figure>

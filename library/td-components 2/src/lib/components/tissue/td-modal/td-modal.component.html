@@ -1,0 +1,42 @@
+<!-- src/lib/components/tissue/td-modal/td-modal.component.html -->
+
+<div 
+  #modalElement
+  [id]="modal.id" 
+  [class]="modal.className"
+  tabindex="-1"
+  [attr.aria-labelledby]="modal.id + '-title'"
+  aria-hidden="true">
+  <div [class]="modal.getDialogClass()">
+    <div [class]="modal.contentClassName">
+      <!-- Header -->
+      <div [class]="modal.headerClassName">
+        <h5 
+          *ngIf="modal.hasTitle()" 
+          [class]="modal.titleClassName" 
+          [id]="modal.id + '-title'">
+          {{ modal.title }}
+        </h5>
+        <button 
+          *ngIf="modal.closeButton"
+          type="button" 
+          [class]="modal.closeButtonClassName" 
+          data-bs-dismiss="modal" 
+          aria-label="Close"
+          (click)="onClose()">
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div [class]="modal.bodyClassName">
+        <ng-content select="[modal-body]"></ng-content>
+        <ng-content></ng-content>
+      </div>
+
+      <!-- Footer -->
+      <div [class]="modal.footerClassName">
+        <ng-content select="[modal-footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

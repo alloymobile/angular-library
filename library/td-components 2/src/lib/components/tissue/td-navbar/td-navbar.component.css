@@ -1,0 +1,5 @@
+/* src/lib/components/tissue/td-navbar/td-navbar.component.css */
+
+:host {
+  display: block;
+}

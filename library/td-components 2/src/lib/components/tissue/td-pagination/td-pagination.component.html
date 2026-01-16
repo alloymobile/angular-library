@@ -1,0 +1,70 @@
+<!-- src/lib/components/tissue/td-pagination/td-pagination.component.html -->
+
+<nav [attr.aria-label]="'Pagination'">
+  <ul [id]="pagination.id" [class]="pagination.className">
+    <!-- First -->
+    <li 
+      *ngIf="pagination.showFirstLast"
+      [class]="pagination.getItemClass(1, !pagination.canPrev())">
+      <a 
+        [class]="pagination.linkClassName" 
+        href="javascript:void(0)"
+        (click)="goFirst()"
+        [attr.aria-disabled]="!pagination.canPrev()">
+        {{ pagination.firstLabel }}
+      </a>
+    </li>
+
+    <!-- Previous -->
+    <li 
+      *ngIf="pagination.showPrevNext"
+      [class]="pagination.getItemClass(pagination.currentPage - 1, !pagination.canPrev())">
+      <a 
+        [class]="pagination.linkClassName" 
+        href="javascript:void(0)"
+        (click)="goPrev()"
+        [attr.aria-disabled]="!pagination.canPrev()">
+        {{ pagination.prevLabel }}
+      </a>
+    </li>
+
+    <!-- Page numbers -->
+    <li 
+      *ngFor="let page of visiblePages; trackBy: trackByPage"
+      [class]="pagination.getItemClass(page)">
+      <a 
+        [class]="pagination.linkClassName" 
+        href="javascript:void(0)"
+        (click)="goToPage(page)"
+        [attr.aria-current]="pagination.isCurrentPage(page) ? 'page' : null">
+        {{ page }}
+      </a>
+    </li>
+
+    <!-- Next -->
+    <li 
+      *ngIf="pagination.showPrevNext"
+      [class]="pagination.getItemClass(pagination.currentPage + 1, !pagination.canNext())">
+      <a 
+        [class]="pagination.linkClassName" 
+        href="javascript:void(0)"
+        (click)="goNext()"
+        [attr.aria-disabled]="!pagination.canNext()">
+        {{ pagination.nextLabel }}
+      </a>
+    </li>
+
+    <!-- Last -->
+    <li 
+      *ngIf="pagination.showFirstLast"
+      [class]="pagination.getItemClass(pagination.totalPages, !pagination.canNext())">
+      <a 
+        [class]="pagination.linkClassName" 
+        href="javascript:void(0)"
+        (click)="goLast()"
+        [attr.aria-disabled]="!pagination.canNext()">
+        {{ pagination.lastLabel }}
+      </a>
+    </li>
+  </ul>
+</nav>

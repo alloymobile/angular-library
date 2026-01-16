@@ -1,0 +1,53 @@
+<!-- src/lib/components/tissue/td-card/td-card.component.html -->
+
+<div [id]="card.id" [class]="card.className">
+  <!-- Media -->
+  <ng-container *ngIf="card.hasMedia()">
+    <td-media 
+      [media]="card.media!"
+      (output)="onMediaOutput($event)">
+    </td-media>
+  </ng-container>
+
+  <!-- Logo (if no media) -->
+  <ng-container *ngIf="!card.hasMedia() && card.hasLogo()">
+    <img 
+      [src]="card.logo!.imageUrl" 
+      [alt]="card.logo!.alt"
+      [class]="card.logo!.className || 'card-img-top'"
+      [style.width]="card.logo!.width"
+      [style.height]="card.logo!.height" />
+  </ng-container>
+
+  <!-- Card Body -->
+  <div [class]="card.bodyClassName">
+    <!-- Title -->
+    <h5 *ngIf="card.title" [class]="card.titleClassName">{{ card.title }}</h5>
+
+    <!-- Subtitle -->
+    <h6 *ngIf="card.subtitle" [class]="card.subtitleClassName">{{ card.subtitle }}</h6>
+
+    <!-- Tags -->
+    <div *ngIf="card.hasTags()" [class]="card.tagsClassName">
+      <span 
+        *ngFor="let tag of card.tags; trackBy: trackByFn"
+        [class]="tag.className"
+        [title]="tag.title">
+        {{ tag.name }}
+      </span>
+    </div>
+
+    <!-- Description -->
+    <p *ngIf="card.description" [class]="card.descriptionClassName">{{ card.description }}</p>
+
+    <!-- Link -->
+    <ng-container *ngIf="card.hasLink()">
+      <td-link [link]="card.link!"></td-link>
+    </ng-container>
+  </div>
+
+  <!-- Footer -->
+  <div *ngIf="card.hasFooter()" [class]="card.footerClassName">
+    {{ card.footer }}
+  </div>
+</div>

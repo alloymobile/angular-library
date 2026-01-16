@@ -1,0 +1,13 @@
+/* src/lib/components/cell/td-search/td-search.component.css */
+
+:host {
+  display: block;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.list-group-item-action:hover {
+  background-color: #f8f9fa;
+}

@@ -1,0 +1,34 @@
+<!-- src/lib/components/cell/td-button-submit/td-button-submit.component.html -->
+
+<button
+  #buttonEl
+  type="submit"
+  [id]="buttonSubmit.id"
+  [class]="mergedClassName"
+  [title]="buttonSubmit.title"
+  [attr.aria-label]="buttonSubmit.ariaLabel"
+  [attr.aria-busy]="isLoading || null"
+  [attr.aria-disabled]="isDisabled || null"
+  [disabled]="isDisabled"
+  [tabIndex]="buttonSubmit.tabIndex"
+  (click)="onClick($event)"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (focus)="onFocus()"
+  (blur)="onBlur()">
+  
+  <!-- Icon is ONLY visible while communicating/loading -->
+  <span *ngIf="isLoading" class="d-inline-flex align-middle">
+    <td-icon [icon]="computedIcon"></td-icon>
+  </span>
+
+  <span [class]="isLoading ? 'px-2 align-middle' : 'align-middle'">
+    {{ buttonSubmit.name }}
+  </span>
+
+  <span *ngIf="isLoading" class="ms-2 visually-hidden" aria-live="polite">
+    Loading…
+  </span>
+</button>

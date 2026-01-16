@@ -1,0 +1,8 @@
+<!-- src/lib/components/tissue/td-card-action/td-card-action.component.html -->
+<div [id]="cardAction.id" [class]="cardAction.className">
+  <td-button-bar *ngIf="cardAction.hasActions() && cardAction.actionsPosition === 'top'"
+    [buttonBar]="cardAction.actions!" (output)="onActionOutput($event)"></td-button-bar>
+  <td-card [card]="cardAction.card" (output)="onCardOutput($event)"></td-card>
+  <td-button-bar *ngIf="cardAction.hasActions() && cardAction.actionsPosition === 'bottom'"
+    [buttonBar]="cardAction.actions!" (output)="onActionOutput($event)"></td-button-bar>
+</div>

@@ -1,0 +1,26 @@
+/* src/lib/components/cell/td-button-dropdown/td-button-dropdown.component.css */
+
+:host {
+  display: inline-block;
+}
+
+.dropdown-toggle::after {
+  margin-left: 0.5em;
+}
+
+.dropdown-menu {
+  min-width: 10rem;
+}
+
+.dropdown-item {
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item:active {
+  background-color: #e9ecef;
+}

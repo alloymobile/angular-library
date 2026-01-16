@@ -1,0 +1,18 @@
+<!-- src/lib/components/cell/td-loading/td-loading.component.html -->
+
+<ng-container *ngIf="loading.visible">
+  <div
+    [id]="loading.id"
+    [class]="loading.overlayClass"
+    aria-busy="true"
+    aria-live="polite"
+    [attr.aria-label]="loading.ariaLabel"
+    role="status">
+    <div [class]="loading.contentClass">
+      <td-icon [icon]="loading.icon"></td-icon>
+      <div *ngIf="loading.message" [class]="loading.messageClass">
+        {{ loading.message }}
+      </div>
+    </div>
+  </div>
+</ng-container>

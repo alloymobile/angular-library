@@ -1,0 +1,372 @@
+<!-- src/lib/components/cell/td-input/td-input.component.html -->
+
+<!-- Error Block Template -->
+<ng-template #errorBlock>
+  <div *ngIf="showError" class="invalid-feedback d-block">
+    <span *ngFor="let err of errors">{{ err }}</span>
+  </div>
+</ng-template>
+
+<!-- ==================== FLOATING LAYOUT ==================== -->
+<ng-container *ngIf="input.layout === 'floating'">
+  <div [class]="wrapClass">
+    <div class="mb-3">
+      <div class="form-floating">
+        <!-- Text-like inputs -->
+        <ng-container *ngIf="['text', 'email', 'password', 'number', 'date'].includes(input.type)">
+          <input
+            [id]="input.id"
+            [type]="input.type"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [placeholder]="input.placeholder"
+            [disabled]="input.disabled"
+            [attr.min]="input.min"
+            [attr.max]="input.max"
+            [attr.minlength]="input.minLength"
+            [attr.maxlength]="input.maxLength"
+            [attr.pattern]="input.pattern"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+        </ng-container>
+
+        <!-- Textarea -->
+        <ng-container *ngIf="input.type === 'textarea'">
+          <textarea
+            [id]="input.id"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [placeholder]="input.placeholder"
+            [disabled]="input.disabled"
+            [attr.minlength]="input.minLength"
+            [attr.maxlength]="input.maxLength"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+          </textarea>
+        </ng-container>
+
+        <!-- Select -->
+        <ng-container *ngIf="input.type === 'select'">
+          <select
+            [id]="input.id"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+            <option value="" disabled>{{ input.placeholder || 'Select...' }}</option>
+            <option *ngFor="let opt of input.options" [value]="opt.value">{{ opt.label }}</option>
+          </select>
+        </ng-container>
+
+        <label [for]="input.id">
+          <td-icon *ngIf="input.icon" [icon]="input.icon"></td-icon>
+          <span *ngIf="input.icon">&nbsp;</span>
+          {{ input.label }}
+        </label>
+      </div>
+      <ng-container *ngTemplateOutlet="errorBlock"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<!-- ==================== ICON LAYOUT ==================== -->
+<ng-container *ngIf="input.layout === 'icon'">
+  <div [class]="wrapClass">
+    <div class="m-2">
+      <label *ngIf="input.label" [for]="input.id" class="form-label">{{ input.label }}</label>
+      
+      <div class="input-group">
+        <span [class]="input.iconGroupClass">
+          <td-icon *ngIf="input.icon" [icon]="input.icon"></td-icon>
+        </span>
+
+        <!-- Text-like inputs -->
+        <ng-container *ngIf="['text', 'email', 'password', 'number', 'date', 'datetime-local', 'time'].includes(input.type)">
+          <input
+            [id]="input.id"
+            [type]="input.type"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [placeholder]="input.placeholder"
+            [disabled]="input.disabled"
+            [attr.min]="input.min"
+            [attr.max]="input.max"
+            [attr.minlength]="input.minLength"
+            [attr.maxlength]="input.maxLength"
+            [attr.pattern]="input.pattern"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+        </ng-container>
+
+        <!-- Textarea -->
+        <ng-container *ngIf="input.type === 'textarea'">
+          <textarea
+            [id]="input.id"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [placeholder]="input.placeholder"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+          </textarea>
+        </ng-container>
+
+        <!-- Select -->
+        <ng-container *ngIf="input.type === 'select'">
+          <select
+            [id]="input.id"
+            [name]="input.name"
+            [(ngModel)]="val"
+            [class]="inputClassWithInvalid"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onChange($event)"
+            (blur)="onBlur($event)">
+            <option value="" disabled>{{ input.placeholder || 'Select...' }}</option>
+            <option *ngFor="let opt of input.options" [value]="opt.value">{{ opt.label }}</option>
+          </select>
+        </ng-container>
+      </div>
+      
+      <ng-container *ngTemplateOutlet="errorBlock"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<!-- ==================== TEXT (DEFAULT) LAYOUT ==================== -->
+<ng-container *ngIf="input.layout === 'text'">
+  <div [class]="wrapClass">
+    <div class="mb-3">
+      <!-- Label for standard inputs -->
+      <label *ngIf="shouldShowLabel" [for]="input.id" class="form-label">{{ input.label }}</label>
+
+      <!-- Text-like inputs -->
+      <ng-container *ngIf="['text', 'email', 'password', 'number', 'date', 'datetime-local', 'time'].includes(input.type)">
+        <input
+          [id]="input.id"
+          [type]="input.type"
+          [name]="input.name"
+          [(ngModel)]="val"
+          [class]="inputClassWithInvalid"
+          [placeholder]="input.placeholder"
+          [disabled]="input.disabled"
+          [attr.min]="input.min"
+          [attr.max]="input.max"
+          [attr.minlength]="input.minLength"
+          [attr.maxlength]="input.maxLength"
+          [attr.pattern]="input.pattern"
+          [attr.aria-invalid]="showError || null"
+          (change)="onChange($event)"
+          (blur)="onBlur($event)">
+      </ng-container>
+
+      <!-- Textarea -->
+      <ng-container *ngIf="input.type === 'textarea'">
+        <textarea
+          [id]="input.id"
+          [name]="input.name"
+          [(ngModel)]="val"
+          [class]="inputClassWithInvalid"
+          [placeholder]="input.placeholder"
+          [disabled]="input.disabled"
+          [attr.minlength]="input.minLength"
+          [attr.maxlength]="input.maxLength"
+          [attr.aria-invalid]="showError || null"
+          (change)="onChange($event)"
+          (blur)="onBlur($event)">
+        </textarea>
+      </ng-container>
+
+      <!-- Select -->
+      <ng-container *ngIf="input.type === 'select'">
+        <select
+          [id]="input.id"
+          [name]="input.name"
+          [(ngModel)]="val"
+          [class]="inputClassWithInvalid"
+          [disabled]="input.disabled"
+          [attr.aria-invalid]="showError || null"
+          (change)="onChange($event)"
+          (blur)="onBlur($event)">
+          <option value="" disabled>{{ input.placeholder || 'Select...' }}</option>
+          <option *ngFor="let opt of input.options" [value]="opt.value">{{ opt.label }}</option>
+        </select>
+      </ng-container>
+
+      <!-- Radio Group -->
+      <ng-container *ngIf="input.type === 'radio'">
+        <label *ngIf="input.label" class="form-label d-block mb-2">{{ input.label }}</label>
+        <div *ngFor="let opt of input.options; let i = index" class="form-check">
+          <input
+            type="radio"
+            [id]="input.id + '_' + i"
+            [class]="inputClassWithInvalid"
+            [name]="input.name"
+            [value]="opt.value"
+            [checked]="val === opt.value"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onRadioChange(opt.value)"
+            (blur)="onBlur($event)">
+          <label class="form-check-label" [for]="input.id + '_' + i">{{ opt.label }}</label>
+        </div>
+      </ng-container>
+
+      <!-- Checkbox Group -->
+      <ng-container *ngIf="input.type === 'checkbox'">
+        <label *ngIf="input.label" class="form-label d-block mb-2">{{ input.label }}</label>
+        <div *ngFor="let opt of input.options; let i = index" class="form-check">
+          <input
+            type="checkbox"
+            [id]="input.id + '_' + i"
+            [class]="inputClassWithInvalid"
+            [name]="input.name"
+            [value]="opt.value"
+            [checked]="isSelected(opt.value)"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onCheckboxChange(opt.value, $any($event.target).checked)"
+            (blur)="onBlur($event)">
+          <label class="form-check-label" [for]="input.id + '_' + i">{{ opt.label }}</label>
+        </div>
+      </ng-container>
+
+      <!-- Switch -->
+      <ng-container *ngIf="input.type === 'switch'">
+        <div class="form-check form-switch">
+          <input
+            type="checkbox"
+            [id]="input.id"
+            [class]="inputClassWithInvalid"
+            [name]="input.name"
+            [checked]="!!val"
+            [disabled]="input.disabled"
+            [attr.aria-invalid]="showError || null"
+            (change)="onSwitchChange($any($event.target).checked)"
+            (blur)="onBlur($event)">
+          <label *ngIf="input.label" class="form-check-label" [for]="input.id">{{ input.label }}</label>
+        </div>
+      </ng-container>
+
+      <!-- File -->
+      <ng-container *ngIf="input.type === 'file'">
+        <input
+          [id]="input.id"
+          type="file"
+          [name]="input.name"
+          [class]="inputClassWithInvalid"
+          [accept]="input.accept"
+          [multiple]="input.multiple"
+          [disabled]="input.disabled"
+          [attr.aria-invalid]="showError || null"
+          (change)="onFileChange($event)"
+          (blur)="onBlur($event)">
+        <div *ngIf="getFilePreview()" class="form-text mt-1 text-break">{{ getFilePreview() }}</div>
+      </ng-container>
+
+      <!-- Canvas (Signature) -->
+      <ng-container *ngIf="input.type === 'canvas'">
+        <canvas
+          #canvasEl
+          [id]="input.id"
+          [attr.name]="input.name"
+          [width]="canvasWidth"
+          [height]="canvasHeight"
+          [tabIndex]="input.disabled ? -1 : 0"
+          [style.width]="'100%'"
+          [style.maxWidth]="'100%'"
+          [style.border]="'1px solid #ced4da'"
+          [style.borderRadius]="'0.375rem'"
+          [style.touchAction]="'none'"
+          [style.cursor]="input.disabled ? 'not-allowed' : 'crosshair'"
+          [style.opacity]="input.disabled ? 0.6 : 1"
+          [attr.aria-invalid]="showError || null"
+          (mousedown)="onCanvasStart($event)"
+          (mousemove)="onCanvasMove($event)"
+          (mouseup)="onCanvasEnd()"
+          (mouseleave)="onCanvasEnd()"
+          (touchstart)="onCanvasStart($event)"
+          (touchmove)="onCanvasMove($event)"
+          (touchend)="onCanvasEnd()"
+          (blur)="onBlur($event)">
+        </canvas>
+        <div *ngIf="!input.disabled" class="mt-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="clearCanvas()">Clear</button>
+        </div>
+      </ng-container>
+
+      <!-- Multiselect (Native) -->
+      <ng-container *ngIf="input.type === 'multiselect' && !input.searchable">
+        <select
+          [id]="input.id"
+          [name]="input.name"
+          multiple
+          [class]="inputClassWithInvalid"
+          [disabled]="input.disabled"
+          [attr.aria-invalid]="showError || null"
+          [size]="input.size || 5"
+          (change)="onChange($event)"
+          (blur)="onBlur($event)">
+          <option *ngFor="let opt of input.options" 
+            [value]="opt.value" 
+            [selected]="isSelected(opt.value)"
+            (click)="toggleOption(opt.value)">
+            {{ opt.label }}
+          </option>
+        </select>
+      </ng-container>
+
+      <!-- Multiselect (Searchable) -->
+      <ng-container *ngIf="input.type === 'multiselect' && input.searchable">
+        <div class="position-relative">
+          <div 
+            class="form-control d-flex flex-wrap gap-1 align-items-center cursor-pointer"
+            [class.is-invalid]="showError"
+            (click)="msOpen = !msOpen">
+            <span *ngFor="let v of val" class="badge bg-primary">
+              {{ v }}
+              <button type="button" class="btn-close btn-close-white ms-1" 
+                style="font-size: 0.5em;" 
+                (click)="toggleOption(v); $event.stopPropagation()">
+              </button>
+            </span>
+            <span *ngIf="!val?.length" class="text-muted">{{ input.placeholder || 'Select...' }}</span>
+          </div>
+          
+          <div *ngIf="msOpen" class="position-absolute w-100 bg-white border rounded shadow-sm mt-1" style="z-index: 1000; max-height: 200px; overflow-y: auto;">
+            <div class="p-2 border-bottom">
+              <input 
+                type="text" 
+                class="form-control form-control-sm" 
+                placeholder="Search..." 
+                [(ngModel)]="msQuery">
+            </div>
+            <div *ngFor="let opt of filteredOptions" 
+              class="px-3 py-2 cursor-pointer hover-bg-light"
+              [class.bg-primary]="isSelected(opt.value)"
+              [class.text-white]="isSelected(opt.value)"
+              (click)="toggleOption(opt.value)">
+              {{ opt.label }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Error display (for types that don't handle it internally) -->
+      <ng-container *ngIf="!['radio', 'checkbox', 'switch'].includes(input.type)">
+        <ng-container *ngTemplateOutlet="errorBlock"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

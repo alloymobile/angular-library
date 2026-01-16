@@ -1,0 +1,17 @@
+/* src/lib/components/cell/td-button-submit/td-button-submit.component.css */
+
+:host {
+  display: inline-block;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-in-out;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}

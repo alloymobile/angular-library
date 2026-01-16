@@ -1,0 +1,18 @@
+<!-- src/lib/components/cell/td-link/td-link.component.html -->
+
+<a
+  [id]="link.id"
+  [href]="safeHref"
+  [class]="mergedClassName"
+  [target]="link.target"
+  [attr.rel]="safeRel"
+  [title]="link.title"
+  (click)="onClick($event)"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (focus)="onFocus()"
+  (blur)="onBlur()">
+  {{ link.name }}
+</a>
