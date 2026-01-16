@@ -1,0 +1,5 @@
+/* src/lib/components/cell/td-icon/td-icon.css */
+
+:host {
+  display: inline-flex;
+}

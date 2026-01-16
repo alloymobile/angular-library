@@ -1,0 +1,16 @@
+/* src/lib/components/cell/td-link-icon/td-link-icon.css */
+
+:host {
+  display: inline;
+}
+
+a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline;
+}

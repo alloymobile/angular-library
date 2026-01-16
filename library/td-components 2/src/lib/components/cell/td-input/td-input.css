@@ -1,0 +1,38 @@
+/* src/lib/components/cell/td-input/td-input.css */
+
+:host {
+  display: block;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-bg-light:hover {
+  background-color: #f8f9fa;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+canvas {
+  display: block;
+}
+
+/* Multiselect badge close button */
+.badge .btn-close {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+}
+
+/* Form check alignment */
+.form-check {
+  padding-left: 1.5em;
+}
+
+.form-check-input {
+  margin-top: 0.3em;
+}

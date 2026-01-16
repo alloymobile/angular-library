@@ -1,0 +1,30 @@
+<!-- src/lib/components/tissue/td-button-bar/td-button-bar.html -->
+
+<div [id]="buttonBar.id" [class]="buttonBar.className" role="group">
+  <!-- Title -->
+  <span 
+    *ngIf="hasTitle" 
+    [class]="buttonBar.title.className"
+    [title]="buttonBar.title.title">
+    {{ buttonBar.title.name }}
+  </span>
+
+  <!-- Buttons -->
+  <ng-container *ngFor="let btn of buttonBar.buttons; trackBy: trackByFn">
+    <!-- TdButton -->
+    <ng-container *ngIf="isButtonObject(btn)">
+      <td-button 
+        [button]="btn"
+        (output)="onButtonOutput($event)">
+      </td-button>
+    </ng-container>
+
+    <!-- TdButtonIcon -->
+    <ng-container *ngIf="isButtonIconObject(btn)">
+      <td-button-icon 
+        [buttonIcon]="btn"
+        (output)="onButtonOutput($event)">
+      </td-button-icon>
+    </ng-container>
+  </ng-container>
+</div>

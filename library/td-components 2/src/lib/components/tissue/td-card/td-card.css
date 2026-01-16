@@ -1,0 +1,5 @@
+/* src/lib/components/tissue/td-card/td-card.css */
+
+:host {
+  display: block;
+}

@@ -1,0 +1,63 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TdModal</h3>
+
+  <div class="row mb-3">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0"><code>&lt;td-modal [modal]="modalModel" (output)="handleOutput($event)"&gt;...&lt;/td-modal&gt;</code></pre>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-primary" (click)="open()">Open Modal</button>
+
+      <td-modal [modal]="modalModel" (output)="handleOutput($event)">
+        <div modal-body>
+          <p class="mb-2">This body is projected into <code>&lt;ng-content select="[modal-body]"&gt;</code>.</p>
+          <p class="mb-0">Edit the JSON on the left to change title/classes/behavior.</p>
+        </div>
+        <div modal-footer class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="close()">Close</button>
+        </div>
+      </td-modal>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">Modal JSON (editable)</span>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onReset()">Reset</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onFormat()">
+            <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>Format
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        class="form-control font-monospace {{ parseError ? 'is-invalid' : '' }}"
+        rows="18"
+        [value]="inputJson"
+        (input)="onInputChange(($any($event.target)).value)"
+        spellcheck="false"
+      ></textarea>
+      <div *ngIf="parseError" class="invalid-feedback d-block mt-1">{{ parseError }}</div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">Output</span>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="outputJson='// cleared'">Clear</button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        rows="18"
+        [value]="outputJson"
+        (input)="outputJson = ($any($event.target)).value"
+        spellcheck="false"
+      ></textarea>
+    </div>
+  </div>
+</div>

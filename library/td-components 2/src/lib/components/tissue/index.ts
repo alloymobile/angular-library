@@ -3,52 +3,52 @@
 
 // Link Bar
 export * from './td-link-bar/td-link-bar.model';
-export * from './td-link-bar/td-link-bar.component';
+export * from './td-link-bar/td-link-bar';
 
 // Button Bar
 export * from './td-button-bar/td-button-bar.model';
-export * from './td-button-bar/td-button-bar.component';
+export * from './td-button-bar/td-button-bar';
 
 // Form
 export * from './td-form/td-form.model';
-export * from './td-form/td-form.component';
+export * from './td-form/td-form';
 
 // NavBar
 export * from './td-navbar/td-navbar.model';
-export * from './td-navbar/td-navbar.component';
+export * from './td-navbar/td-navbar';
 
 // Card
 export * from './td-card/td-card.model';
-export * from './td-card/td-card.component';
+export * from './td-card/td-card';
 
 // Card Action
 export * from './td-card-action/td-card-action.model';
-export * from './td-card-action/td-card-action.component';
+export * from './td-card-action/td-card-action';
 
 // Table
 export * from './td-table/td-table.model';
-export * from './td-table/td-table.component';
+export * from './td-table/td-table';
 
 // Modal
 export * from './td-modal/td-modal.model';
-export * from './td-modal/td-modal.component';
+export * from './td-modal/td-modal';
 
 // Modal Toast
 export * from './td-modal-toast/td-modal-toast.model';
-export * from './td-modal-toast/td-modal-toast.component';
+export * from './td-modal-toast/td-modal-toast';
 
 // Pagination
 export * from './td-pagination/td-pagination.model';
-export * from './td-pagination/td-pagination.component';
+export * from './td-pagination/td-pagination';
 
 // Image
 export * from './td-image/td-image.model';
-export * from './td-image/td-image.component';
+export * from './td-image/td-image';
 
 // Video
 export * from './td-video/td-video.model';
-export * from './td-video/td-video.component';
+export * from './td-video/td-video';
 
 // Carousel
 export * from './td-carousel/td-carousel.model';
-export * from './td-carousel/td-carousel.component';
+export * from './td-carousel/td-carousel';

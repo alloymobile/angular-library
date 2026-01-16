@@ -1,0 +1,20 @@
+<!-- src/lib/components/cell/td-link-icon/td-link-icon.html -->
+
+<a
+  [id]="linkIcon.id"
+  [href]="linkIcon.href"
+  [class]="mergedClassName"
+  [target]="linkIcon.target"
+  [attr.rel]="safeRel"
+  [title]="linkIcon.title"
+  [attr.aria-label]="hasLabel ? null : linkIcon.ariaLabel"
+  (click)="onClick($event)"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (focus)="onFocus()"
+  (blur)="onBlur()">
+  <td-icon [icon]="linkIcon.icon"></td-icon>
+  <span *ngIf="hasLabel" class="px-1">{{ linkIcon.name }}</span>
+</a>

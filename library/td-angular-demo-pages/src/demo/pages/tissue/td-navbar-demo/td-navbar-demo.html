@@ -1,0 +1,53 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TdNavBar</h3>
+
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item"><button type="button" class="nav-link {{ activeTab === 'link' ? 'active' : '' }}" (click)="switchTab('link')">Links</button></li>
+    <li class="nav-item"><button type="button" class="nav-link {{ activeTab === 'icon' ? 'active' : '' }}" (click)="switchTab('icon')">Icons</button></li>
+    <li class="nav-item"><button type="button" class="nav-link {{ activeTab === 'logo' ? 'active' : '' }}" (click)="switchTab('logo')">Logos</button></li>
+  </ul>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <td-navbar [navBar]="model" (output)="handleOutput($event)"></td-navbar>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">Input JSON (editable)</span>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onReset()">Reset</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onFormat()">
+            <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>Format
+          </button>
+        </div>
+      </div>
+
+      <textarea
+        class="form-control font-monospace {{ parseError ? 'is-invalid' : '' }}"
+        rows="18"
+        [value]="inputJson"
+        (input)="onInputChange(($any($event.target)).value)"
+        spellcheck="false"
+      ></textarea>
+      <div *ngIf="parseError" class="invalid-feedback d-block mt-1">{{ parseError }}</div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">Output</span>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="outputJson='// cleared'">Clear</button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        rows="18"
+        [value]="outputJson"
+        (input)="outputJson = ($any($event.target)).value"
+        spellcheck="false"
+      ></textarea>
+    </div>
+  </div>
+</div>

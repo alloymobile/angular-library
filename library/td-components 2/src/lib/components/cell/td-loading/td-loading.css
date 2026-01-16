@@ -1,0 +1,10 @@
+/* src/lib/components/cell/td-loading/td-loading.css */
+
+:host {
+  display: contents;
+}
+
+/* Ensure overlay is on top of everything */
+div[role="status"] {
+  z-index: 9999;
+}
