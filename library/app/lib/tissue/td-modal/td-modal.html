@@ -1,0 +1,177 @@
+<div
+  [class]="modal.className"
+  [id]="modal.id"
+  tabindex="-1"
+  [attr.aria-labelledby]="modal.id + '-label'"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" [id]="modal.id + '-label'">
+          {{ modal.getDisplayTitle() }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" novalidate>
+          <ng-container *ngFor="let field of modal.fields; trackBy: trackByField">
+            <div class="mb-3">
+              <!-- Label -->
+              <label
+                *ngIf="field.hasLabel() && !field.isCheckbox()"
+                [for]="field.id"
+                class="form-label"
+              >
+                {{ field.label }}
+                <span *ngIf="field.required" class="text-danger">*</span>
+              </label>
+
+              <!-- Text/Email/Password/Number/Tel/URL Input -->
+              <input
+                *ngIf="!field.isSelect() && !field.isTextarea() && !field.isCheckbox() && !field.isRadio()"
+                [type]="field.type"
+                [id]="field.id"
+                [name]="field.name"
+                [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+                [placeholder]="field.placeholder"
+                [required]="field.required"
+                [disabled]="field.disabled"
+                [readonly]="field.readonly"
+                [attr.minlength]="field.minLength || null"
+                [attr.maxlength]="field.maxLength || null"
+                [attr.pattern]="field.pattern || null"
+                [attr.min]="field.min ?? null"
+                [attr.max]="field.max ?? null"
+                [attr.step]="field.step ?? null"
+                [attr.aria-label]="field.ariaLabel"
+                [attr.autocomplete]="field.autoComplete"
+                [value]="getFieldValue(field)"
+                (input)="onInputChange(field, $event)"
+              />
+
+              <!-- Textarea -->
+              <textarea
+                *ngIf="field.isTextarea()"
+                [id]="field.id"
+                [name]="field.name"
+                [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+                [placeholder]="field.placeholder"
+                [required]="field.required"
+                [disabled]="field.disabled"
+                [readonly]="field.readonly"
+                [attr.minlength]="field.minLength || null"
+                [attr.maxlength]="field.maxLength || null"
+                [rows]="field.rows || 3"
+                [attr.aria-label]="field.ariaLabel"
+                [value]="getFieldValue(field)"
+                (input)="onInputChange(field, $event)"
+              ></textarea>
+
+              <!-- Select -->
+              <select
+                *ngIf="field.isSelect()"
+                [id]="field.id"
+                [name]="field.name"
+                [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+                [required]="field.required"
+                [disabled]="field.disabled"
+                [attr.aria-label]="field.ariaLabel"
+                [value]="getFieldValue(field)"
+                (change)="onInputChange(field, $event)"
+              >
+                <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
+                <option
+                  *ngFor="let opt of field.options; trackBy: trackByOption"
+                  [value]="opt.value"
+                  [selected]="opt.value === getFieldValue(field)"
+                >
+                  {{ opt.label }}
+                </option>
+              </select>
+
+              <!-- Checkbox -->
+              <div *ngIf="field.isCheckbox()" class="form-check">
+                <input
+                  type="checkbox"
+                  [id]="field.id"
+                  [name]="field.name"
+                  class="form-check-input"
+                  [class.is-invalid]="hasFieldErrors(field)"
+                  [required]="field.required"
+                  [disabled]="field.disabled"
+                  [checked]="getFieldValue(field)"
+                  (change)="onInputChange(field, $event)"
+                />
+                <label *ngIf="field.hasLabel()" [for]="field.id" class="form-check-label">
+                  {{ field.label }}
+                  <span *ngIf="field.required" class="text-danger">*</span>
+                </label>
+              </div>
+
+              <!-- Radio buttons -->
+              <div *ngIf="field.isRadio()">
+                <div
+                  *ngFor="let opt of field.options; trackBy: trackByOption; let i = index"
+                  class="form-check"
+                >
+                  <input
+                    type="radio"
+                    [id]="field.id + '-' + i"
+                    [name]="field.name"
+                    class="form-check-input"
+                    [class.is-invalid]="hasFieldErrors(field)"
+                    [value]="opt.value"
+                    [checked]="opt.value === getFieldValue(field)"
+                    [disabled]="field.disabled"
+                    (change)="onInputChange(field, $event)"
+                  />
+                  <label [for]="field.id + '-' + i" class="form-check-label">
+                    {{ opt.label }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Error messages -->
+              <div *ngIf="hasFieldErrors(field)" class="invalid-feedback d-block">
+                <ng-container *ngFor="let err of getFieldErrors(field)">
+                  <div>{{ err }}</div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          [class]="getButtonClasses()"
+          [disabled]="modal.submit.disabled"
+          [attr.aria-label]="modal.submit.ariaLabel"
+          [attr.title]="modal.submit.title"
+          (click)="onSubmit()"
+        >
+          {{ modal.submit.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

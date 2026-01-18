@@ -1,0 +1,122 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TDNavBar</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
+    <li class="nav-item" *ngFor="let tab of TABS">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === tab.key"
+        (click)="setActiveTab(tab.key)"
+      >
+        {{ tab.label }}
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tag snippet -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+        <code>{{ tagSnippet }}</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Live NavBar Preview -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="border rounded overflow-hidden">
+        <td-nav-bar
+          [navBar]="navBarModel"
+          (output)="handleOutput($event)"
+        ></td-nav-bar>
+      </div>
+      <div class="small text-secondary mt-2 text-center">
+        <strong>TDNavBar</strong> renders a responsive Bootstrap navbar with
+        brand logo, collapsible toggle, and link bar.
+        Clicking a link emits an <code>OutputObject</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Editable JSON + Output -->
+  <div class="row g-3 align-items-stretch justify-content-center mb-5">
+    <!-- Left: editable JSON -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Input JSON (editable) — {{ currentTabConfig.label }}
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="resetJson()"
+        >
+          Reset
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="currentTab.parseError"
+        rows="20"
+        [ngModel]="currentTab.json"
+        (ngModelChange)="onJsonChange($event)"
+        spellcheck="false"
+      ></textarea>
+
+      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
+        {{ currentTab.parseError }}
+      </div>
+
+      <div class="form-text">
+        <ul class="mb-0 ps-3">
+          <li>
+            <code>logo</code>: A LinkLogoObject for the brand (logo image + name).
+          </li>
+          <li>
+            <code>linkBar</code>: A LinkBarObject for navigation links.
+          </li>
+          <li>
+            <code>className</code>: Bootstrap navbar classes
+            (e.g., <code>navbar-light bg-light</code>).
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: output -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Output (from <code>output</code> callback)
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="clearOutput()"
+        >
+          Clear
+        </button>
+      </div>
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="20"
+        [ngModel]="currentTab.output"
+        readonly
+        spellcheck="false"
+      ></textarea>
+
+      <div class="form-text">
+        Clicking a link emits:
+        <ul class="mb-0 ps-3">
+          <li><code>type</code>: <code>"link"</code></li>
+          <li><code>action</code>: <code>"click"</code></li>
+          <li><code>data</code>: link details (id, name, href)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

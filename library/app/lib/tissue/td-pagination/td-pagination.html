@@ -1,0 +1,97 @@
+<nav
+  [class]="pagination.className"
+  [attr.aria-label]="pagination.name ? pagination.name + ' pagination' : 'pagination'"
+>
+  <!-- Page info label -->
+  <div *ngIf="pagination.name && pagination.totalPages > 0" class="me-2 small text-muted">
+    {{ pagination.name }}: Page {{ pagination.pageNumber + 1 }} of {{ pagination.totalPages }}
+  </div>
+
+  <!-- Pagination controls -->
+  <ul
+    *ngIf="pagination.totalPages > 0"
+    [class]="pagination.listClassName + ' list-unstyled'"
+    style="list-style: none; padding-left: 0; margin-bottom: 0;"
+  >
+    <!-- First page button -->
+    <li [class]="getItemClasses(pagination.first, false)">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="pagination.first"
+        [attr.aria-label]="'Go to first page'"
+        [attr.title]="'Go to first page'"
+        (click)="onNavigate(0, pagination.first)"
+      >
+        <i class="fa-solid fa-angles-left" aria-hidden="true"></i>
+        <span class="visually-hidden">First</span>
+      </button>
+    </li>
+
+    <!-- Previous page button -->
+    <li [class]="getItemClasses(pagination.first, false)">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="pagination.first"
+        [attr.aria-label]="'Go to previous page'"
+        [attr.title]="'Go to previous page'"
+        (click)="onNavigate(pagination.pageNumber - 1, pagination.first)"
+      >
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        <span class="visually-hidden">Previous</span>
+      </button>
+    </li>
+
+    <!-- Page numbers with ellipses -->
+    <ng-container *ngFor="let item of pageWindow; trackBy: trackByItem">
+      <!-- Ellipsis -->
+      <li *ngIf="item.type === 'ellipsis'" [class]="getItemClasses(true, false)">
+        <span class="page-link">…</span>
+      </li>
+
+      <!-- Page number -->
+      <li *ngIf="item.type === 'page'" [class]="getItemClasses(false, item.index === pagination.pageNumber)">
+        <button
+          type="button"
+          class="page-link"
+          [attr.aria-label]="'Go to page ' + ((item.index ?? 0) + 1)"
+          [attr.aria-current]="item.index === pagination.pageNumber ? 'page' : null"
+          (click)="onNavigate(item.index ?? 0, false)"
+        >
+          {{ (item.index ?? 0) + 1 }}
+        </button>
+      </li>
+    </ng-container>
+
+    <!-- Next page button -->
+    <li [class]="getItemClasses(pagination.last, false)">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="pagination.last"
+        [attr.aria-label]="'Go to next page'"
+        [attr.title]="'Go to next page'"
+        (click)="onNavigate(pagination.pageNumber + 1, pagination.last)"
+      >
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </li>
+
+    <!-- Last page button -->
+    <li [class]="getItemClasses(pagination.last, false)">
+      <button
+        type="button"
+        class="page-link"
+        [disabled]="pagination.last"
+        [attr.aria-label]="'Go to last page'"
+        [attr.title]="'Go to last page'"
+        (click)="onNavigate(pagination.totalPages - 1, pagination.last)"
+      >
+        <i class="fa-solid fa-angles-right" aria-hidden="true"></i>
+        <span class="visually-hidden">Last</span>
+      </button>
+    </li>
+  </ul>
+</nav>

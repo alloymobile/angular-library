@@ -1,0 +1,52 @@
+<div
+  [class]="modalToast.className"
+  [id]="modalToast.id"
+  tabindex="-1"
+  aria-labelledby="modalToastLabel"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalToastLabel">
+          {{ modalToast.title }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <h3>{{ modalToast.message }}</h3>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          [class]="getButtonClasses()"
+          [disabled]="modalToast.submit.disabled"
+          [attr.aria-label]="modalToast.submit.ariaLabel"
+          [attr.title]="modalToast.submit.title"
+          (click)="onSubmit()"
+        >
+          {{ modalToast.submit.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

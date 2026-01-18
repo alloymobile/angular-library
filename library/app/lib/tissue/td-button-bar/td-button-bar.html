@@ -1,0 +1,99 @@
+<nav [attr.data-type]="buttonBar.type">
+  <!-- Optional title -->
+  <div
+    *ngIf="buttonBar.hasTitle()"
+    [id]="buttonBar.title.id"
+    [class]="buttonBar.title.className"
+  >
+    {{ buttonBar.title.name }}
+  </div>
+
+  <!-- Button list -->
+  <ul
+    [id]="buttonBar.id"
+    [class]="buttonBar.className + ' list-unstyled'"
+    style="list-style: none; padding-left: 0; margin-bottom: 0;"
+  >
+    <ng-container *ngFor="let btn of buttonBar.buttons; trackBy: trackByButton">
+      
+      <!-- Standard Button -->
+      <li *ngIf="isButtonObject(btn)" [class]="buttonBar.buttonClass">
+        <button
+          type="button"
+          [id]="btn.id"
+          [class]="getButtonClasses(btn)"
+          [disabled]="btn.disabled"
+          [attr.aria-label]="btn.ariaLabel"
+          [attr.title]="btn.title"
+          [attr.tabindex]="btn.tabIndex"
+          (click)="onButtonClick(btn, $event)"
+        >
+          {{ btn.name }}
+        </button>
+      </li>
+
+      <!-- Icon Button -->
+      <li *ngIf="isButtonIconObject(btn)" [class]="buttonBar.buttonClass">
+        <button
+          type="button"
+          [id]="btn.id"
+          [class]="getButtonClasses(btn)"
+          [disabled]="btn.disabled"
+          [attr.aria-label]="btn.ariaLabel"
+          [attr.title]="btn.title"
+          [attr.tabindex]="btn.tabIndex"
+          (click)="onButtonClick(btn, $event)"
+        >
+          <i
+            *ngIf="btn.icon && btn.icon.iconClass"
+            [class]="btn.icon.iconClass"
+            aria-hidden="true"
+          ></i>
+          <span *ngIf="btn.name" [class.ms-1]="btn.icon && btn.icon.iconClass">
+            {{ btn.name }}
+          </span>
+        </button>
+      </li>
+
+      <!-- Dropdown Button -->
+      <li *ngIf="isButtonDropDownObject(btn)" [class]="buttonBar.buttonClass + ' dropdown'">
+        <button
+          type="button"
+          [id]="btn.id"
+          [class]="btn.className"
+          [disabled]="btn.disabled"
+          [attr.aria-label]="btn.ariaLabel"
+          [attr.title]="btn.title"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i
+            *ngIf="btn.icon && btn.icon.iconClass"
+            [class]="btn.icon.iconClass"
+            aria-hidden="true"
+          ></i>
+          <span *ngIf="btn.name" [class.ms-1]="btn.icon && btn.icon.iconClass">
+            {{ btn.name }}
+          </span>
+        </button>
+
+        <!-- Dropdown menu -->
+        <ul [class]="btn.linkBar.className" [attr.aria-labelledby]="btn.id">
+          <li *ngFor="let link of btn.linkBar.links; trackBy: trackByLink">
+            <a
+              [class]="link.getCombinedClasses()"
+              [href]="link.href"
+              [attr.target]="link.target || null"
+              [attr.rel]="link.rel || null"
+              [attr.title]="link.title || null"
+              (click)="onDropdownItemClick(btn, link, $event)"
+            >
+              {{ link.name }}
+            </a>
+          </li>
+        </ul>
+      </li>
+
+    </ng-container>
+  </ul>
+</nav>

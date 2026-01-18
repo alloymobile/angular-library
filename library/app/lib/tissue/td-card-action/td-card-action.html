@@ -1,0 +1,199 @@
+<div [id]="cardAction.id" [class]="cardAction.className">
+  <!-- Header -->
+  <div
+    *ngIf="cardAction.hasHeader()"
+    [id]="cardAction.header.id"
+    [class]="getHeaderClasses()"
+    [attr.aria-label]="cardAction.header.ariaLabel"
+  >
+    {{ cardAction.header.name }}
+  </div>
+
+  <!-- Body -->
+  <div
+    [id]="cardAction.body.id"
+    [class]="getBodyClasses()"
+    [attr.aria-label]="cardAction.body.ariaLabel"
+  >
+    <!-- Split Layout -->
+    <div *ngIf="cardAction.isSplitLayout()" class="row g-3">
+      <div [class]="cardAction.leftColClass">
+        <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: cardAction.leftFields }"></ng-container>
+      </div>
+      <div [class]="cardAction.rightColClass">
+        <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: cardAction.fields }"></ng-container>
+      </div>
+    </div>
+
+    <!-- Single Layout -->
+    <ng-container *ngIf="!cardAction.isSplitLayout()">
+      <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: cardAction.fields }"></ng-container>
+    </ng-container>
+  </div>
+
+  <!-- Footer with Action Bar -->
+  <div
+    *ngIf="cardAction.hasFooter()"
+    [id]="cardAction.footer.id"
+    [class]="getFooterClasses()"
+    [attr.aria-label]="cardAction.footer.ariaLabel"
+  >
+    <!-- Footer text -->
+    <div *ngIf="cardAction.footer.hasText()" class="me-auto small text-muted">
+      {{ cardAction.footer.name }}
+    </div>
+
+    <!-- Action Bar -->
+    <div *ngIf="cardAction.hasAction()" role="group">
+      <!-- LinkBar Action -->
+      <td-link-bar
+        *ngIf="cardAction.isLinkBarAction()"
+        [linkBar]="getLinkBarAction()"
+        (output)="onActionBarOutput($event)"
+      ></td-link-bar>
+
+      <!-- ButtonBar Action -->
+      <td-button-bar
+        *ngIf="!cardAction.isLinkBarAction()"
+        [buttonBar]="getButtonBarAction()"
+        (output)="onActionBarOutput($event)"
+      ></td-button-bar>
+    </div>
+  </div>
+</div>
+
+<!-- Fields Grid Template -->
+<ng-template #fieldsGrid let-fields>
+  <div class="row g-2">
+    <div
+      *ngFor="let field of fields; trackBy: trackByField"
+      [class]="field.colClass"
+    >
+      <div
+        [id]="field.id"
+        [class]="field.className"
+        [attr.aria-label]="field.ariaLabel"
+      >
+        <ng-container *ngTemplateOutlet="fieldContent; context: { $implicit: field }"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Field Content Template -->
+<ng-template #fieldContent let-field>
+  <!-- Media -->
+  <ng-container *ngIf="field.hasMedia()">
+    <div class="media-container">
+      <img
+        *ngFor="let item of field.media.items"
+        [src]="item.url"
+        [alt]="item.alt || 'Media'"
+        class="img-fluid"
+      />
+    </div>
+  </ng-container>
+
+  <!-- Logo -->
+  <ng-container *ngIf="!field.hasMedia() && field.hasLogo()">
+    <img
+      [src]="field.logo.imageUrl"
+      [alt]="field.logo.alt"
+      [attr.width]="field.logo.width || null"
+      [attr.height]="field.logo.height || null"
+      [class]="field.logo.className"
+    />
+  </ng-container>
+
+  <!-- Icon -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && field.hasIcon()">
+    <i
+      [class]="field.icon.iconClass"
+      [attr.title]="field.icon.title || null"
+      [attr.aria-label]="field.icon.ariaLabel || null"
+    ></i>
+  </ng-container>
+
+  <!-- Tags -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && field.hasTags()">
+    <div class="d-flex flex-column gap-1">
+      <ng-container *ngFor="let tag of field.tags; trackBy: trackByTag">
+        <div
+          *ngIf="tag && tag.name && tag.name.trim()"
+          [id]="tag.id"
+          [class]="tag.className"
+        >
+          {{ tag.name }}
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <!-- Quantity -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && field.hasQuantity()">
+    <div class="quantity-control d-flex align-items-center gap-2">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="field.quantity.disabled || field.quantity.value <= field.quantity.min"
+        (click)="onQuantityChange(field, field.quantity.value - field.quantity.step)"
+        aria-label="Decrease quantity"
+      >
+        <i class="fa-solid fa-minus"></i>
+      </button>
+      <span class="quantity-value">{{ field.quantity.value }}</span>
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        [disabled]="field.quantity.disabled || field.quantity.value >= field.quantity.max"
+        (click)="onQuantityChange(field, field.quantity.value + field.quantity.step)"
+        aria-label="Increase quantity"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </ng-container>
+
+  <!-- ButtonIcon -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && field.hasButtonIcon()">
+    <button
+      type="button"
+      [class]="field.buttonIcon.className"
+      [disabled]="field.buttonIcon.disabled"
+      [attr.aria-label]="field.buttonIcon.ariaLabel"
+      [attr.title]="field.buttonIcon.title"
+      (click)="onButtonIconClick(field)"
+    >
+      <i
+        *ngIf="field.buttonIcon.icon && field.buttonIcon.icon.iconClass"
+        [class]="field.buttonIcon.icon.iconClass"
+        aria-hidden="true"
+      ></i>
+      <span *ngIf="field.buttonIcon.name">{{ field.buttonIcon.name }}</span>
+    </button>
+  </ng-container>
+
+  <!-- LinkIcon -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && !field.hasButtonIcon() && field.hasLinkIcon()">
+    <a
+      [href]="field.linkIcon.to"
+      [class]="field.linkIcon.className"
+      [attr.target]="field.linkIcon.target || null"
+      [attr.rel]="field.linkIcon.rel || null"
+      [attr.aria-label]="field.linkIcon.ariaLabel"
+      [attr.title]="field.linkIcon.title"
+    >
+      <i
+        *ngIf="field.linkIcon.icon && field.linkIcon.icon.iconClass"
+        [class]="field.linkIcon.icon.iconClass"
+        aria-hidden="true"
+      ></i>
+      <span *ngIf="field.linkIcon.name">{{ field.linkIcon.name }}</span>
+    </a>
+  </ng-container>
+
+  <!-- Text (fallback) -->
+  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && !field.hasButtonIcon() && !field.hasLinkIcon() && field.hasText()">
+    <span>{{ field.name }}</span>
+  </ng-container>
+</ng-template>

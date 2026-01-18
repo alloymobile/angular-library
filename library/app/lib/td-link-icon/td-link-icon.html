@@ -1,0 +1,19 @@
+<a
+  [id]="domId"
+  [href]="model.href"
+  [class]="computedClass()"
+  [target]="model.target"
+  [rel]="safeRel"
+  [title]="model.title"
+  [attr.aria-label]="model.hasLabel() ? null : model.ariaLabel"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (focus)="onFocus()"
+  (blur)="onBlur()">
+  <td-icon [model]="model.icon"></td-icon>
+  @if (model.hasLabel()) {
+    <span class="px-1">{{ model.name }}</span>
+  }
+</a>

@@ -1,0 +1,181 @@
+<form
+  [id]="form.id"
+  [class]="form.className"
+  (ngSubmit)="onSubmit($event)"
+  novalidate
+>
+  <!-- Title -->
+  <h4 *ngIf="form.hasTitle()" class="form-title mb-3">
+    {{ form.title }}
+  </h4>
+
+  <!-- Message -->
+  <div *ngIf="form.hasMessage()" [class]="form.messageClass" role="alert">
+    {{ form.message }}
+  </div>
+
+  <!-- Fields -->
+  <div [class]="form.rowClass">
+    <ng-container *ngFor="let field of form.fields; trackBy: trackByField">
+      <div [class]="field.colClass">
+        <div class="mb-3">
+          <!-- Label (for non-checkbox fields) -->
+          <label
+            *ngIf="field.hasLabel() && !field.isCheckbox()"
+            [for]="field.id"
+            class="form-label"
+          >
+            {{ field.label }}
+            <span *ngIf="field.required" class="text-danger">*</span>
+          </label>
+
+          <!-- Text/Email/Password/Number/Tel/URL/Date Input -->
+          <input
+            *ngIf="!field.isSelect() && !field.isTextarea() && !field.isCheckbox() && !field.isRadio()"
+            [type]="field.type"
+            [id]="field.id"
+            [name]="field.name"
+            [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+            [placeholder]="field.placeholder"
+            [required]="field.required"
+            [disabled]="field.disabled"
+            [readonly]="field.readonly"
+            [attr.minlength]="field.minLength || null"
+            [attr.maxlength]="field.maxLength || null"
+            [attr.pattern]="field.pattern || null"
+            [attr.min]="field.min ?? null"
+            [attr.max]="field.max ?? null"
+            [attr.step]="field.step ?? null"
+            [attr.aria-label]="field.ariaLabel"
+            [attr.autocomplete]="field.autoComplete"
+            [value]="getFieldValue(field)"
+            (input)="onInputChange(field, $event)"
+            (blur)="onInputBlur(field)"
+          />
+
+          <!-- Textarea -->
+          <textarea
+            *ngIf="field.isTextarea()"
+            [id]="field.id"
+            [name]="field.name"
+            [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+            [placeholder]="field.placeholder"
+            [required]="field.required"
+            [disabled]="field.disabled"
+            [readonly]="field.readonly"
+            [attr.minlength]="field.minLength || null"
+            [attr.maxlength]="field.maxLength || null"
+            [rows]="field.rows || 3"
+            [attr.aria-label]="field.ariaLabel"
+            [value]="getFieldValue(field)"
+            (input)="onInputChange(field, $event)"
+            (blur)="onInputBlur(field)"
+          ></textarea>
+
+          <!-- Select -->
+          <select
+            *ngIf="field.isSelect()"
+            [id]="field.id"
+            [name]="field.name"
+            [class]="field.className + (hasFieldErrors(field) ? ' is-invalid' : '')"
+            [required]="field.required"
+            [disabled]="field.disabled"
+            [attr.aria-label]="field.ariaLabel"
+            [value]="getFieldValue(field)"
+            (change)="onInputChange(field, $event)"
+            (blur)="onInputBlur(field)"
+          >
+            <option value="" disabled>{{ field.placeholder || 'Select an option' }}</option>
+            <option
+              *ngFor="let opt of field.options; trackBy: trackByOption"
+              [value]="opt.value"
+              [selected]="opt.value === getFieldValue(field)"
+            >
+              {{ opt.label }}
+            </option>
+          </select>
+
+          <!-- Checkbox -->
+          <div *ngIf="field.isCheckbox()" class="form-check">
+            <input
+              type="checkbox"
+              [id]="field.id"
+              [name]="field.name"
+              class="form-check-input"
+              [class.is-invalid]="hasFieldErrors(field)"
+              [required]="field.required"
+              [disabled]="field.disabled"
+              [checked]="getFieldValue(field)"
+              (change)="onInputChange(field, $event)"
+            />
+            <label *ngIf="field.hasLabel()" [for]="field.id" class="form-check-label">
+              {{ field.label }}
+              <span *ngIf="field.required" class="text-danger">*</span>
+            </label>
+          </div>
+
+          <!-- Radio buttons -->
+          <div *ngIf="field.isRadio()">
+            <div
+              *ngFor="let opt of field.options; trackBy: trackByOption; let i = index"
+              class="form-check"
+            >
+              <input
+                type="radio"
+                [id]="field.id + '-' + i"
+                [name]="field.name"
+                class="form-check-input"
+                [class.is-invalid]="hasFieldErrors(field)"
+                [value]="opt.value"
+                [checked]="opt.value === getFieldValue(field)"
+                [disabled]="field.disabled"
+                (change)="onInputChange(field, $event)"
+              />
+              <label [for]="field.id + '-' + i" class="form-check-label">
+                {{ opt.label }}
+              </label>
+            </div>
+          </div>
+
+          <!-- Error messages -->
+          <div *ngIf="hasFieldErrors(field)" class="invalid-feedback d-block">
+            <ng-container *ngFor="let err of getFieldErrors(field)">
+              <div>{{ err }}</div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Submit button -->
+  <div class="mt-3">
+    <button
+      type="submit"
+      [class]="getSubmitClasses()"
+      [disabled]="isSubmitDisabled()"
+      [attr.aria-label]="form.submit.ariaLabel"
+      [attr.title]="form.submit.title"
+    >
+      <!-- Loading spinner -->
+      <span
+        *ngIf="form.submit.loading"
+        class="spinner-border spinner-border-sm me-2"
+        role="status"
+        aria-hidden="true"
+      ></span>
+
+      <!-- Icon -->
+      <i
+        *ngIf="!form.submit.loading && form.submit.icon && form.submit.icon.iconClass"
+        [class]="form.submit.icon.iconClass"
+        aria-hidden="true"
+      ></i>
+
+      <!-- Text -->
+      <span [class.ms-1]="form.submit.icon && form.submit.icon.iconClass && !form.submit.loading">
+        {{ getSubmitText() }}
+      </span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,77 @@
+<nav [attr.data-type]="linkBar.type">
+  <!-- Optional title -->
+  <div
+    *ngIf="linkBar.hasTitle()"
+    [id]="linkBar.title.id"
+    [class]="linkBar.title.className"
+  >
+    {{ linkBar.title.name }}
+  </div>
+
+  <!-- Link list -->
+  <ul [id]="linkBar.id" [class]="linkBar.className">
+    <ng-container *ngFor="let link of linkBar.links; trackBy: trackByLink">
+
+      <!-- Standard Link -->
+      <li *ngIf="isLinkObject(link)" [class]="linkBar.linkClass">
+        <a
+          [id]="link.id"
+          [class]="getLinkClasses(link)"
+          [href]="link.href"
+          [attr.target]="link.target || null"
+          [attr.rel]="link.rel || null"
+          [attr.title]="link.title || null"
+          (click)="onLinkClick(link, $event)"
+        >
+          {{ link.name }}
+        </a>
+      </li>
+
+      <!-- Icon Link -->
+      <li *ngIf="isLinkIconObject(link)" [class]="linkBar.linkClass">
+        <a
+          [id]="link.id"
+          [class]="getLinkClasses(link)"
+          [href]="link.href"
+          [attr.target]="link.target || null"
+          [attr.rel]="link.rel || null"
+          [attr.title]="link.title || null"
+          (click)="onLinkClick(link, $event)"
+        >
+          <i
+            *ngIf="link.icon && link.icon.iconClass"
+            [class]="link.icon.iconClass"
+            aria-hidden="true"
+          ></i>
+          <span *ngIf="link.name" [class.ms-1]="link.icon && link.icon.iconClass">
+            {{ link.name }}
+          </span>
+        </a>
+      </li>
+
+      <!-- Logo Link -->
+      <li *ngIf="isLinkLogoObject(link)" [class]="linkBar.linkClass">
+        <a
+          [id]="link.id"
+          [class]="getLinkClasses(link)"
+          [href]="link.href"
+          [attr.target]="link.target || null"
+          [attr.rel]="link.rel || null"
+          [attr.title]="link.title || null"
+          (click)="onLinkClick(link, $event)"
+        >
+          <img
+            *ngIf="link.logo && link.logo.imageUrl"
+            [src]="link.logo.imageUrl"
+            [alt]="link.logo.alt"
+            [attr.width]="link.logo.width || null"
+            [attr.height]="link.logo.height || null"
+            [class]="link.logo.className"
+          />
+          <span *ngIf="link.name">{{ link.name }}</span>
+        </a>
+      </li>
+
+    </ng-container>
+  </ul>
+</nav>

@@ -1,0 +1,15 @@
+<a
+  [id]="domId"
+  [href]="model.href || '#'"
+  [class]="computedClass()"
+  [target]="model.target"
+  [rel]="safeRel"
+  [title]="model.title"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (focus)="onFocus()"
+  (blur)="onBlur()">
+  {{ model.name }}
+</a>

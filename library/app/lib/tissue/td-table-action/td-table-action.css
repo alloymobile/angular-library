@@ -1,0 +1,108 @@
+/* TD Table Action Component Styles */
+
+:host {
+  display: block;
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Sortable headers */
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable-header:hover {
+  text-decoration: underline;
+}
+
+.sortable-header:focus {
+  outline: 2px solid rgba(13, 110, 253, 0.5);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sort-indicator {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sort-indicator i {
+  font-size: 0.875em;
+}
+
+/* Clickable rows */
+.table-row-clickable {
+  cursor: pointer;
+}
+
+.table-row-clickable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-row-clickable:focus {
+  outline: 2px solid rgba(13, 110, 253, 0.5);
+  outline-offset: -2px;
+}
+
+/* Clickable cells */
+.cell-clickable {
+  cursor: pointer;
+}
+
+.cell-link {
+  display: block;
+}
+
+.cell-link:hover {
+  text-decoration: underline !important;
+}
+
+/* Caption styling */
+caption {
+  padding: 0.5rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+/* Column widths */
+.icon-column {
+  width: 60px;
+  text-align: center;
+}
+
+.actions-column {
+  width: auto;
+  min-width: 120px;
+  text-align: right;
+}
+
+/* Ensure consistent cell padding */
+th, td {
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+/* Actions button bar */
+:host ::ng-deep td-button-bar ul {
+  margin-bottom: 0;
+  justify-content: flex-end;
+}
+
+:host ::ng-deep td-button-bar li {
+  list-style: none;
+}
+
+/* Hover effect for action buttons */
+:host ::ng-deep td-button-bar button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Empty state */
+.text-secondary {
+  opacity: 0.75;
+}

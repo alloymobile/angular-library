@@ -1,0 +1,10 @@
+/* TdLoading Component Styles */
+
+:host {
+  display: contents;
+}
+
+/* Ensure loading overlay is above other content */
+div[role="status"] {
+  z-index: 9999;
+}

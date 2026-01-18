@@ -1,0 +1,52 @@
+/* Demo Sidebar Component Styles */
+
+:host {
+  display: block;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+textarea.font-monospace {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.form-text ul {
+  font-size: 0.85rem;
+}
+
+code {
+  color: #d63384;
+  font-size: 0.875em;
+}
+
+/* Sidebar preview container */
+.sidebar-preview {
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.sidebar-preview::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-preview::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar-preview::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.sidebar-preview::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

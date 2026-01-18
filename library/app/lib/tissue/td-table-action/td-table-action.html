@@ -1,0 +1,104 @@
+<div class="table-responsive">
+  <table [id]="tableAction.id" [class]="tableAction.className">
+    <!-- Caption -->
+    <caption class="caption-top text-center">{{ tableAction.name }}</caption>
+
+    <!-- Header row -->
+    <thead>
+      <tr>
+        <!-- Icon column header -->
+        <th scope="col" class="icon-column">Type</th>
+
+        <!-- Data column headers -->
+        <th
+          *ngFor="let key of headerKeys; trackBy: trackByColumn"
+          scope="col"
+        >
+          <span
+            class="text-dark text-decoration-none sortable-header"
+            (click)="onHeaderClick(key)"
+            (keydown.enter)="onHeaderClick(key)"
+            (keydown.space)="onHeaderClick(key)"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="'Sort by ' + prettifyLabel(key)"
+          >
+            {{ prettifyLabel(key) }}
+
+            <span
+              *ngIf="isColumnActive(key)"
+              class="ms-1 d-inline-flex align-middle sort-indicator"
+              aria-hidden="true"
+              [attr.title]="isDescending() ? 'Sorted descending' : 'Sorted ascending'"
+              [ngStyle]="getSortIconStyle()"
+            >
+              <i [class]="tableAction.sort.iconClass"></i>
+            </span>
+          </span>
+        </th>
+
+        <!-- Actions column header -->
+        <th *ngIf="tableAction.hasActions()" scope="col" class="actions-column">
+          {{ tableAction.actionsHeader }}
+        </th>
+      </tr>
+    </thead>
+
+    <!-- Body rows -->
+    <tbody>
+      <!-- Data rows -->
+      <tr
+        *ngFor="let row of tableAction.rows; trackBy: trackByRow"
+        [class.table-row-clickable]="isRowClickable()"
+        [attr.tabindex]="isRowClickable() ? 0 : null"
+        [attr.role]="isRowClickable() ? 'button' : null"
+        (keydown.enter)="isRowClickable() && onRowClick(row)"
+      >
+        <!-- Icon column -->
+        <td class="icon-column">
+          <i [class]="tableAction.icon.iconClass" [attr.aria-label]="tableAction.icon.ariaLabel"></i>
+        </td>
+
+        <!-- Data columns -->
+        <td
+          *ngFor="let key of headerKeys; trackBy: trackByColumn"
+          [class.cell-clickable]="isRowClickable()"
+          (click)="onCellClick(row, $event)"
+        >
+          <!-- Link wrapper if linkable -->
+          <a
+            *ngIf="isRowClickable()"
+            [href]="getRowLink(row)"
+            class="cell-link text-decoration-none text-reset"
+            (click)="onCellClick(row, $event); $event.preventDefault()"
+          >
+            {{ formatCellValue(row[key]) }}
+          </a>
+
+          <!-- Plain text if not linkable -->
+          <span *ngIf="!isRowClickable()">
+            {{ formatCellValue(row[key]) }}
+          </span>
+        </td>
+
+        <!-- Actions column -->
+        <td *ngIf="tableAction.hasActions()" class="actions-column">
+          <td-button-bar
+            [buttonBar]="tableAction.actions"
+            (output)="onActionOutput(row, $event)"
+          ></td-button-bar>
+        </td>
+      </tr>
+
+      <!-- Empty state -->
+      <tr *ngIf="tableAction.rows.length === 0">
+        <td
+          [attr.colspan]="headerKeys.length + (tableAction.hasActions() ? 2 : 1)"
+          class="text-center text-secondary py-4"
+        >
+          No data available
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

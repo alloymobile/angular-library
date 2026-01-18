@@ -1,0 +1,33 @@
+<div [id]="model.id" [class]="model.className">
+  <div class="col-12">
+    @if (inputModel()) {
+      <td-input [model]="inputModel()!" (output)="onInputOutput($event)"></td-input>
+    }
+
+    @if (hasResults()) {
+      <div class="mt-2">
+        <ul class="list-group shadow-sm">
+          @for (item of normalizedResults(); track item.id) {
+            <button
+              type="button"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
+              (click)="onResultClick(item)">
+              <div class="ms-0 me-auto">
+                <div class="fw-semibold">{{ item.label }}</div>
+                @if (item.description) {
+                  <small class="text-muted">{{ item.description }}</small>
+                }
+              </div>
+
+              @if (item.icon) {
+                <span class="ms-2 text-secondary">
+                  <td-icon [model]="item.icon"></td-icon>
+                </span>
+              }
+            </button>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</div>

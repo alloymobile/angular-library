@@ -1,0 +1,139 @@
+<nav [id]="navBarAction.id" [class]="navBarAction.className">
+  <div [class]="navBarAction.containerClass">
+    <!-- Left section: Sidebar toggle, Back button, Brand, Title -->
+    <div class="d-flex align-items-center">
+      <!-- Sidebar toggle button (mobile) -->
+      <button
+        *ngIf="navBarAction.hasSidebarToggle()"
+        class="btn btn-link d-lg-none me-2 p-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        [attr.data-bs-target]="'#' + navBarAction.sidebarId"
+        [attr.aria-controls]="navBarAction.sidebarId"
+        aria-label="Toggle sidebar"
+      >
+        <i class="fa-solid fa-bars fa-lg"></i>
+      </button>
+
+      <!-- Back button -->
+      <button
+        *ngIf="navBarAction.hasBackButton()"
+        type="button"
+        [class]="navBarAction.backButton!.className"
+        [disabled]="navBarAction.backButton!.disabled"
+        [attr.aria-label]="navBarAction.backButton!.ariaLabel || 'Go back'"
+        [attr.title]="navBarAction.backButton!.title"
+        (click)="onBackClick()"
+      >
+        <i
+          *ngIf="navBarAction.backButton!.icon && navBarAction.backButton!.icon.iconClass"
+          [class]="navBarAction.backButton!.icon.iconClass"
+          aria-hidden="true"
+        ></i>
+        <span *ngIf="navBarAction.backButton!.name" class="ms-1">
+          {{ navBarAction.backButton!.name }}
+        </span>
+      </button>
+
+      <!-- Brand/Logo -->
+      <a
+        *ngIf="navBarAction.hasBrand()"
+        [class]="navBarAction.brand.className || 'navbar-brand d-flex align-items-center gap-2'"
+        [href]="navBarAction.brand.href"
+        [attr.title]="navBarAction.brand.title || null"
+        (click)="onBrandClick($event)"
+      >
+        <img
+          *ngIf="getBrandImageUrl()"
+          [src]="getBrandImageUrl()"
+          [alt]="getBrandAlt()"
+          [attr.width]="getBrandWidth() || null"
+          [attr.height]="getBrandHeight() || null"
+          class="d-inline-block align-text-top"
+        />
+        <span *ngIf="navBarAction.brand.name">{{ navBarAction.brand.name }}</span>
+      </a>
+
+      <!-- Title -->
+      <span
+        *ngIf="navBarAction.hasTitle()"
+        [id]="navBarAction.title.id"
+        [class]="navBarAction.title.className || 'navbar-text fw-semibold'"
+      >
+        {{ navBarAction.title.name }}
+      </span>
+    </div>
+
+    <!-- Mobile toggle button -->
+    <button
+      *ngIf="navBarAction.collapse && (navBarAction.hasLinks() || navBarAction.hasGuestActions() || navBarAction.hasUserActions())"
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      [attr.data-bs-target]="'#' + navBarAction.collapseId"
+      [attr.aria-controls]="navBarAction.collapseId"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div
+      *ngIf="navBarAction.collapse"
+      class="collapse navbar-collapse"
+      [id]="navBarAction.collapseId"
+    >
+      <!-- Link bar (navigation links) -->
+      <td-link-bar
+        *ngIf="navBarAction.hasLinks()"
+        [linkBar]="navBarAction.linkBar"
+        (output)="onLinkBarOutput($event)"
+      ></td-link-bar>
+
+      <!-- Action buttons container -->
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <!-- Guest actions (shown when not authenticated) -->
+        <td-button-bar
+          *ngIf="!isAuthenticated && navBarAction.hasGuestActions()"
+          [buttonBar]="navBarAction.guestActions"
+          (output)="onGuestActionsOutput($event)"
+        ></td-button-bar>
+
+        <!-- User actions (shown when authenticated) -->
+        <td-button-bar
+          *ngIf="isAuthenticated && navBarAction.hasUserActions()"
+          [buttonBar]="navBarAction.userActions"
+          (output)="onUserActionsOutput($event)"
+        ></td-button-bar>
+      </div>
+    </div>
+
+    <!-- Non-collapsible content -->
+    <div
+      *ngIf="!navBarAction.collapse"
+      class="d-flex align-items-center gap-2 ms-auto"
+    >
+      <!-- Link bar -->
+      <td-link-bar
+        *ngIf="navBarAction.hasLinks()"
+        [linkBar]="navBarAction.linkBar"
+        (output)="onLinkBarOutput($event)"
+      ></td-link-bar>
+
+      <!-- Guest actions -->
+      <td-button-bar
+        *ngIf="!isAuthenticated && navBarAction.hasGuestActions()"
+        [buttonBar]="navBarAction.guestActions"
+        (output)="onGuestActionsOutput($event)"
+      ></td-button-bar>
+
+      <!-- User actions -->
+      <td-button-bar
+        *ngIf="isAuthenticated && navBarAction.hasUserActions()"
+        [buttonBar]="navBarAction.userActions"
+        (output)="onUserActionsOutput($event)"
+      ></td-button-bar>
+    </div>
+  </div>
+</nav>

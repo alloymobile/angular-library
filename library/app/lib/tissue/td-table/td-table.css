@@ -1,0 +1,61 @@
+/* TD Table Component Styles */
+
+:host {
+  display: block;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable-header:hover {
+  text-decoration: underline;
+}
+
+.sortable-header:focus {
+  outline: 2px solid rgba(13, 110, 253, 0.5);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.sort-indicator {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sort-indicator i {
+  font-size: 0.875em;
+}
+
+.table-row-clickable {
+  cursor: pointer;
+}
+
+.table-row-clickable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-row-clickable:focus {
+  outline: 2px solid rgba(13, 110, 253, 0.5);
+  outline-offset: -2px;
+}
+
+/* Caption styling */
+caption {
+  padding: 0.5rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+/* Ensure consistent cell padding */
+th, td {
+  vertical-align: middle;
+}
+
+/* Icon column width */
+th:first-child,
+td:first-child {
+  width: 60px;
+  text-align: center;
+}

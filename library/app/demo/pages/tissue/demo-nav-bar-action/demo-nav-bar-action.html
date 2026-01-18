@@ -1,0 +1,129 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TDNavBarAction</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
+    <li class="nav-item" *ngFor="let tab of TABS">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === tab.key"
+        (click)="setActiveTab(tab.key)"
+      >
+        {{ tab.label }}
+      </button>
+    </li>
+  </ul>
+
+  <!-- Tag snippet -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+        <code>{{ tagSnippet }}</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Live NavBarAction Preview -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="border rounded overflow-hidden">
+        <td-nav-bar-action
+          [navBarAction]="navBarActionModel"
+          (output)="handleOutput($event)"
+        ></td-nav-bar-action>
+      </div>
+      <div class="small text-secondary mt-2 text-center">
+        <strong>TDNavBarAction</strong> extends TDNavBar with authentication-aware action bars.
+        <br />
+        <code>auth.mode</code>: <code>"guest"</code> shows guestActions,
+        <code>"user"</code> shows userActions,
+        <code>"auto"</code> checks sessionStorage/cookie.
+      </div>
+    </div>
+  </div>
+
+  <!-- Editable JSON + Output -->
+  <div class="row g-3 align-items-stretch justify-content-center mb-5">
+    <!-- Left: editable JSON -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Input JSON (editable) — {{ currentTabConfig.label }}
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="resetJson()"
+        >
+          Reset
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="currentTab.parseError"
+        rows="22"
+        [ngModel]="currentTab.json"
+        (ngModelChange)="onJsonChange($event)"
+        spellcheck="false"
+      ></textarea>
+
+      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
+        {{ currentTab.parseError }}
+      </div>
+
+      <div class="form-text">
+        <ul class="mb-0 ps-3">
+          <li>
+            <code>auth.mode</code>: <code>"guest"</code>, <code>"user"</code>, or <code>"auto"</code>
+          </li>
+          <li>
+            <code>guestActions</code>: ButtonBarObject shown when not authenticated
+          </li>
+          <li>
+            <code>userActions</code>: ButtonBarObject shown when authenticated
+          </li>
+          <li>
+            <code>backButton</code>: Optional back navigation button
+          </li>
+          <li>
+            <code>sidebarId</code>: ID of offcanvas sidebar to toggle
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: output -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Output (from <code>output</code> callback)
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="clearOutput()"
+        >
+          Clear
+        </button>
+      </div>
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="22"
+        [ngModel]="currentTab.output"
+        readonly
+        spellcheck="false"
+      ></textarea>
+
+      <div class="form-text">
+        Actions emit via their respective bars:
+        <ul class="mb-0 ps-3">
+          <li>Button clicks: <code>type: "button"</code></li>
+          <li>Link clicks: <code>type: "link"</code></li>
+          <li>Back button: <code>type: "button"</code> with back button data</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

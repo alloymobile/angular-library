@@ -1,0 +1,150 @@
+<div class="container py-4">
+  <h3 class="text-center mb-3">TDLinkBar</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs justify-content-center mb-3">
+    <li class="nav-item">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === 'AlloyLink'"
+        (click)="setActiveTab('AlloyLink')"
+      >
+        TDLink
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === 'AlloyLinkIcon'"
+        (click)="setActiveTab('AlloyLinkIcon')"
+      >
+        TDLinkIcon
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === 'AlloyLinkLogo'"
+        (click)="setActiveTab('AlloyLinkLogo')"
+      >
+        TDLinkLogo
+      </button>
+    </li>
+  </ul>
+
+  <!-- Demo Card -->
+  <div class="card p-3 mb-4">
+    <h5 class="mb-3 text-center">{{ getTabLabel(activeTab) }}</h5>
+
+    <!-- Row 1 — Usage snippet -->
+    <div class="row mb-3">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+          <code>{{ tagSnippet }}</code>
+        </pre>
+      </div>
+    </div>
+
+    <!-- Row 2 — Live demo -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <td-link-bar
+          [linkBar]="currentTab.model"
+          (output)="handleOutput($event)"
+        ></td-link-bar>
+        <div class="small text-secondary mt-2">
+          Clicking a link emits via <code>output</code> as an <code>OutputObject</code>.
+          The clicked link becomes "selected" and gets the <code>selected</code> class
+          (e.g., <code>"active"</code>) injected.
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3 — Editor + Output -->
+    <div class="row g-3 align-items-stretch">
+      <!-- Left: editable JSON -->
+      <div class="col-12 col-lg-6">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="fw-semibold">Input JSON (editable)</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            (click)="resetJson()"
+          >
+            Reset
+          </button>
+        </div>
+
+        <textarea
+          class="form-control font-monospace"
+          [class.is-invalid]="currentTab.parseError"
+          rows="18"
+          [ngModel]="currentTab.json"
+          (ngModelChange)="onJsonChange($event)"
+          spellcheck="false"
+        ></textarea>
+
+        <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
+          {{ currentTab.parseError }}
+        </div>
+
+        <div class="form-text">
+          <ul class="mb-0 ps-3">
+            <li>
+              <code>type</code> decides link type: <code>"AlloyLink"</code>,
+              <code>"AlloyLinkIcon"</code>, or <code>"AlloyLinkLogo"</code>.
+            </li>
+            <li>
+              <code>title</code> becomes a TagObject. If <code>title.name</code>
+              is empty, the heading won't render.
+            </li>
+            <li>
+              <code>links</code> array is normalized into the appropriate
+              LinkObject, LinkIconObject, or LinkLogoObject.
+            </li>
+            <li>
+              For logo links, use <code>logo</code> (URL string or LogoObject),
+              <code>width</code>, <code>height</code>.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: output inspector -->
+      <div class="col-12 col-lg-6">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="fw-semibold">
+            Output (from <code>output</code> callback)
+          </span>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-danger"
+            (click)="clearOutput()"
+          >
+            Clear
+          </button>
+        </div>
+
+        <textarea
+          class="form-control font-monospace"
+          rows="18"
+          [ngModel]="currentTab.output"
+          spellcheck="false"
+          readonly
+        ></textarea>
+
+        <div class="form-text">
+          The <code>OutputObject</code> contains:
+          <ul class="mb-0 ps-3">
+            <li><code>type</code>: <code>"link"</code></li>
+            <li><code>action</code>: <code>"click"</code></li>
+            <li><code>data</code>: link details (id, name, href)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
