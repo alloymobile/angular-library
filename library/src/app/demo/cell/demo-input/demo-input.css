@@ -1,0 +1,11 @@
+/* demo-input.css */
+pre code {
+  white-space: pre-wrap;
+}
+
+.demo-section-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}

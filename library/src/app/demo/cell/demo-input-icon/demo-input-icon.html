@@ -1,0 +1,89 @@
+<!-- demo-input-icon.html -->
+<div class="container py-3">
+  <h3 class="mb-4 text-center">TdInput (Icon Layout)</h3>
+
+  <ul class="nav nav-underline nav-fill mb-3 flex-wrap">
+    @for (key of tabs; track key) {
+      <li class="nav-item">
+        <button
+          class="nav-link"
+          [class.active]="key === tab()"
+          (click)="switchTab(key)"
+          type="button">
+          {{ key }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 text-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+<code>&lt;td-input [model]="inputModel" (output)="handleOutput($event)"&gt;&lt;/td-input&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <td-input [model]="model()" (output)="handleOutput($event)"></td-input>
+
+      <div class="small text-secondary mt-2 text-center">
+        <code>layout: "icon"</code> uses Bootstrap input-group with icon prefix.
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-stretch">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Input JSON (editable)</label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="handleFormat()"
+          title="Format JSON">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="parseError()"
+        rows="18"
+        [ngModel]="inputJson()"
+        (ngModelChange)="inputJson.set($event); handleInputChange($event)"
+        spellcheck="false">
+      </textarea>
+
+      @if (parseError()) {
+        <div class="invalid-feedback d-block mt-1">{{ parseError() }}</div>
+      }
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">
+          Output (from <code>output</code> callback)
+        </label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="outputJson.set('// Interact with the field')">
+          Clear
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [ngModel]="outputJson()"
+        readonly
+        spellcheck="false">
+      </textarea>
+    </div>
+  </div>
+</div>

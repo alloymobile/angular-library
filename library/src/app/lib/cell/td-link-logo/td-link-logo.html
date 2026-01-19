@@ -1,0 +1,21 @@
+<!-- td-link-logo.html -->
+<a
+  [id]="domId"
+  [href]="model.href || '#'"
+  [class]="computedClass"
+  [target]="model.target"
+  [rel]="safeRel"
+  [title]="model.title"
+  [attr.aria-label]="model.ariaLabel">
+  <img
+    [src]="model.logo.imageUrl"
+    [attr.alt]="model.logo.alt"
+    [attr.width]="model.logo.width"
+    [attr.height]="model.logo.height"
+    [class]="model.logo.className"
+  />
+
+  @if (model.name) {
+    <span class="ms-2">{{ model.name }}</span>
+  }
+</a>

@@ -1,0 +1,122 @@
+<!-- demo-input.html -->
+<div class="container py-3">
+  <h3 class="mb-4 text-center">TdInput</h3>
+
+  <!-- VALIDATION TABS (TOP) -->
+  <div class="mb-2">
+    <div class="demo-section-title">Validations</div>
+    <ul class="nav nav-underline nav-fill flex-wrap">
+      @for (key of validationTabs; track key) {
+        <li class="nav-item">
+          <button
+            class="nav-link"
+            [class.active]="key === validationTab()"
+            (click)="selectValidation(key)"
+            type="button">
+            {{ key }}
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- TYPE TABS (BOTTOM) -->
+  <div class="mb-3">
+    <div class="demo-section-title">Types</div>
+    <ul class="nav nav-underline nav-fill flex-wrap">
+      @for (key of typeTabs; track key) {
+        <li class="nav-item">
+          <button
+            class="nav-link"
+            [class.active]="key === typeTab()"
+            (click)="selectType(key)"
+            type="button">
+            {{ key }}
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 text-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+<code>&lt;td-input [model]="inputModel" (output)="handleOutput($event)"&gt;&lt;/td-input&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <td-input
+        [model]="model()"
+        (output)="handleOutput($event)">
+      </td-input>
+
+      <div class="small text-secondary mt-2 text-center">
+        Switch validation tabs (top) and input types (bottom). Errors typically appear after <code>blur</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- JSON editor (left) and callback output (right) -->
+  <div class="row g-3 align-items-stretch">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Input JSON (editable)</label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="handleFormat()"
+          title="Format JSON">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="parseError()"
+        rows="18"
+        [ngModel]="inputJson()"
+        (ngModelChange)="inputJson.set($event); handleInputChange($event)"
+        spellcheck="false">
+      </textarea>
+
+      @if (parseError()) {
+        <div class="invalid-feedback d-block mt-1">{{ parseError() }}</div>
+      }
+
+      <div class="form-text">
+        Validations come from JSON fields: <code>required</code>, <code>minLength</code>, <code>maxLength</code>,
+        <code>pattern</code>, <code>passwordStrength</code>, and <code>validators</code>.
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Output payload</label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="outputJson.set('// Interact with the field (type, blur, select, etc.)')">
+          Clear
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [ngModel]="outputJson()"
+        readonly
+        spellcheck="false">
+      </textarea>
+
+      <div class="form-text">
+        Watch <code>error</code> and <code>errorMessage</code> change based on validation.
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<!-- td-link-icon.html -->
+<a
+  [id]="domId"
+  [href]="model.href || '#'"
+  [class]="computedClass"
+  [target]="model.target"
+  [rel]="safeRel"
+  [title]="model.title"
+  [attr.aria-label]="model.ariaLabel">
+  <td-icon [icon]="model.icon"></td-icon>
+  @if (model.name) {
+    <span class="ms-2">{{ model.name }}</span>
+  }
+</a>
