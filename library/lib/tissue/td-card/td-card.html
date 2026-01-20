@@ -1,0 +1,144 @@
+<div *ngIf="card" [id]="card.id" [class]="card.className">
+  <!-- Header -->
+  <div
+    *ngIf="card.hasHeader()"
+    [id]="card.header.id"
+    [class]="getHeaderClasses()"
+    [attr.aria-label]="card.header.ariaLabel"
+  >
+    {{ card.header.name }}
+  </div>
+
+  <!-- Body (SPLIT ONLY) -->
+  <div
+    [id]="card.body.id"
+    [class]="getBodyClasses()"
+    [attr.aria-label]="card.body.ariaLabel"
+  >
+    <div class="row g-3">
+      <div [class]="card.leftColClass">
+        <ng-container
+          *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.leftFields }"
+        ></ng-container>
+      </div>
+
+      <div [class]="card.rightColClass">
+        <ng-container
+          *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.fields }"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div
+    *ngIf="card.hasFooter()"
+    [id]="card.footer.id"
+    [class]="getFooterClasses()"
+    [attr.aria-label]="card.footer.ariaLabel"
+  >
+    <span *ngIf="card.footer.name">{{ card.footer.name }}</span>
+  </div>
+</div>
+
+<!-- Fields Grid Template -->
+<ng-template #fieldsGrid let-fields>
+  <div class="row g-2">
+    <div
+      *ngFor="let field of fields; trackBy: trackByField"
+      [class]="field.colClass"
+    >
+      <div
+        [id]="field.id"
+        [class]="field.className"
+        [attr.aria-label]="field.ariaLabel"
+      >
+        <ng-container
+          *ngTemplateOutlet="fieldContent; context: { $implicit: field }"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Field Content Template (UPDATED: no media, no quantity) -->
+<ng-template #fieldContent let-field>
+  <!-- Logo -->
+  <ng-container *ngIf="field.hasLogo()">
+    <img
+      [src]="field.logo.imageUrl"
+      [alt]="field.logo.alt"
+      [attr.width]="field.logo.width || null"
+      [attr.height]="field.logo.height || null"
+      [class]="field.logo.className"
+    />
+  </ng-container>
+
+  <!-- Icon -->
+  <ng-container *ngIf="!field.hasLogo() && field.hasIcon()">
+    <i
+      [class]="field.icon.iconClass"
+      [attr.title]="field.icon.title || null"
+      [attr.aria-label]="field.icon.ariaLabel || null"
+    ></i>
+  </ng-container>
+
+  <!-- Tags -->
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && field.hasTags()">
+    <div class="d-flex flex-column gap-1">
+      <ng-container *ngFor="let tag of field.tags; trackBy: trackByTag">
+        <div
+          *ngIf="tag && tag.name && tag.name.trim()"
+          [id]="tag.id"
+          [class]="tag.className"
+        >
+          {{ tag.name }}
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <!-- ButtonIcon -->
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && field.hasButtonIcon()">
+    <button
+      type="button"
+      [class]="field.buttonIcon.className"
+      [disabled]="field.buttonIcon.disabled"
+      [attr.aria-label]="field.buttonIcon.ariaLabel"
+      [attr.title]="field.buttonIcon.title"
+      (click)="onButtonIconClick(field)"
+    >
+      <i
+        *ngIf="field.buttonIcon.icon && field.buttonIcon.icon.iconClass"
+        [class]="field.buttonIcon.icon.iconClass"
+        aria-hidden="true"
+      ></i>
+      <span *ngIf="field.buttonIcon.name">{{ field.buttonIcon.name }}</span>
+    </button>
+  </ng-container>
+
+  <!-- LinkIcon -->
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasButtonIcon() && field.hasLinkIcon()">
+    <a
+      [href]="field.linkIcon.to"
+      [class]="field.linkIcon.className"
+      [attr.target]="field.linkIcon.target || null"
+      [attr.rel]="field.linkIcon.rel || null"
+      [attr.aria-label]="field.linkIcon.ariaLabel"
+      [attr.title]="field.linkIcon.title"
+      (click)="onLinkIconClick(field)"
+    >
+      <i
+        *ngIf="field.linkIcon.icon && field.linkIcon.icon.iconClass"
+        [class]="field.linkIcon.icon.iconClass"
+        aria-hidden="true"
+      ></i>
+      <span *ngIf="field.linkIcon.name">{{ field.linkIcon.name }}</span>
+    </a>
+  </ng-container>
+
+  <!-- Text (fallback) -->
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasButtonIcon() && !field.hasLinkIcon() && field.hasText()">
+    <span>{{ field.name }}</span>
+  </ng-container>
+</ng-template>

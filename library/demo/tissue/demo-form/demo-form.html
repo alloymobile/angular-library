@@ -1,0 +1,104 @@
+<!-- demo-form/demo-form.html -->
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TDForm</h3>
+
+  <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
+    <li class="nav-item" *ngFor="let tab of TABS">
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeTab === tab.key"
+        (click)="setActiveTab(tab.key)"
+      >
+        {{ tab.label }}
+      </button>
+    </li>
+  </ul>
+
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+        <code>{{ tagSnippet }}</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-12 mx-auto mb-4">
+      <td-form [form]="formModel" (output)="handleOutput($event)"></td-form>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-stretch justify-content-center mb-5">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Input JSON (editable) — {{ currentTabConfig.label }}
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="resetJson()"
+        >
+          Reset
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="currentTab.parseError"
+        rows="18"
+        [ngModel]="currentTab.json"
+        (ngModelChange)="onJsonChange($event)"
+        spellcheck="false"
+      ></textarea>
+
+      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
+        {{ currentTab.parseError }}
+      </div>
+
+      <div class="form-text">
+        <ul class="mb-0 ps-3">
+          <li>
+            Each entry in <code>inputs[]</code> becomes a <code>td-input</code>.
+          </li>
+          <li>
+            <code>layout</code> can be <code>"text"</code>,
+            <code>"icon"</code>, or <code>"floating"</code>. For
+            <code>"icon"</code> and <code>"floating"</code>, provide an
+            <code>icon</code>.
+          </li>
+          <li>
+            <code>submit</code> uses <code>TdButtonSubmitModel</code> config.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="fw-semibold mb-2 text-center text-lg-start">
+        Latest Output (OutputObject from <code>TDForm</code>)
+      </div>
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [ngModel]="currentTab.output"
+        readonly
+        spellcheck="false"
+      ></textarea>
+
+      <div class="form-text">
+        <ul class="mb-0 ps-3">
+          <li>
+            Input components emit their own <code>OutputObject</code> on
+            <code>change</code> and <code>blur</code>.
+          </li>
+          <li>
+            On submit click, <code>TDForm</code> emits one <code>OutputObject</code>
+            with <code>type: "form"</code> and <code>data</code> as a key-value map.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

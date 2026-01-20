@@ -1,0 +1,21 @@
+<!-- td-link-logo.html -->
+<a
+  [id]="domId"
+  [href]="linkLogo.href || '#'"
+  [class]="computedClass"
+  [target]="linkLogo.target"
+  [rel]="safeRel"
+  [title]="linkLogo.title"
+  [attr.aria-label]="linkLogo.ariaLabel">
+  <img
+    [src]="linkLogo.logo.imageUrl"
+    [attr.alt]="linkLogo.logo.alt"
+    [attr.width]="linkLogo.logo.width"
+    [attr.height]="linkLogo.logo.height"
+    [class]="linkLogo.logo.className"
+  />
+
+  @if (linkLogo.name) {
+    <span class="ms-2">{{ linkLogo.name }}</span>
+  }
+</a>

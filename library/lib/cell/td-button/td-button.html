@@ -1,0 +1,13 @@
+<button
+  type="button"
+  [id]="domId"
+  [class]="cssClass"
+  [title]="button.title"
+  [attr.aria-label]="button.ariaLabel"
+  [attr.aria-disabled]="button.disabled || null"
+  [attr.aria-pressed]="button.isActive"
+  [disabled]="button.disabled"
+  [attr.tabindex]="button.tabIndex"
+  (click)="onClick()">
+  <span class="px-2 align-middle">{{ button.name }}</span>
+</button>

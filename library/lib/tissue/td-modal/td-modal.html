@@ -1,0 +1,61 @@
+<div
+  [class]="modal.className"
+  [id]="modal.id"
+  tabindex="-1"
+  [attr.aria-labelledby]="modal.id + '-label'"
+  aria-hidden="true"
+  role="dialog"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" [id]="modal.id + '-label'">
+          {{ modal.getDisplayTitle() }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" novalidate>
+          @for (field of modal.fields; track trackByField($index, field)) {
+            <div class="mb-3">
+              <!-- Delegate rendering to td-input -->
+              <td-input
+                [input]="field"
+                (output)="onFieldOutput(field, $event)"
+              ></td-input>
+
+              @if (hasFieldErrors(field)) {
+                <div class="invalid-feedback d-block">
+                  @for (err of getFieldErrors(field); track $index) {
+                    <div>{{ err }}</div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          [class]="modal.submit.className + (modal.submit.isActive ? (' ' + modal.submit.active) : '')"
+          [disabled]="modal.submit.disabled"
+          [attr.aria-label]="modal.submit.ariaLabel"
+          [attr.title]="modal.submit.title"
+          (click)="onSubmit()"
+        >
+          {{ modal.submit.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

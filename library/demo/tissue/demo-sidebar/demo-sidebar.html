@@ -1,0 +1,117 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TDSidebar</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
+    @for (tab of TABS; track tab.key) {
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === tab.key"
+          (click)="setActiveTab(tab.key)"
+        >
+          {{ tab.label }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <!-- Tag snippet (ICU-safe) -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+<code [textContent]="tagSnippet"></code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Live Sidebar Preview + Output -->
+  <div class="row mb-4 g-3">
+    <!-- Sidebar Preview -->
+    <div class="col-12 col-md-4 col-lg-3">
+      <div class="border rounded overflow-hidden sidebar-preview">
+        <td-sidebar
+          [sidebar]="sidebarModel"
+          (output)="handleOutput($event)"
+        ></td-sidebar>
+      </div>
+
+      <div class="small text-secondary mt-2">
+        <strong>TDSidebar</strong> renders categorized navigation links.
+        On mobile, it can be used with Bootstrap offcanvas.
+      </div>
+    </div>
+
+    <!-- Output Panel -->
+    <div class="col-12 col-md-8 col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Output (from <code>output</code> callback)
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="clearOutput()"
+        >
+          Clear
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="12"
+        [ngModel]="currentTab.output"
+        readonly
+        spellcheck="false"
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Editable JSON -->
+  <div class="row g-3 mb-5">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">
+          Input JSON (editable) — {{ currentTabConfig.label }}
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="resetJson()"
+        >
+          Reset
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="!!currentTab.parseError"
+        rows="20"
+        [ngModel]="currentTab.json"
+        (ngModelChange)="onJsonChange($event)"
+        spellcheck="false"
+      ></textarea>
+
+      @if (currentTab.parseError) {
+        <div class="invalid-feedback d-block mt-1">
+          {{ currentTab.parseError }}
+        </div>
+      }
+
+      <div class="form-text">
+        <ul class="mb-0 ps-3">
+          <li>
+            <code>categories</code>: Array of LinkBar objects (SideBar hydrates them into <code>TdLinkBarModel</code>)
+          </li>
+          <li>
+            <code>close</code>: ID of offcanvas element to close on mobile
+          </li>
+          <li>
+            Each category has <code>links</code> items using <code>type</code> (e.g., <code>TdLinkIcon</code>)
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

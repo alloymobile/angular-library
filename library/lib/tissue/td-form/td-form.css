@@ -1,0 +1,81 @@
+/* TD Form Component Styles */
+
+:host {
+  display: block;
+}
+
+/* Title styling */
+.form-title {
+  font-weight: 600;
+  color: #212529;
+}
+
+/* Form label styling */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+/* Input focus states */
+.form-control:focus,
+.form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Invalid state styling */
+.form-control.is-invalid,
+.form-select.is-invalid,
+.form-check-input.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+/* Error feedback */
+.invalid-feedback {
+  font-size: 0.875em;
+  color: #dc3545;
+  margin-top: 0.25rem;
+}
+
+/* Checkbox/Radio styling */
+.form-check {
+  padding-left: 1.5em;
+  margin-bottom: 0.25rem;
+}
+
+.form-check-input {
+  margin-top: 0.25em;
+}
+
+/* Submit button */
+button[type="submit"]:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+button[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+/* Required indicator */
+.text-danger {
+  font-weight: normal;
+}
+
+/* Alert styling */
+.alert {
+  margin-bottom: 1rem;
+}

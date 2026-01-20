@@ -1,0 +1,22 @@
+<!-- td-link-bar.html -->
+<nav class="td-link-bar" [attr.data-type]="linkBar.type">
+  @if (linkBar.hasTitle()) {
+    <div [id]="linkBar.title.id" [class]="linkBar.title.className">
+      {{ linkBar.title.name }}
+    </div>
+  }
+
+  <ul [id]="linkBar.id" [class]="linkBar.className">
+    @for (item of linkBar.links; track trackByLink($index, item)) {
+      <li [class]="linkBar.linkClass" (click)="onItemClick(item, $event)">
+        @if (isLink(item)) {
+          <td-link [link]="item"></td-link>
+        } @else if (isLinkIcon(item)) {
+          <td-link-icon [linkIcon]="item"></td-link-icon>
+        } @else if (isLinkLogo(item)) {
+          <td-link-logo [linkLogo]="item"></td-link-logo>
+        }
+      </li>
+    }
+  </ul>
+</nav>
