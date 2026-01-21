@@ -1,0 +1,59 @@
+<!-- src/app/demo/pages/cell/demo-link/demo-link.html -->
+<section id="link" class="container py-3">
+  <h3 class="mb-1 text-center">TdLink</h3>
+
+  <!-- Row 1 — Code example -->
+  <div class="row mb-2">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+        <code>&lt;td-link [link]="linkModel"&gt;&lt;/td-link&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Row 2 — Rendered output -->
+  <div class="row mb-3">
+    <div class="col-12 text-center">
+      <span class="fw-semibold d-block mb-2">Link</span>
+      <div class="d-flex justify-content-center">
+        <td-link [link]="model()"></td-link>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3 — Editable JSON -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="fw-semibold">Link JSON (editable)</span>
+
+        <button
+          type="button"
+          (click)="formatJson()"
+          class="btn btn-sm btn-outline-secondary">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format JSON
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="error()"
+        rows="10"
+        spellcheck="false"
+        [(ngModel)]="jsonText"
+        (ngModelChange)="handleChange($event)">
+      </textarea>
+
+      @if (error()) {
+        <div class="invalid-feedback">{{ error() }}</div>
+      } @else {
+        <div class="form-text">
+          Required: <code>href</code>, <code>name</code>. Optional:
+          <code>id</code>, <code>className</code>, <code>active</code>,
+          <code>target</code>, <code>rel</code>, <code>title</code>.
+        </div>
+      }
+    </div>
+  </div>
+</section>

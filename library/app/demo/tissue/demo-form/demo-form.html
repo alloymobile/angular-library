@@ -1,0 +1,79 @@
+<!-- src/app/demo/tissue/demo-form/demo-form.html -->
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TdForm</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
+    @for (t of TABS; track t.key) {
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link {{ active === t.key ? 'active' : '' }}"
+          (click)="switchTab(t.key)"
+        >
+          {{ t.label }}
+        </button>
+      </li>
+    }
+  </ul>
+
+  <!-- Tag snippet -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+        <code>{{ TAG_SNIPPET }}</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Rendered form -->
+  <div class="row mb-5">
+    <div class="col-12 mx-auto mb-4">
+      <td-form [form]="getModel(active)" (output)="handleOutput($event)"></td-form>
+    </div>
+  </div>
+
+  <!-- JSON + Output -->
+  <div class="row g-3 align-items-stretch justify-content-center mb-5">
+    <!-- Left: JSON -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="fw-semibold">Input JSON (editable) — {{ active }}</span>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="resetTab(active)">
+          Reset
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace {{ getParseError(active) ? 'is-invalid' : '' }}"
+        rows="18"
+        [ngModel]="getJson(active)"
+        (ngModelChange)="setJson(active, $event)"
+        spellcheck="false"
+      ></textarea>
+
+      @if (getParseError(active)) {
+        <div class="invalid-feedback d-block mt-1">
+          {{ getParseError(active) }}
+        </div>
+      }
+    </div>
+
+    <!-- Right: Output log -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="fw-semibold mb-0">Output (live change / blur / submit)</div>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="clearLog()">Clear</button>
+      </div>
+
+        <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [value]="outputLatest"
+        readonly
+        spellcheck="false"
+        ></textarea>
+    </div>
+  </div>
+</div>

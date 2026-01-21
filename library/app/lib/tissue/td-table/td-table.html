@@ -1,0 +1,73 @@
+<table [id]="table.id" [class]="table.className">
+  <!-- Caption -->
+  <caption class="caption-top text-center">{{ table.name }}</caption>
+
+  <!-- Header row -->
+  <thead>
+    <tr>
+      <!-- Icon column header -->
+      <th scope="col">Type</th>
+
+      <!-- Data column headers -->
+      <th
+        *ngFor="let key of headerKeys; trackBy: trackByColumn"
+        scope="col"
+      >
+        <span
+          class="text-dark text-decoration-none sortable-header"
+          (click)="onHeaderClick(key)"
+          (keydown.enter)="onHeaderClick(key)"
+          (keydown.space)="onHeaderClick(key)"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="'Sort by ' + prettifyLabel(key)"
+        >
+          {{ prettifyLabel(key) }}
+
+          <span
+            *ngIf="isColumnActive(key)"
+            class="ms-1 d-inline-flex align-middle sort-indicator"
+            aria-hidden="true"
+            [attr.title]="isDescending() ? 'Sorted descending' : 'Sorted ascending'"
+            [ngStyle]="getSortIconStyle()"
+          >
+            <i [class]="table.sort.iconClass"></i>
+          </span>
+        </span>
+      </th>
+    </tr>
+  </thead>
+
+  <!-- Body rows -->
+  <tbody>
+    <!-- Data rows -->
+    <tr
+      *ngFor="let row of table.rows; trackBy: trackByRow"
+      class="table-row-clickable"
+      (click)="onRowClick(row)"
+      (keydown.enter)="onRowClick(row)"
+      tabindex="0"
+      role="button"
+    >
+      <!-- Icon column -->
+      <td>
+        <i [class]="table.icon.iconClass" [attr.aria-label]="table.icon.ariaLabel"></i>
+      </td>
+
+      <!-- Data columns -->
+      <td *ngFor="let key of headerKeys; trackBy: trackByColumn">
+        <span>{{ formatCellValue(row[key]) }}</span>
+      </td>
+    </tr>
+
+    <!-- Empty state -->
+    <tr *ngIf="table.rows.length === 0">
+      <td
+        [attr.colspan]="headerKeys.length + 1"
+        class="text-center text-secondary"
+      >
+        No rows
+      </td>
+    </tr>
+  </tbody>
+</table>

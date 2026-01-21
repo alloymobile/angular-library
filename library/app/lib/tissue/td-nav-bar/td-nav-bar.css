@@ -1,0 +1,53 @@
+/* TD NavBar Component Styles */
+
+:host {
+  display: block;
+}
+
+/* Brand styling */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  text-decoration: none;
+}
+
+.navbar-brand img {
+  max-height: 40px;
+  width: auto;
+}
+
+/* Toggler focus state */
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Navigation links */
+:host ::ng-deep .nav-link {
+  padding: 0.5rem 1rem;
+  transition: color 0.15s ease-in-out;
+}
+
+:host ::ng-deep .nav-link:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+:host ::ng-deep .nav-link.active {
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    padding-top: 0.5rem;
+  }
+
+  :host ::ng-deep .navbar-nav {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}

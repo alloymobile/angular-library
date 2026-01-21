@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+textarea.font-monospace {
+  font-size: 0.9rem;
+}

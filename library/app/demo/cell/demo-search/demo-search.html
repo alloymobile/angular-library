@@ -1,0 +1,85 @@
+<div class="container py-3">
+  <h3 class="mb-4 text-center">TdSearch</h3>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 text-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+<code>const search = new TdSearchModel(searchConfig);
+&lt;td-search [model]="search" (output)="handleOutput($event)"&gt;&lt;/td-search&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <td-search [model]="searchModel()" (output)="handleOutput($event)"></td-search>
+
+      <div class="small text-secondary mt-2 text-center">
+        Emits <code>"search"</code> after <code>minChars</code> and <code>debounceMs</code>.
+        Emits <code>"clear"</code> when input drops below <code>minChars</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-stretch">
+    <!-- LEFT -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Search JSON (TdSearchModel config)</label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="handleFormat()"
+          title="Format JSON">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="parseError()"
+        rows="18"
+        [(ngModel)]="searchJson"
+        (ngModelChange)="handleJsonChange($event)"
+        spellcheck="false">
+      </textarea>
+
+      @if (parseError()) {
+        <div class="invalid-feedback d-block mt-1">{{ parseError() }}</div>
+      }
+
+      <div class="form-text">
+        Only <code>minChars</code>, <code>debounceMs</code>, and the embedded <code>search</code> input config matter.
+        TdSearch does not render results.
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Output payload</label>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-danger"
+          (click)="outputJson.set('// Type in the search box and wait for debounce...')">
+          Clear
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [ngModel]="outputJson()"
+        readonly
+        spellcheck="false">
+      </textarea>
+
+      <div class="form-text">
+        <pre class="bg-light border rounded-3 p-2 mt-2 small mb-0">{{ outputShapeExample }}</pre>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<!-- td-card-action.html -->
+<div [id]="cardAction.id" [class]="cardAction.className">
+  @if (cardAction.hasHeader()) {
+    <div [class]="getHeaderClasses()">
+      {{ cardAction.header.name }}
+    </div>
+  }
+
+  <div [class]="getBodyClasses()">
+    <div class="row g-2">
+      @if (cardAction.isSplitLayout()) {
+        <div [class]="cardAction.leftColClass">
+          @for (f of cardAction.leftFields; track trackByField($index, f)) {
+            <div [id]="f.id" [class]="f.className">
+              @if (f.hasText()) { <span>{{ f.name }}</span> }
+              @if (f.hasIcon()) { <i [class]="f.icon?.iconClass" aria-hidden="true"></i> }
+              @if (f.hasLogo()) { <img [src]="f.logo?.imageUrl" [alt]="f.logo?.alt || ''" /> }
+              @if (f.hasButtonIcon()) {
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onButtonIconClick(f)">
+                  <i [class]="f.buttonIcon?.icon?.iconClass" aria-hidden="true"></i>
+                </button>
+              }
+              @if (f.hasLinkIcon()) {
+                <a href="#" class="text-decoration-none" (click)="$event.preventDefault(); onLinkIconClick(f)">
+                  <i [class]="f.linkIcon?.icon?.iconClass" aria-hidden="true"></i>
+                </a>
+              }
+              @if (f.hasTags()) {
+                <div class="d-flex flex-wrap gap-1">
+                  @for (t of (f.tags || []); track trackByTag($index, t)) {
+                    <span class="badge bg-secondary">{{ t.name }}</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      <div [class]="cardAction.rightColClass">
+        @for (f of cardAction.fields; track trackByField($index, f)) {
+          <div [id]="f.id" [class]="f.className">
+            @if (f.hasText()) { <span>{{ f.name }}</span> }
+            @if (f.hasIcon()) { <i [class]="f.icon?.iconClass" aria-hidden="true"></i> }
+            @if (f.hasLogo()) { <img [src]="f.logo?.imageUrl" [alt]="f.logo?.alt || ''" /> }
+            @if (f.hasButtonIcon()) {
+              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onButtonIconClick(f)">
+                <i [class]="f.buttonIcon?.icon?.iconClass" aria-hidden="true"></i>
+              </button>
+            }
+            @if (f.hasLinkIcon()) {
+              <a href="#" class="text-decoration-none" (click)="$event.preventDefault(); onLinkIconClick(f)">
+                <i [class]="f.linkIcon?.icon?.iconClass" aria-hidden="true"></i>
+              </a>
+            }
+            @if (f.hasTags()) {
+              <div class="d-flex flex-wrap gap-1">
+                @for (t of (f.tags || []); track trackByTag($index, t)) {
+                  <span class="badge bg-secondary">{{ t.name }}</span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (cardAction.hasFooter()) {
+    <div [class]="getFooterClasses()">
+      @if (cardAction.hasAction()) {
+        @if (isButtonBar()) {
+          <td-button-bar
+            [buttonBar]="getButtonBarAction()"
+            (output)="onActionBarOutput($event)"
+          ></td-button-bar>
+        }
+
+        @if (isLinkBar()) {
+          <td-link-bar
+            [linkBar]="getLinkBarAction()"
+            (output)="onActionBarOutput($event)"
+          ></td-link-bar>
+        }
+      }
+    </div>
+  }
+</div>

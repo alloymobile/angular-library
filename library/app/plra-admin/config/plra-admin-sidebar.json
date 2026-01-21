@@ -1,0 +1,28 @@
+{
+  "id": "plraAdminSidebar",
+  "close": "plraAdminMobileSidebar",
+  "categories": [
+    {
+      "id": "plraAdminMain",
+      "type": "TdLinkBar",
+      "className": "nav nav-pills flex-column gap-1",
+      "linkClass": "nav-item",
+      "selected": "active",
+      "title": {
+        "id": "plraAdminMainTitle",
+        "name": "ADMIN",
+        "className": "text-uppercase small fw-semibold text-secondary px-2 mb-2"
+      },
+      "links": [
+        {
+          "type": "TdLinkIcon",
+          "id": "plraAdminDash",
+          "name": "Dashboard",
+          "href": "/admin/dashboard",
+          "className": "nav-link",
+          "icon": { "iconClass": "fa-solid fa-gauge" }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+<!-- lib/organ/td-crud/td-crud.html -->
+
+<!-- Main Container -->
+<div [class]="crud.className">
+  <!-- Search Row + Add Button -->
+  <div class="row input-group mt-2">
+    <!-- Search Component -->
+    <div [class]="hasAdd ? 'col-sm-8' : 'col-12 col-sm-8 offset-sm-2'">
+      @if (crud.search) {
+        <td-search 
+          [model]="crud.search" 
+          (output)="handleSearchOutput($event)">
+        </td-search>
+      }
+    </div>
+    
+    <!-- Add Button -->
+    @if (hasAdd) {
+      <div class="col-sm-4 d-flex align-items-center justify-content-end">
+        @if (crud.add) {
+          <td-button-icon 
+            [buttonIcon]="crud.add" 
+            (output)="handleAddOutput()">
+          </td-button-icon>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Document Section (Table or Cards) -->
+  @if (isTable) {
+    <!-- Table View -->
+    <div class="row mt-3">
+      <div class="col-12">
+        <td-table-action 
+          [tableAction]="$any(crud.document)" 
+          (output)="handleTableOutput($event)">
+        </td-table-action>
+      </div>
+    </div>
+  } @else if (isCard && cardDocuments.length > 0) {
+    <!-- Card View -->
+    <div class="row mt-3">
+      @for (card of cardDocuments; track trackByCardId($index, card)) {
+        <div [class]="crud.documentClass">
+          <td-card-action 
+            [cardAction]="card" 
+            (output)="handleCardOutput($event)">
+          </td-card-action>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Pagination -->
+  @if (hasPagination) {
+    <div class="row mt-3">
+      <div class="col-12">
+        <td-pagination 
+          [pagination]="crud.page!" 
+          (output)="handlePageOutput($event)">
+        </td-pagination>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Hidden Modal Trigger Button -->
+<button
+  type="button"
+  #hiddenTrigger
+  class="d-none"
+  data-bs-toggle="modal"
+  [attr.data-bs-target]="'#' + crud.modal.id">
+</button>
+
+<!-- Hidden Toast Trigger Button -->
+@if (crud.toast) {
+  <button
+    type="button"
+    #hiddenToastTrigger
+    class="d-none"
+    data-bs-toggle="modal"
+    [attr.data-bs-target]="'#' + crud.toast.id">
+  </button>
+}
+
+<!-- Modal (for Create/Edit) -->
+<td-modal 
+  [modal]="modalModel()" 
+  (output)="handleModalOutput($event)">
+</td-modal>
+
+<!-- Toast Modal (for Delete confirmation) -->
+@if (crud.toast) {
+  <td-modal-toast 
+    [modalToast]="crud.toast" 
+    (output)="handleToastOutput($event)">
+  </td-modal-toast>
+}

@@ -1,0 +1,86 @@
+<div class="container py-3">
+  <h3 class="mb-4 text-center">TdInput</h3>
+
+  <ul class="nav nav-underline nav-fill mb-3">
+    <li class="nav-item" *ngFor="let key of tabs">
+      <button class="nav-link" [class.active]="key === tab" (click)="switchTab(key)">
+        {{ key }}
+      </button>
+    </li>
+  </ul>
+
+  <div class="row g-3 mb-3">
+    <div class="col-12 text-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+<code>&lt;td-input [input]="new TdInputModel(inputObject)" (output)="handleOutput($event)"&gt;&lt;/td-input&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- ✅ Live preview always visible -->
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <td-input [input]="inputModel" (output)="handleOutput($event)"></td-input>
+
+      <div class="small text-secondary mt-2 text-center">
+        <div>
+          Try editing the JSON below: remove <code>required</code>, change <code>minLength</code>,
+          tweak <code>pattern</code>, etc.
+        </div>
+
+        <div class="mt-1" *ngIf="tab === 'canvas'">
+          Canvas emits a <strong>DataURL string</strong> (<code>data:image/png;base64,...</code>).
+        </div>
+
+        <div>Errors announce with <code>aria-live="polite"</code> after blur.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 align-items-stretch">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Input JSON (editable)</label>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="formatJson()">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="!!parseError"
+        rows="18"
+        [ngModel]="inputJson"
+        (ngModelChange)="onInputJsonChange($event)"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="invalid-feedback d-block mt-1" *ngIf="parseError">{{ parseError }}</div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <label class="fw-semibold mb-0">Output (from <code>output</code>)</label>
+
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="clearOutput()">
+          Clear
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace bg-light border"
+        rows="18"
+        [value]="outputJson"
+        readonly
+        spellcheck="false"
+      ></textarea>
+
+      <div class="form-text">
+        Example:
+        <pre class="bg-light border rounded-3 p-2 mt-2 small mb-0"><code>{{ exampleOutputJson }}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>

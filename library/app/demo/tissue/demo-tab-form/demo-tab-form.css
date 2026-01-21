@@ -1,0 +1,11 @@
+/* demo-tab-form.css */
+
+.demo-tab-form pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.demo-tab-form textarea.font-monospace {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}

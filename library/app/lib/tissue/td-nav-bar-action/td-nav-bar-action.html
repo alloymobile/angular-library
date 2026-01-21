@@ -1,0 +1,46 @@
+<nav [id]="navBarAction.id" [class]="navBarAction.className">
+  <div [class]="navBarAction.containerClass">
+    <!-- Logo -->
+    @if (navBarAction.hasLogo()) {
+      <td-link-logo
+        [linkLogo]="navBarAction.logo"
+      ></td-link-logo>
+    }
+
+    <!-- Mobile toggle button -->
+    @if (navBarAction.hasLinks() || navBarAction.hasButtons()) {
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#' + navBarAction.collapseId"
+        [attr.aria-controls]="navBarAction.collapseId"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    }
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" [id]="navBarAction.collapseId">
+      <!-- Link bar -->
+      @if (navBarAction.hasLinks()) {
+        <td-link-bar
+          [linkBar]="navBarAction.linkBar"
+          (output)="onLinkBarOutput($event)"
+        ></td-link-bar>
+      }
+
+      <!-- Button bar -->
+      @if (navBarAction.hasButtons()) {
+        <div class="ms-auto d-flex align-items-center">
+          <td-button-bar
+            [buttonBar]="navBarAction.buttonBar"
+            (output)="onButtonBarOutput($event)"
+          ></td-button-bar>
+        </div>
+      }
+    </div>
+  </div>
+</nav>

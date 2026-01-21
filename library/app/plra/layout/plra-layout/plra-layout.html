@@ -1,0 +1,28 @@
+<div class="td-shell">
+  <header class="td-shell-header">
+    <div class="td-shell-mobile-toggle d-lg-none">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        data-bs-toggle="offcanvas"
+        [attr.data-bs-target]="'#' + sidebar.close"
+        [attr.aria-controls]="sidebar.close"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <td-nav-bar-action
+      [navBarAction]="navBarAction"
+      (output)="onNavbar($event)"
+    ></td-nav-bar-action>
+  </header>
+
+  <div class="td-shell-body">
+    <td-sidebar [sidebar]="sidebar" (output)="onSidebar($event)"></td-sidebar>
+
+    <main class="td-shell-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

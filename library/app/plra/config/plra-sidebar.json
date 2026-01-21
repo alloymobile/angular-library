@@ -1,0 +1,28 @@
+{
+  "id": "plraSidebar",
+  "close": "plraMobileSidebar",
+  "categories": [
+    {
+      "id": "plraMain",
+      "type": "TdLinkBar",
+      "className": "nav nav-pills flex-column gap-1",
+      "linkClass": "nav-item",
+      "selected": "active",
+      "title": {
+        "id": "plraMainTitle",
+        "name": "PLRA",
+        "className": "text-uppercase small fw-semibold text-secondary px-2 mb-2"
+      },
+      "links": [
+        {
+          "type": "TdLinkIcon",
+          "id": "plraDash",
+          "name": "Dashboard",
+          "href": "/plra/dashboard",
+          "className": "nav-link",
+          "icon": { "iconClass": "fa-solid fa-gauge" }
+        }
+      ]
+    }
+  ]
+}

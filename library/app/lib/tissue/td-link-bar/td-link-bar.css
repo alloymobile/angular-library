@@ -1,0 +1,10 @@
+/* td-link-bar.css */
+:host {
+  display: block;
+}
+
+.td-link-bar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

@@ -1,0 +1,86 @@
+<section id="loading" class="container py-3">
+  <h3 class="mb-1 text-center">TdLoading</h3>
+
+  <!-- Row 1 — Code example -->
+  <div class="row mb-2">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+        <code>&lt;td-loading [loading]="loadingObject"&gt;&lt;/td-loading&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Row 2 — Rendered output -->
+  <div class="row mb-3">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="fw-semibold">Loading overlay</span>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          (click)="toggleVisibleInJson()"
+          [disabled]="!!error()"
+          [title]="error() ? 'Fix JSON first' : 'Toggles visible in the JSON'">
+          {{ isVisible() ? 'Set visible=false' : 'Set visible=true' }}
+        </button>
+      </div>
+
+      <div class="demo-loading-box position-relative border rounded">
+        <!-- Overlay area (inside a local container) -->
+        <div class="position-absolute top-0 start-0 w-100 h-100">
+          <td-loading [loading]="loading()"></td-loading>
+        </div>
+
+        <!-- Underlying content for demo -->
+        <div class="p-3 text-muted small">
+          This is your underlying content. The <code>TdLoading</code> overlay appears on top of this
+          area when <code>visible === true</code> in the JSON.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3 — Editable JSON -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="fw-semibold">Loading JSON (editable)</span>
+
+        <button type="button" (click)="formatJson()" class="btn btn-sm btn-outline-secondary">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format JSON
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="error()"
+        rows="12"
+        spellcheck="false"
+        [(ngModel)]="jsonText"
+        (ngModelChange)="handleChange($event)">
+      </textarea>
+
+      @if (error()) {
+        <div class="invalid-feedback d-block">{{ error() }}</div>
+      } @else {
+        <div class="form-text">
+          This JSON is the source of truth.
+          <ul class="mb-0">
+            <li><code>visible</code> — set <code>false</code> to hide the overlay.</li>
+            <li><code>message</code> — text under the icon.</li>
+            <li><code>icon.iconClass</code> — Font Awesome classes.</li>
+            <li><code>icon.className</code> — wrapper classes for the icon.</li>
+            <li>
+              <code>overlayClass</code>, <code>contentClass</code>, <code>messageClass</code> —
+              Bootstrap class overrides.
+            </li>
+            <li><code>id</code> — optional DOM id. If omitted, TdLoading generates one.</li>
+            <li><code>ariaLabel</code> — accessible label for screen readers.</li>
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>
