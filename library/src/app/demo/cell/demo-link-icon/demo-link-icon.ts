@@ -1,3 +1,4 @@
+// demo-link-icon/demo-link-icon.ts
 // src/app/demo/pages/cell/demo-link-icon/demo-link-icon.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,14 +6,15 @@ import { FormsModule } from '@angular/forms';
 
 import { TdLinkIcon } from '../../../lib/cell/td-link-icon/td-link-icon';
 import { TdLinkIconModel } from '../../../lib/cell/td-link-icon/td-link-icon.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 
 const DEFAULT_OBJ = {
   id: 'tdLinkIcon1',
   href: '#home',
-  icon: {
+  icon: new TdIconModel({
     iconClass: 'fa-solid fa-house',
     className: 'd-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle p-2',
-  },
+  }),
   name: 'Home',
   className: 'px-2 py-1 rounded d-inline-block',
   active: 'bg-light',

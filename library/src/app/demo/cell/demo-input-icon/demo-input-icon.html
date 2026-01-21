@@ -19,14 +19,14 @@
   <div class="row g-3 mb-3">
     <div class="col-12 text-center">
       <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
-<code>&lt;td-input [model]="inputModel" (output)="handleOutput($event)"&gt;&lt;/td-input&gt;</code>
+<code>&lt;td-input [input]="inputModel" (output)="handleOutput($event)"&gt;&lt;/td-input&gt;</code>
       </pre>
     </div>
   </div>
 
   <div class="row g-3 mb-3">
     <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-      <td-input [model]="model()" (output)="handleOutput($event)"></td-input>
+      <td-input [input]="model()" (output)="handleOutput($event)"></td-input>
 
       <div class="small text-secondary mt-2 text-center">
         <code>layout: "icon"</code> uses Bootstrap input-group with icon prefix.

@@ -1,3 +1,4 @@
+// demo-link/demo-link.ts
 // src/app/demo/pages/cell/demo-link/demo-link.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';

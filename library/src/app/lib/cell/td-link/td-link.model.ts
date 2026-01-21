@@ -1,26 +1,15 @@
 /**
- * TdLinkModel - Configuration for TdLink component
+ * TdLinkModel - Link component model
  *
  * @property href - Required. Link destination URL.
  * @property name - Required. Visible link text.
  * @property id - Optional. DOM id. If omitted, a stable id is generated.
- * @property className - Optional. Base classes for <a>. Default: "nav-link"
- * @property active - Optional. Extra classes always applied (no hover logic).
+ * @property className - Optional. CSS classes for link. Default: "nav-link"
+ * @property active - Optional. Extra classes always applied.
  * @property target - Optional. Link target (e.g., "_blank").
  * @property rel - Optional. Link rel attribute.
- * @property title - Optional. Tooltip/title. Defaults to `name`.
+ * @property title - Optional. Tooltip text. Defaults to name.
  */
-export interface TdLinkConfig {
-  href: string;
-  name: string;
-  id?: string;
-  className?: string;
-  active?: string;
-  target?: string;
-  rel?: string;
-  title?: string;
-}
-
 export class TdLinkModel {
   id?: string;
   href: string;
@@ -31,9 +20,22 @@ export class TdLinkModel {
   rel?: string;
   title: string;
 
-  constructor(config: TdLinkConfig) {
-    if (!config.href) throw new Error('TdLinkModel requires `href`.');
-    if (!config.name) throw new Error('TdLinkModel requires `name`.');
+  constructor(config: {
+    href: string;
+    name: string;
+    id?: string;
+    className?: string;
+    active?: string;
+    target?: string;
+    rel?: string;
+    title?: string;
+  }) {
+    if (!config.href) {
+      throw new Error('TdLinkModel requires `href`.');
+    }
+    if (!config.name) {
+      throw new Error('TdLinkModel requires `name`.');
+    }
 
     this.id = config.id;
     this.href = config.href;
@@ -45,6 +47,9 @@ export class TdLinkModel {
     this.title = config.title ?? config.name;
   }
 
+  /**
+   * Returns safe rel attribute, adding noopener noreferrer for _blank targets
+   */
   getSafeRel(): string | undefined {
     if (this.target === '_blank') {
       return this.rel ? `${this.rel} noopener noreferrer` : 'noopener noreferrer';

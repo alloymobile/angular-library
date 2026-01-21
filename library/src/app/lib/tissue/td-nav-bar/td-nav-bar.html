@@ -1,50 +1,35 @@
 <nav [id]="navBar.id" [class]="navBar.className">
   <div [class]="navBar.containerClass">
     <!-- Brand/Logo -->
-    <a
-      *ngIf="navBar.hasLogo()"
-      [class]="navBar.logo.className || 'navbar-brand d-flex align-items-center gap-2'"
-      [href]="navBar.logo.href"
-      [attr.title]="navBar.logo.title || null"
-      (click)="onLogoClick($event)"
-    >
-      <!-- Logo image -->
-      <img
-        *ngIf="getLogoImageUrl()"
-        [src]="getLogoImageUrl()"
-        [alt]="getLogoAlt()"
-        [attr.width]="getLogoWidth() || null"
-        [attr.height]="getLogoHeight() || null"
-        class="d-inline-block align-text-top"
-      />
-      <!-- Brand name -->
-      <span *ngIf="navBar.logo.name">{{ navBar.logo.name }}</span>
-    </a>
+    @if (navBar.hasLogo()) {
+      <td-link-logo
+        [linkLogo]="navBar.logo"
+      ></td-link-logo>
+    }
 
     <!-- Mobile toggle button -->
-    <button
-      *ngIf="navBar.hasLinks()"
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      [attr.data-bs-target]="'#' + navBar.collapseId"
-      [attr.aria-controls]="navBar.collapseId"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    @if (navBar.hasLinks()) {
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#' + navBar.collapseId"
+        [attr.aria-controls]="navBar.collapseId"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    }
 
     <!-- Collapsible content -->
-    <div
-      *ngIf="navBar.hasLinks()"
-      class="collapse navbar-collapse"
-      [id]="navBar.collapseId"
-    >
-      <td-link-bar
-        [linkBar]="navBar.linkBar"
-        (output)="onLinkBarOutput($event)"
-      ></td-link-bar>
-    </div>
+    @if (navBar.hasLinks()) {
+      <div class="collapse navbar-collapse" [id]="navBar.collapseId">
+        <td-link-bar
+          [linkBar]="navBar.linkBar"
+          (output)="onLinkBarOutput($event)"
+        ></td-link-bar>
+      </div>
+    }
   </div>
 </nav>

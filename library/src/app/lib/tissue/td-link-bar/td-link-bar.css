@@ -1,51 +1,10 @@
-/* TD Link Bar Component Styles */
-
+/* td-link-bar.css */
 :host {
   display: block;
 }
 
-ul {
+.td-link-bar ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-}
-
-.nav-item {
-  list-style: none;
-}
-
-/* Link styling */
-a {
-  text-decoration: none;
-  transition: color 0.15s ease-in-out;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:focus {
-  outline: 2px solid rgba(13, 110, 253, 0.5);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Active/selected state */
-.active {
-  font-weight: 600;
-}
-
-/* Icon spacing */
-a i + span,
-a span + i {
-  margin-left: 0.25rem;
-}
-
-/* Logo link styling */
-a img {
-  vertical-align: middle;
-}
-
-a img + span {
-  margin-left: 0.5rem;
 }

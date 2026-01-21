@@ -1,3 +1,4 @@
+// demo-button/demo-button.ts
 // src/app/demo/shell/demo-button/demo-button.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';

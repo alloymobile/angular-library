@@ -1,343 +1,250 @@
+// src/app/lib/cell/td-input/td-input.ts
 import {
   Component,
   Input,
   Output,
   EventEmitter,
-  OnInit,
   OnChanges,
   SimpleChanges,
-  ElementRef,
   ViewChild,
-  AfterViewInit,
-  signal,
-  computed,
+  ElementRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { TdInputModel, TdInputOption } from './td-input.model';
-import { TdIcon } from '../td-icon/td-icon';
-import { IdHelper } from '../../share/id-helper';
 import { OutputObject } from '../../share/output-object';
+import { TdInputModel, TdInputOption } from './td-input.model';
 
-/**
- * TdInput - Comprehensive form input component
- *
- * Supports: text, email, password, number, date, datetime-local, time,
- * textarea, select, multiselect, radio, checkbox, switch, file, canvas
- *
- * Usage:
- * ```html
- * <td-input [model]="inputModel" (output)="handleChange($event)"></td-input>
- * ```
- *
- * Emits OutputObject on change and blur events.
- */
+import { TdIcon } from '../td-icon/td-icon';
+import { TdIconModel } from '../td-icon/td-icon.model';
+
+type FileUploaderFn = (fieldName: string, file: File, context?: any) => Promise<string>;
+
 @Component({
   selector: 'td-input',
   standalone: true,
   imports: [CommonModule, FormsModule, TdIcon],
   templateUrl: './td-input.html',
-  styleUrl: './td-input.css',
+  styleUrls: ['./td-input.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TdInput implements OnInit, OnChanges, AfterViewInit {
-  private domIdRef = new IdHelper();
-
-  @Input({ required: true }) model!: TdInputModel;
+export class TdInput implements OnChanges {
+  @Input({ required: true }) input!: TdInputModel | string | any;
   @Output() output = new EventEmitter<OutputObject>();
+  @Input() fileUploader?: FileUploaderFn;
 
-  @ViewChild('canvasEl') canvasRef!: ElementRef<HTMLCanvasElement>;
+  model!: TdInputModel;
 
-  domId = '';
+  val: any = '';
+  touched = false;
 
-  // Internal state
-  val = signal<string | string[] | boolean | File | File[]>('');
-  touched = signal(false);
+  uploading = false;
+  uploadError = '';
 
-  // Multiselect state
-  msOpen = signal(false);
-  msQuery = signal('');
-
-  // Canvas state
+  @ViewChild('canvasRef') canvasRef?: ElementRef<HTMLCanvasElement>;
   private drawing = false;
   private lastPoint = { x: 0, y: 0 };
-  private hasDrawn = false;
 
-  // Computed validation
-  errors = computed(() => this.validate(this.val()));
-  showError = computed(() => this.touched() && this.errors().length > 0);
+  get disabled(): boolean {
+    return !!this.model?.disabled;
+  }
 
-  // Input class with validation state
-  inputClass = computed(() => {
-    const base = this.model?.className ?? 'form-control';
-    return this.showError() ? `${base} is-invalid` : base;
-  });
+  get canvasWidth(): number {
+    return this.model?.width ?? 420;
+  }
 
-  // Wrapper class
-  wrapClass = computed(() => {
-    return this.model?.colClass ?? 'col-12 col-md-6 mx-auto';
-  });
+  get canvasHeight(): number {
+    return this.model?.height ?? 180;
+  }
 
-  // Multiselect computed values
-  msSelected = computed(() => {
-    const v = this.val();
-    return Array.isArray(v) ? v.map(x => String(x)) : [];
-  });
+  get strokeWidth(): number {
+    return this.model?.canvasStrokeWidth ?? 2;
+  }
 
-  msDisplayText = computed(() => {
-    const selected = this.msSelected();
-    const options = this.model?.options ?? [];
-    const map = new Map<string, string>();
+  get baseErrors(): string[] {
+    return this.validate(this.val);
+  }
 
-    options.forEach(o => {
-      map.set(String(o.value), o.label);
-    });
+  get combinedErrors(): string[] {
+    return this.uploadError ? [...this.baseErrors, this.uploadError] : this.baseErrors;
+  }
 
-    const labels = selected
-      .map(x => map.has(x) ? map.get(x) : x)
-      .filter(s => typeof s === 'string' && s.trim() !== '');
-
-    return labels.join(', ');
-  });
-
-  msFilteredOptions = computed(() => {
-    const q = this.msQuery().trim().toLowerCase();
-    const options = this.model?.options ?? [];
-
-    if (!q) return options;
-
-    return options.filter(o => {
-      const label = o.label.toLowerCase();
-      const value = String(o.value).toLowerCase();
-      const slug = (o as { slug?: string }).slug?.toLowerCase() ?? '';
-      return label.includes(q) || value.includes(q) || slug.includes(q);
-    });
-  });
-
-  ngOnInit(): void {
-    if (!this.model || !(this.model instanceof TdInputModel)) {
-      throw new Error('TdInput requires `model` (TdInputModel instance).');
-    }
-    this.domId = this.domIdRef.getDomId('input', this.model.id);
-    this.val.set(this.model.value);
+  get showError(): boolean {
+    return this.touched && this.combinedErrors.length > 0;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['model']) {
-      this.val.set(this.model?.value ?? '');
-      this.touched.set(false);
-      this.msOpen.set(false);
-      this.msQuery.set('');
+    if ('input' in changes) {
+      this.model = this.normalizeInput(this.input);
+
+      this.val = this.model.value;
+      this.touched = false;
+      this.uploading = false;
+      this.uploadError = '';
+
+      if (this.model.type === 'canvas') {
+        queueMicrotask(() => {
+          this.initCanvas();
+          this.hydrateCanvasFromValueIfNeeded();
+        });
+      }
     }
   }
 
-  ngAfterViewInit(): void {
-    if (this.model?.type === 'canvas') {
-      this.initCanvas();
+  private normalizeInput(raw: any): TdInputModel {
+    if (raw instanceof TdInputModel) return raw;
+
+    if (typeof raw === 'string') {
+      try {
+        const parsed = JSON.parse(raw);
+        return new TdInputModel(parsed);
+      } catch {
+        return new TdInputModel({ name: 'input', type: 'text', value: raw });
+      }
     }
+
+    return new TdInputModel(raw);
   }
 
-  // Validation
-  private validate(candidate: unknown): string[] {
+  private validate(candidate: any): string[] {
     const errs: string[] = [];
     const trimmed = typeof candidate === 'string' ? candidate.trim() : candidate;
 
     if (this.model.required) {
       const isEmptyArray = Array.isArray(trimmed) && trimmed.length === 0;
-      const isEmptyScalar = !Array.isArray(trimmed) &&
-        (trimmed === '' || trimmed === false || trimmed == null);
+      const isEmptyScalar =
+        !Array.isArray(trimmed) && (trimmed === '' || trimmed === false || trimmed == null);
 
-      if (isEmptyArray || isEmptyScalar) {
-        errs.push('This field is required.');
+      if (isEmptyArray || isEmptyScalar) errs.push('This field is required.');
+    }
+
+    if (typeof trimmed === 'string' && this.model.minLength != null && trimmed.length < this.model.minLength) {
+      errs.push(`Minimum length is ${this.model.minLength}`);
+    }
+
+    if (typeof trimmed === 'string' && this.model.maxLength != null && trimmed.length > this.model.maxLength) {
+      errs.push(`Maximum length is ${this.model.maxLength}`);
+    }
+
+    if (typeof trimmed === 'string' && this.model.pattern && this.model.pattern !== '') {
+      try {
+        const re = new RegExp(this.model.pattern);
+        if (!re.test(trimmed)) errs.push('Invalid format.');
+      } catch {
+        errs.push('Invalid validation pattern configuration.');
       }
     }
 
-    if (typeof trimmed === 'string') {
-      if (this.model.minLength != null && trimmed.length < this.model.minLength) {
-        errs.push(`Minimum length is ${this.model.minLength}`);
-      }
-      if (this.model.maxLength != null && trimmed.length > this.model.maxLength) {
-        errs.push(`Maximum length is ${this.model.maxLength}`);
-      }
-      if (this.model.pattern) {
-        try {
-          const re = new RegExp(this.model.pattern);
-          if (!re.test(trimmed)) {
-            errs.push('Invalid format.');
-          }
-        } catch {
-          errs.push('Invalid validation pattern configuration.');
-        }
-      }
-      if (this.model.passwordStrength) {
-        const strongEnough = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/.test(trimmed);
-        if (!strongEnough) {
-          errs.push('Password is too weak.');
-        }
-      }
-    }
-
-    // Custom validators
-    for (const validator of this.model.validators) {
-      const result = validator(candidate);
-      if (result) errs.push(result);
+    if (this.model.passwordStrength && typeof trimmed === 'string') {
+      const strongEnough = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/.test(trimmed);
+      if (!strongEnough) errs.push('Password is too weak.');
     }
 
     return errs;
   }
 
-  // Emit output
-// Emit output
-private emit(nextVal: unknown, action: string): void {
-  const errs = this.validate(nextVal);
-  const hasError = errs.length > 0;
+  private emit(nextVal: any, action: 'change' | 'blur' = 'change'): void {
+    const errs = this.validate(nextVal);
+    if (this.uploadError) errs.push(this.uploadError);
 
-  const out = new OutputObject({
-    id: this.domId,
-    type: 'input',
-    action,
-    error: hasError,
+    const out = new OutputObject({
+      id: this.model.id,
+      type: 'input',
+      action,
+      error: errs.length > 0,
+      errorMessage: errs,
+      data: {
+        name: this.model.name,
+        value: nextVal,
+        errors: errs,
+      },
+    });
 
-    // REQUIRED by your format (always an array)
-    errorMessage: errs,
-
-    data: {
-      name: this.model.name,
-
-      // can be string | string[] | boolean | File | File[] | etc.
-      value: nextVal,
-
-      // REQUIRED by your format (always an array)
-      errors: errs,
-    },
-  });
-
-  this.output.emit(out);
-  }
-
-
-  // Event handlers
-  onInputChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-
-    // Handle switch type
-    if (this.model.type === 'switch') {
-      const checked = target.checked;
-      this.val.set(checked);
-      this.emit(checked, 'change');
-      return;
-    }
-
-    // Handle checkbox type (multiple selection)
-    if (this.model.type === 'checkbox') {
-      const value = target.value;
-      const currentVal = this.val();
-      const prev: string[] = Array.isArray(currentVal)
-        ? currentVal.filter((item): item is string => typeof item === 'string')
-        : [];
-      const idx = prev.indexOf(value);
-
-      if (idx > -1) {
-        // Remove if already selected
-        prev.splice(idx, 1);
-      } else {
-        // Add if not selected
-        prev.push(value);
-      }
-
-      this.val.set([...prev]); // Create new array reference for change detection
-      this.emit([...prev], 'change');
-      return;
-    }
-
-    // Handle radio type (single selection)
-    if (this.model.type === 'radio') {
-      const value = target.value;
-      this.val.set(value);
-      this.emit(value, 'change');
-      return;
-    }
-
-    // Handle all other input types
-    this.val.set(target.value);
-    this.emit(target.value, 'change');
-  }
-
-  onSelectChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-
-    if (this.model.type === 'multiselect' && !this.model.searchable) {
-      const selected = Array.from(target.selectedOptions).map(opt => opt.value);
-      this.val.set(selected);
-      this.emit(selected, 'change');
-      return;
-    }
-
-    this.val.set(target.value);
-    this.emit(target.value, 'change');
-  }
-
-  onFileChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const fileList = target.files;
-    if (!fileList || fileList.length === 0) return;
-
-    const files = Array.from(fileList);
-    const nextVal = this.model.multiple ? files : files[0];
-
-    this.val.set(nextVal);
-    this.emit(nextVal, 'change');
-
-    // Reset input to allow same file selection
-    target.value = '';
+    this.output.emit(out);
   }
 
   onBlur(): void {
-    this.touched.set(true);
-    this.emit(this.val(), 'blur');
+    this.touched = true;
+
+    if (this.model.type === 'canvas') {
+      const next = this.getCanvasDataUrl();
+      this.val = next;
+      this.emit(next, 'blur');
+      return;
+    }
+
+    this.emit(this.val, 'blur');
   }
 
-  // Multiselect handlers
-  onMsInputClick(): void {
-    if (!this.model.disabled) {
-      this.msOpen.set(true);
+  onTextLikeChange(v: any): void {
+    this.val = v;
+    this.emit(this.val, 'change');
+  }
+
+  onSelectChange(v: string): void {
+    this.val = v;
+    this.emit(this.val, 'change');
+  }
+
+  onMultiSelectChange(e: Event): void {
+    const select = e.target as HTMLSelectElement;
+    const selected: string[] = [];
+    for (const opt of Array.from(select.selectedOptions)) selected.push(opt.value);
+    this.val = selected;
+    this.emit(this.val, 'change');
+  }
+
+  onRadioChange(v: string): void {
+    this.val = v;
+    this.emit(this.val, 'change');
+  }
+
+  onCheckboxToggle(value: string): void {
+    const prev = Array.isArray(this.val) ? [...this.val] : [];
+    const idx = prev.indexOf(value);
+    if (idx > -1) prev.splice(idx, 1);
+    else prev.push(value);
+
+    this.val = prev;
+    this.emit(this.val, 'change');
+  }
+
+  onSwitchToggle(e: Event): void {
+    const el = e.target as HTMLInputElement;
+    this.val = !!el.checked;
+    this.emit(this.val, 'change');
+  }
+
+  async onFileChange(e: Event): Promise<void> {
+    const inputEl = e.target as HTMLInputElement;
+    const files = inputEl?.files;
+    if (!files || files.length === 0) return;
+    const file = files[0];
+
+    if (!this.fileUploader) {
+      this.val = file;
+      this.uploadError = '';
+      this.emit(file, 'change');
+      return;
+    }
+
+    try {
+      this.uploading = true;
+      this.uploadError = '';
+      const url = await this.fileUploader(this.model.name, file, { input: this.model });
+      this.val = url;
+      this.emit(url, 'change');
+    } catch (err: any) {
+      const msg = (err && err.message) || 'File upload failed. Please try again.';
+      this.uploadError = msg;
+      this.emit(this.val, 'change');
+    } finally {
+      this.uploading = false;
+      if (inputEl) inputEl.value = '';
     }
   }
 
-  onMsToggle(option: TdInputOption): void {
-    const id = String(option.value);
-    const next = [...this.msSelected()];
-    const idx = next.indexOf(id);
-
-    if (idx > -1) {
-      next.splice(idx, 1);
-    } else {
-      next.push(id);
-    }
-
-    this.val.set(next);
-    this.emit(next, 'change');
-  }
-
-  onMsClear(): void {
-    this.val.set([]);
-    this.emit([], 'change');
-  }
-
-  onMsClose(): void {
-    this.msOpen.set(false);
-  }
-
-  onMsSearchChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.msQuery.set(target.value);
-  }
-
-  isOptionSelected(option: TdInputOption): boolean {
-    return this.msSelected().includes(String(option.value));
-  }
-
-  // Canvas methods
   private initCanvas(): void {
     const canvas = this.canvasRef?.nativeElement;
     if (!canvas) return;
@@ -345,18 +252,28 @@ private emit(nextVal: unknown, action: string): void {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.lineWidth = this.model.canvasStrokeWidth;
+    ctx.lineWidth = this.strokeWidth;
     ctx.strokeStyle = '#000';
   }
 
-  private clearCanvasSurface(): void {
+  private hydrateCanvasFromValueIfNeeded(): void {
+    const v = this.val;
+    if (typeof v !== 'string') return;
+    if (!v.startsWith('data:image')) return;
+
     const canvas = this.canvasRef?.nativeElement;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+
+    const img = new Image();
+    img.onload = () => {
+      this.initCanvas();
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    img.src = v;
   }
 
   private getCanvasDataUrl(): string {
@@ -365,23 +282,13 @@ private emit(nextVal: unknown, action: string): void {
     return canvas.toDataURL('image/png');
   }
 
-  private getPoint(event: MouseEvent | TouchEvent): { x: number; y: number } {
+  private getPointFromPointerEvent(e: PointerEvent): { x: number; y: number } {
     const canvas = this.canvasRef?.nativeElement;
     if (!canvas) return { x: 0, y: 0 };
-
     const rect = canvas.getBoundingClientRect();
-
-    if ('touches' in event && event.touches[0]) {
-      return {
-        x: event.touches[0].clientX - rect.left,
-        y: event.touches[0].clientY - rect.top,
-      };
-    }
-
-    const mouseEvent = event as MouseEvent;
     return {
-      x: mouseEvent.clientX - rect.left,
-      y: mouseEvent.clientY - rect.top,
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
     };
   }
 
@@ -397,95 +304,52 @@ private emit(nextVal: unknown, action: string): void {
     ctx.stroke();
   }
 
-  onCanvasStart(event: MouseEvent | TouchEvent): void {
-    if (this.model.disabled) return;
-    event.preventDefault();
-
+  onCanvasPointerDown(e: PointerEvent): void {
+    if (this.disabled) return;
+    e.preventDefault();
     this.drawing = true;
-    const p = this.getPoint(event);
-    this.lastPoint = p;
-    this.hasDrawn = true;
-    this.drawLine(p, p);
+    this.lastPoint = this.getPointFromPointerEvent(e);
   }
 
-  onCanvasMove(event: MouseEvent | TouchEvent): void {
-    if (this.model.disabled || !this.drawing) return;
-    event.preventDefault();
-
-    this.hasDrawn = true;
-    const p = this.getPoint(event);
+  onCanvasPointerMove(e: PointerEvent): void {
+    if (this.disabled) return;
+    if (!this.drawing) return;
+    e.preventDefault();
+    const p = this.getPointFromPointerEvent(e);
     this.drawLine(this.lastPoint, p);
     this.lastPoint = p;
   }
 
-  onCanvasEnd(): void {
-    if (this.model.disabled || !this.drawing) return;
-    this.drawing = false;
+  onCanvasPointerUp(e?: PointerEvent): void {
+    if (this.disabled) return;
+    if (!this.drawing) return;
+    if (e) e.preventDefault();
 
-    const next = this.hasDrawn ? this.getCanvasDataUrl() : '';
-    this.val.set(next);
-    this.emit(next, 'change');
+    this.drawing = false;
+    const dataUrl = this.getCanvasDataUrl();
+    this.val = dataUrl;
+    this.emit(dataUrl, 'change');
   }
 
   clearCanvas(): void {
-    this.clearCanvasSurface();
     this.initCanvas();
-    this.hasDrawn = false;
-    this.val.set('');
+    this.val = '';
     this.emit('', 'change');
   }
 
-  // Helper: Check if a checkbox or radio option is selected
-  isChecked(optionValue: string): boolean {
-    const v = this.val();
-    const optionStr = String(optionValue);
-
-    // For radio: single string value comparison
-    if (this.model.type === 'radio') {
-      return String(v) === optionStr;
-    }
-
-    // For checkbox: array contains check
-    if (this.model.type === 'checkbox' && Array.isArray(v)) {
-      return v.some(item => String(item) === optionStr);
-    }
-
-    return false;
+  trackByOptionValue(_: number, o: TdInputOption): string {
+    return o.value;
   }
 
-  // Helper: Check if switch is checked
-  isSwitchChecked(): boolean {
-    const v = this.val();
-    return v === true;
+  get iconForLabel(): TdIconModel | undefined {
+    return this.model?.icon;
   }
 
-  getFilePreview(): string {
-    const v = this.val();
-    if (!v) return '';
-
-    if (typeof v === 'string') return v;
-
-    if (v instanceof File) {
-      return `${v.name} (${Math.round(v.size / 1024)} KB)`;
-    }
-
-    if (Array.isArray(v)) {
-      return v
-        .filter((f): f is File => f instanceof File)
-        .map(f => `${f.name} (${Math.round(f.size / 1024)} KB)`)
-        .join(', ');
-    }
-
-    return '';
+  withInvalid(cls: string): string {
+    return cls + (this.showError ? ' is-invalid' : '');
   }
 
-  get stringValue(): string {
-    const v = this.val();
-    return typeof v === 'string' ? v : '';
-  }
-
-  get arrayValue(): string[] {
-    const v = this.val();
-    return Array.isArray(v) ? v.map(String) : [];
+  isArray(v: any): boolean {
+    return Array.isArray(v);
   }
 }

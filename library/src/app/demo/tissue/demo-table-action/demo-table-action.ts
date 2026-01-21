@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdTableAction } from '../../../lib/tissue/td-table-action/td-table-action';
-import { TableActionObject } from '../../../lib/tissue/td-table-action/td-table-action.model';
+import { TdTableActionModel } from '../../../lib/tissue/td-table-action/td-table-action.model';
 import { OutputObject } from '../../../lib/share';
 
 /* ─────────────────────────── Default JSON Configs ─────────────────────────── */
@@ -91,7 +91,7 @@ interface TabState {
   json: string;
   output: string;
   parseError: string;
-  model: TableActionObject;
+  model: TdTableActionModel;
 }
 
 @Component({
@@ -123,12 +123,12 @@ export class DemoTableAction {
     };
   }
 
-  private parseModel(json: string): TableActionObject {
+  private parseModel(json: string): TdTableActionModel {
     try {
       const parsed = JSON.parse(json);
-      return new TableActionObject(parsed);
+      return new TdTableActionModel(parsed);
     } catch (e) {
-      return new TableActionObject({
+      return new TdTableActionModel({
         name: 'Invalid JSON',
         className: 'table table-striped',
         rows: [],
@@ -150,7 +150,7 @@ export class DemoTableAction {
     tab.json = value;
     try {
       tab.parseError = '';
-      tab.model = new TableActionObject(JSON.parse(value));
+      tab.model = new TdTableActionModel(JSON.parse(value));
     } catch (e: any) {
       tab.parseError = e.message || String(e);
     }

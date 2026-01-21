@@ -1,126 +1,85 @@
+// td-table-action.model.ts
 /**
- * TableActionObject - Model for data table with row actions
+ * TdTableActionModel - Model for data table with row actions
  *
- * Extends TableObject with:
- * - Link template for row navigation
- * - Action buttons per row
+ * Rules:
+ * - This model hydrates ONLY its own direct fields.
+ * - Embedded models are the responsibility of the embedded model constructors.
+ *   - icon/sort -> IconObject
+ *   - actions   -> TdButtonBarModel
  */
-
 import { generateId, IconObject, IconObjectConfig } from '../../share';
-import { ButtonBarObject, ButtonBarObjectConfig } from '../td-button-bar/td-button-bar.model';
+import { TdButtonBarModel } from '../td-button-bar/td-button-bar.model';
 
-export interface TableRow {
+export interface TdTableRow {
   id?: string | number;
   [key: string]: unknown;
 }
 
-export interface TableActionObjectConfig {
-  id?: string;
-  className?: string;
-  name?: string;
-  rows?: TableRow[];
-  icon?: IconObjectConfig | IconObject;
-  sort?: IconObjectConfig | IconObject;
-  link?: string;
-  actions?: ButtonBarObjectConfig | ButtonBarObject;
-  actionsHeader?: string;
-}
+export class TdTableActionModel {
+  id: string;
+  className: string;
+  name: string;
+  rows: TdTableRow[];
+  icon: IconObject;
+  sort: IconObject;
+  link: string;
+  actions: TdButtonBarModel;
+  actionsHeader: string;
 
-export class TableActionObject {
-  readonly id: string;
-  readonly className: string;
-  readonly name: string;
-  readonly rows: TableRow[];
-  readonly icon: IconObject;
-  readonly sort: IconObject;
-  readonly link: string;
-  readonly actions: ButtonBarObject;
-  readonly actionsHeader: string;
+  constructor(cfg: any = {}) {
+    this.id = typeof cfg.id === 'string' && cfg.id.trim() ? cfg.id : generateId('table-action');
+    this.className = typeof cfg.className === 'string' ? cfg.className : 'table table-hover';
+    this.name = typeof cfg.name === 'string' ? cfg.name : 'table';
+    this.link = typeof cfg.link === 'string' ? cfg.link : '';
+    this.actionsHeader = typeof cfg.actionsHeader === 'string' ? cfg.actionsHeader : 'Actions';
 
-  constructor(table: TableActionObjectConfig = {}) {
-    this.id = table.id ?? generateId('table-action');
-    this.className = typeof table.className === 'string' ? table.className : 'table table-hover';
-    this.name = typeof table.name === 'string' ? table.name : 'table';
-    this.link = typeof table.link === 'string' ? table.link : '';
-    this.actionsHeader = typeof table.actionsHeader === 'string' ? table.actionsHeader : 'Actions';
+    this.rows = Array.isArray(cfg.rows) ? cfg.rows.slice() : [];
 
-    // Shallow copy of rows
-    this.rows = Array.isArray(table.rows) ? table.rows.slice() : [];
-
-    // Default icons
     const defaultRowIcon: IconObjectConfig = { iconClass: 'fa-solid fa-user' };
     const defaultSortIcon: IconObjectConfig = { iconClass: 'fa-solid fa-arrow-down' };
 
-    this.icon = table.icon instanceof IconObject
-      ? table.icon
-      : new IconObject(table.icon || defaultRowIcon);
+    this.icon = cfg.icon instanceof IconObject ? cfg.icon : new IconObject(cfg.icon || defaultRowIcon);
+    this.sort = cfg.sort instanceof IconObject ? cfg.sort : new IconObject(cfg.sort || defaultSortIcon);
 
-    this.sort = table.sort instanceof IconObject
-      ? table.sort
-      : new IconObject(table.sort || defaultSortIcon);
-
-    // Normalize actions
-    if (table.actions instanceof ButtonBarObject) {
-      this.actions = table.actions;
-    } else if (table.actions && typeof table.actions === 'object') {
-      this.actions = new ButtonBarObject({
-        ...table.actions,
-        className: table.actions.className ?? 'd-flex gap-1',
-      });
+    // actions -> TdButtonBarModel (do NOT reach into its internals; let it hydrate itself)
+    if (cfg.actions instanceof TdButtonBarModel) {
+      this.actions = cfg.actions;
+    } else if (cfg.actions && typeof cfg.actions === 'object') {
+      this.actions = new TdButtonBarModel(cfg.actions);
     } else {
-      this.actions = new ButtonBarObject({
-        className: 'd-flex gap-1',
-      });
+      this.actions = new TdButtonBarModel({});
     }
   }
 
-  /**
-   * Check if table has rows
-   */
   hasRows(): boolean {
     return this.rows.length > 0;
   }
 
-  /**
-   * Check if table has actions
-   */
   hasActions(): boolean {
-    return this.actions.buttons.length > 0;
+    return Array.isArray(this.actions.buttons) && this.actions.buttons.length > 0;
   }
 
-  /**
-   * Check if table has link template
-   */
   hasLink(): boolean {
     return this.link.trim().length > 0;
   }
 
-  /**
-   * Get header keys from first row (excluding 'id')
-   */
   getHeaderKeys(): string[] {
     if (this.rows.length === 0) return [];
-    return Object.keys(this.rows[0]).filter(k => k !== 'id');
+    return Object.keys(this.rows[0]).filter((k) => k !== 'id');
   }
 
-  /**
-   * Build link URL from template and row data
-   * Replaces {field} placeholders with row values
-   */
-  buildRowLink(row: TableRow): string {
+  buildRowLink(row: TdTableRow): string {
     if (!this.link) return '';
 
-    return this.link.replace(/\{(\w+)\}/g, (match, field) => {
-      const value = row[field];
+    return this.link.replace(/\{(\w+)\}/g, (_match, field) => {
+      const value = (row as any)[field];
       if (value === null || value === undefined) return '';
       return encodeURIComponent(String(value));
     });
   }
 
-  /**
-   * Convert to plain object for serialization
-   */
-  toJSON(): TableActionObjectConfig {
+  toJSON(): any {
     return {
       id: this.id,
       className: this.className,

@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdInput } from '../../../lib/cell/td-input/td-input';
-import { TdInputModel, TdInputConfig } from '../../../lib/cell/td-input/td-input.model';
+import { TdInputModel } from '../../../lib/cell/td-input/td-input.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/shared/output-object';
 
-const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
+const DEFAULT_INPUTS: Record<string, any> = {
   name: {
     name: 'name',
     label: 'Name',
@@ -15,7 +16,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'floating',
     placeholder: 'Enter your name',
     required: true,
-    icon: { iconClass: 'fa-solid fa-user' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-user' }),
     className: 'form-control',
   },
 
@@ -26,7 +27,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'floating',
     placeholder: 'Enter your email',
     required: true,
-    icon: { iconClass: 'fa-solid fa-envelope' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-envelope' }),
     pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
     className: 'form-control',
   },
@@ -37,7 +38,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'password',
     layout: 'floating',
     required: true,
-    icon: { iconClass: 'fa-solid fa-lock' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-lock' }),
     passwordStrength: true,
     placeholder: 'Enter a strong password',
     className: 'form-control',
@@ -51,7 +52,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     placeholder: 'Enter your age',
     required: true,
     min: 0,
-    icon: { iconClass: 'fa-solid fa-hashtag' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-hashtag' }),
     className: 'form-control',
   },
 
@@ -61,7 +62,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'date',
     layout: 'floating',
     required: true,
-    icon: { iconClass: 'fa-solid fa-calendar' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-calendar' }),
     className: 'form-control',
   },
 
@@ -71,7 +72,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'datetime-local',
     layout: 'floating',
     required: true,
-    icon: { iconClass: 'fa-solid fa-calendar-check' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-calendar-check' }),
     className: 'form-control',
     min: '2024-01-01T00:00',
     max: '2025-12-31T23:59',
@@ -83,7 +84,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'time',
     layout: 'floating',
     required: true,
-    icon: { iconClass: 'fa-solid fa-clock' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-clock' }),
     className: 'form-control',
     min: '09:00',
     max: '17:00',
@@ -95,7 +96,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'select',
     layout: 'floating',
     required: true,
-    icon: { iconClass: 'fa-solid fa-globe' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-globe' }),
     className: 'form-select',
     options: [
       { value: '', label: 'Select country' },
@@ -114,7 +115,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     placeholder: 'Tell us about yourself...',
     required: true,
     minLength: 10,
-    icon: { iconClass: 'fa-solid fa-pen' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-pen' }),
     className: 'form-control',
   },
 };
@@ -136,7 +137,7 @@ export class DemoInputFloating {
   outputJson = signal('// Interact with the field');
   parseError = signal('');
 
-  parsed = signal<TdInputConfig>(DEFAULT_INPUTS[TABS[0]]);
+  parsed = signal<any>(DEFAULT_INPUTS[TABS[0]]);
   inputKey = signal(0);
 
   model = computed(() => {
@@ -161,7 +162,7 @@ export class DemoInputFloating {
 
   handleInputChange(val: string): void {
     try {
-      const raw = JSON.parse(val || '{}') as TdInputConfig;
+      const raw = JSON.parse(val || '{}') as any;
       this.parsed.set(raw);
       this.parseError.set('');
     } catch (e: any) {

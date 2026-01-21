@@ -1,21 +1,21 @@
 <!-- td-link-logo.html -->
 <a
   [id]="domId"
-  [href]="model.href || '#'"
+  [href]="linkLogo.href || '#'"
   [class]="computedClass"
-  [target]="model.target"
+  [target]="linkLogo.target"
   [rel]="safeRel"
-  [title]="model.title"
-  [attr.aria-label]="model.ariaLabel">
+  [title]="linkLogo.title"
+  [attr.aria-label]="linkLogo.ariaLabel">
   <img
-    [src]="model.logo.imageUrl"
-    [attr.alt]="model.logo.alt"
-    [attr.width]="model.logo.width"
-    [attr.height]="model.logo.height"
-    [class]="model.logo.className"
+    [src]="linkLogo.logo.imageUrl"
+    [attr.alt]="linkLogo.logo.alt"
+    [attr.width]="linkLogo.logo.width"
+    [attr.height]="linkLogo.logo.height"
+    [class]="linkLogo.logo.className"
   />
 
-  @if (model.name) {
-    <span class="ms-2">{{ model.name }}</span>
+  @if (linkLogo.name) {
+    <span class="ms-2">{{ linkLogo.name }}</span>
   }
 </a>

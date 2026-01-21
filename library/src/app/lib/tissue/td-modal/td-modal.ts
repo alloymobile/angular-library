@@ -5,15 +5,14 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Inject,
   PLATFORM_ID
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
-import { ModalObject, InputObject } from './td-modal.model';
+import { TdModalModel } from './td-modal.model';
+import { TdInputModel } from '../../cell/td-input/td-input.model';
+import { TdInput } from '../../cell/td-input/td-input';
 import { OutputObject } from '../../share';
 
 declare var bootstrap: any;
@@ -28,22 +27,18 @@ interface FieldState {
 @Component({
   selector: 'td-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, TdInput],
   templateUrl: './td-modal.html',
   styleUrls: ['./td-modal.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TdModal implements OnChanges {
-  @Input({ required: true }) modal!: ModalObject;
+  @Input({ required: true }) modal!: TdModalModel;
   @Output() output = new EventEmitter<OutputObject>();
 
   fieldStates: Record<string, FieldState> = {};
   private isBrowser: boolean;
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -53,13 +48,15 @@ export class TdModal implements OnChanges {
     }
   }
 
-  /**
-   * Initialize field states from modal data
-   */
   private initializeFieldStates(): void {
     this.fieldStates = {};
-    this.modal.fields.forEach(field => {
-      const value = this.modal.data[field.name] ?? field.value ?? '';
+
+    const fields = Array.isArray(this.modal.fields) ? this.modal.fields : [];
+    const data = (this.modal.data && typeof this.modal.data === 'object') ? this.modal.data : {};
+
+    fields.forEach((field) => {
+      const value = (data as any)[field.name] ?? field.value ?? this.getEmptyValue(field);
+
       this.fieldStates[field.name] = {
         value,
         valid: true,
@@ -67,162 +64,199 @@ export class TdModal implements OnChanges {
         errors: [],
       };
     });
+
+    // keep modal.data in sync baseline
+    this.modal.data = { ...data };
+    fields.forEach((field) => {
+      if (!(field.name in this.modal.data)) {
+        this.modal.data[field.name] = this.fieldStates[field.name].value;
+      }
+    });
   }
 
   /**
-   * Handle input value change
+   * Receive output from td-input and sync:
+   * - fieldStates[field.name].value
+   * - modal.data[field.name]
+   * Then emit a modal-level change output.
    */
-  onInputChange(field: InputObject, event: Event): void {
-    const target = event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-    let value: any = target.value;
+  onFieldOutput(field: TdInputModel, innerOut: OutputObject): void {
+    const base =
+      innerOut && typeof (innerOut as any).toJSON === 'function'
+        ? (innerOut as any).toJSON()
+        : innerOut || {};
 
-    // Handle checkbox
-    if (field.isCheckbox()) {
-      value = (target as HTMLInputElement).checked;
-    }
+    const data = base.data && typeof base.data === 'object' ? base.data : {};
 
-    // Update state
-    this.fieldStates[field.name] = {
-      ...this.fieldStates[field.name],
-      value,
+    const name =
+      typeof (data as any).name === 'string' && (data as any).name.trim()
+        ? (data as any).name.trim()
+        : field.name;
+
+    const value = (data as any).value;
+
+    if (!name) return;
+
+    const prev = this.fieldStates[name] || {
+      value: this.getEmptyValue(field),
+      valid: true,
+      error: false,
+      errors: [],
     };
 
-    // Emit change event
+    this.fieldStates[name] = {
+      ...prev,
+      value,
+      valid: true,
+      error: false,
+      errors: [],
+    };
+
+    this.modal.data = { ...(this.modal.data || {}), [name]: value };
+
     const out = new OutputObject({
       id: this.modal.id,
       type: 'modal',
       action: 'change',
       error: false,
+      errorMessage: [],
       data: {
-        name: field.name,
+        name,
         value,
-        errors: [],
+        source: 'td-input',
       },
     });
-    this.output.emit(out);
 
-    this.cdr.markForCheck();
+    this.output.emit(out);
   }
 
-  /**
-   * Handle form submit
-   */
   onSubmit(): void {
-    // Collect all values
     const values: Record<string, any> = {};
     const errors: Record<string, string[]> = {};
     let hasError = false;
 
-    this.modal.fields.forEach(field => {
-      const state = this.fieldStates[field.name];
-      values[field.name] = state?.value ?? '';
+    const fields = Array.isArray(this.modal.fields) ? this.modal.fields : [];
 
-      // Validate
-      const fieldErrors = this.validateField(field, state?.value ?? '');
+    fields.forEach((field) => {
+      const state = this.fieldStates[field.name];
+      const value = state?.value ?? this.modal.data?.[field.name] ?? this.getEmptyValue(field);
+
+      values[field.name] = value;
+
+      const fieldErrors = this.validateField(field, value);
+
       if (fieldErrors.length > 0) {
         hasError = true;
         errors[field.name] = fieldErrors;
+
         this.fieldStates[field.name] = {
-          ...state,
+          ...(state || { value }),
+          valid: false,
           error: true,
           errors: fieldErrors,
+        };
+      } else {
+        this.fieldStates[field.name] = {
+          ...(state || { value }),
+          valid: true,
+          error: false,
+          errors: [],
         };
       }
     });
 
     if (hasError) {
-      // Emit error output
-      const out = OutputObject.err({
-        id: this.modal.id,
-        type: 'modal',
-        action: 'submit',
-        data: {
-          ...values,
-          errors,
+      const out = OutputObject.err(
+        {
+          id: this.modal.id,
+          type: 'modal',
+          action: 'submit',
+          data: {
+            ...values,
+            errors,
+          },
         },
-      }, 'Validation failed');
-      this.output.emit(out);
-    } else {
-      // Emit success output
-      const out = OutputObject.ok({
-        id: this.modal.id,
-        type: 'modal',
-        action: 'submit',
-        data: values,
-      });
-      this.output.emit(out);
+        'Validation failed'
+      );
 
-      // Auto-dismiss modal
-      this.dismissModal();
+      this.output.emit(out);
+      return;
     }
 
-    this.cdr.markForCheck();
+    // success
+    this.modal.data = { ...(this.modal.data || {}), ...values };
+
+    const out = OutputObject.ok({
+      id: this.modal.id,
+      type: 'modal',
+      action: 'submit',
+      data: values,
+    });
+
+    this.output.emit(out);
+    this.dismissModal();
   }
 
-  /**
-   * Validate a single field
-   */
-  private validateField(field: InputObject, value: any): string[] {
+  private validateField(field: TdInputModel, value: any): string[] {
     const errors: string[] = [];
 
-    // Required validation
+    // Required
     if (field.required) {
-      if (field.isCheckbox()) {
-        if (!value) {
-          errors.push('This field is required.');
+      if (field.type === 'checkbox' || field.type === 'switch') {
+        if (!value) errors.push('This field is required.');
+      } else if (field.type === 'multiselect') {
+        if (!Array.isArray(value) || value.length === 0) errors.push('This field is required.');
+      } else if (field.type === 'file') {
+        if (field.multiple) {
+          if (!Array.isArray(value) || value.length === 0) errors.push('This field is required.');
+        } else {
+          if (!value) errors.push('This field is required.');
         }
       } else {
         const isEmpty = value === '' || value === null || value === undefined;
-        if (isEmpty) {
-          errors.push('This field is required.');
-        }
+        if (isEmpty) errors.push('This field is required.');
       }
     }
 
-    // Min length validation
-    if (errors.length === 0 && field.minLength != null && typeof value === 'string') {
-      if (value.length < field.minLength) {
+    // Length
+    if (errors.length === 0 && typeof value === 'string') {
+      if (typeof field.minLength === 'number' && value.length < field.minLength) {
         errors.push(`Minimum length is ${field.minLength}.`);
       }
-    }
-
-    // Max length validation
-    if (errors.length === 0 && field.maxLength != null && typeof value === 'string') {
-      if (value.length > field.maxLength) {
+      if (typeof field.maxLength === 'number' && value.length > field.maxLength) {
         errors.push(`Maximum length is ${field.maxLength}.`);
       }
     }
 
-    // Pattern validation
+    // Pattern
     if (errors.length === 0 && field.pattern && typeof value === 'string') {
       const regex = new RegExp(field.pattern);
-      if (!regex.test(value)) {
-        errors.push('Invalid format.');
-      }
+      if (!regex.test(value)) errors.push('Invalid format.');
     }
 
-    // Password strength validation
+    // Password strength
     if (errors.length === 0 && field.passwordStrength && typeof value === 'string') {
       const strongRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/;
-      if (!strongRegex.test(value)) {
-        errors.push('Password is too weak.');
-      }
+      if (!strongRegex.test(value)) errors.push('Password is too weak.');
     }
 
-    // Match with validation
+    // MatchWith
     if (errors.length === 0 && field.matchWith) {
-      const otherValue = this.fieldStates[field.matchWith]?.value;
-      if (otherValue !== value) {
-        errors.push('Values do not match.');
+      const other = this.fieldStates[field.matchWith]?.value ?? this.modal.data?.[field.matchWith];
+      if (other !== value) errors.push('Values do not match.');
+    }
+
+    // Custom validators from model
+    if (errors.length === 0 && Array.isArray(field.validators) && field.validators.length > 0) {
+      for (const v of field.validators) {
+        const msg = v(value);
+        if (typeof msg === 'string' && msg.trim()) errors.push(msg);
       }
     }
 
     return errors;
   }
 
-  /**
-   * Dismiss the modal
-   */
   private dismissModal(): void {
     if (!this.isBrowser) return;
 
@@ -238,50 +272,26 @@ export class TdModal implements OnChanges {
     }
 
     const dismissBtn = modalEl.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
-    if (dismissBtn) {
-      dismissBtn.click();
-    }
+    if (dismissBtn) dismissBtn.click();
   }
 
-  /**
-   * Get field value
-   */
-  getFieldValue(field: InputObject): any {
-    return this.fieldStates[field.name]?.value ?? '';
+  hasFieldErrors(field: TdInputModel): boolean {
+    return (this.fieldStates[field.name]?.errors?.length ?? 0) > 0;
   }
 
-  /**
-   * Get field errors
-   */
-  getFieldErrors(field: InputObject): string[] {
+  getFieldErrors(field: TdInputModel): string[] {
     return this.fieldStates[field.name]?.errors ?? [];
   }
 
-  /**
-   * Check if field has errors
-   */
-  hasFieldErrors(field: InputObject): boolean {
-    return this.getFieldErrors(field).length > 0;
+  trackByField(index: number, field: TdInputModel): string {
+    return field.id || field.name || String(index);
   }
 
-  /**
-   * Get button classes
-   */
-  getButtonClasses(): string {
-    return this.modal.submit.getCombinedClasses();
-  }
-
-  /**
-   * Track by function for fields
-   */
-  trackByField(index: number, field: InputObject): string {
-    return field.id;
-  }
-
-  /**
-   * Track by function for options
-   */
-  trackByOption(index: number, option: { value: string; label: string }): string {
-    return option.value;
+  private getEmptyValue(field: TdInputModel): any {
+    if (field.type === 'checkbox') return false;
+    if (field.type === 'switch') return false;
+    if (field.type === 'multiselect') return [];
+    if (field.type === 'file') return field.multiple ? [] : null;
+    return '';
   }
 }

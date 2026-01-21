@@ -12,45 +12,45 @@ import { TdLinkLogoModel } from './td-link-logo.model';
   styleUrl: './td-link-logo.css',
 })
 export class TdLinkLogo implements OnInit, OnChanges {
-  @Input({ required: true }) model!: TdLinkLogoModel;
+  @Input({ required: true }) linkLogo!: TdLinkLogoModel;
 
   domId = '';
   safeRel: string | undefined = undefined;
   computedClass = '';
 
   ngOnInit(): void {
-    this.ensureModel();
-    this.applyModel();
+    this.ensureLinkLogo();
+    this.applyLinkLogo();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['model']) {
-      this.ensureModel();
-      this.applyModel();
+    if (changes['linkLogo']) {
+      this.ensureLinkLogo();
+      this.applyLinkLogo();
     }
   }
 
-  private ensureModel(): void {
-    if (!this.model || !(this.model instanceof TdLinkLogoModel)) {
-      throw new Error('TdLinkLogo requires `model` (TdLinkLogoModel instance).');
+  private ensureLinkLogo(): void {
+    if (!this.linkLogo || !(this.linkLogo instanceof TdLinkLogoModel)) {
+      throw new Error('TdLinkLogo requires `linkLogo` (TdLinkLogoModel instance).');
     }
   }
 
-  private applyModel(): void {
-    const incomingId = this.model.id?.trim();
+  private applyLinkLogo(): void {
+    const incomingId = this.linkLogo.id?.trim();
 
     if (incomingId) {
       this.domId = incomingId;
-      this.model.id = incomingId;
+      this.linkLogo.id = incomingId;
     } else {
       const next = generateId('link-logo');
       this.domId = next;
-      this.model.id = next;
+      this.linkLogo.id = next;
     }
 
-    this.safeRel = this.model.getSafeRel();
+    this.safeRel = this.linkLogo.getSafeRel();
 
-    this.computedClass = [this.model.className || 'nav-link', this.model.active || '']
+    this.computedClass = [this.linkLogo.className || 'nav-link', this.linkLogo.active || '']
       .filter(Boolean)
       .join(' ');
   }

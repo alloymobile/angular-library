@@ -1,17 +1,19 @@
+// demo-loading/demo-loading.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdLoading } from '../../../lib/cell/td-loading/td-loading';
 import { TdLoadingModel } from '../../../lib/cell/td-loading/td-loading.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 
 const DEFAULT_OBJ = {
   id: 'tdLoading1',
   message: 'Loading data...',
-  icon: {
+  icon: new TdIconModel({
     iconClass: 'fa-solid fa-spinner fa-3x fa-spin',
     className: '',
-  },
+  }),
   overlayClass:
     'd-flex align-items-center justify-content-center bg-dark bg-opacity-25 w-100 h-100 rounded',
   contentClass: 'text-center p-4 rounded bg-white shadow',

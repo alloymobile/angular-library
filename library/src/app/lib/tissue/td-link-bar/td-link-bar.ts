@@ -1,3 +1,4 @@
+// td-link-bar.ts
 import {
   Component,
   Input,
@@ -5,110 +6,74 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {
-  LinkBarObject,
-  LinkBarItem,
-  LinkObject,
-  LinkIconObject,
-  LinkLogoObject
-} from './td-link-bar.model';
+import { TdLinkBarModel, TdLinkBarItem } from './td-link-bar.model';
 import { OutputObject } from '../../share';
+
+import { TdLink } from '../../cell/td-link/td-link';
+import { TdLinkIcon } from '../../cell/td-link-icon/td-link-icon';
+import { TdLinkLogo } from '../../cell/td-link-logo/td-link-logo';
+
+import { TdLinkModel } from '../../cell/td-link/td-link.model';
+import { TdLinkIconModel } from '../../cell/td-link-icon/td-link-icon.model';
+import { TdLinkLogoModel } from '../../cell/td-link-logo/td-link-logo.model';
 
 @Component({
   selector: 'td-link-bar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TdLink, TdLinkIcon, TdLinkLogo],
   templateUrl: './td-link-bar.html',
-  styleUrls: ['./td-link-bar.css']
+  styleUrls: ['./td-link-bar.css'],
 })
 export class TdLinkBar implements OnChanges {
-  @Input({ required: true }) linkBar!: LinkBarObject;
+  @Input({ required: true }) linkBar!: TdLinkBarModel;
   @Output() output = new EventEmitter<OutputObject>();
-
-  selectedId: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['linkBar']) {
-      // Reset selection when linkBar changes
-      this.selectedId = '';
+      if (!this.linkBar || !(this.linkBar instanceof TdLinkBarModel)) {
+        throw new Error('TdLinkBar requires `linkBar` (TdLinkBarModel instance).');
+      }
     }
   }
 
-  /**
-   * Handle link click
-   */
-  onLinkClick(link: LinkBarItem, event: Event): void {
-    // Don't prevent default for actual navigation
-    // event.preventDefault();
+  // Take input and redirect to output (only name)
+  onItemClick(item: TdLinkBarItem, event: Event): void {
+    const anyItem = item as any;
 
-    // Update selection
-    this.selectedId = link.id;
+    const outType =
+      this.isLinkIcon(item) ? 'link-icon' :
+      this.isLinkLogo(item) ? 'link-logo' :
+      'link';
 
-    // Emit output
     const out = OutputObject.ok({
-      id: link.id,
-      type: 'link',
+      id: typeof anyItem?.id === 'string' ? anyItem.id : '',
+      type: outType,
       action: 'click',
       data: {
-        id: link.id,
-        name: link.name,
-        href: link.href,
-        link: {
-          id: link.id,
-          name: link.name,
-          href: link.href,
-        },
+        name: typeof anyItem?.name === 'string' ? anyItem.name : '',
       },
     });
 
     this.output.emit(out);
   }
 
-  /**
-   * Check if a link is selected
-   */
-  isSelected(link: LinkBarItem): boolean {
-    return link.id === this.selectedId;
+  isLink(item: TdLinkBarItem): item is TdLinkModel {
+    return item instanceof TdLinkModel;
   }
 
-  /**
-   * Get link CSS classes with active state
-   */
-  getLinkClasses(link: LinkBarItem): string {
-    const baseClasses = link.className;
-    const activeClass = this.isSelected(link) ? this.linkBar.selected : '';
-    return [baseClasses, activeClass].filter(Boolean).join(' ');
+  isLinkIcon(item: TdLinkBarItem): item is TdLinkIconModel {
+    return item instanceof TdLinkIconModel;
   }
 
-  /**
-   * Type guard for LinkObject
-   */
-  isLinkObject(item: LinkBarItem): item is LinkObject {
-    return item instanceof LinkObject && !(item instanceof LinkIconObject) && !(item instanceof LinkLogoObject);
+  isLinkLogo(item: TdLinkBarItem): item is TdLinkLogoModel {
+    return item instanceof TdLinkLogoModel;
   }
 
-  /**
-   * Type guard for LinkIconObject
-   */
-  isLinkIconObject(item: LinkBarItem): item is LinkIconObject {
-    return item instanceof LinkIconObject;
-  }
-
-  /**
-   * Type guard for LinkLogoObject
-   */
-  isLinkLogoObject(item: LinkBarItem): item is LinkLogoObject {
-    return item instanceof LinkLogoObject;
-  }
-
-  /**
-   * Track by function for links
-   */
-  trackByLink(index: number, item: LinkBarItem): string {
-    return item.id;
-  }
+  trackByLink = (index: number, item: TdLinkBarItem): string => {
+    const id = (item as any)?.id;
+    return typeof id === 'string' && id.trim() ? id : `link-${index}`;
+  };
 }

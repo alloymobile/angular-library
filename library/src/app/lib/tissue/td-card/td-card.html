@@ -1,4 +1,4 @@
-<div [id]="card.id" [class]="card.className">
+<div *ngIf="card" [id]="card.id" [class]="card.className">
   <!-- Header -->
   <div
     *ngIf="card.hasHeader()"
@@ -9,26 +9,25 @@
     {{ card.header.name }}
   </div>
 
-  <!-- Body -->
+  <!-- Body (SPLIT ONLY) -->
   <div
     [id]="card.body.id"
     [class]="getBodyClasses()"
     [attr.aria-label]="card.body.ariaLabel"
   >
-    <!-- Split Layout -->
-    <div *ngIf="card.isSplitLayout()" class="row g-3">
+    <div class="row g-3">
       <div [class]="card.leftColClass">
-        <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.leftFields }"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.leftFields }"
+        ></ng-container>
       </div>
+
       <div [class]="card.rightColClass">
-        <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.fields }"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.fields }"
+        ></ng-container>
       </div>
     </div>
-
-    <!-- Single Layout -->
-    <ng-container *ngIf="!card.isSplitLayout()">
-      <ng-container *ngTemplateOutlet="fieldsGrid; context: { $implicit: card.fields }"></ng-container>
-    </ng-container>
   </div>
 
   <!-- Footer -->
@@ -54,28 +53,18 @@
         [class]="field.className"
         [attr.aria-label]="field.ariaLabel"
       >
-        <ng-container *ngTemplateOutlet="fieldContent; context: { $implicit: field }"></ng-container>
+        <ng-container
+          *ngTemplateOutlet="fieldContent; context: { $implicit: field }"
+        ></ng-container>
       </div>
     </div>
   </div>
 </ng-template>
 
-<!-- Field Content Template -->
+<!-- Field Content Template (UPDATED: no media, no quantity) -->
 <ng-template #fieldContent let-field>
-  <!-- Media -->
-  <ng-container *ngIf="field.hasMedia()">
-    <div class="media-container">
-      <img
-        *ngFor="let item of field.media.items"
-        [src]="item.url"
-        [alt]="item.alt || 'Media'"
-        class="img-fluid"
-      />
-    </div>
-  </ng-container>
-
   <!-- Logo -->
-  <ng-container *ngIf="!field.hasMedia() && field.hasLogo()">
+  <ng-container *ngIf="field.hasLogo()">
     <img
       [src]="field.logo.imageUrl"
       [alt]="field.logo.alt"
@@ -86,7 +75,7 @@
   </ng-container>
 
   <!-- Icon -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && field.hasIcon()">
+  <ng-container *ngIf="!field.hasLogo() && field.hasIcon()">
     <i
       [class]="field.icon.iconClass"
       [attr.title]="field.icon.title || null"
@@ -95,7 +84,7 @@
   </ng-container>
 
   <!-- Tags -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && field.hasTags()">
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && field.hasTags()">
     <div class="d-flex flex-column gap-1">
       <ng-container *ngFor="let tag of field.tags; trackBy: trackByTag">
         <div
@@ -109,33 +98,8 @@
     </div>
   </ng-container>
 
-  <!-- Quantity -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && field.hasQuantity()">
-    <div class="quantity-control d-flex align-items-center gap-2">
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-sm"
-        [disabled]="field.quantity.disabled || field.quantity.value <= field.quantity.min"
-        (click)="onQuantityChange(field, field.quantity.value - field.quantity.step)"
-        aria-label="Decrease quantity"
-      >
-        <i class="fa-solid fa-minus"></i>
-      </button>
-      <span class="quantity-value">{{ field.quantity.value }}</span>
-      <button
-        type="button"
-        class="btn btn-outline-secondary btn-sm"
-        [disabled]="field.quantity.disabled || field.quantity.value >= field.quantity.max"
-        (click)="onQuantityChange(field, field.quantity.value + field.quantity.step)"
-        aria-label="Increase quantity"
-      >
-        <i class="fa-solid fa-plus"></i>
-      </button>
-    </div>
-  </ng-container>
-
   <!-- ButtonIcon -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && field.hasButtonIcon()">
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && field.hasButtonIcon()">
     <button
       type="button"
       [class]="field.buttonIcon.className"
@@ -154,7 +118,7 @@
   </ng-container>
 
   <!-- LinkIcon -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && !field.hasButtonIcon() && field.hasLinkIcon()">
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasButtonIcon() && field.hasLinkIcon()">
     <a
       [href]="field.linkIcon.to"
       [class]="field.linkIcon.className"
@@ -162,6 +126,7 @@
       [attr.rel]="field.linkIcon.rel || null"
       [attr.aria-label]="field.linkIcon.ariaLabel"
       [attr.title]="field.linkIcon.title"
+      (click)="onLinkIconClick(field)"
     >
       <i
         *ngIf="field.linkIcon.icon && field.linkIcon.icon.iconClass"
@@ -173,7 +138,7 @@
   </ng-container>
 
   <!-- Text (fallback) -->
-  <ng-container *ngIf="!field.hasMedia() && !field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasQuantity() && !field.hasButtonIcon() && !field.hasLinkIcon() && field.hasText()">
+  <ng-container *ngIf="!field.hasLogo() && !field.hasIcon() && !field.hasTags() && !field.hasButtonIcon() && !field.hasLinkIcon() && field.hasText()">
     <span>{{ field.name }}</span>
   </ng-container>
 </ng-template>

@@ -1,21 +1,22 @@
-// demo-input.ts
-import { Component, signal, computed } from '@angular/core';
+// src/app/demo/cell/demo-input/demo-input.ts
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdInput } from '../../../lib/cell/td-input/td-input';
-import { TdInputModel, TdInputConfig, TdInputType } from '../../../lib/cell/td-input/td-input.model';
-import { OutputObject } from '../../../lib/shared/output-object';
+import { TdInputModel } from '../../../lib/cell/td-input/td-input.model';
+import { OutputObject } from '../../../lib/share/output-object';
 
-type DemoMap = Record<string, TdInputConfig>;
+const DEFAULT_OUTPUT = '// Interact with the field (type, blur, select, etc.)';
 
-const BASE_TYPES: DemoMap = {
+const DEFAULT_INPUTS: Record<string, any> = {
   text: {
     name: 'fullName',
     label: 'Full Name',
     type: 'text',
     layout: 'text',
     placeholder: 'Enter your name',
+    required: true,
     className: 'form-control',
   },
 
@@ -25,6 +26,8 @@ const BASE_TYPES: DemoMap = {
     type: 'email',
     layout: 'text',
     placeholder: 'Enter your email',
+    required: true,
+    pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
     className: 'form-control',
   },
 
@@ -34,6 +37,8 @@ const BASE_TYPES: DemoMap = {
     type: 'password',
     layout: 'text',
     placeholder: 'Enter your password',
+    required: true,
+    passwordStrength: true,
     className: 'form-control',
   },
 
@@ -53,6 +58,8 @@ const BASE_TYPES: DemoMap = {
     type: 'textarea',
     layout: 'text',
     placeholder: 'Tell us about yourself...',
+    required: true,
+    minLength: 10,
     className: 'form-control',
   },
 
@@ -61,6 +68,7 @@ const BASE_TYPES: DemoMap = {
     label: 'Interests',
     type: 'checkbox',
     layout: 'text',
+    required: true,
     className: 'form-check-input',
     options: [
       { value: 'news', label: 'News' },
@@ -69,20 +77,12 @@ const BASE_TYPES: DemoMap = {
     ],
   },
 
-  switch: {
-    name: 'isActive',
-    label: 'Active',
-    type: 'switch',
-    layout: 'text',
-    className: 'form-check-input',
-    value: true,
-  },
-
   select: {
     name: 'role',
     label: 'Role',
     type: 'select',
     layout: 'text',
+    required: true,
     className: 'form-select',
     options: [
       { value: '', label: 'Select role' },
@@ -93,22 +93,19 @@ const BASE_TYPES: DemoMap = {
   },
 
   multiselect: {
-    name: 'categories',
-    label: 'Categories',
+    name: 'roles',
+    label: 'Roles (multi-select)',
     type: 'multiselect',
     layout: 'text',
-    className: 'form-control',
-    searchable: true,
-    placeholder: 'Type to search categories...',
+    required: true,
+    className: 'form-select',
     options: [
-      { value: 'cat-001', label: 'Concrete Pipes', slug: 'concrete-pipes' },
-      { value: 'cat-002', label: 'Precast Slabs', slug: 'precast-slabs' },
-      { value: 'cat-003', label: 'Rebar', slug: 'rebar' },
-      { value: 'cat-004', label: 'Cement Products', slug: 'cement-products' },
-      { value: 'cat-005', label: 'Aggregates', slug: 'aggregates' },
-      { value: 'cat-006', label: 'Steel & Wire', slug: 'steel-wire' },
+      { value: 'admin', label: 'Admin' },
+      { value: 'user', label: 'User' },
+      { value: 'guest', label: 'Guest' },
+      { value: 'manager', label: 'Manager' },
     ],
-    value: ['cat-003'],
+    value: ['user'],
   },
 
   date: {
@@ -116,27 +113,8 @@ const BASE_TYPES: DemoMap = {
     label: 'Date of Birth',
     type: 'date',
     layout: 'text',
+    required: true,
     className: 'form-control',
-  },
-
-  'datetime-local': {
-    name: 'appointmentTime',
-    label: 'Appointment Date & Time',
-    type: 'datetime-local',
-    layout: 'text',
-    className: 'form-control',
-    min: '2024-01-01T00:00',
-    max: '2025-12-31T23:59',
-  },
-
-  time: {
-    name: 'preferredTime',
-    label: 'Preferred Time',
-    type: 'time',
-    layout: 'text',
-    className: 'form-control',
-    min: '09:00',
-    max: '17:00',
   },
 
   radio: {
@@ -144,6 +122,7 @@ const BASE_TYPES: DemoMap = {
     label: 'Gender',
     type: 'radio',
     layout: 'text',
+    required: true,
     className: 'form-check-input',
     options: [
       { value: 'male', label: 'Male' },
@@ -152,14 +131,45 @@ const BASE_TYPES: DemoMap = {
     ],
   },
 
+  switch: {
+    name: 'marketingOptIn',
+    label: 'Marketing Opt-in (switch)',
+    type: 'switch',
+    layout: 'text',
+    required: true,
+    value: false,
+  },
+
+  icon: {
+    name: 'username',
+    label: 'Username (icon layout)',
+    type: 'text',
+    layout: 'icon',
+    placeholder: 'Enter your username',
+    required: true,
+    className: 'form-control',
+    icon: { iconClass: 'fa-solid fa-user' },
+    iconGroupClass: 'bg-light border-0',
+  },
+
+  floating: {
+    name: 'floatingEmail',
+    label: 'Email (floating)',
+    type: 'email',
+    layout: 'floating',
+    required: true,
+    placeholder: ' ',
+    className: 'form-control',
+    icon: { iconClass: 'fa-solid fa-envelope' },
+  },
+
   file: {
-    name: 'attachments',
-    label: 'Upload Files (multi)',
+    name: 'resume',
+    label: 'Resume (file)',
     type: 'file',
     layout: 'text',
     className: 'form-control',
-    accept: '.pdf,.png,.jpg,.jpeg',
-    multiple: true,
+    accept: '.pdf,.doc,.docx',
   },
 
   canvas: {
@@ -167,164 +177,81 @@ const BASE_TYPES: DemoMap = {
     label: 'Signature (canvas)',
     type: 'canvas',
     layout: 'text',
+    required: true,
     width: 600,
     height: 220,
     canvasStrokeWidth: 2,
   },
 };
 
-type ValidationPresetKey =
-  | 'none'
-  | 'required'
-  | 'minMaxLength'
-  | 'regexEmail'
-  | 'regexOnlyCaps'
-  | 'passwordStrength'
-  | 'customValidator';
-
-const VALIDATION_PRESETS: Record<ValidationPresetKey, Partial<TdInputConfig>> = {
-  none: {},
-
-  required: { required: true },
-
-  minMaxLength: { required: true, minLength: 3, maxLength: 10 },
-
-  regexEmail: { required: true, pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$' },
-
-  regexOnlyCaps: { required: true, pattern: '^[A-Z]+$' },
-
-  passwordStrength: { required: true, passwordStrength: true },
-
-  customValidator: {
-    required: true,
-    validators: [
-      (v: unknown) => {
-        const s = String(v ?? '').trim();
-        if (!s.startsWith('@')) return 'Value must start with @';
-        if (s.length < 4) return 'Value must be at least 4 characters';
-        return null;
-      },
-    ],
-  },
-};
-
-function mergeTypeWithValidation(typeCfg: TdInputConfig, preset: ValidationPresetKey): TdInputConfig {
-  const p = VALIDATION_PRESETS[preset] || {};
-  const next: TdInputConfig = { ...typeCfg, ...p };
-
-  const t = next.type as TdInputType;
-
-  // Only apply string-based validations to string-like inputs
-  const isStringLike =
-    t === 'text' ||
-    t === 'email' ||
-    t === 'password' ||
-    t === 'textarea' ||
-    t === 'date' ||
-    t === 'datetime-local' ||
-    t === 'time';
-
-  if (!isStringLike) {
-    delete (next as any).minLength;
-    delete (next as any).maxLength;
-    delete (next as any).pattern;
-    delete (next as any).passwordStrength;
-    delete (next as any).validators;
-  }
-
-  // Reset default values on every switch to prevent carry-over between types
-  if (t === 'checkbox' || t === 'multiselect') next.value = Array.isArray(typeCfg.value) ? typeCfg.value : [];
-  else if (t === 'switch') next.value = typeof typeCfg.value === 'boolean' ? typeCfg.value : false;
-  else next.value = typeof typeCfg.value !== 'undefined' ? typeCfg.value : '';
-
-  return next;
-}
-
-const TYPE_TABS = Object.keys(BASE_TYPES);
-const VALIDATION_TABS: ValidationPresetKey[] = [
-  'none',
-  'required',
-  'minMaxLength',
-  'regexEmail',
-  'regexOnlyCaps',
-  'passwordStrength',
-  'customValidator',
-];
-
 @Component({
   selector: 'demo-input',
   standalone: true,
   imports: [CommonModule, FormsModule, TdInput],
   templateUrl: './demo-input.html',
-  styleUrl: './demo-input.css',
+  styleUrls: ['./demo-input.css'],
 })
 export class DemoInput {
-  typeTabs = TYPE_TABS;
-  validationTabs = VALIDATION_TABS;
+  tabs = Object.keys(DEFAULT_INPUTS);
 
-  typeTab = signal(TYPE_TABS[0]);
-  validationTab = signal<ValidationPresetKey>('none');
+  tab = 'text';
+  inputJson = JSON.stringify(DEFAULT_INPUTS['text'], null, 2);
+  outputJson = DEFAULT_OUTPUT;
+  parseError = '';
 
-  inputJson = signal(JSON.stringify(mergeTypeWithValidation(BASE_TYPES[this.typeTab()], this.validationTab()), null, 2));
+  inputModel = new TdInputModel(DEFAULT_INPUTS['text']);
 
-  outputJson = signal('// Interact with the field (type, blur, select, etc.)');
-  parseError = signal('');
-  parsed = signal<TdInputConfig>(mergeTypeWithValidation(BASE_TYPES[this.typeTab()], this.validationTab()));
-
-  inputKey = signal(0);
-
-  model = computed(() => {
-    this.inputKey();
-    try {
-      return new TdInputModel(this.parsed());
-    } catch (e: any) {
-      this.parseError.set(String(e?.message || e));
-      const fallback = mergeTypeWithValidation(BASE_TYPES[this.typeTab()], this.validationTab());
-      return new TdInputModel(fallback);
-    }
-  });
-
-  private setConfig(cfg: TdInputConfig): void {
-    this.inputJson.set(JSON.stringify(cfg, null, 2));
-    this.parsed.set(cfg);
-    this.parseError.set('');
-    this.outputJson.set('// Interact with the field (type, blur, select, etc.)');
-    this.inputKey.update(k => k + 1);
+  exampleOutputJson =
+`{
+  "id": "input-xyz",
+  "type": "input",
+  "action": "change",
+  "error": false,
+  "errorMessage": [],
+  "data": {
+    "name": "email",
+    "value": "user@example.com",
+    "errors": []
   }
-
-  selectType(next: string): void {
-    this.typeTab.set(next);
-    const cfg = mergeTypeWithValidation(BASE_TYPES[next], this.validationTab());
-    this.setConfig(cfg);
-  }
-
-  selectValidation(next: ValidationPresetKey): void {
-    this.validationTab.set(next);
-    const cfg = mergeTypeWithValidation(BASE_TYPES[this.typeTab()], next);
-    this.setConfig(cfg);
-  }
-
-  handleInputChange(val: string): void {
-    try {
-      const raw = JSON.parse(val || '{}') as TdInputConfig;
-      this.parsed.set(raw);
-      this.parseError.set('');
-    } catch (e: any) {
-      this.parseError.set(String(e?.message || e));
-    }
-  }
+}`;
 
   handleOutput(out: OutputObject): void {
-    const payload = out && typeof out.toJSON === 'function' ? out.toJSON() : out;
-    this.outputJson.set(JSON.stringify(payload, null, 2));
+    const payload = out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
+    this.outputJson = JSON.stringify(payload, null, 2);
   }
 
-  handleFormat(): void {
+  switchTab(next: string): void {
+    const fresh = DEFAULT_INPUTS[next];
+    this.tab = next;
+    this.parseError = '';
+    this.outputJson = DEFAULT_OUTPUT;
+    this.inputJson = JSON.stringify(fresh, null, 2);
+    this.inputModel = new TdInputModel(fresh);
+  }
+
+  onInputJsonChange(v: string): void {
+    this.inputJson = v;
+
     try {
-      const parsed = JSON.parse(this.inputJson());
-      this.inputJson.set(JSON.stringify(parsed, null, 2));
-    } catch {
-      // ignore
+      const raw = JSON.parse(this.inputJson || '{}');
+      this.parseError = '';
+      this.inputModel = new TdInputModel(raw);
+    } catch (e: any) {
+      this.parseError = String(e?.message || e);
+      this.inputModel = new TdInputModel(DEFAULT_INPUTS[this.tab]);
     }
+  }
+
+  formatJson(): void {
+    try {
+      const parsed = JSON.parse(this.inputJson);
+      this.onInputJsonChange(JSON.stringify(parsed, null, 2));
+    } catch {
+      // no-op
+    }
+  }
+
+  clearOutput(): void {
+    this.outputJson = DEFAULT_OUTPUT;
   }
 }

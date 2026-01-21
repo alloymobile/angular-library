@@ -3,23 +3,25 @@
 
   <!-- Tabs -->
   <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
-    <li class="nav-item" *ngFor="let tab of TABS">
-      <button
-        type="button"
-        class="nav-link"
-        [class.active]="activeTab === tab.key"
-        (click)="setActiveTab(tab.key)"
-      >
-        {{ tab.label }}
-      </button>
-    </li>
+    @for (tab of TABS; track tab.key) {
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === tab.key"
+          (click)="setActiveTab(tab.key)"
+        >
+          {{ tab.label }}
+        </button>
+      </li>
+    }
   </ul>
 
-  <!-- Tag snippet -->
+  <!-- Tag snippet (ICU-safe) -->
   <div class="row mb-4">
     <div class="col-12 d-flex align-items-center justify-content-center">
       <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
-        <code>{{ tagSnippet }}</code>
+<code [textContent]="tagSnippet"></code>
       </pre>
     </div>
   </div>
@@ -34,6 +36,7 @@
           (output)="handleOutput($event)"
         ></td-sidebar>
       </div>
+
       <div class="small text-secondary mt-2">
         <strong>TDSidebar</strong> renders categorized navigation links.
         On mobile, it can be used with Bootstrap offcanvas.
@@ -54,6 +57,7 @@
           Clear
         </button>
       </div>
+
       <textarea
         class="form-control font-monospace bg-light border"
         rows="12"
@@ -82,30 +86,29 @@
 
       <textarea
         class="form-control font-monospace"
-        [class.is-invalid]="currentTab.parseError"
+        [class.is-invalid]="!!currentTab.parseError"
         rows="20"
         [ngModel]="currentTab.json"
         (ngModelChange)="onJsonChange($event)"
         spellcheck="false"
       ></textarea>
 
-      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
-        {{ currentTab.parseError }}
-      </div>
+      @if (currentTab.parseError) {
+        <div class="invalid-feedback d-block mt-1">
+          {{ currentTab.parseError }}
+        </div>
+      }
 
       <div class="form-text">
         <ul class="mb-0 ps-3">
           <li>
-            <code>categories</code>: Array of LinkBarObjects, each with optional <code>title</code>
-          </li>
-          <li>
-            <code>selected</code>: LinkObject indicating currently active link
+            <code>categories</code>: Array of LinkBar objects (SideBar hydrates them into <code>TdLinkBarModel</code>)
           </li>
           <li>
             <code>close</code>: ID of offcanvas element to close on mobile
           </li>
           <li>
-            Each category has <code>links</code> (LinkBarObject format with icons)
+            Each category has <code>links</code> items using <code>type</code> (e.g., <code>TdLinkIcon</code>)
           </li>
         </ul>
       </div>

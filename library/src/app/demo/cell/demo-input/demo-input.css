@@ -1,11 +1,4 @@
-/* demo-input.css */
-pre code {
-  white-space: pre-wrap;
-}
-
-.demo-section-title {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #6c757d;
-  margin-bottom: 0.25rem;
+/* src/app/demo/cell/demo-input/demo-input.css */
+:host {
+  display: block;
 }

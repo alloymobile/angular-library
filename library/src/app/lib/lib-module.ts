@@ -14,8 +14,6 @@ import { TdButtonBar } from './tissue/td-button-bar/td-button-bar';
 import { TdLinkBar } from './tissue/td-link-bar/td-link-bar';
 import { TdCard } from './tissue/td-card/td-card';
 import { TdCardAction } from './tissue/td-card-action/td-card-action';
-import { TdForm } from './tissue/td-form/td-form';
-import { TdModal } from './tissue/td-modal/td-modal';
 import { TdModalToast } from './tissue/td-modal-toast/td-modal-toast';
 import { TdNavBar } from './tissue/td-nav-bar/td-nav-bar';
 import { TdNavBarAction } from './tissue/td-nav-bar-action/td-nav-bar-action';
@@ -23,6 +21,9 @@ import { TdPagination } from './tissue/td-pagination/td-pagination';
 import { TdSidebar } from './tissue/td-sidebar/td-sidebar';
 import { TdTable } from './tissue/td-table/td-table';
 import { TdTableAction } from './tissue/td-table-action/td-table-action';
+import { TdForm } from './tissue/td-form/td-form';
+import { TdModal } from './tissue/td-modal/td-modal';
+import { TdCrud } from './organ/td-crud/td-crud';
 
 
 
@@ -53,6 +54,7 @@ import { TdTableAction } from './tissue/td-table-action/td-table-action';
     TdSidebar,
     TdTable,
     TdTableAction,
+    TdCrud
   ],
   exports:[
     TdIcon,
@@ -79,7 +81,8 @@ import { TdTableAction } from './tissue/td-table-action/td-table-action';
     TdPagination,
     TdSidebar,
     TdTable,
-    TdTableAction
+    TdTableAction,
+    TdCrud
   ]
 })
 export class LibModule { }

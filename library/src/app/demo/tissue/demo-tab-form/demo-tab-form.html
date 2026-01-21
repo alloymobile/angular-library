@@ -1,0 +1,209 @@
+<div class="container py-3">
+  <h3 class="mb-3 text-center">TdTabForm</h3>
+  <p class="text-muted text-center mb-4">
+    Multi-step wizard/form component. <strong>Tabs layout</strong> renders one tab at a time.
+    <strong>Mixed layout</strong> renders all sections on the same page.
+    Supported types: <code>inputs</code>, <code>cards</code>.
+  </p>
+
+  <!-- Tag Snippet -->
+  <div class="row mb-4">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
+        <code>{{ tagSnippet }}</code>
+      </pre>
+    </div>
+  </div>
+
+  <!-- Demo Tabs -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <ul class="nav nav-tabs justify-content-center" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            type="button"
+            id="demo-tabs-tab"
+            class="nav-link"
+            [class.active]="activeDemo === 'tabs'"
+            role="tab"
+            aria-controls="demo-tabs-pane"
+            [attr.aria-selected]="activeDemo === 'tabs'"
+            (click)="setActiveDemo('tabs')"
+          >
+            Tabs Layout
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            type="button"
+            id="demo-mixed-tab"
+            class="nav-link"
+            [class.active]="activeDemo === 'mixed'"
+            role="tab"
+            aria-controls="demo-mixed-pane"
+            [attr.aria-selected]="activeDemo === 'mixed'"
+            (click)="setActiveDemo('mixed')"
+          >
+            Mixed Layout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+
+    <!-- Tabs Layout Demo -->
+    <div
+      id="demo-tabs-pane"
+      class="tab-pane fade"
+      [class.show]="activeDemo === 'tabs'"
+      [class.active]="activeDemo === 'tabs'"
+      role="tabpanel"
+      aria-labelledby="demo-tabs-tab"
+    >
+      <div class="row mb-2">
+        <div class="col-12">
+          <h5 class="mb-1">Demo A — Tabs Layout</h5>
+          <div class="text-muted small">
+            One tab visible at a time. Includes a <code>type: "cards"</code> tab.
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 mx-auto mb-4">
+          @if (tabsModel) {
+            <td-tab-form
+              [tabForm]="tabsModel"
+              (output)="handleOutput('tabs', $event)"
+            ></td-tab-form>
+          }
+        </div>
+
+        <div class="row g-3 align-items-stretch justify-content-center mb-5">
+          <!-- JSON Editor -->
+          <div class="col-12 col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-semibold">TabForm JSON (Tabs layout) — editable</span>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                (click)="resetJson('tabs')"
+              >
+                Reset
+              </button>
+            </div>
+
+            <textarea
+              class="form-control font-monospace"
+              [class.is-invalid]="demoStates['tabs'].parseError"
+              rows="20"
+              [ngModel]="demoStates['tabs'].json"
+              (ngModelChange)="onJsonChange('tabs', $event)"
+              spellcheck="false"
+            ></textarea>
+
+            @if (demoStates['tabs'].parseError) {
+              <div class="invalid-feedback d-block mt-1">
+                {{ demoStates['tabs'].parseError }}
+              </div>
+            }
+          </div>
+
+          <!-- Output Display -->
+          <div class="col-12 col-lg-6">
+            <div class="fw-semibold mb-2 text-center text-lg-start">
+              Latest Output (Tabs)
+            </div>
+            <textarea
+              class="form-control font-monospace bg-light border"
+              rows="20"
+              [ngModel]="demoStates['tabs'].output"
+              readonly
+              spellcheck="false"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mixed Layout Demo -->
+    <div
+      id="demo-mixed-pane"
+      class="tab-pane fade"
+      [class.show]="activeDemo === 'mixed'"
+      [class.active]="activeDemo === 'mixed'"
+      role="tabpanel"
+      aria-labelledby="demo-mixed-tab"
+    >
+      <div class="row mb-2">
+        <div class="col-12">
+          <h5 class="mb-1">Demo B — Mixed Layout</h5>
+          <div class="text-muted small">
+            <code>layout: "mixed"</code> renders all sections on one page
+            (fieldset/legend grouping inside TdTabForm).
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-12 mx-auto mb-4">
+          @if (mixedModel) {
+            <td-tab-form
+              [tabForm]="mixedModel"
+              (output)="handleOutput('mixed', $event)"
+            ></td-tab-form>
+          }
+        </div>
+
+        <div class="row g-3 align-items-stretch justify-content-center mb-5">
+          <!-- JSON Editor -->
+          <div class="col-12 col-lg-6">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-semibold">TabForm JSON (Mixed layout) — editable</span>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+                (click)="resetJson('mixed')"
+              >
+                Reset
+              </button>
+            </div>
+
+            <textarea
+              class="form-control font-monospace"
+              [class.is-invalid]="demoStates['mixed'].parseError"
+              rows="20"
+              [ngModel]="demoStates['mixed'].json"
+              (ngModelChange)="onJsonChange('mixed', $event)"
+              spellcheck="false"
+            ></textarea>
+
+            @if (demoStates['mixed'].parseError) {
+              <div class="invalid-feedback d-block mt-1">
+                {{ demoStates['mixed'].parseError }}
+              </div>
+            }
+          </div>
+
+          <!-- Output Display -->
+          <div class="col-12 col-lg-6">
+            <div class="fw-semibold mb-2 text-center text-lg-start">
+              Latest Output (Mixed)
+            </div>
+            <textarea
+              class="form-control font-monospace bg-light border"
+              rows="20"
+              [ngModel]="demoStates['mixed'].output"
+              readonly
+              spellcheck="false"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

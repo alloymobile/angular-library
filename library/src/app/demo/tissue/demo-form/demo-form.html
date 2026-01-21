@@ -1,25 +1,27 @@
+<!-- src/app/demo/tissue/demo-form/demo-form.html -->
 <div class="container py-3">
-  <h3 class="mb-3 text-center">TDForm</h3>
+  <h3 class="mb-3 text-center">TdForm</h3>
 
   <!-- Tabs -->
   <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
-    <li class="nav-item" *ngFor="let tab of TABS">
-      <button
-        type="button"
-        class="nav-link"
-        [class.active]="activeTab === tab.key"
-        (click)="setActiveTab(tab.key)"
-      >
-        {{ tab.label }}
-      </button>
-    </li>
+    @for (t of TABS; track t.key) {
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link {{ active === t.key ? 'active' : '' }}"
+          (click)="switchTab(t.key)"
+        >
+          {{ t.label }}
+        </button>
+      </li>
+    }
   </ul>
 
   <!-- Tag snippet -->
   <div class="row mb-4">
     <div class="col-12 d-flex align-items-center justify-content-center">
       <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
-        <code>{{ tagSnippet }}</code>
+        <code>{{ TAG_SNIPPET }}</code>
       </pre>
     </div>
   </div>
@@ -27,91 +29,51 @@
   <!-- Rendered form -->
   <div class="row mb-5">
     <div class="col-12 mx-auto mb-4">
-      <td-form
-        [form]="formModel"
-        (output)="handleOutput($event)"
-      ></td-form>
+      <td-form [form]="getModel(active)" (output)="handleOutput($event)"></td-form>
     </div>
   </div>
 
-  <!-- Editable JSON + Submit Output -->
+  <!-- JSON + Output -->
   <div class="row g-3 align-items-stretch justify-content-center mb-5">
-    <!-- Left: editable JSON -->
+    <!-- Left: JSON -->
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="fw-semibold">
-          Input JSON (editable) — {{ currentTabConfig.label }}
-        </span>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          (click)="resetJson()"
-        >
+        <span class="fw-semibold">Input JSON (editable) — {{ active }}</span>
+
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="resetTab(active)">
           Reset
         </button>
       </div>
 
       <textarea
-        class="form-control font-monospace"
-        [class.is-invalid]="currentTab.parseError"
+        class="form-control font-monospace {{ getParseError(active) ? 'is-invalid' : '' }}"
         rows="18"
-        [ngModel]="currentTab.json"
-        (ngModelChange)="onJsonChange($event)"
+        [ngModel]="getJson(active)"
+        (ngModelChange)="setJson(active, $event)"
         spellcheck="false"
       ></textarea>
 
-      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
-        {{ currentTab.parseError }}
-      </div>
-
-      <div class="form-text">
-        <ul class="mb-0 ps-3">
-          <li>
-            Each entry in <code>fields[]</code> becomes an input.
-            You can pass <code>className</code> per field to control
-            the input's classes.
-          </li>
-          <li>
-            <code>layout</code> can be <code>"text"</code>,
-            <code>"icon"</code>, or <code>"floating"</code>.
-          </li>
-          <li>
-            The submit button comes from <code>submit</code>. It will be
-            auto-disabled until all fields pass validation.
-          </li>
-        </ul>
-      </div>
+      @if (getParseError(active)) {
+        <div class="invalid-feedback d-block mt-1">
+          {{ getParseError(active) }}
+        </div>
+      }
     </div>
 
-    <!-- Right: latest submit output mirror -->
+    <!-- Right: Output log -->
     <div class="col-12 col-lg-6">
-      <div class="fw-semibold mb-2 text-center text-lg-start">
-        Submit Output (OutputObject from <code>TDForm</code>)
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="fw-semibold mb-0">Output (live change / blur / submit)</div>
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="clearLog()">Clear</button>
       </div>
-      <textarea
+
+        <textarea
         class="form-control font-monospace bg-light border"
         rows="18"
-        [ngModel]="currentTab.output"
+        [value]="outputLatest"
         readonly
         spellcheck="false"
-      ></textarea>
-
-      <div class="form-text">
-        On submit, <code>TDForm</code> emits a single <code>OutputObject</code>:
-        <ul class="mb-0 ps-3">
-          <li><code>type</code> is always <code>"form"</code>.</li>
-          <li><code>action</code> is <code>"submit"</code>.</li>
-          <li>
-            <code>data</code> contains the form values.
-          </li>
-          <li>
-            <code>error</code> is <code>true</code> if ANY field is invalid.
-          </li>
-          <li>
-            <code>errorMessage</code> is an array of all field errors.
-          </li>
-        </ul>
-      </div>
+        ></textarea>
     </div>
   </div>
 </div>

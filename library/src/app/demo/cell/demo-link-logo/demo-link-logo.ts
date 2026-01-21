@@ -1,18 +1,23 @@
+// demo-link-logo/demo-link-logo.ts
 // src/app/demo/shell/demo-link-logo/demo-link-logo.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdLinkLogo } from '../../../lib/cell/td-link-logo/td-link-logo';
-import { TdLinkLogoModel } from '../../../lib/cell/td-link-logo/td-link-logo.model';
+import { TdLinkLogoModel, TdLogoModel } from '../../../lib/cell/td-link-logo/td-link-logo.model';
 
 const DEFAULT_OBJ = {
   id: 'tdLinkLogo1',
   name: 'TD UI',
   href: '/',
-  logo: 'https://angular.dev/assets/icons/apple-touch-icon.png',
-  width: 32,
-  height: 32,
+  logo: new TdLogoModel({
+    imageUrl: 'https://angular.dev/assets/icons/apple-touch-icon.png',
+    alt: 'TD UI',
+    width: 32,
+    height: 32,
+    className: '',
+  }),
   className: 'px-2 py-1 rounded d-inline-block',
   active: 'bg-light',
   title: 'Homepage',

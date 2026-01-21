@@ -1,9 +1,10 @@
 <a
   [id]="domId"
-  [href]="model.href || '#'"
+  [href]="link.href"
   [class]="computedClass"
-  [target]="model.target"
-  [rel]="safeRel"
-  [title]="model.title">
-  {{ model.name }}
+  [attr.target]="link.target || null"
+  [attr.rel]="safeRel || null"
+  [attr.title]="link.title || null"
+>
+  {{ link.name }}
 </a>

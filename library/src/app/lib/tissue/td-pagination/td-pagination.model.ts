@@ -1,51 +1,62 @@
-/**
- * PaginationObject - Model for pagination component
- *
- * Handles server-side pagination info including:
- * - Total pages and elements
- * - Current page number
- * - First/last page indicators
- */
+// td-pagination/td-pagination.model.ts
+import { generateId } from '../../share/id-helper';
+import { TdButtonIconModel } from '../../cell/td-button-icon/td-button-icon.model';
 
-import { generateId } from '../../share';
-
-export interface PaginationObjectConfig {
+export class TdPaginationModel {
   id?: string;
-  name?: string;
-  className?: string;
-  listClassName?: string;
-  itemClassName?: string;
-  activeClassName?: string;
-  disabledClassName?: string;
-  totalPages?: number;
-  totalElements?: number;
-  last?: boolean;
-  numberOfElements?: number;
-  size?: number;
-  number?: number;
-  first?: boolean;
-  empty?: boolean;
-}
 
-export class PaginationObject {
-  readonly id: string;
-  readonly name: string;
-  readonly className: string;
-  readonly listClassName: string;
-  readonly itemClassName: string;
-  readonly activeClassName: string;
-  readonly disabledClassName: string;
-  readonly totalPages: number;
-  readonly totalElements: number;
-  readonly size: number;
-  readonly pageNumber: number;
-  readonly numberOfElements: number;
-  readonly empty: boolean;
-  readonly first: boolean;
-  readonly last: boolean;
+  name: string;
+  className: string;
+  listClassName: string;
+  itemClassName: string;
+  activeClassName: string;
+  disabledClassName: string;
 
-  constructor(config: PaginationObjectConfig = {}) {
-    this.id = config.id ?? generateId('pagination');
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  pageNumber: number;
+  numberOfElements: number;
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+
+  windowSize: number;
+
+  firstBtn: TdButtonIconModel;
+  prevBtn: TdButtonIconModel;
+  nextBtn: TdButtonIconModel;
+  lastBtn: TdButtonIconModel;
+
+  constructor(config: {
+    id?: string;
+
+    name?: string;
+    className?: string;
+    listClassName?: string;
+    itemClassName?: string;
+    activeClassName?: string;
+    disabledClassName?: string;
+
+    totalPages?: number;
+    totalElements?: number;
+    size?: number;
+    pageNumber?: number; // NOTE: your standard name (instead of server "number")
+    numberOfElements?: number;
+    empty?: boolean;
+    first?: boolean;
+    last?: boolean;
+
+    windowSize?: number;
+
+    // embedded models as config (JSON). MUST hydrate via `new`.
+    firstBtn?: any;
+    prevBtn?: any;
+    nextBtn?: any;
+    lastBtn?: any;
+  } = {}) {
+    this.id = (config.id && String(config.id).trim()) ? String(config.id).trim() : generateId('pagination');
+
     this.name = config.name ?? '';
     this.className = config.className ?? 'd-flex justify-content-end align-items-center mt-2';
     this.listClassName = config.listClassName ?? 'pagination justify-content-end mb-0';
@@ -53,13 +64,13 @@ export class PaginationObject {
     this.activeClassName = config.activeClassName ?? 'active';
     this.disabledClassName = config.disabledClassName ?? 'disabled';
 
-    // Server-side pagination info
     this.totalPages = typeof config.totalPages === 'number' && config.totalPages >= 0 ? config.totalPages : 0;
     this.totalElements = typeof config.totalElements === 'number' && config.totalElements >= 0 ? config.totalElements : 0;
-    this.size = typeof config.size === 'number' ? config.size : 0;
-    this.pageNumber = typeof config.number === 'number' && config.number >= 0 ? config.number : 0;
-    this.numberOfElements = typeof config.numberOfElements === 'number' ? config.numberOfElements : 0;
-    this.empty = !!config.empty;
+    this.size = typeof config.size === 'number' && config.size >= 0 ? config.size : 0;
+
+    this.pageNumber = typeof config.pageNumber === 'number' && config.pageNumber >= 0 ? config.pageNumber : 0;
+    this.numberOfElements = typeof config.numberOfElements === 'number' && config.numberOfElements >= 0 ? config.numberOfElements : 0;
+    this.empty = typeof config.empty === 'boolean' ? config.empty : false;
 
     this.first = typeof config.first === 'boolean' ? config.first : this.pageNumber === 0;
     this.last = typeof config.last === 'boolean'
@@ -67,35 +78,48 @@ export class PaginationObject {
       : this.totalPages > 0
         ? this.pageNumber >= this.totalPages - 1
         : true;
+
+    this.windowSize = typeof config.windowSize === 'number' && config.windowSize >= 5 ? config.windowSize : 7;
+
+    // IMPORTANT: embedded models hydrated via `new` always
+    this.firstBtn = new TdButtonIconModel({
+      name: 'First',
+      className: 'page-link',
+      ariaLabel: 'Go to first page',
+      title: 'Go to first page',
+      icon: { iconClass: 'fa-solid fa-angles-left' },
+      ...(config.firstBtn ?? {}),
+    });
+
+    this.prevBtn = new TdButtonIconModel({
+      name: 'Previous',
+      className: 'page-link',
+      ariaLabel: 'Go to previous page',
+      title: 'Go to previous page',
+      icon: { iconClass: 'fa-solid fa-chevron-left' },
+      ...(config.prevBtn ?? {}),
+    });
+
+    this.nextBtn = new TdButtonIconModel({
+      name: 'Next',
+      className: 'page-link',
+      ariaLabel: 'Go to next page',
+      title: 'Go to next page',
+      icon: { iconClass: 'fa-solid fa-chevron-right' },
+      ...(config.nextBtn ?? {}),
+    });
+
+    this.lastBtn = new TdButtonIconModel({
+      name: 'Last',
+      className: 'page-link',
+      ariaLabel: 'Go to last page',
+      title: 'Go to last page',
+      icon: { iconClass: 'fa-solid fa-angles-right' },
+      ...(config.lastBtn ?? {}),
+    });
   }
 
-  /**
-   * Check if there are pages to display
-   */
   hasPages(): boolean {
     return this.totalPages > 0;
-  }
-
-  /**
-   * Convert to plain object for serialization
-   */
-  toJSON(): PaginationObjectConfig {
-    return {
-      id: this.id,
-      name: this.name,
-      className: this.className,
-      listClassName: this.listClassName,
-      itemClassName: this.itemClassName,
-      activeClassName: this.activeClassName,
-      disabledClassName: this.disabledClassName,
-      totalPages: this.totalPages,
-      totalElements: this.totalElements,
-      size: this.size,
-      number: this.pageNumber,
-      numberOfElements: this.numberOfElements,
-      empty: this.empty,
-      first: this.first,
-      last: this.last,
-    };
   }
 }

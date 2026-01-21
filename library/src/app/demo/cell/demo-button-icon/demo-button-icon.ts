@@ -1,9 +1,11 @@
+// demo-button-icon/demo-button-icon.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
 import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/shared/output-object';
 
 const DEFAULT_WITH_LABEL = {
@@ -16,10 +18,10 @@ const DEFAULT_WITH_LABEL = {
   disabled: false,
   ariaLabel: 'Sync now',
   tabIndex: 0,
-  icon: {
+  icon: new TdIconModel({
     iconClass: 'fa-solid fa-rotate',
     className: 'd-inline-flex align-items-center justify-content-center bg-light rounded-circle p-2',
-  },
+  }),
 };
 
 const DEFAULT_ICON_ONLY = {
@@ -32,10 +34,10 @@ const DEFAULT_ICON_ONLY = {
   disabled: false,
   ariaLabel: 'Sync now',
   tabIndex: 0,
-  icon: {
+  icon: new TdIconModel({
     iconClass: 'fa-solid fa-rotate',
     className: 'd-inline-flex align-items-center justify-content-center bg-light rounded-circle p-2',
-  },
+  }),
 };
 
 type DemoTab = 'label' | 'iconOnly';
@@ -75,10 +77,10 @@ export class DemoButtonIcon implements OnInit {
         ariaLabel: 'Invalid config',
         className: 'btn btn-secondary',
         disabled: true,
-        icon: {
+        icon: new TdIconModel({
           iconClass: 'fa-solid fa-triangle-exclamation',
           className: 'd-inline-flex align-items-center justify-content-center bg-light rounded-circle p-2',
-        },
+        }),
       });
     }
   });

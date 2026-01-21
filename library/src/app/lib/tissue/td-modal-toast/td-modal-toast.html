@@ -2,7 +2,7 @@
   [class]="modalToast.className"
   [id]="modalToast.id"
   tabindex="-1"
-  aria-labelledby="modalToastLabel"
+  [attr.aria-labelledby]="modalToast.id + '-label'"
   aria-hidden="true"
   role="dialog"
 >
@@ -10,9 +10,10 @@
     <div class="modal-content">
       <!-- Header -->
       <div class="modal-header">
-        <h5 class="modal-title" id="modalToastLabel">
-          {{ modalToast.title }}
+        <h5 class="modal-title" [id]="modalToast.id + '-label'">
+          {{ modalToast.getDisplayTitle() }}
         </h5>
+
         <button
           type="button"
           class="btn-close"
@@ -23,7 +24,11 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <h3>{{ modalToast.message }}</h3>
+        @if (modalToast.hasMessage()) {
+          <div class="fs-5">{{ modalToast.message }}</div>
+        } @else {
+          <div class="text-muted">No message</div>
+        }
       </div>
 
       <!-- Footer -->

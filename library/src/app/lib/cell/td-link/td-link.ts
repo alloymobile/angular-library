@@ -10,44 +10,45 @@ import { generateId } from '../../share/id-helper';
   styleUrl: './td-link.css',
 })
 export class TdLink implements OnInit, OnChanges {
-  @Input({ required: true }) model!: TdLinkModel;
+  @Input({ required: true }) link!: TdLinkModel;
 
   domId = '';
   safeRel: string | undefined = undefined;
   computedClass = '';
 
   ngOnInit(): void {
-    this.ensureModel();
-    this.applyModel();
+    this.ensureLink();
+    this.applyLink();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['model']) {
-      this.ensureModel();
-      this.applyModel();
+    if (changes['link']) {
+      this.ensureLink();
+      this.applyLink();
     }
   }
 
-  private ensureModel(): void {
-    if (!this.model || !(this.model instanceof TdLinkModel)) {
-      throw new Error('TdLink requires `model` (TdLinkModel instance).');
+  private ensureLink(): void {
+    if (!this.link || !(this.link instanceof TdLinkModel)) {
+      throw new Error('TdLink requires `link` (TdLinkModel instance).');
     }
   }
 
-  private applyModel(): void {
-    const incomingId = this.model.id?.trim();
+  private applyLink(): void {
+    const incomingId = this.link.id?.trim();
 
     if (incomingId) {
       this.domId = incomingId;
-      this.model.id = incomingId;
+      this.link.id = incomingId;
     } else {
       const next = generateId('link');
       this.domId = next;
-      this.model.id = next;
+      this.link.id = next;
     }
 
-    this.safeRel = this.model.getSafeRel();
-    this.computedClass = [this.model.className || 'nav-link', this.model.active || '']
+    this.safeRel = this.link.getSafeRel();
+
+    this.computedClass = [this.link.className || 'nav-link', this.link.active || '']
       .filter(Boolean)
       .join(' ');
   }

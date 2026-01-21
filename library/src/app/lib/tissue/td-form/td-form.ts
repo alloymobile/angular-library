@@ -1,3 +1,4 @@
+// src/app/lib/tissue/td-form/td-form.ts
 import {
   Component,
   Input,
@@ -6,313 +7,293 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
-import { FormObject, InputObject } from './td-form.model';
-import { OutputObject } from '../../share';
+import { TdFormModel } from './td-form.model';
+import { TdInput } from '../../cell/td-input/td-input';
+import { TdInputModel } from '../../cell/td-input/td-input.model';
 
-interface FieldState {
+import { TdButtonSubmit } from '../../cell/td-button-submit/td-button-submit';
+import { TdButtonSubmitModel } from '../../cell/td-button-submit/td-button-submit.model';
+
+import { OutputObject } from '../../share/output-object';
+
+type FileUploaderFn = (fieldName: string, file: File, context?: any) => Promise<string>;
+
+type FieldState = {
   value: any;
   valid: boolean;
-  touched: boolean;
+  error: boolean;
   errors: string[];
-}
+};
 
 @Component({
   selector: 'td-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, TdInput, TdButtonSubmit],
   templateUrl: './td-form.html',
   styleUrls: ['./td-form.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TdForm implements OnChanges {
-  @Input({ required: true }) form!: FormObject;
+  @Input({ required: true }) form!: TdFormModel | string | any;
   @Output() output = new EventEmitter<OutputObject>();
+  @Input() fileUploader?: FileUploaderFn;
 
-  fieldStates: Record<string, FieldState> = {};
-  formSubmitted = false;
+  model: TdFormModel = new TdFormModel({ title: '', fields: [] });
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  // per-field state by name
+  fieldState: Record<string, FieldState> = {};
+
+  // ---------- lifecycle ----------
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['form'] && this.form) {
-      this.initializeFieldStates();
-      this.formSubmitted = false;
+    if ('form' in changes) {
+      this.model = this.normalizeForm(this.form);
+      this.initFieldState();
+      this.syncSubmitDisabled(); // initial state
     }
   }
 
-  /**
-   * Initialize field states from form fields
-   */
-  private initializeFieldStates(): void {
-    this.fieldStates = {};
-    this.form.fields.forEach(field => {
-      this.fieldStates[field.name] = {
-        value: field.value ?? '',
-        valid: true,
-        touched: false,
-        errors: [],
-      };
-    });
-  }
+  private normalizeForm(raw: any): TdFormModel {
+    if (raw instanceof TdFormModel) return raw;
 
-  /**
-   * Handle input value change
-   */
-  onInputChange(field: InputObject, event: Event): void {
-    const target = event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-    let value: any = target.value;
-
-    if (field.isCheckbox()) {
-      value = (target as HTMLInputElement).checked;
-    }
-
-    // Update state
-    const errors = this.validateField(field, value);
-    this.fieldStates[field.name] = {
-      value,
-      valid: errors.length === 0,
-      touched: true,
-      errors,
-    };
-
-    // Emit change event
-    const out = new OutputObject({
-      id: this.form.id,
-      type: 'form',
-      action: 'change',
-      error: false,
-      data: {
-        name: field.name,
-        value,
-        errors,
-      },
-    });
-    this.output.emit(out);
-
-    this.cdr.markForCheck();
-  }
-
-  /**
-   * Handle input blur (for validation feedback)
-   */
-  onInputBlur(field: InputObject): void {
-    const state = this.fieldStates[field.name];
-    if (state) {
-      const errors = this.validateField(field, state.value);
-      this.fieldStates[field.name] = {
-        ...state,
-        touched: true,
-        errors,
-        valid: errors.length === 0,
-      };
-      this.cdr.markForCheck();
-    }
-  }
-
-  /**
-   * Handle form submit
-   */
-  onSubmit(event?: Event): void {
-    if (event) {
-      event.preventDefault();
-    }
-
-    this.formSubmitted = true;
-
-    // Validate all fields
-    const values: Record<string, any> = {};
-    const errorData: Record<string, { value: any; valid: boolean; error: boolean; errors: string[] }> = {};
-    let hasError = false;
-
-    this.form.fields.forEach(field => {
-      const state = this.fieldStates[field.name];
-      const value = state?.value ?? '';
-      values[field.name] = value;
-
-      const errors = this.validateField(field, value);
-      const isValid = errors.length === 0;
-
-      this.fieldStates[field.name] = {
-        value,
-        valid: isValid,
-        touched: true,
-        errors,
-      };
-
-      if (!isValid) {
-        hasError = true;
-        errorData[field.name] = {
-          value,
-          valid: false,
-          error: true,
-          errors,
-        };
+    if (typeof raw === 'string') {
+      try {
+        const parsed = JSON.parse(raw);
+        return new TdFormModel(parsed);
+      } catch {
+        return new TdFormModel({
+          title: 'Invalid form JSON',
+          message: 'Could not parse form JSON.',
+          fields: [],
+          submit: { name: 'Submit', disabled: true, loading: false },
+        });
       }
-    });
-
-    if (hasError) {
-      // Emit error output with detailed field errors
-      const out = OutputObject.err({
-        id: this.form.id,
-        type: 'form',
-        action: this.form.action || 'submit',
-        data: errorData,
-      }, 'Validation failed');
-      this.output.emit(out);
-    } else {
-      // Emit success output with flat field values
-      const out = OutputObject.ok({
-        id: this.form.id,
-        type: 'form',
-        action: this.form.action || 'submit',
-        data: values,
-      });
-      this.output.emit(out);
     }
 
-    this.cdr.markForCheck();
+    return new TdFormModel(raw || {});
   }
 
-  /**
-   * Validate a single field
-   */
-  private validateField(field: InputObject, value: any): string[] {
-    const errors: string[] = [];
-    const strValue = typeof value === 'string' ? value : String(value ?? '');
+  // ---------- init state ----------
 
-    // Required validation
-    if (field.required) {
-      if (field.isCheckbox()) {
-        if (!value) {
-          errors.push('This field is required.');
+  private initFieldState(): void {
+    const init: Record<string, FieldState> = {};
+
+    const initialValues: Record<string, any> = {};
+    this.model.fields.forEach((fld) => {
+      initialValues[fld.name] = fld.value;
+    });
+
+    this.model.fields.forEach((fld) => {
+      const v = fld.value;
+      const { valid, error, errors } = this.validateField(fld, v, initialValues);
+      init[fld.name] = { value: v, valid, error, errors };
+    });
+
+    this.fieldState = init;
+
+    // snapshot like React
+    this.model.data = this.flatValues();
+  }
+
+  // ---------- validation (matches React validateField) ----------
+
+  private validateField(fieldDef: TdInputModel, value: any, allValues: Record<string, any>) {
+    let isValid = true;
+    const errs: string[] = [];
+
+    // required
+    if (fieldDef.required) {
+      if (fieldDef.type === 'checkbox' || fieldDef.type === 'multiselect') {
+        const arrVal = Array.isArray(value) ? value : [];
+        if (arrVal.length === 0) {
+          isValid = false;
+          errs.push('This field is required.');
+        }
+      } else if (fieldDef.type === 'switch') {
+        // switch: required means it must be true
+        if (value !== true) {
+          isValid = false;
+          errs.push('This field is required.');
         }
       } else {
-        const isEmpty = strValue.trim() === '';
-        if (isEmpty) {
-          errors.push('This field is required.');
+        const empty = value === '' || value === false || value === undefined || value === null;
+        if (empty) {
+          isValid = false;
+          errs.push('This field is required.');
         }
       }
     }
 
-    // Skip other validations if empty and not required
-    if (strValue.trim() === '' && !field.required) {
-      return errors;
+    // minLength
+    if (
+      isValid &&
+      typeof (fieldDef as any).minLength === 'number' &&
+      typeof value === 'string' &&
+      value.length < (fieldDef as any).minLength
+    ) {
+      isValid = false;
+      errs.push(`Minimum length is ${(fieldDef as any).minLength}`);
     }
 
-    // Min length validation
-    if (errors.length === 0 && field.minLength != null) {
-      if (strValue.length < field.minLength) {
-        errors.push(`Minimum length is ${field.minLength} characters.`);
+    // maxLength
+    if (
+      isValid &&
+      typeof (fieldDef as any).maxLength === 'number' &&
+      typeof value === 'string' &&
+      value.length > (fieldDef as any).maxLength
+    ) {
+      isValid = false;
+      errs.push(`Maximum length is ${(fieldDef as any).maxLength}`);
+    }
+
+    // pattern
+    if (isValid && (fieldDef as any).pattern && typeof value === 'string') {
+      try {
+        const re = new RegExp((fieldDef as any).pattern);
+        if (!re.test(value)) {
+          isValid = false;
+          errs.push('Invalid format.');
+        }
+      } catch {
+        isValid = false;
+        errs.push('Invalid validation pattern configuration.');
       }
     }
 
-    // Max length validation
-    if (errors.length === 0 && field.maxLength != null) {
-      if (strValue.length > field.maxLength) {
-        errors.push(`Maximum length is ${field.maxLength} characters.`);
-      }
-    }
-
-    // Pattern validation
-    if (errors.length === 0 && field.pattern) {
-      const regex = new RegExp(field.pattern);
-      if (!regex.test(strValue)) {
-        errors.push('Invalid format.');
-      }
-    }
-
-    // Password strength validation
-    if (errors.length === 0 && field.passwordStrength) {
+    // passwordStrength
+    if (isValid && (fieldDef as any).passwordStrength && typeof value === 'string') {
       const strongRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/;
-      if (!strongRegex.test(strValue)) {
-        errors.push('Password must be at least 8 characters with uppercase, lowercase, and a number.');
+      if (!strongRegex.test(value)) {
+        isValid = false;
+        errs.push('Password is too weak.');
       }
     }
 
-    // Match with validation
-    if (errors.length === 0 && field.matchWith) {
-      const otherValue = this.fieldStates[field.matchWith]?.value;
-      if (otherValue !== value) {
-        errors.push('Values do not match.');
+    // matchWith
+    if (isValid && (fieldDef as any).matchWith) {
+      const otherName = (fieldDef as any).matchWith;
+      const otherVal = allValues[otherName];
+      if (otherVal !== value) {
+        isValid = false;
+        errs.push('Values do not match.');
       }
     }
 
-    // Min/Max number validation
-    if (errors.length === 0 && field.type === 'number') {
-      const numValue = parseFloat(strValue);
-      if (!isNaN(numValue)) {
-        if (field.min != null && numValue < field.min) {
-          errors.push(`Minimum value is ${field.min}.`);
-        }
-        if (field.max != null && numValue > field.max) {
-          errors.push(`Maximum value is ${field.max}.`);
-        }
-      }
+    return { valid: isValid, error: !isValid, errors: errs };
+  }
+
+  private recomputeAllValidity(draft: Record<string, FieldState>): Record<string, FieldState> {
+    const valuesMap: Record<string, any> = {};
+    Object.keys(draft).forEach((k) => (valuesMap[k] = draft[k].value));
+
+    const next: Record<string, FieldState> = {};
+    this.model.fields.forEach((fld) => {
+      const currentVal = valuesMap[fld.name];
+      const { valid, error, errors } = this.validateField(fld, currentVal, valuesMap);
+      next[fld.name] = { value: currentVal, valid, error, errors };
+    });
+
+    return next;
+  }
+
+  // ---------- derived ----------
+
+  get isAnyInvalid(): boolean {
+    return Object.values(this.fieldState).some((f) => f.error || !f.valid);
+  }
+
+  private flatValues(): Record<string, any> {
+    const out: Record<string, any> = {};
+    Object.keys(this.fieldState).forEach((k) => (out[k] = this.fieldState[k].value));
+    return out;
+  }
+
+  // ---------- critical fix: OnPush-safe submit updates ----------
+
+  private syncSubmitDisabled(): void {
+    const submitAny: any = this.model.submit as any;
+    const nextDisabled = this.isAnyInvalid || !!submitAny.loading;
+
+    // Replace reference so TdButtonSubmit (OnPush) updates correctly
+    if (submitAny.disabled !== nextDisabled) {
+      this.model.submit = new TdButtonSubmitModel({
+        ...(submitAny || {}),
+        disabled: nextDisabled,
+      });
     }
-
-    return errors;
   }
 
-  /**
-   * Get field value
-   */
-  getFieldValue(field: InputObject): any {
-    return this.fieldStates[field.name]?.value ?? '';
+  // ---------- child outputs (change/blur passthrough + state update) ----------
+
+  onFieldOutput(out: OutputObject): void {
+    // Always propagate child output (change/blur) upward
+    this.output.emit(out);
+
+    const payload: any = (out as any)?.data || {};
+    const name = payload?.name;
+    const value = payload?.value;
+
+    if (!name) return;
+
+    // update local state -> recompute all validity -> sync submit disabled
+    const prev = this.fieldState || {};
+    const draft: Record<string, FieldState> = {
+      ...prev,
+      [name]: {
+        ...(prev[name] || { value: undefined, valid: true, error: false, errors: [] }),
+        value,
+      },
+    };
+
+    this.fieldState = this.recomputeAllValidity(draft);
+
+    // keep snapshot like React
+    this.model.data = this.flatValues();
+    this.model.message = '';
+
+    this.syncSubmitDisabled();
   }
 
-  /**
-   * Get field errors
-   */
-  getFieldErrors(field: InputObject): string[] {
-    return this.fieldStates[field.name]?.errors ?? [];
+  // ---------- submit handling ----------
+
+  onSubmitOutput(btnOut: OutputObject): void {
+    // We don't need to emit button output separately;
+    // TdForm emits a single submit OutputObject like React.
+    const any: any = btnOut as any;
+    const action = any?.action;
+
+    // accept common actions so it works with your existing TdButtonSubmit implementation
+    if (action && action !== 'click' && action !== 'submit') return;
+
+    this.handleSubmit();
   }
 
-  /**
-   * Check if field has errors (and should show them)
-   */
-  hasFieldErrors(field: InputObject): boolean {
-    const state = this.fieldStates[field.name];
-    if (!state) return false;
-    return (state.touched || this.formSubmitted) && state.errors.length > 0;
+  private handleSubmit(): void {
+    const hasError = this.isAnyInvalid;
+
+    const finalValues = this.flatValues();
+    this.model.data = finalValues;
+    this.model.message = '';
+
+    const dataForOutput = hasError ? { ...this.fieldState } : finalValues;
+
+    const out = new OutputObject({
+      id: this.model.id,
+      type: 'form',
+      action: 'submit',
+      error: hasError,
+      errorMessage: [], // keep empty; details are inside data when error=true
+      data: dataForOutput,
+    });
+
+    this.output.emit(out);
   }
 
-  /**
-   * Get submit button classes
-   */
-  getSubmitClasses(): string {
-    return this.form.submit.getCombinedClasses();
-  }
-
-  /**
-   * Check if submit button should be disabled
-   */
-  isSubmitDisabled(): boolean {
-    return this.form.submit.disabled || this.form.submit.loading;
-  }
-
-  /**
-   * Get submit button text
-   */
-  getSubmitText(): string {
-    return this.form.submit.loading ? this.form.submit.loadingText : this.form.submit.name;
-  }
-
-  /**
-   * Track by function for fields
-   */
-  trackByField(index: number, field: InputObject): string {
-    return field.id;
-  }
-
-  /**
-   * Track by function for options
-   */
-  trackByOption(index: number, option: { value: string; label: string }): string {
-    return option.value;
+  // trackBy
+  trackByField(_: number, f: TdInputModel): string {
+    return f.id;
   }
 }

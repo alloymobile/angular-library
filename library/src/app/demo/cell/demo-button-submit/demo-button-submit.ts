@@ -1,9 +1,11 @@
+// demo-button-submit/demo-button-submit.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdButtonSubmit } from '../../../lib/cell/td-button-submit/td-button-submit';
 import { TdButtonSubmitModel } from '../../../lib/cell/td-button-submit/td-button-submit.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/shared/output-object';
 
 const DEFAULT_INPUT_OBJ = {
@@ -17,10 +19,10 @@ const DEFAULT_INPUT_OBJ = {
   title: 'Save changes',
   ariaLabel: 'Submit form',
   tabIndex: 0,
-  icon: {
+  icon: new TdIconModel({
     iconClass: 'fa-solid fa-spinner',
     className: 'd-inline-flex align-items-center justify-content-center',
-  },
+  }),
 };
 
 @Component({
@@ -57,7 +59,10 @@ export class DemoButtonSubmit implements OnInit {
         disabled: true,
         loading: false,
         ariaLabel: 'Invalid config',
-        icon: 'fa-solid fa-triangle-exclamation',
+        icon: new TdIconModel({
+          iconClass: 'fa-solid fa-triangle-exclamation',
+          className: 'd-inline-flex align-items-center justify-content-center',
+        }),
       });
     }
   });

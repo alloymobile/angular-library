@@ -1,3 +1,4 @@
+// demo-icon/demo-icon.ts
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +28,7 @@ type FaIconItem = { name: string; cls: string };
   styleUrl: './demo-icon.css',
 })
 export class DemoIcon implements OnInit {
-  query = '';
+  query = signal('');
   jsonText = '';
   jsonError = signal('');
 
@@ -39,7 +40,7 @@ export class DemoIcon implements OnInit {
 
   filteredIcons = computed(() => {
     const list = this.icons();
-    const q = this.query.trim().toLowerCase();
+    const q = this.query().trim().toLowerCase();
     if (!q) return list;
     return list.filter(
       (i) => i.name.toLowerCase().includes(q) || i.cls.toLowerCase().includes(q)
@@ -63,11 +64,16 @@ export class DemoIcon implements OnInit {
   }
 
   private async loadAllFontAwesomeIcons(): Promise<void> {
-    const url = new URL('assets/fontawesome/metadata/icon-families.json', document.baseURI).toString();
+    const url = new URL(
+      'assets/fontawesome/metadata/icon-families.json',
+      document.baseURI
+    ).toString();
     const res = await fetch(url, { cache: 'no-cache' });
 
     if (!res.ok) {
-      throw new Error(`Failed to load icon-families.json: ${res.status} ${res.statusText}`);
+      throw new Error(
+        `Failed to load icon-families.json: ${res.status} ${res.statusText}`
+      );
     }
 
     const data = (await res.json()) as FaIconFamiliesMetadata;
@@ -84,10 +90,13 @@ export class DemoIcon implements OnInit {
         const style = (fs.style || '').toLowerCase();
 
         const familyClass =
-          style === 'solid' ? 'fa-solid' :
-          style === 'regular' ? 'fa-regular' :
-          style === 'brands' ? 'fa-brands' :
-          '';
+          style === 'solid'
+            ? 'fa-solid'
+            : style === 'regular'
+              ? 'fa-regular'
+              : style === 'brands'
+                ? 'fa-brands'
+                : '';
 
         if (!familyClass) continue;
 

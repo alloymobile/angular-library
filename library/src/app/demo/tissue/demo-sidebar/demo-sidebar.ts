@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,13 +11,7 @@ import { OutputObject } from '../../../lib/share';
 const DEFAULT_SIDEBAR = JSON.stringify(
   {
     id: 'mainSidebar',
-    className: 'bg-light border-end',
     close: 'mobileSidebarOffcanvas',
-    selected: {
-      id: 'dashboard',
-      name: 'Dashboard',
-      href: '/dashboard',
-    },
     categories: [
       {
         id: 'mainCategory',
@@ -30,6 +24,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
         selected: 'active',
         links: [
           {
+            type: 'TdLinkIcon',
             id: 'dashboard',
             name: 'Dashboard',
             href: '/dashboard',
@@ -37,6 +32,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
             className: 'nav-link d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'analytics',
             name: 'Analytics',
             href: '/analytics',
@@ -44,6 +40,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
             className: 'nav-link d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'reports',
             name: 'Reports',
             href: '/reports',
@@ -63,6 +60,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
         selected: 'active',
         links: [
           {
+            type: 'TdLinkIcon',
             id: 'users',
             name: 'Users',
             href: '/users',
@@ -70,6 +68,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
             className: 'nav-link d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'roles',
             name: 'Roles',
             href: '/roles',
@@ -77,6 +76,7 @@ const DEFAULT_SIDEBAR = JSON.stringify(
             className: 'nav-link d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'settings',
             name: 'Settings',
             href: '/settings',
@@ -94,16 +94,20 @@ const DEFAULT_SIDEBAR = JSON.stringify(
 const DEFAULT_SIDEBAR_SIMPLE = JSON.stringify(
   {
     id: 'simpleSidebar',
-    className: 'bg-dark text-white',
     close: 'mobileSimpleSidebar',
     categories: [
       {
         id: 'navCategory',
-        className: 'nav flex-column py-3',
+        title: {
+          name: 'Menu',
+          className: 'text-white small text-uppercase fw-semibold px-3 mb-2',
+        },
+        className: 'nav flex-column py-3 bg-primary',
         linkClass: 'nav-item',
-        selected: 'active bg-primary',
+        selected: 'active bg-white text-primary',
         links: [
           {
+            type: 'TdLinkIcon',
             id: 'home',
             name: 'Home',
             href: '/',
@@ -111,6 +115,7 @@ const DEFAULT_SIDEBAR_SIMPLE = JSON.stringify(
             className: 'nav-link text-white d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'products',
             name: 'Products',
             href: '/products',
@@ -118,6 +123,7 @@ const DEFAULT_SIDEBAR_SIMPLE = JSON.stringify(
             className: 'nav-link text-white d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'orders',
             name: 'Orders',
             href: '/orders',
@@ -125,6 +131,7 @@ const DEFAULT_SIDEBAR_SIMPLE = JSON.stringify(
             className: 'nav-link text-white d-flex align-items-center gap-2 px-3 py-2',
           },
           {
+            type: 'TdLinkIcon',
             id: 'customers',
             name: 'Customers',
             href: '/customers',
@@ -138,6 +145,7 @@ const DEFAULT_SIDEBAR_SIMPLE = JSON.stringify(
   null,
   2
 );
+
 
 type TabKey = 'categorized' | 'simple';
 
@@ -159,12 +167,11 @@ interface TabState {
   imports: [CommonModule, FormsModule, TdSidebar],
   templateUrl: './demo-sidebar.html',
   styleUrls: ['./demo-sidebar.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DemoSidebar {
-  readonly tagSnippet = `<td-sidebar [sidebar]="sidebarModel" (output)="handleOutput($event)"></td-sidebar>`;
+  tagSnippet = `<td-sidebar [sidebar]="sidebarModel" (output)="handleOutput($event)"></td-sidebar>`;
 
-  readonly TABS: TabConfig[] = [
+  TABS: TabConfig[] = [
     { key: 'categorized', label: 'Categorized', defaultJson: DEFAULT_SIDEBAR },
     { key: 'simple', label: 'Simple', defaultJson: DEFAULT_SIDEBAR_SIMPLE },
   ];
@@ -177,25 +184,24 @@ export class DemoSidebar {
     simple: { json: DEFAULT_SIDEBAR_SIMPLE, output: this.defaultOutputMsg, parseError: '' },
   };
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
   get currentTab(): TabState {
     return this.tabStates[this.activeTab];
   }
 
   get currentTabConfig(): TabConfig {
-    return this.TABS.find(t => t.key === this.activeTab)!;
+    return this.TABS.find((t) => t.key === this.activeTab)!;
   }
 
   get sidebarModel(): SideBarObject {
     try {
       this.tabStates[this.activeTab].parseError = '';
-      return new SideBarObject(JSON.parse(this.currentTab.json));
+      const cfg = JSON.parse(this.currentTab.json || '{}');
+      return new SideBarObject(cfg);
     } catch (e: any) {
       this.tabStates[this.activeTab].parseError = e.message || String(e);
       return new SideBarObject({
         id: 'errorSidebar',
-        className: 'bg-light',
+        close: 'errorSidebarOffcanvas',
         categories: [],
       });
     }
@@ -203,18 +209,16 @@ export class DemoSidebar {
 
   setActiveTab(tab: TabKey): void {
     this.activeTab = tab;
-    this.cdr.markForCheck();
   }
 
   onJsonChange(value: string): void {
     this.tabStates[this.activeTab].json = value;
-    this.cdr.markForCheck();
   }
 
   handleOutput(out: OutputObject): void {
-    const payload = out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
+    const payload =
+      out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
     this.tabStates[this.activeTab].output = JSON.stringify(payload, null, 2);
-    this.cdr.markForCheck();
   }
 
   resetJson(): void {
@@ -222,11 +226,9 @@ export class DemoSidebar {
     this.tabStates[this.activeTab].json = config.defaultJson;
     this.tabStates[this.activeTab].parseError = '';
     this.tabStates[this.activeTab].output = this.defaultOutputMsg;
-    this.cdr.markForCheck();
   }
 
   clearOutput(): void {
     this.tabStates[this.activeTab].output = '// cleared';
-    this.cdr.markForCheck();
   }
 }

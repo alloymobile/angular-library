@@ -3,23 +3,25 @@
 
   <!-- Tabs -->
   <ul class="nav nav-tabs flex-wrap justify-content-center mb-3">
-    <li class="nav-item" *ngFor="let tab of TABS">
-      <button
-        type="button"
-        class="nav-link"
-        [class.active]="activeTab === tab.key"
-        (click)="setActiveTab(tab.key)"
-      >
-        {{ tab.label }}
-      </button>
-    </li>
+    @for (tab of TABS; track tab.key) {
+      <li class="nav-item">
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === tab.key"
+          (click)="setActiveTab(tab.key)"
+        >
+          {{ tab.label }}
+        </button>
+      </li>
+    }
   </ul>
 
-  <!-- Tag snippet -->
+  <!-- Tag snippet (ICU-safe) -->
   <div class="row mb-4">
     <div class="col-12 d-flex align-items-center justify-content-center">
       <pre class="bg-light text-dark border rounded-3 p-3 small mb-0 text-center w-100">
-        <code>{{ tagSnippet }}</code>
+<code [textContent]="tagSnippet"></code>
       </pre>
     </div>
   </div>
@@ -33,10 +35,15 @@
           (output)="handleOutput($event)"
         ></td-nav-bar>
       </div>
+
       <div class="small text-secondary mt-2 text-center">
-        <strong>TDNavBar</strong> renders a responsive Bootstrap navbar with
-        brand logo, collapsible toggle, and link bar.
-        Clicking a link emits an <code>OutputObject</code>.
+        <strong>TDNavBar</strong> renders a responsive Bootstrap navbar with brand (logo/link),
+        collapsible toggle, and a link bar. Clicking a link emits an <code>OutputObject</code>.
+      </div>
+
+      <div class="small text-secondary mt-1 text-center">
+        <strong>Hydration rule:</strong> Demo builds the model via <code>new TdNavBarModel(JSON.parse(json))</code>
+        and nested models hydrate themselves.
       </div>
     </div>
   </div>
@@ -49,6 +56,7 @@
         <span class="fw-semibold">
           Input JSON (editable) — {{ currentTabConfig.label }}
         </span>
+
         <button
           type="button"
           class="btn btn-sm btn-outline-secondary"
@@ -60,28 +68,32 @@
 
       <textarea
         class="form-control font-monospace"
-        [class.is-invalid]="currentTab.parseError"
+        [class.is-invalid]="!!currentTab.parseError"
         rows="20"
         [ngModel]="currentTab.json"
         (ngModelChange)="onJsonChange($event)"
         spellcheck="false"
       ></textarea>
 
-      <div *ngIf="currentTab.parseError" class="invalid-feedback d-block mt-1">
-        {{ currentTab.parseError }}
-      </div>
+      @if (currentTab.parseError) {
+        <div class="invalid-feedback d-block mt-1">
+          {{ currentTab.parseError }}
+        </div>
+      }
 
       <div class="form-text">
         <ul class="mb-0 ps-3">
           <li>
-            <code>logo</code>: A LinkLogoObject for the brand (logo image + name).
+            <code>brand</code>: supports TdLink / TdLinkIcon / TdLinkLogo (new navbar shape)
           </li>
           <li>
-            <code>linkBar</code>: A LinkBarObject for navigation links.
+            <code>linkBar</code>: TdLinkBar config (hydrates link items by <code>type</code>)
           </li>
           <li>
-            <code>className</code>: Bootstrap navbar classes
-            (e.g., <code>navbar-light bg-light</code>).
+            Types: <code>TdLink</code>, <code>TdLinkIcon</code>, <code>TdLinkLogo</code>
+          </li>
+          <li>
+            Navbar is Bootstrap responsive: toggle + collapse based on <code>collapseId</code>
           </li>
         </ul>
       </div>
@@ -93,6 +105,7 @@
         <span class="fw-semibold">
           Output (from <code>output</code> callback)
         </span>
+
         <button
           type="button"
           class="btn btn-sm btn-outline-danger"
@@ -101,6 +114,7 @@
           Clear
         </button>
       </div>
+
       <textarea
         class="form-control font-monospace bg-light border"
         rows="20"
@@ -108,15 +122,6 @@
         readonly
         spellcheck="false"
       ></textarea>
-
-      <div class="form-text">
-        Clicking a link emits:
-        <ul class="mb-0 ps-3">
-          <li><code>type</code>: <code>"link"</code></li>
-          <li><code>action</code>: <code>"click"</code></li>
-          <li><code>data</code>: link details (id, name, href)</li>
-        </ul>
-      </div>
     </div>
   </div>
 </div>

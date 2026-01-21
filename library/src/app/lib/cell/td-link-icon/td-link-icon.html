@@ -1,14 +1,14 @@
 <!-- td-link-icon.html -->
 <a
   [id]="domId"
-  [href]="model.href || '#'"
+  [href]="linkIcon.href || '#'"
   [class]="computedClass"
-  [target]="model.target"
+  [target]="linkIcon.target"
   [rel]="safeRel"
-  [title]="model.title"
-  [attr.aria-label]="model.ariaLabel">
-  <td-icon [icon]="model.icon"></td-icon>
-  @if (model.name) {
-    <span class="ms-2">{{ model.name }}</span>
+  [title]="linkIcon.title"
+  [attr.aria-label]="linkIcon.ariaLabel">
+  <td-icon [icon]="linkIcon.icon"></td-icon>
+  @if (linkIcon.name) {
+    <span class="ms-2">{{ linkIcon.name }}</span>
   }
 </a>

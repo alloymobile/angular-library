@@ -1,5 +1,4 @@
-/* TD Button Bar Component Styles */
-
+/* td-button-bar.css */
 :host {
   display: block;
 }
@@ -12,37 +11,4 @@ ul {
 
 .nav-item {
   list-style: none;
-}
-
-/* Button focus states */
-button:focus {
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-/* Dropdown styling */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-menu {
-  position: absolute;
-  z-index: 1000;
-}
-
-/* Active/selected state */
-.active {
-  font-weight: 600;
-}
-
-/* Icon spacing */
-button i + span,
-button span + i {
-  margin-left: 0.25rem;
-}
-
-/* Disabled state */
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
 }

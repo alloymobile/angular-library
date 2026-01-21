@@ -1,27 +1,31 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdLinkBar } from '../../../lib/tissue/td-link-bar/td-link-bar';
-import { LinkBarObject } from '../../../lib/tissue/td-link-bar/td-link-bar.model';
+import { TdLinkBarModel } from '../../../lib/tissue/td-link-bar/td-link-bar.model';
 import { OutputObject } from '../../../lib/share';
 
 /* ─────────────────────────── Default JSON Configs ─────────────────────────── */
+/* NOTE:
+ * - LinkBar hydrates items based on item.type first, then shape (icon/logo).
+ * - Use TD types: TdLink / TdLinkIcon / TdLinkLogo
+ * - TdLinkLogo expects `logo` as an object (TdLogoModel config), not a string URL.
+ */
 
 const DEFAULT_JSON_LINK = JSON.stringify(
   {
-    type: 'AlloyLink',
+    type: 'TdLinkBar',
     className: 'nav justify-content-center gap-3',
     linkClass: 'nav-item',
-    selected: 'active',
     title: {
       name: 'Navigation',
       className: 'text-center fw-semibold mb-2',
     },
     links: [
-      { id: 'home', name: 'Home', href: '/', className: 'nav-link' },
-      { id: 'about', name: 'About', href: '/about', className: 'nav-link' },
-      { id: 'contact', name: 'Contact', href: '/contact', className: 'nav-link' },
+      { type: 'TdLink', id: 'home', name: 'Home', href: '/', className: 'nav-link' },
+      { type: 'TdLink', id: 'about', name: 'About', href: '/about', className: 'nav-link' },
+      { type: 'TdLink', id: 'contact', name: 'Contact', href: '/contact', className: 'nav-link' },
     ],
   },
   null,
@@ -30,16 +34,16 @@ const DEFAULT_JSON_LINK = JSON.stringify(
 
 const DEFAULT_JSON_LINK_ICON = JSON.stringify(
   {
-    type: 'AlloyLinkIcon',
+    type: 'TdLinkBar',
     className: 'nav justify-content-center gap-3',
     linkClass: 'nav-item',
-    selected: 'active',
     title: {
       name: 'Quick Links',
       className: 'text-center fw-semibold mb-2',
     },
     links: [
       {
+        type: 'TdLinkIcon',
         id: 'dashboard',
         name: 'Dashboard',
         href: '/dashboard',
@@ -47,6 +51,7 @@ const DEFAULT_JSON_LINK_ICON = JSON.stringify(
         className: 'nav-link',
       },
       {
+        type: 'TdLinkIcon',
         id: 'settings',
         name: 'Settings',
         href: '/settings',
@@ -54,6 +59,7 @@ const DEFAULT_JSON_LINK_ICON = JSON.stringify(
         className: 'nav-link',
       },
       {
+        type: 'TdLinkIcon',
         id: 'help',
         name: 'Help',
         href: '/help',
@@ -68,32 +74,39 @@ const DEFAULT_JSON_LINK_ICON = JSON.stringify(
 
 const DEFAULT_JSON_LINK_LOGO = JSON.stringify(
   {
-    type: 'AlloyLinkLogo',
+    type: 'TdLinkBar',
     className: 'nav justify-content-center gap-4',
     linkClass: 'nav-item',
-    selected: 'active',
     title: {
       name: 'Partners',
       className: 'text-center fw-semibold mb-2',
     },
     links: [
       {
+        type: 'TdLinkLogo',
         id: 'angular',
         name: 'Angular',
         href: 'https://angular.io',
-        logo: 'https://angular.io/assets/images/logos/angular/angular.svg',
-        width: 40,
-        height: 40,
+        logo: {
+          imageUrl: 'https://angular.io/assets/images/logos/angular/angular.svg',
+          alt: 'Angular',
+          width: 40,
+          height: 40,
+        },
         className: 'nav-link d-flex align-items-center gap-2',
         target: '_blank',
       },
       {
+        type: 'TdLinkLogo',
         id: 'bootstrap',
         name: 'Bootstrap',
         href: 'https://getbootstrap.com',
-        logo: 'https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png',
-        width: 40,
-        height: 32,
+        logo: {
+          imageUrl: 'https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png',
+          alt: 'Bootstrap',
+          width: 40,
+          height: 32,
+        },
         className: 'nav-link d-flex align-items-center gap-2',
         target: '_blank',
       },
@@ -103,13 +116,13 @@ const DEFAULT_JSON_LINK_LOGO = JSON.stringify(
   2
 );
 
-type TabType = 'AlloyLink' | 'AlloyLinkIcon' | 'AlloyLinkLogo';
+type TabType = 'TdLink' | 'TdLinkIcon' | 'TdLinkLogo';
 
 interface TabState {
   json: string;
   output: string;
   parseError: string;
-  model: LinkBarObject;
+  linkBarModel: TdLinkBarModel;
 }
 
 @Component({
@@ -118,40 +131,35 @@ interface TabState {
   imports: [CommonModule, FormsModule, TdLinkBar],
   templateUrl: './demo-link-bar.html',
   styleUrls: ['./demo-link-bar.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DemoLinkBar {
-  activeTab: TabType = 'AlloyLink';
+  activeTab: TabType = 'TdLink';
 
-  readonly tagSnippet = `<td-link-bar [linkBar]="linkBarModel" (output)="handleOutput($event)"></td-link-bar>`;
+  tagSnippet = `<td-link-bar [linkBar]="linkBarModel" (output)="handleOutput($event)"></td-link-bar>`;
 
   tabs: Record<TabType, TabState> = {
-    AlloyLink: this.createTabState(DEFAULT_JSON_LINK, 'AlloyLink'),
-    AlloyLinkIcon: this.createTabState(DEFAULT_JSON_LINK_ICON, 'AlloyLinkIcon'),
-    AlloyLinkLogo: this.createTabState(DEFAULT_JSON_LINK_LOGO, 'AlloyLinkLogo'),
+    TdLink: this.createTabState(DEFAULT_JSON_LINK),
+    TdLinkIcon: this.createTabState(DEFAULT_JSON_LINK_ICON),
+    TdLinkLogo: this.createTabState(DEFAULT_JSON_LINK_LOGO),
   };
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  private createTabState(json: string, type: string): TabState {
+  private createTabState(json: string): TabState {
     return {
       json,
       output: '// Click a link to see events here…',
       parseError: '',
-      model: this.parseModel(json, type),
+      linkBarModel: this.parseModel(json),
     };
   }
 
-  private parseModel(json: string, type: string): LinkBarObject {
+  private parseModel(json: string): TdLinkBarModel {
     try {
-      const parsed = JSON.parse(json);
-      return new LinkBarObject(parsed);
-    } catch (e) {
-      return new LinkBarObject({
-        type,
+      return new TdLinkBarModel(JSON.parse(json));
+    } catch (e: any) {
+      return new TdLinkBarModel({
+        type: 'TdLinkBar',
         className: 'nav justify-content-center gap-3',
         linkClass: 'nav-item',
-        selected: 'active',
         title: { name: 'Error', className: 'text-center fw-semibold mb-2' },
         links: [],
       });
@@ -162,53 +170,58 @@ export class DemoLinkBar {
     return this.tabs[this.activeTab];
   }
 
+  get linkBarModel(): TdLinkBarModel {
+    return this.tabs[this.activeTab].linkBarModel;
+  }
+
   setActiveTab(tab: TabType): void {
     this.activeTab = tab;
-    this.cdr.markForCheck();
   }
 
   onJsonChange(value: string): void {
     const tab = this.tabs[this.activeTab];
     tab.json = value;
+
     try {
       tab.parseError = '';
-      tab.model = new LinkBarObject(JSON.parse(value));
+      tab.linkBarModel = new TdLinkBarModel(JSON.parse(value));
     } catch (e: any) {
       tab.parseError = e.message || String(e);
     }
-    this.cdr.markForCheck();
   }
 
   handleOutput(out: OutputObject): void {
-    const payload = out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
+    const payload =
+      out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
     this.tabs[this.activeTab].output = JSON.stringify(payload, null, 2);
-    this.cdr.markForCheck();
   }
 
   resetJson(): void {
     const defaults: Record<TabType, string> = {
-      AlloyLink: DEFAULT_JSON_LINK,
-      AlloyLinkIcon: DEFAULT_JSON_LINK_ICON,
-      AlloyLinkLogo: DEFAULT_JSON_LINK_LOGO,
+      TdLink: DEFAULT_JSON_LINK,
+      TdLinkIcon: DEFAULT_JSON_LINK_ICON,
+      TdLinkLogo: DEFAULT_JSON_LINK_LOGO,
     };
+
     const tab = this.tabs[this.activeTab];
     tab.json = defaults[this.activeTab];
     tab.parseError = '';
     tab.output = '// Click a link to see events here…';
-    tab.model = this.parseModel(tab.json, this.activeTab);
-    this.cdr.markForCheck();
+    tab.linkBarModel = this.parseModel(tab.json);
   }
 
   clearOutput(): void {
     this.tabs[this.activeTab].output = '// cleared';
-    this.cdr.markForCheck();
   }
 
   getTabLabel(tab: TabType): string {
     switch (tab) {
-      case 'AlloyLink': return 'TDLink';
-      case 'AlloyLinkIcon': return 'TDLinkIcon';
-      case 'AlloyLinkLogo': return 'TDLinkLogo';
+      case 'TdLink':
+        return 'TDLink';
+      case 'TdLinkIcon':
+        return 'TDLinkIcon';
+      case 'TdLinkLogo':
+        return 'TDLinkLogo';
     }
   }
 }

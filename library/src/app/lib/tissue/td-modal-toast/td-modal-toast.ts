@@ -3,14 +3,12 @@ import {
   Input,
   Output,
   EventEmitter,
-  ElementRef,
-  ChangeDetectionStrategy,
   Inject,
   PLATFORM_ID
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
-import { ModalToastObject } from './td-modal-toast.model';
+import { TdModalToastModel } from './td-modal-toast.model';
 import { OutputObject } from '../../share';
 
 declare var bootstrap: any;
@@ -21,24 +19,19 @@ declare var bootstrap: any;
   imports: [CommonModule],
   templateUrl: './td-modal-toast.html',
   styleUrls: ['./td-modal-toast.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TdModalToast {
-  @Input({ required: true }) modalToast!: ModalToastObject;
+  @Input({ required: true }) modalToast!: TdModalToastModel;
   @Output() output = new EventEmitter<OutputObject>();
 
   private isBrowser: boolean;
 
   constructor(
-    private elementRef: ElementRef,
     @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  /**
-   * Handle OK/Submit button click
-   */
   onSubmit(): void {
     const out = OutputObject.ok({
       id: this.modalToast.id,
@@ -52,21 +45,15 @@ export class TdModalToast {
     });
 
     this.output.emit(out);
-
-    // Auto-dismiss modal
     this.dismissModal();
   }
 
-  /**
-   * Dismiss the modal using Bootstrap API or fallback
-   */
   private dismissModal(): void {
     if (!this.isBrowser) return;
 
     const modalEl = document.getElementById(this.modalToast.id);
     if (!modalEl) return;
 
-    // Try Bootstrap Modal API
     if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
       const instance = bootstrap.Modal.getOrCreateInstance(modalEl);
       if (instance) {
@@ -75,17 +62,17 @@ export class TdModalToast {
       }
     }
 
-    // Fallback: click dismiss button
     const dismissBtn = modalEl.querySelector('[data-bs-dismiss="modal"]') as HTMLElement;
-    if (dismissBtn) {
-      dismissBtn.click();
-    }
+    if (dismissBtn) dismissBtn.click();
   }
 
-  /**
-   * Get button CSS classes
-   */
   getButtonClasses(): string {
-    return this.modalToast.submit.getCombinedClasses();
+    const btn = this.modalToast?.submit;
+    if (!btn) return 'btn btn-primary';
+
+    const base = (btn.className || 'btn btn-primary').trim();
+    const active = btn.isActive ? (btn.active || '').trim() : '';
+
+    return [base, active].filter(Boolean).join(' ');
   }
 }

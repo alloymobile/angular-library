@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdInput } from '../../../lib/cell/td-input/td-input';
-import { TdInputModel, TdInputConfig } from '../../../lib/cell/td-input/td-input.model';
+import { TdInputModel } from '../../../lib/cell/td-input/td-input.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/shared/output-object';
 
-const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
+const DEFAULT_INPUTS: Record<string, any> = {
   text: {
     name: 'fullName',
     label: 'Full Name',
@@ -15,7 +16,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'icon',
     placeholder: 'Enter your name',
     required: true,
-    icon: { iconClass: 'fa-solid fa-user' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-user' }),
     className: 'form-control',
     iconGroupClass: 'bg-light',
   },
@@ -27,7 +28,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'icon',
     placeholder: 'Enter your email',
     required: true,
-    icon: { iconClass: 'fa-solid fa-envelope' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-envelope' }),
     pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$',
     className: 'form-control',
     iconGroupClass: 'bg-light',
@@ -40,7 +41,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'icon',
     placeholder: 'Enter your password',
     required: true,
-    icon: { iconClass: 'fa-solid fa-lock' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-lock' }),
     passwordStrength: true,
     className: 'form-control',
     iconGroupClass: 'bg-light',
@@ -53,7 +54,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     layout: 'icon',
     placeholder: '0.00',
     min: 0,
-    icon: { iconClass: 'fa-solid fa-dollar-sign' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-dollar-sign' }),
     className: 'form-control',
     iconGroupClass: 'bg-light',
   },
@@ -64,7 +65,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'date',
     layout: 'icon',
     required: true,
-    icon: { iconClass: 'fa-solid fa-calendar' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-calendar' }),
     className: 'form-control',
     iconGroupClass: 'bg-light',
   },
@@ -75,7 +76,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     type: 'file',
     layout: 'icon',
     required: true,
-    icon: { iconClass: 'fa-solid fa-paperclip' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-paperclip' }),
     className: 'form-control',
     iconGroupClass: 'bg-light',
     accept: '.pdf,.png,.jpg,.jpeg',
@@ -87,7 +88,7 @@ const DEFAULT_INPUTS: Record<string, TdInputConfig> = {
     label: 'Tags',
     type: 'multiselect',
     layout: 'icon',
-    icon: { iconClass: 'fa-solid fa-tags' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-tags' }),
     className: 'form-control',
     searchable: true,
     placeholder: 'Select tags...',
@@ -118,7 +119,7 @@ export class DemoInputIcon {
   outputJson = signal('// Interact with the field');
   parseError = signal('');
 
-  parsed = signal<TdInputConfig>(DEFAULT_INPUTS[TABS[0]]);
+  parsed = signal<any>(DEFAULT_INPUTS[TABS[0]]);
   inputKey = signal(0);
 
   model = computed(() => {
@@ -143,7 +144,7 @@ export class DemoInputIcon {
 
   handleInputChange(val: string): void {
     try {
-      const raw = JSON.parse(val || '{}') as TdInputConfig;
+      const raw = JSON.parse(val || '{}') as any;
       this.parsed.set(raw);
       this.parseError.set('');
     } catch (e: any) {

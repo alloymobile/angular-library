@@ -1,45 +1,31 @@
-/* TD Pagination Component Styles */
-
+/* td-pagination/td-pagination.css */
 :host {
   display: block;
 }
 
 .page-link {
   cursor: pointer;
-  user-select: none;
 }
 
-.page-link:focus {
-  z-index: 3;
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+.td-ellipsis {
+  cursor: default;
+}
+
+.page-item.disabled {
+  opacity: 0.55;
 }
 
 .page-item.disabled .page-link {
   cursor: not-allowed;
-  pointer-events: none;
-  opacity: 0.65;
 }
 
-.page-item.active .page-link {
-  font-weight: 600;
+/* td-button-icon should feel clickable */
+:host ::ng-deep td-button-icon button {
+  cursor: pointer;
 }
 
-/* Ensure consistent icon sizing */
-.page-link i {
-  font-size: 0.875em;
-  vertical-align: middle;
-}
-
-/* Visually hidden but accessible */
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+/* td-button-icon disabled style */
+:host ::ng-deep td-button-icon button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }

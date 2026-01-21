@@ -1,48 +1,44 @@
-import { TdInputModel, TdInputConfig } from '../td-input/td-input.model';
+// td-search/td-search.model.ts
+import { TdInputModel } from '../td-input/td-input.model';
 import { TdIconModel } from '../td-icon/td-icon.model';
-import { generateId } from '../../share/id-helper';
-
-export interface TdSearchConfig {
-  id?: string;
-  className?: string;
-  search?: TdInputModel | TdInputConfig;
-  label?: string;
-  placeholder?: string;
-  iconGroupClass?: string;
-  minChars?: number;
-  debounceMs?: number;
-}
 
 export class TdSearchModel {
-  readonly id: string;
-  readonly className: string;
-  readonly search: TdInputModel;
-  readonly minChars: number;
-  readonly debounceMs: number;
+  id: string;
+  className: string;
+  search: TdInputModel;
+  minChars: number;
+  debounceMs: number;
 
-  constructor(config: TdSearchConfig = {}) {
-    this.id = config.id ?? generateId('search');
+  constructor(config: {
+    id?: string;
+    className?: string;
+    search?: TdInputModel | any;
+    minChars?: number;
+    debounceMs?: number;
+  } = {}) {
+    this.id = config.id ?? `search-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
     this.className = config.className ?? 'row mb-3';
 
-    if (config.search instanceof TdInputModel) {
-      this.search = config.search;
-    } else if (config.search) {
-      this.search = new TdInputModel(config.search);
-    } else {
-      this.search = new TdInputModel({
-        id: generateId('searchInput'),
-        name: 'query',
-        type: 'text',
-        layout: 'icon',
-        label: config.label ?? 'Search',
-        placeholder: config.placeholder ?? 'Search…',
-        icon: new TdIconModel({ iconClass: 'fa-solid fa-magnifying-glass' }),
-        className: 'form-control',
-        iconGroupClass: config.iconGroupClass ?? '',
-      });
-    }
+    this.search = config.search
+      ? config.search instanceof TdInputModel
+        ? config.search
+        : new TdInputModel(config.search)
+      : new TdInputModel({
+          name: 'query',
+          type: 'text',
+          layout: 'icon',
+          label: 'Search',
+          placeholder: 'Search…',
+          icon: new TdIconModel({ iconClass: 'fa-solid fa-magnifying-glass' }),
+          className: 'form-control',
+        });
 
-    this.minChars = typeof config.minChars === 'number' && config.minChars >= 0 ? config.minChars : 2;
-    this.debounceMs = typeof config.debounceMs === 'number' && config.debounceMs >= 0 ? config.debounceMs : 400;
+    this.minChars =
+      typeof config.minChars === 'number' && config.minChars >= 0 ? config.minChars : 2;
+
+    this.debounceMs =
+      typeof config.debounceMs === 'number' && config.debounceMs >= 0
+        ? config.debounceMs
+        : 400;
   }
 }

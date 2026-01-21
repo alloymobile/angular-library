@@ -5,7 +5,7 @@
 }
 
 /* Desktop sidebar */
-.sidebar {
+.desktop-sidebar {
   position: sticky;
   top: 0;
   height: 100vh;
@@ -14,11 +14,6 @@
   overflow-y: auto;
   background-color: #f8f9fa;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.sidebar-sticky {
-  position: sticky;
-  top: 0;
 }
 
 /* Sidebar heading */
@@ -71,11 +66,4 @@
 /* Close button focus */
 .btn-close:focus {
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-/* Responsive */
-@media (max-width: 991.98px) {
-  .sidebar {
-    display: none;
-  }
 }

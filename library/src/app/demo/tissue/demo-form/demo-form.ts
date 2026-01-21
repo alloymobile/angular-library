@@ -1,12 +1,13 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+// src/app/demo/tissue/demo-form/demo-form.ts
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdForm } from '../../../lib/tissue/td-form/td-form';
-import { FormObject } from '../../../lib/tissue/td-form/td-form.model';
-import { OutputObject } from '../../../lib/share';
+import { TdFormModel } from '../../../lib/tissue/td-form/td-form.model';
+import { OutputObject } from '../../../lib/share/output-object';
 
-/* ─────────────────────────── Default JSON Configs ─────────────────────────── */
+type TabKey = 'Text' | 'Icon' | 'Float';
 
 const DEFAULT_FORM_TEXT = JSON.stringify(
   {
@@ -14,7 +15,7 @@ const DEFAULT_FORM_TEXT = JSON.stringify(
     className: 'col-12 col-md-6 col-lg-4 mx-auto',
     message: '',
     action: 'login',
-    type: 'AlloyInputText',
+    type: 'TdInputText',
     fields: [
       {
         name: 'email',
@@ -40,8 +41,10 @@ const DEFAULT_FORM_TEXT = JSON.stringify(
     ],
     submit: {
       name: 'Sign In',
+      icon: { iconClass: 'fa-solid fa-circle-notch fa-spin' },
       className: 'btn btn-primary w-100 mt-3',
       disabled: false,
+      loading: false,
       ariaLabel: 'Submit login form',
       title: 'Submit login form',
     },
@@ -56,7 +59,7 @@ const DEFAULT_FORM_ICON = JSON.stringify(
     className: 'col-12 col-md-6 col-lg-4 mx-auto',
     message: '',
     action: 'support',
-    type: 'AlloyInputTextIcon',
+    type: 'TdInputTextIcon',
     fields: [
       {
         name: 'fullName',
@@ -64,6 +67,7 @@ const DEFAULT_FORM_ICON = JSON.stringify(
         label: 'Full Name',
         placeholder: 'Ada Lovelace',
         layout: 'icon',
+        icon: { iconClass: 'fa-regular fa-user' },
         required: true,
         value: '',
         className: 'form-control form-control-lg',
@@ -74,6 +78,7 @@ const DEFAULT_FORM_ICON = JSON.stringify(
         label: 'Email',
         placeholder: 'ada@example.com',
         layout: 'icon',
+        icon: { iconClass: 'fa-regular fa-envelope' },
         required: true,
         value: '',
         className: 'form-control',
@@ -92,8 +97,10 @@ const DEFAULT_FORM_ICON = JSON.stringify(
     ],
     submit: {
       name: 'Send Message',
+      icon: { iconClass: 'fa-solid fa-paper-plane' },
       className: 'btn btn-success w-100 mt-3',
       disabled: false,
+      loading: false,
       ariaLabel: 'Send support request',
       title: 'Send support request',
     },
@@ -108,7 +115,7 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
     className: 'col-12 col-md-6 col-lg-4 mx-auto',
     message: '',
     action: 'signup',
-    type: 'AlloyInputFloatingText',
+    type: 'TdInputFloatingText',
     fields: [
       {
         name: 'email',
@@ -116,6 +123,7 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
         label: 'Email',
         placeholder: 'you@example.com',
         layout: 'floating',
+        icon: { iconClass: 'fa-regular fa-envelope' },
         required: true,
         value: '',
         className: 'form-control',
@@ -126,6 +134,7 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
         label: 'Password',
         placeholder: 'Create a password',
         layout: 'floating',
+        icon: { iconClass: 'fa-solid fa-lock' },
         required: true,
         passwordStrength: true,
         value: '',
@@ -137,6 +146,7 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
         label: 'Confirm Password',
         placeholder: 'Re-enter password',
         layout: 'floating',
+        icon: { iconClass: 'fa-solid fa-lock' },
         required: true,
         matchWith: 'password',
         value: '',
@@ -145,8 +155,10 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
     ],
     submit: {
       name: 'Sign Up',
+      icon: { iconClass: 'fa-solid fa-circle-notch fa-spin' },
       className: 'btn btn-warning w-100 mt-3',
       disabled: false,
+      loading: false,
       ariaLabel: 'Create account',
       title: 'Create account',
     },
@@ -155,98 +167,127 @@ const DEFAULT_FORM_FLOAT = JSON.stringify(
   2
 );
 
-type TabKey = 'Text' | 'Icon' | 'Float';
-
-interface TabConfig {
-  key: TabKey;
-  label: string;
-  defaultJson: string;
-}
-
-interface TabState {
-  json: string;
-  output: string;
-  parseError: string;
-}
-
 @Component({
   selector: 'demo-form',
   standalone: true,
   imports: [CommonModule, FormsModule, TdForm],
   templateUrl: './demo-form.html',
-  styleUrls: ['./demo-form.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './demo-form.css',
 })
 export class DemoForm {
-  readonly tagSnippet = `<td-form [form]="formModel" (output)="handleOutput($event)"></td-form>`;
-
-  readonly TABS: TabConfig[] = [
-    { key: 'Text', label: 'Text Inputs', defaultJson: DEFAULT_FORM_TEXT },
-    { key: 'Icon', label: 'Icon Inputs', defaultJson: DEFAULT_FORM_ICON },
-    { key: 'Float', label: 'Floating Inputs', defaultJson: DEFAULT_FORM_FLOAT },
+  readonly TABS: Array<{ key: TabKey; label: string }> = [
+    { key: 'Text', label: 'Text Inputs' },
+    { key: 'Icon', label: 'Icon Inputs' },
+    { key: 'Float', label: 'Floating Inputs' },
   ];
 
-  activeTab: TabKey = 'Text';
-  defaultOutputMsg = '// Submit form to see OutputObject here';
+  active: TabKey = 'Text';
 
-  tabStates: Record<TabKey, TabState> = {
-    Text: { json: DEFAULT_FORM_TEXT, output: this.defaultOutputMsg, parseError: '' },
-    Icon: { json: DEFAULT_FORM_ICON, output: this.defaultOutputMsg, parseError: '' },
-    Float: { json: DEFAULT_FORM_FLOAT, output: this.defaultOutputMsg, parseError: '' },
-  };
+  jsonText = DEFAULT_FORM_TEXT;
+  errText = '';
+  modelText: TdFormModel = this.safeHydrate('Text', this.jsonText);
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  jsonIcon = DEFAULT_FORM_ICON;
+  errIcon = '';
+  modelIcon: TdFormModel = this.safeHydrate('Icon', this.jsonIcon);
 
-  get currentTab(): TabState {
-    return this.tabStates[this.activeTab];
+  jsonFloat = DEFAULT_FORM_FLOAT;
+  errFloat = '';
+  modelFloat: TdFormModel = this.safeHydrate('Float', this.jsonFloat);
+
+  outputHeader = '// OutputObject event (latest: change / blur / submit)\n';
+  outputLatest = this.outputHeader;
+
+
+  readonly TAG_SNIPPET = `<td-form [form]="new TdFormModel(formObject)" (output)="handleOutput($event)" />`;
+
+  switchTab(next: TabKey): void {
+    this.active = next;
   }
 
-  get currentTabConfig(): TabConfig {
-    return this.TABS.find(t => t.key === this.activeTab)!;
+  getModel(tab: TabKey): TdFormModel {
+    return tab === 'Text' ? this.modelText : tab === 'Icon' ? this.modelIcon : this.modelFloat;
   }
 
-  get formModel(): FormObject {
+  getJson(tab: TabKey): string {
+    return tab === 'Text' ? this.jsonText : tab === 'Icon' ? this.jsonIcon : this.jsonFloat;
+  }
+
+  getParseError(tab: TabKey): string {
+    return tab === 'Text' ? this.errText : tab === 'Icon' ? this.errIcon : this.errFloat;
+  }
+
+  setJson(tab: TabKey, next: string): void {
+    if (tab === 'Text') this.jsonText = next;
+    else if (tab === 'Icon') this.jsonIcon = next;
+    else this.jsonFloat = next;
+
+    const hydrated = this.safeHydrate(tab, next);
+    if (tab === 'Text') this.modelText = hydrated;
+    else if (tab === 'Icon') this.modelIcon = hydrated;
+    else this.modelFloat = hydrated;
+  }
+
+  resetTab(tab: TabKey): void {
+    if (tab === 'Text') {
+      this.jsonText = DEFAULT_FORM_TEXT;
+      this.errText = '';
+      this.modelText = this.safeHydrate('Text', this.jsonText);
+    } else if (tab === 'Icon') {
+      this.jsonIcon = DEFAULT_FORM_ICON;
+      this.errIcon = '';
+      this.modelIcon = this.safeHydrate('Icon', this.jsonIcon);
+    } else {
+      this.jsonFloat = DEFAULT_FORM_FLOAT;
+      this.errFloat = '';
+      this.modelFloat = this.safeHydrate('Float', this.jsonFloat);
+    }
+  }
+
+  clearLog(): void {
+    this.outputLatest = this.outputHeader;
+  }
+
+
+  handleOutput(payload: OutputObject): void {
+    const anyPayload: any = payload as any;
+    const plain =
+      anyPayload && typeof anyPayload.toJSON === 'function' ? anyPayload.toJSON() : anyPayload;
+
+    this.outputLatest =
+      this.outputHeader +
+      '\n------------------------------\n' +
+      JSON.stringify(plain, null, 2) +
+      '\n';
+  }
+
+  private safeHydrate(tab: TabKey, json: string): TdFormModel {
     try {
-      this.tabStates[this.activeTab].parseError = '';
-      return new FormObject(JSON.parse(this.currentTab.json));
+      const parsed = JSON.parse(json || '{}');
+      this.setErr(tab, '');
+      return new TdFormModel(parsed);
     } catch (e: any) {
-      this.tabStates[this.activeTab].parseError = e.message || String(e);
-      return new FormObject({
-        title: 'Invalid JSON',
+      this.setErr(tab, String(e?.message || e));
+      return new TdFormModel({
+        title: `Invalid JSON (${tab})`,
         className: 'col-12 col-md-6 col-lg-4 mx-auto',
         message: 'Could not parse form JSON.',
         action: 'error',
         fields: [],
         submit: {
           name: 'Submit',
+          icon: { iconClass: 'fa-solid fa-triangle-exclamation' },
           className: 'btn btn-secondary w-100 mt-3',
           disabled: true,
+          loading: false,
         },
       });
     }
   }
 
-  setActiveTab(tab: TabKey): void {
-    this.activeTab = tab;
-    this.cdr.markForCheck();
-  }
-
-  onJsonChange(value: string): void {
-    this.tabStates[this.activeTab].json = value;
-    this.cdr.markForCheck();
-  }
-
-  handleOutput(out: OutputObject): void {
-    const payload = out && typeof (out as any).toJSON === 'function' ? (out as any).toJSON() : out;
-    this.tabStates[this.activeTab].output = JSON.stringify(payload, null, 2);
-    this.cdr.markForCheck();
-  }
-
-  resetJson(): void {
-    const config = this.currentTabConfig;
-    this.tabStates[this.activeTab].json = config.defaultJson;
-    this.tabStates[this.activeTab].parseError = '';
-    this.tabStates[this.activeTab].output = this.defaultOutputMsg;
-    this.cdr.markForCheck();
+  private setErr(tab: TabKey, msg: string): void {
+    if (tab === 'Text') this.errText = msg;
+    else if (tab === 'Icon') this.errIcon = msg;
+    else this.errFloat = msg;
   }
 }

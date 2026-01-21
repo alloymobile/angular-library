@@ -1,17 +1,12 @@
-<!-- Desktop Sidebar -->
-<aside [id]="sidebar.id + '-desktop'" [class]="sidebar.className">
-  <div class="sidebar-sticky pt-3">
-    <!-- Title -->
-    <h6 *ngIf="sidebar.hasTitle()" class="sidebar-heading px-3 mb-3 text-muted">
-      {{ sidebar.title }}
-    </h6>
-
+<!-- DESKTOP SIDEBAR -->
+<aside class="desktop-sidebar d-none d-lg-block" [attr.id]="sidebar.id + '-desktop'">
+  <div class="p-3">
     <!-- Categories -->
     <ng-container *ngFor="let category of sidebar.categories; trackBy: trackByCategory">
       <!-- Category title -->
       <h6
         *ngIf="category.hasTitle()"
-        [id]="category.title.id"
+        [attr.id]="category.title.id"
         [class]="category.title.className || 'sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted'"
       >
         <span>{{ category.title.name }}</span>
@@ -26,23 +21,21 @@
   </div>
 </aside>
 
-<!-- Mobile Offcanvas Sidebar -->
+<!-- MOBILE SIDEBAR (BOOTSTRAP OFFCANVAS) -->
 <div
-  [class]="sidebar.offcanvasClass"
+  class="offcanvas offcanvas-start d-lg-none"
   tabindex="-1"
-  [id]="sidebar.close"
+  [attr.id]="sidebar.close"
   [attr.aria-labelledby]="sidebar.close + '-label'"
 >
   <!-- Offcanvas Header -->
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" [id]="sidebar.close + '-label'">
-      {{ sidebar.title || 'Menu' }}
-    </h5>
+    <h5 class="offcanvas-title" [attr.id]="sidebar.close + '-label'">Menu</h5>
     <button
       type="button"
       class="btn-close"
       data-bs-dismiss="offcanvas"
-      [attr.aria-label]="'Close'"
+      aria-label="Close"
     ></button>
   </div>
 
@@ -52,7 +45,7 @@
       <!-- Category title -->
       <h6
         *ngIf="category.hasTitle()"
-        [id]="category.title.id + '-mobile'"
+        [attr.id]="category.title.id + '-mobile'"
         [class]="category.title.className || 'sidebar-heading d-flex justify-content-between align-items-center mt-3 mb-1 text-muted'"
       >
         <span>{{ category.title.name }}</span>

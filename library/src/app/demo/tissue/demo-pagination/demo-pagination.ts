@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdPagination } from '../../../lib/tissue/td-pagination/td-pagination';
-import { PaginationObject } from '../../../lib/tissue/td-pagination/td-pagination.model';
+import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
 import { OutputObject } from '../../../lib/share';
 
 /* ─────────────────────────── Default JSON Config ─────────────────────────── */
@@ -23,7 +23,7 @@ const DEFAULT_PAGINATION_JSON = JSON.stringify(
     last: false,
     numberOfElements: 50,
     size: 50,
-    number: 0,
+    pageNumber: 0,
     first: true,
     empty: false,
   },
@@ -45,27 +45,27 @@ export class DemoPagination {
   paginationJson = DEFAULT_PAGINATION_JSON;
   parseError = '';
   outputJson = '// Click First / Previous / numbered pages / Next / Last to see OutputObject here…';
-  model: PaginationObject;
+  model: TdPaginationModel;
 
   constructor(private cdr: ChangeDetectorRef) {
     this.model = this.parseModel(this.paginationJson);
   }
 
-  private parseModel(json: string): PaginationObject {
+  private parseModel(json: string): TdPaginationModel {
     try {
       this.parseError = '';
       const raw = JSON.parse(json || '{}');
-      return new PaginationObject(raw);
+      return new TdPaginationModel(raw);
     } catch (e: any) {
       this.parseError = e.message || String(e);
-      return new PaginationObject({
+      return new TdPaginationModel({
         name: 'Fallback',
         totalPages: 1,
         totalElements: 0,
         last: true,
         numberOfElements: 0,
         size: 50,
-        number: 0,
+        pageNumber: 0,
         first: true,
         empty: true,
       });

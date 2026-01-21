@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <!-- Live NavBarAction Preview -->
+  <!-- Live Preview -->
   <div class="row mb-4">
     <div class="col-12">
       <div class="border rounded overflow-hidden">
@@ -33,19 +33,17 @@
           (output)="handleOutput($event)"
         ></td-nav-bar-action>
       </div>
+
       <div class="small text-secondary mt-2 text-center">
-        <strong>TDNavBarAction</strong> extends TDNavBar with authentication-aware action bars.
-        <br />
-        <code>auth.mode</code>: <code>"guest"</code> shows guestActions,
-        <code>"user"</code> shows userActions,
-        <code>"auto"</code> checks sessionStorage/cookie.
+        <strong>TDNavBarAction</strong> renders:
+        <code>logo</code> + <code>linkBar</code> + <code>buttonBar</code>.
       </div>
     </div>
   </div>
 
   <!-- Editable JSON + Output -->
   <div class="row g-3 align-items-stretch justify-content-center mb-5">
-    <!-- Left: editable JSON -->
+    <!-- Left: JSON -->
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <span class="fw-semibold">
@@ -74,31 +72,20 @@
       </div>
 
       <div class="form-text">
+        Fields:
         <ul class="mb-0 ps-3">
-          <li>
-            <code>auth.mode</code>: <code>"guest"</code>, <code>"user"</code>, or <code>"auto"</code>
-          </li>
-          <li>
-            <code>guestActions</code>: ButtonBarObject shown when not authenticated
-          </li>
-          <li>
-            <code>userActions</code>: ButtonBarObject shown when authenticated
-          </li>
-          <li>
-            <code>backButton</code>: Optional back navigation button
-          </li>
-          <li>
-            <code>sidebarId</code>: ID of offcanvas sidebar to toggle
-          </li>
+          <li><code>logo</code>: TdLinkLogo config (logo is an object)</li>
+          <li><code>linkBar</code>: TdLinkBar config (items use <code>type</code>)</li>
+          <li><code>buttonBar</code>: TdButtonBar config (buttons use <code>type</code>)</li>
         </ul>
       </div>
     </div>
 
-    <!-- Right: output -->
+    <!-- Right: Output -->
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <span class="fw-semibold">
-          Output (from <code>output</code> callback)
+          Output (from <code>output</code>)
         </span>
         <button
           type="button"
@@ -108,6 +95,7 @@
           Clear
         </button>
       </div>
+
       <textarea
         class="form-control font-monospace bg-light border"
         rows="22"
@@ -115,15 +103,6 @@
         readonly
         spellcheck="false"
       ></textarea>
-
-      <div class="form-text">
-        Actions emit via their respective bars:
-        <ul class="mb-0 ps-3">
-          <li>Button clicks: <code>type: "button"</code></li>
-          <li>Link clicks: <code>type: "link"</code></li>
-          <li>Back button: <code>type: "button"</code> with back button data</li>
-        </ul>
-      </div>
     </div>
   </div>
 </div>

@@ -1,28 +1,4 @@
-/* Demo Form Component Styles */
-
+/* src/app/demo/tissue/demo-form/demo-form.css */
 :host {
   display: block;
-}
-
-.nav-tabs .nav-link {
-  cursor: pointer;
-}
-
-textarea.font-monospace {
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-pre {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.form-text ul {
-  font-size: 0.85rem;
-}
-
-code {
-  color: #d63384;
-  font-size: 0.875em;
 }

@@ -1,58 +1,28 @@
-/* TD Card Component Styles */
-
 :host {
   display: block;
 }
 
-/* Media container */
 .media-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: none;
+}
+
+.quantity-control {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+a.btn,
+a.btn-link {
+  display: inline-flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.media-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0.25rem;
-}
-
-/* Quantity control */
-.quantity-control {
-  display: inline-flex;
-}
-
-.quantity-value {
-  min-width: 2rem;
-  text-align: center;
-  font-weight: 500;
-}
-
-/* Button focus states */
-button:focus {
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-/* Link styling */
-a:focus {
-  outline: 2px solid rgba(13, 110, 253, 0.5);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* Tag styling */
-.badge {
-  font-size: 0.875em;
-}
-
-/* Icon sizing */
 i {
-  font-size: 1em;
-}
-
-/* Card sections */
-.card-header,
-.card-footer {
-  background-color: rgba(0, 0, 0, 0.03);
+  line-height: 1;
 }

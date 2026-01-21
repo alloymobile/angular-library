@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdModal } from '../../../lib/tissue/td-modal/td-modal';
-import { ModalObject } from '../../../lib/tissue/td-modal/td-modal.model';
+import { TdModalModel } from '../../../lib/tissue/td-modal/td-modal.model';
 import { OutputObject } from '../../../lib/share';
 
 declare var bootstrap: any;
@@ -156,6 +156,7 @@ interface TabState {
   json: string;
   output: string;
   parseError: string;
+  cachedModel: TdModalModel | null;  // Cache the model to avoid infinite loops
 }
 
 @Component({
@@ -180,9 +181,9 @@ export class DemoModal {
   private isBrowser: boolean;
 
   tabStates: Record<TabKey, TabState> = {
-    create: { json: DEFAULT_MODAL_CREATE, output: this.defaultOutputMsg, parseError: '' },
-    edit: { json: DEFAULT_MODAL_EDIT, output: this.defaultOutputMsg, parseError: '' },
-    password: { json: DEFAULT_MODAL_PASSWORD, output: this.defaultOutputMsg, parseError: '' },
+    create: { json: DEFAULT_MODAL_CREATE, output: this.defaultOutputMsg, parseError: '', cachedModel: null },
+    edit: { json: DEFAULT_MODAL_EDIT, output: this.defaultOutputMsg, parseError: '', cachedModel: null },
+    password: { json: DEFAULT_MODAL_PASSWORD, output: this.defaultOutputMsg, parseError: '', cachedModel: null },
   };
 
   constructor(
@@ -190,6 +191,10 @@ export class DemoModal {
     @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    // Initialize cached models for all tabs
+    this.rebuildModel('create');
+    this.rebuildModel('edit');
+    this.rebuildModel('password');
   }
 
   get currentTab(): TabState {
@@ -200,13 +205,27 @@ export class DemoModal {
     return this.TABS.find(t => t.key === this.activeTab)!;
   }
 
-  get modalModel(): ModalObject {
+  /**
+   * IMPORTANT: This is now a simple getter that returns the cached model.
+   * We no longer create a new TdModalModel on every access, which was causing
+   * an infinite change detection loop.
+   */
+  get modalModel(): TdModalModel {
+    return this.currentTab.cachedModel!;
+  }
+
+  /**
+   * Rebuild the modal model for a specific tab.
+   * This is called explicitly when JSON changes or when switching tabs.
+   */
+  private rebuildModel(tab: TabKey): void {
+    const state = this.tabStates[tab];
     try {
-      this.tabStates[this.activeTab].parseError = '';
-      return new ModalObject(JSON.parse(this.currentTab.json));
+      state.parseError = '';
+      state.cachedModel = new TdModalModel(JSON.parse(state.json));
     } catch (e: any) {
-      this.tabStates[this.activeTab].parseError = e.message || String(e);
-      return new ModalObject({
+      state.parseError = e.message || String(e);
+      state.cachedModel = new TdModalModel({
         id: 'errorModal',
         title: 'Error',
         action: 'Fix',
@@ -223,6 +242,8 @@ export class DemoModal {
 
   onJsonChange(value: string): void {
     this.tabStates[this.activeTab].json = value;
+    // Rebuild the model when JSON changes
+    this.rebuildModel(this.activeTab);
     this.cdr.markForCheck();
   }
 
@@ -237,12 +258,17 @@ export class DemoModal {
     this.tabStates[this.activeTab].json = config.defaultJson;
     this.tabStates[this.activeTab].parseError = '';
     this.tabStates[this.activeTab].output = this.defaultOutputMsg;
+    // Rebuild the model when resetting
+    this.rebuildModel(this.activeTab);
     this.cdr.markForCheck();
   }
 
   openModal(): void {
     if (!this.isBrowser) return;
-    const modalEl = document.getElementById(this.modalModel.id);
+    const model = this.currentTab.cachedModel;
+    if (!model) return;
+    
+    const modalEl = document.getElementById(model.id);
     if (modalEl && typeof bootstrap !== 'undefined' && bootstrap.Modal) {
       const instance = bootstrap.Modal.getOrCreateInstance(modalEl);
       instance.show();

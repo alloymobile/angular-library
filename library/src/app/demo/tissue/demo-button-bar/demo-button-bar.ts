@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdButtonBar } from '../../../lib/tissue/td-button-bar/td-button-bar';
-import { ButtonBarObject } from '../../../lib/tissue/td-button-bar/td-button-bar.model';
+import { TdButtonBarModel } from '../../../lib/tissue/td-button-bar/td-button-bar.model';
 import { OutputObject } from '../../../lib/share';
 
 /* ─────────────────────────── Default JSON Configs ─────────────────────────── */
@@ -115,7 +115,7 @@ interface TabState {
   json: string;
   output: string;
   parseError: string;
-  model: ButtonBarObject;
+  model: TdButtonBarModel;
 }
 
 @Component({
@@ -148,12 +148,12 @@ export class DemoButtonBar {
     };
   }
 
-  private parseModel(json: string, type: string): ButtonBarObject {
+  private parseModel(json: string, type: string): TdButtonBarModel {
     try {
       const parsed = JSON.parse(json);
-      return new ButtonBarObject(parsed);
+      return new TdButtonBarModel(parsed);
     } catch (e) {
-      return new ButtonBarObject({
+      return new TdButtonBarModel({
         type: type === 'AlloyButtonIcon' ? 'AlloyButtonIcon' : 'AlloyButton',
         className: 'nav justify-content-center gap-2',
         buttonClass: 'nav-item',
@@ -178,7 +178,7 @@ export class DemoButtonBar {
     tab.json = value;
     try {
       tab.parseError = '';
-      tab.model = new ButtonBarObject(JSON.parse(value));
+      tab.model = new TdButtonBarModel(JSON.parse(value));
     } catch (e: any) {
       tab.parseError = e.message || String(e);
     }

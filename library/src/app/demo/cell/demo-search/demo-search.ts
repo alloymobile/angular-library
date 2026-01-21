@@ -1,28 +1,31 @@
+// demo-search.ts
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TdSearch } from '../../../lib/cell/td-search/td-search';
-import { TdSearchModel, TdSearchConfig } from '../../../lib/cell/td-search/td-search.model';
+import { TdSearchModel } from '../../../lib/cell/td-search/td-search.model';
+import { TdInputModel } from '../../../lib/cell/td-input/td-input.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/shared/output-object';
 
 const DEFAULT_SEARCH_CONFIG = {
   id: 'emailSearchBar',
   className: 'row my-3',
-  search: {
+  search: new TdInputModel({
     id: 'emailSearch',
     name: 'emailSearch',
     type: 'text',
     layout: 'icon',
-    icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' },
+    icon: new TdIconModel({ iconClass: 'fa-solid fa-magnifying-glass', className: '' }),
     label: 'Search Emails',
     placeholder: 'Search by recipient, subject, tags…',
     className: 'form-control',
     iconGroupClass: 'bg-light border-0',
-  },
+  }),
   minChars: 2,
   debounceMs: 400,
-} satisfies TdSearchConfig;
+};
 
 @Component({
   selector: 'demo-search',
@@ -36,7 +39,7 @@ export class DemoSearch {
 
   outputJson = signal('// Type in the search box and wait for debounce...');
   parseError = signal('');
-  baseConfig = signal<TdSearchConfig>(DEFAULT_SEARCH_CONFIG);
+  baseConfig = signal<any>(DEFAULT_SEARCH_CONFIG);
 
   outputShapeExample = `// Debounced query:
 {
@@ -70,7 +73,7 @@ export class DemoSearch {
   handleJsonChange(val: string): void {
     try {
       const obj = JSON.parse(val || '{}');
-      this.baseConfig.set(obj as TdSearchConfig);
+      this.baseConfig.set(obj as any);
       this.parseError.set('');
     } catch (e: any) {
       this.parseError.set(String(e?.message || e));

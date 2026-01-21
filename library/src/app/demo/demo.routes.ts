@@ -9,8 +9,6 @@ import { DemoButtonBar } from "./tissue/demo-button-bar/demo-button-bar";
 import { DemoLinkBar } from "./tissue/demo-link-bar/demo-link-bar";
 import { DemoCard } from "./tissue/demo-card/demo-card";
 import { DemoCardAction } from "./tissue/demo-card-action/demo-card-action";
-import { DemoForm } from "./tissue/demo-form/demo-form";
-import { DemoModal } from "./tissue/demo-modal/demo-modal";
 import { DemoNavBar } from "./tissue/demo-nav-bar/demo-nav-bar";
 import { DemoNavBarAction } from "./tissue/demo-nav-bar-action/demo-nav-bar-action";
 import { DemoSidebar } from "./tissue/demo-sidebar/demo-sidebar";
@@ -29,6 +27,12 @@ import { DemoSearch } from "./cell/demo-search/demo-search";
 import { DemoInput } from "./cell/demo-input/demo-input";
 import { DemoInputIcon } from "./cell/demo-input-icon/demo-input-icon";
 import { DemoInputFloating } from "./cell/demo-input-floating/demo-input-floating";
+import { DemoButtonDropDown } from "./cell/demo-button-drop-down/demo-button-drop-down";
+import { DemoModalToast } from "./tissue/demo-modal-toast/demo-modal-toast";
+import { DemoForm } from "./tissue/demo-form/demo-form";
+import { DemoModal } from "./tissue/demo-modal/demo-modal";
+import { DemoTabForm } from "./tissue/demo-tab-form/demo-tab-form";
+import { DemoCrud } from "./organ/demo-crud/demo-crud";
 
 export const DEMO_ROUTES: Routes = [
   {
@@ -50,6 +54,7 @@ export const DEMO_ROUTES: Routes = [
             { path: "button", component: DemoButton },
             { path: "button-icon", component: DemoButtonIcon },
             { path: "button-submit", component: DemoButtonSubmit },    
+            { path: "button-drop-down", component: DemoButtonDropDown },    
             { path: "input", component: DemoInput },   
             { path: "input-icon", component: DemoInputIcon },   
             { path: "input-floating", component: DemoInputFloating },  
@@ -68,7 +73,9 @@ export const DEMO_ROUTES: Routes = [
             { path: "card", component: DemoCard },
             { path: "card-action", component: DemoCardAction },
             { path: "form", component: DemoForm },
+            { path: "tab-form", component: DemoTabForm },            
             { path: "modal", component: DemoModal },
+            { path: "modal-toast", component: DemoModalToast },
             { path: "navbar", component:  DemoNavBar},
             { path: "navbar-action", component: DemoNavBarAction },
             { path: "sidebar", component: DemoSidebar },
@@ -82,7 +89,8 @@ export const DEMO_ROUTES: Routes = [
         path: "organ",
         component: DemoOrgan,
         children: [
-          
+          { path: "", pathMatch: "full", redirectTo: "crud" },
+          { path: "crud", component: DemoCrud }
         ],
       },
     ],
