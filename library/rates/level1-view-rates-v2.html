@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TD Bank - ULOC Rates</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --td-green: #008A00;
+      --td-green-dark: #006B00;
+      --td-green-light: #E8F5E9;
+      --sidebar-bg: #1a1d21;
+      --sidebar-hover: #2d3136;
+      --content-bg: #ffffff;
+      --card-bg: #ffffff;
+      --text-primary: #1d1d1d;
+      --text-secondary: #616161;
+      --text-muted: #9e9e9e;
+      --border-color: #e5e7eb;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --transition-fast: 0.15s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--content-bg);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* Sidebar (fixed width, no expand) */
+    .sidebar {
+      position: fixed;
+      left: 0; top: 0;
+      width: 68px;
+      height: 100vh;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .sidebar-brand {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      min-height: 64px;
+    }
+
+    .brand-icon {
+      width: 36px; height: 36px;
+      background: var(--td-green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 8px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-item:hover { background: var(--sidebar-hover); color: #fff; }
+    .nav-item.active { background: var(--td-green); color: #fff; }
+
+    .nav-item i { font-size: 18px; }
+    .nav-item span { display: none; } /* Titles shown via tooltip only */
+
+    /* lightweight tooltip (no sidebar resize) */
+    .nav-item[data-title]::after {
+      content: attr(data-title);
+      position: absolute;
+      left: 74px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-fast);
+    }
+    .nav-item:hover::after { opacity: 1; }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: center;
+    }
+
+    .user-avatar {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform var(--transition-fast);
+    }
+    .user-avatar:hover { transform: scale(1.05); }
+
+    /* Main */
+    .main-content {
+      margin-left: 68px;
+      min-height: 100vh;
+      background: var(--content-bg);
+    }
+
+    /* Header */
+    .top-header {
+      background: var(--card-bg);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .btn-icon:hover { background: #f5f6f7; color: var(--text-primary); }
+
+    /* Prime rate inline in header */
+    .prime-pill{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid var(--border-color);
+      background: var(--td-green-light);
+      color: var(--td-green-dark);
+      font-weight:800;
+      font-size:13px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .prime-pill .label{
+      font-weight:700;
+      color: var(--td-green-dark);
+      opacity:0.9;
+      font-size:12px;
+      letter-spacing:0.2px;
+    }
+    .prime-pill .value{
+      font-size:14px;
+      color: var(--td-green);
+    }
+
+
+    /* Content */
+    .content-area { padding: 24px 32px; }
+
+    /* Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 74px;
+    }
+
+    .stat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .stat-icon.green { background: var(--td-green-light); color: var(--td-green); }
+    .stat-icon.blue { background: #e3f2fd; color: #1976d2; }
+    .stat-icon.orange { background: #fff3e0; color: #f57c00; }
+    .stat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
+
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+    .stat-value { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .stat-value.rate { color: var(--td-green); }
+
+    /* Search row */
+    .search-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .search-container {
+      position: relative;
+      flex: 1;
+      max-width: none; /* take the space */
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 10px 16px 10px 44px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 14px;
+      background: var(--card-bg);
+      transition: all var(--transition-fast);
+    }
+
+    .search-container input:focus {
+      outline: none;
+      border-color: var(--td-green);
+      box-shadow: 0 0 0 3px var(--td-green-light);
+    }
+
+    .search-container i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-secondary);
+    }
+
+    .btn-action:hover {
+      background: #f5f6f7;
+      color: var(--text-primary);
+      border-color: #d1d5db;
+    }
+
+    .btn-action.primary {
+      background: var(--td-green);
+      color: #fff;
+      border-color: var(--td-green);
+    }
+    .btn-action.primary:hover {
+      background: var(--td-green-dark);
+      border-color: var(--td-green-dark);
+    }
+
+    /* Layout */
+    .main-layout { display: flex; gap: 20px; }
+
+    /* Filter Panel */
+    .filter-panel { width: 240px; flex-shrink: 0; }
+    .filter-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      position: sticky;
+      top: 88px; /* under header */
+    }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .filter-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .clear-filters {
+      font-size: 12px;
+      color: var(--td-green);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .clear-filters:hover { text-decoration: underline; }
+
+    .filter-section { margin-bottom: 16px; }
+    .filter-section:last-child { margin-bottom: 0; }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .filter-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--card-bg);
+      cursor: pointer;
+    }
+
+    .filter-select:focus { outline: none; border-color: var(--td-green); }
+
+    /* Multi-select dropdown with checkboxes */
+    .multi-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .multi-btn {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 13px;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+
+    .multi-btn.disabled {
+      background: #fafafa;
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+
+    .multi-menu {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 8px);
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+      padding: 10px 10px;
+      z-index: 50;
+      display: none;
+      max-height: 240px;
+      overflow: auto;
+    }
+
+    .multi-menu.open { display: block; }
+
+    .multi-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .multi-item:hover { background: #f6f7f8; }
+
+    .multi-item input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--td-green);
+      cursor: pointer;
+    }
+    .multi-item span { font-size: 13px; color: var(--text-primary); }
+
+    .hint-text { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    /* Status checkboxes (keep simple) */
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      cursor: pointer;
+    }
+    .filter-checkbox input {
+      width: 16px; height: 16px;
+      accent-color: var(--td-green);
+      cursor: pointer;
+    }
+    .filter-checkbox span { font-size: 13px; color: var(--text-primary); }
+
+    /* Table */
+    .table-section { flex: 1; min-width: 0; }
+
+    .table-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      padding: 12px 14px 0 14px;
+      background: #fff;
+    }
+
+    .rate-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .rate-table thead th {
+      background: #f7f8fa;
+      color: var(--text-secondary);
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .rate-table thead th.tier-header {
+      text-align: center;
+      border-left: 1px solid var(--border-color);
+    }
+
+    .rate-table thead .tier-row th {
+      padding: 8px 10px;
+      font-size: 11px;
+      background: #f1f3f5;
+      font-weight: 700;
+    }
+
+    .rate-table tbody td {
+      padding: 14px 16px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    .rate-table tbody tr:nth-child(even) { background: #fbfcfd; }
+    .rate-table tbody tr:hover { background: #f6f8fa; }
+    .rate-table tbody tr:last-child td { border-bottom: none; }
+
+    .cvp-cell { font-weight: 700; }
+
+    .rate-cell {
+      text-align: center;
+      border-left: 1px solid var(--border-color);
+      min-width: 64px;
+      font-weight: 600;
+    }
+
+    /* Pagination footer (bottom-right) */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border-color);
+      background: #fbfbfc;
+    }
+
+        .results-summary {
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+.page-size {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .page-size select {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #fff;
+    }
+
+    .pagination .page-link {
+      border-radius: 10px !important;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .pagination .page-item.active .page-link {
+      background: var(--td-green);
+      border-color: var(--td-green);
+      color: #fff;
+    }
+    .pagination .page-link:focus { box-shadow: 0 0 0 3px var(--td-green-light); }
+
+    /* Tier hide helper (applied by JS) */
+    .tier-hidden { display: none !important; }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .filter-panel { width: 220px; }
+    }
+    @media (max-width: 992px) {
+      .main-layout { flex-direction: column; }
+      .filter-panel { width: 100%; }
+      .filter-card { position: static; }
+    }
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .content-area { padding: 16px; }
+      .search-actions-row { flex-direction: column; align-items: stretch; }
+      .action-buttons { justify-content: space-between; }
+    }
+
+/* Filter bar on top */
+    .filter-bar{
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      margin-top: 10px;
+    }
+    .filter-bar .filter-section{ margin-bottom: 0; }
+    .filter-bar .filter-label{ margin-bottom: 8px; }
+    .filter-bar .filter-search{
+      max-width: 760px;
+      margin: 0 auto;
+      flex: unset;
+    }
+
+    /* Full width table (no side layout) */
+    .table-section{ margin-top: 14px; }
+</style>
+</head>
+<body>
+<!-- Sidebar: only ULOC / ILOC -->
+<aside class="sidebar">
+<div class="sidebar-brand">
+<div class="brand-icon">TD</div>
+</div>
+<nav class="sidebar-nav">
+<a class="nav-item active" data-title="ULOC" href="#">
+<i class="fas fa-credit-card"></i>
+<span>ULOC</span>
+</a>
+<a class="nav-item" data-title="ILOC" href="#">
+<i class="fas fa-landmark"></i>
+<span>ILOC</span>
+</a>
+</nav>
+<div class="sidebar-footer">
+<div class="user-avatar">JD</div>
+</div>
+</aside>
+<main class="main-content">
+<!-- Header -->
+<header class="top-header">
+<div>
+<div class="page-title">
+<i class="fas fa-credit-card" style="color: var(--td-green);"></i>
+          ULOC Rates
+        </div>
+<div class="page-subtitle">Filter by Category / Subcategory and control Amount Tiers</div>
+</div>
+<div class="header-actions">
+<div class="prime-pill" title="Prime Rate">
+<span class="label">Prime</span>
+<span class="value">7.20%</span>
+</div>
+
+<button class="btn-icon" title="Help">
+<i class="fas fa-question-circle"></i>
+</button>
+</div>
+</header>
+<div class="content-area">
+<div class="filter-bar">
+<div class="filter-header">
+<div class="filter-title"><i class="fas fa-filter" style="color: var(--text-muted);"></i> Filters</div>
+<a class="clear-filters" href="#" id="clearFilters">Clear all</a>
+</div>
+<div class="row g-3 align-items-end">
+<div class="col-12">
+<div class="search-container filter-search">
+<i class="fas fa-search"></i>
+<input id="globalSearch" placeholder="Search CVP, subcategory, dates, rates..." type="text"/>
+</div>
+</div>
+<div class="col-12 col-lg-4">
+<div class="filter-section">
+<div class="filter-label">Category</div>
+<select class="filter-select" id="categorySelect">
+<option value="ALL">All Categories</option>
+<option value="NEW_TO_BANK">New to Bank</option>
+<option value="STAFF">Staff</option>
+<option value="PROMOTION">Promotion</option>
+<option value="ALL_PROGRAMS">All</option>
+</select>
+<div class="hint-text">Pick a category to narrow results and enable subcategories.</div>
+</div>
+</div>
+<div class="col-12 col-lg-4">
+<div class="filter-section">
+<div class="filter-label">Subcategory</div>
+<div class="multi-select" id="subcategoryMulti">
+<button class="multi-btn disabled" id="subcategoryBtn" type="button">
+<span id="subcategoryBtnLabel">Select a category first</span>
+<i class="fas fa-chevron-down" style="color: var(--text-muted);"></i>
+</button>
+<div class="multi-menu" id="subcategoryMenu"></div>
+</div>
+<div class="hint-text" id="subcategoryHint">If a category has no subcategories, the filter stays disabled.</div>
+</div>
+</div>
+
+<div class="col-12 col-lg-4">
+  <div class="filter-section">
+    <div class="filter-label">Amount Tiers</div>
+    <div class="multi-select" id="tierMulti">
+      <button class="multi-btn" id="tierBtn" type="button">
+        <span id="tierBtnLabel">All tiers selected</span>
+        <i class="fas fa-chevron-down" style="color: var(--text-muted);"></i>
+      </button>
+      <div class="multi-menu" id="tierMenu">
+        <label class="multi-item"><input checked class="tierCheck" type="checkbox" value="T1"/><span>&lt;5k</span></label>
+        <label class="multi-item"><input checked class="tierCheck" type="checkbox" value="T2"/><span>5–10k</span></label>
+        <label class="multi-item"><input checked class="tierCheck" type="checkbox" value="T3"/><span>10–15k</span></label>
+        <label class="multi-item"><input checked class="tierCheck" type="checkbox" value="T4"/><span>15–20k</span></label>
+        <label class="multi-item"><input checked class="tierCheck" type="checkbox" value="T5"/><span>&gt;20k</span></label>
+      </div>
+    </div>
+    <div class="hint-text">Select one or more tiers to show in the table.</div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<div class="table-section">
+<div class="table-card">
+<div class="table-container">
+<table class="rate-table" id="rateTable">
+<thead>
+<tr>
+<th rowspan="2">CVP</th>
+<th class="tier-header tier-T1" colspan="2">&lt;5k</th>
+<th class="tier-header tier-T2" colspan="2">5–10k</th>
+<th class="tier-header tier-T3" colspan="2">10–15k</th>
+<th class="tier-header tier-T4" colspan="2">15–20k</th>
+<th class="tier-header tier-T5" colspan="2">&gt;20k</th>
+<th rowspan="2">Eff. Date</th>
+<th rowspan="2">Expiry</th>
+
+</tr>
+<tr class="tier-row">
+<th class="tier-header tier-T1">Target</th>
+<th class="tier-header tier-T1">Floor</th>
+<th class="tier-header tier-T2">Target</th>
+<th class="tier-header tier-T2">Floor</th>
+<th class="tier-header tier-T3">Target</th>
+<th class="tier-header tier-T3">Floor</th>
+<th class="tier-header tier-T4">Target</th>
+<th class="tier-header tier-T4">Floor</th>
+<th class="tier-header tier-T5">Target</th>
+<th class="tier-header tier-T5">Floor</th>
+</tr>
+</thead>
+<tbody id="rateTbody">
+<!-- Rows are sample; in real app these come from API -->
+<tr data-category="ALL_PROGRAMS" data-status="ACTIVE" data-subcategory="">
+<td class="cvp-cell">AAXX</td>
+<td class="rate-cell tier-T1">2.99</td><td class="rate-cell tier-T1">2.49</td>
+<td class="rate-cell tier-T2">2.99</td><td class="rate-cell tier-T2">2.49</td>
+<td class="rate-cell tier-T3">2.99</td><td class="rate-cell tier-T3">2.49</td>
+<td class="rate-cell tier-T4">2.99</td><td class="rate-cell tier-T4">2.49</td>
+<td class="rate-cell tier-T5">2.99</td><td class="rate-cell tier-T5">2.49</td>
+<td>2025-06-03</td>
+<td>—</td>
+</tr>
+<tr data-category="STAFF" data-status="ACTIVE" data-subcategory="STF_CORE">
+<td class="cvp-cell">STF1</td>
+<td class="rate-cell tier-T1">2.50</td><td class="rate-cell tier-T1">2.10</td>
+<td class="rate-cell tier-T2">2.55</td><td class="rate-cell tier-T2">2.15</td>
+<td class="rate-cell tier-T3">2.60</td><td class="rate-cell tier-T3">2.20</td>
+<td class="rate-cell tier-T4">2.65</td><td class="rate-cell tier-T4">2.25</td>
+<td class="rate-cell tier-T5">2.70</td><td class="rate-cell tier-T5">2.30</td>
+<td>2025-06-01</td>
+<td>—</td>
+</tr>
+<tr data-category="NEW_TO_BANK" data-status="ACTIVE" data-subcategory="NTB_NEW">
+<td class="cvp-cell">NEW1</td>
+<td class="rate-cell tier-T1">3.10</td><td class="rate-cell tier-T1">2.70</td>
+<td class="rate-cell tier-T2">3.10</td><td class="rate-cell tier-T2">2.70</td>
+<td class="rate-cell tier-T3">3.10</td><td class="rate-cell tier-T3">2.70</td>
+<td class="rate-cell tier-T4">3.10</td><td class="rate-cell tier-T4">2.70</td>
+<td class="rate-cell tier-T5">3.10</td><td class="rate-cell tier-T5">2.70</td>
+<td>2025-05-20</td>
+<td>—</td>
+</tr>
+<tr data-category="PROMOTION" data-status="EXPIRING" data-subcategory="">
+<td class="cvp-cell">PRM9</td>
+<td class="rate-cell tier-T1">2.80</td><td class="rate-cell tier-T1">2.40</td>
+<td class="rate-cell tier-T2">2.85</td><td class="rate-cell tier-T2">2.45</td>
+<td class="rate-cell tier-T3">2.90</td><td class="rate-cell tier-T3">2.50</td>
+<td class="rate-cell tier-T4">2.95</td><td class="rate-cell tier-T4">2.55</td>
+<td class="rate-cell tier-T5">3.00</td><td class="rate-cell tier-T5">2.60</td>
+<td>2025-06-10</td>
+<td>2025-07-31</td>
+</tr>
+<!-- extra rows so pagination is meaningful -->
+<tr data-category="STAFF" data-status="ACTIVE" data-subcategory="STF_PREMIUM">
+<td class="cvp-cell">STF2</td>
+<td class="rate-cell tier-T1">2.45</td><td class="rate-cell tier-T1">2.05</td>
+<td class="rate-cell tier-T2">2.50</td><td class="rate-cell tier-T2">2.10</td>
+<td class="rate-cell tier-T3">2.55</td><td class="rate-cell tier-T3">2.15</td>
+<td class="rate-cell tier-T4">2.60</td><td class="rate-cell tier-T4">2.20</td>
+<td class="rate-cell tier-T5">2.65</td><td class="rate-cell tier-T5">2.25</td>
+<td>2025-06-05</td>
+<td>—</td>
+</tr>
+<tr data-category="NEW_TO_BANK" data-status="INACTIVE" data-subcategory="NTB_MORTGAGE_XSELL">
+<td class="cvp-cell">NEW2</td>
+<td class="rate-cell tier-T1">3.20</td><td class="rate-cell tier-T1">2.85</td>
+<td class="rate-cell tier-T2">3.20</td><td class="rate-cell tier-T2">2.85</td>
+<td class="rate-cell tier-T3">3.20</td><td class="rate-cell tier-T3">2.85</td>
+<td class="rate-cell tier-T4">3.20</td><td class="rate-cell tier-T4">2.85</td>
+<td class="rate-cell tier-T5">3.20</td><td class="rate-cell tier-T5">2.85</td>
+<td>2025-04-14</td>
+<td>2025-12-31</td>
+</tr>
+<tr data-category="ALL_PROGRAMS" data-status="ACTIVE" data-subcategory="">
+<td class="cvp-cell">AAYY</td>
+<td class="rate-cell tier-T1">2.95</td><td class="rate-cell tier-T1">2.45</td>
+<td class="rate-cell tier-T2">2.95</td><td class="rate-cell tier-T2">2.45</td>
+<td class="rate-cell tier-T3">2.95</td><td class="rate-cell tier-T3">2.45</td>
+<td class="rate-cell tier-T4">2.95</td><td class="rate-cell tier-T4">2.45</td>
+<td class="rate-cell tier-T5">2.95</td><td class="rate-cell tier-T5">2.45</td>
+<td>2025-07-01</td>
+<td>—</td>
+</tr>
+<tr data-category="PROMOTION" data-status="EXPIRING" data-subcategory="">
+<td class="cvp-cell">PRM7</td>
+<td class="rate-cell tier-T1">2.75</td><td class="rate-cell tier-T1">2.35</td>
+<td class="rate-cell tier-T2">2.80</td><td class="rate-cell tier-T2">2.40</td>
+<td class="rate-cell tier-T3">2.85</td><td class="rate-cell tier-T3">2.45</td>
+<td class="rate-cell tier-T4">2.90</td><td class="rate-cell tier-T4">2.50</td>
+<td class="rate-cell tier-T5">2.95</td><td class="rate-cell tier-T5">2.55</td>
+<td>2025-06-21</td>
+<td>2025-08-15</td>
+</tr>
+<tr data-category="STAFF" data-status="ACTIVE" data-subcategory="STF_CORE">
+<td class="cvp-cell">STF9</td>
+<td class="rate-cell tier-T1">2.52</td><td class="rate-cell tier-T1">2.12</td>
+<td class="rate-cell tier-T2">2.57</td><td class="rate-cell tier-T2">2.17</td>
+<td class="rate-cell tier-T3">2.62</td><td class="rate-cell tier-T3">2.22</td>
+<td class="rate-cell tier-T4">2.67</td><td class="rate-cell tier-T4">2.27</td>
+<td class="rate-cell tier-T5">2.72</td><td class="rate-cell tier-T5">2.32</td>
+<td>2025-06-09</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination footer -->
+<div class="table-footer">
+<div class="results-summary" id="resultsSummary">Showing 0–0 of 0</div>
+<div class="page-size">
+                Rows
+                <select id="pageSize">
+<option value="5">5</option>
+<option selected="" value="10">10</option>
+<option value="25">25</option>
+</select>
+</div>
+<nav aria-label="Table pagination">
+<ul class="pagination mb-0" id="pager"></ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+    // ---- Data: category -> subcategories (some empty) ----
+    const CATEGORY_SUBS = {
+      "ALL": [],
+      "NEW_TO_BANK": [
+        { id: "NTB_NEW", name: "New Customer" },
+        { id: "NTB_MORTGAGE_XSELL", name: "Mortgage Cross-sell" }
+      ],
+      "STAFF": [
+        { id: "STF_CORE", name: "Core Staff" },
+        { id: "STF_PREMIUM", name: "Premium Staff" }
+      ],
+      "PROMOTION": [],          // no subcategories
+      "ALL_PROGRAMS": []        // no subcategories
+    };
+
+    // ---- Helpers ----
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    function closeAllMenus(exceptId) {
+      ["subcategoryMenu", "tierMenu"].forEach(id => {
+        if (id !== exceptId) document.getElementById(id).classList.remove("open");
+      });
+    }
+
+    // ---- Multi-select dropdown open/close ----
+    $("#subcategoryBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      const btn = $("#subcategoryBtn");
+      if (btn.classList.contains("disabled")) return;
+      closeAllMenus("subcategoryMenu");
+      $("#subcategoryMenu").classList.toggle("open");
+    });
+
+    $("#tierBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      closeAllMenus("tierMenu");
+      $("#tierMenu").classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+      const inSub = $("#subcategoryMulti").contains(e.target);
+      const inTier = $("#tierMulti").contains(e.target);
+      if (!inSub && !inTier) closeAllMenus(null);
+    });
+
+    // ---- Subcategory build + selection ----
+    function buildSubcategories(category) {
+      const subs = CATEGORY_SUBS[category] || [];
+      const menu = $("#subcategoryMenu");
+      menu.innerHTML = "";
+
+      if (!subs.length) {
+        // disable
+        $("#subcategoryBtn").classList.add("disabled");
+        $("#subcategoryBtnLabel").textContent = "No subcategories";
+        $("#subcategoryMenu").classList.remove("open");
+        return;
+      }
+
+      $("#subcategoryBtn").classList.remove("disabled");
+      $("#subcategoryBtnLabel").textContent = "Select subcategories";
+      subs.forEach((s) => {
+        const label = document.createElement("label");
+        label.className = "multi-item";
+        label.innerHTML = `<input type="checkbox" class="subcatCheck" value="${s.id}"><span>${s.name}</span>`;
+        menu.appendChild(label);
+      });
+
+      // listen
+      $$(".subcatCheck").forEach(cb => cb.addEventListener("change", () => {
+        updateSubcategoryButtonLabel();
+        applyFilters();
+      }));
+
+      updateSubcategoryButtonLabel();
+    }
+
+    function getSelectedSubcategories() {
+      return $$(".subcatCheck").filter(cb => cb.checked).map(cb => cb.value);
+    }
+
+    function updateSubcategoryButtonLabel() {
+      const selected = getSelectedSubcategories();
+      if (selected.length === 0) {
+        $("#subcategoryBtnLabel").textContent = "All subcategories";
+      } else if (selected.length === 1) {
+        const name = ($$(".subcatCheck").find(cb => cb.checked)?.nextElementSibling?.textContent || "1 selected");
+        $("#subcategoryBtnLabel").textContent = name;
+      } else {
+        $("#subcategoryBtnLabel").textContent = `${selected.length} selected`;
+      }
+    }
+
+    // ---- Tier selection drives column visibility ----
+    function getSelectedTiers() {
+      return $$(".tierCheck").filter(cb => cb.checked).map(cb => cb.value);
+    }
+
+    function updateTierButtonLabel() {
+      const tiers = getSelectedTiers();
+      if (tiers.length === 5) $("#tierBtnLabel").textContent = "All tiers selected";
+      else if (tiers.length === 0) $("#tierBtnLabel").textContent = "No tiers selected";
+      else $("#tierBtnLabel").textContent = `${tiers.length} tier(s) selected`;
+    }
+
+    function applyTierVisibility() {
+      const selected = new Set(getSelectedTiers());
+      ["T1","T2","T3","T4","T5"].forEach(t => {
+        const hide = !selected.has(t);
+        $$(".tier-" + t).forEach(el => {
+          el.classList.toggle("tier-hidden", hide);
+        });
+      });
+    }
+
+    $$(".tierCheck").forEach(cb => cb.addEventListener("change", () => {
+      updateTierButtonLabel();
+      applyTierVisibility();
+    }));
+
+    // ---- Table filtering + pagination ----
+    let currentPage = 1;
+
+    function matchesSearch(row, term) {
+      if (!term) return true;
+      return row.textContent.toLowerCase().includes(term);
+    }
+
+    function applyFilters() {
+      const category = $("#categorySelect").value;
+      const subSelected = getSelectedSubcategories();
+      const term = $("#globalSearch").value.trim().toLowerCase();
+
+      const rows = $$("#rateTbody tr");
+      const filtered = rows.filter(row => {
+        const rowCat = row.getAttribute("data-category") || "";
+        const rowSub = row.getAttribute("data-subcategory") || "";
+      const rowStatus = row.getAttribute("data-status") || "";
+
+        // category filter
+        const catOk = (category === "ALL") || (rowCat === category);
+
+        // subcategory filter:
+        // - if none selected => ignore (show all under category)
+        // - if selected => must match one
+        const subOk = (subSelected.length === 0) || subSelected.includes(rowSub);
+
+        // search
+        const searchOk = matchesSearch(row, term);
+
+        return catOk && subOk && searchOk;
+      });
+
+      // reset to page 1 whenever filters change
+      currentPage = 1;
+      renderPagination(filtered);
+      renderRows(filtered);
+}
+
+    function renderRows(filteredRows) {
+      const pageSize = parseInt($("#pageSize").value, 10);
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+
+      const rows = $$("#rateTbody tr");
+      rows.forEach(r => r.style.display = "none");
+
+      filteredRows.slice(start, end).forEach(r => r.style.display = "");
+    }
+
+    function renderPagination(filteredRows) {
+      const pageSize = parseInt($("#pageSize").value, 10);
+      const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      // results summary
+      const total = filteredRows.length;
+      const startItem = total === 0 ? 0 : ((currentPage - 1) * pageSize) + 1;
+      const endItem = total === 0 ? 0 : Math.min(currentPage * pageSize, total);
+      const summaryEl = document.getElementById("resultsSummary");
+      if (summaryEl) {
+        summaryEl.textContent = total === 0 ? "No results" : `Showing ${startItem}–${endItem} of ${total}`;
+      }
+
+      const pager = $("#pager");
+      pager.innerHTML = "";
+
+      const addItem = (label, page, disabled=false, active=false) => {
+        const li = document.createElement("li");
+        li.className = "page-item" + (disabled ? " disabled" : "") + (active ? " active" : "");
+        const a = document.createElement("a");
+        a.className = "page-link";
+        a.href = "#";
+        a.textContent = label;
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (disabled) return;
+          currentPage = page;
+          renderPagination(filteredRows);
+          renderRows(filteredRows);
+        });
+        li.appendChild(a);
+        pager.appendChild(li);
+      };
+
+      addItem("‹", Math.max(1, currentPage - 1), currentPage === 1);
+
+      // compact page numbers
+      const windowSize = 5;
+      let start = Math.max(1, currentPage - Math.floor(windowSize/2));
+      let end = Math.min(totalPages, start + windowSize - 1);
+      start = Math.max(1, end - windowSize + 1);
+
+      if (start > 1) addItem("1", 1, false, currentPage === 1);
+      if (start > 2) {
+        const li = document.createElement("li");
+        li.className = "page-item disabled";
+        li.innerHTML = '<span class="page-link">…</span>';
+        pager.appendChild(li);
+      }
+
+      for (let p = start; p <= end; p++) addItem(String(p), p, false, p === currentPage);
+
+      if (end < totalPages - 1) {
+        const li = document.createElement("li");
+        li.className = "page-item disabled";
+        li.innerHTML = '<span class="page-link">…</span>';
+        pager.appendChild(li);
+      }
+      if (end < totalPages) addItem(String(totalPages), totalPages, false, currentPage === totalPages);
+
+      addItem("›", Math.min(totalPages, currentPage + 1), currentPage === totalPages);
+    }
+
+    // ---- Wire up UI ----
+    $("#categorySelect").addEventListener("change", () => {
+      // rebuild subcategories (and clears previous selection by replacing menu)
+      buildSubcategories($("#categorySelect").value);
+      applyFilters();
+    });
+
+    $("#globalSearch").addEventListener("input", () => applyFilters());
+
+    $("#pageSize").addEventListener("change", () => {
+      currentPage = 1;
+      applyFilters();
+    });
+
+    $("#clearFilters").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      $("#categorySelect").value = "ALL";
+      $("#globalSearch").value = "";
+
+      // tiers: all checked
+      $$(".tierCheck").forEach(cb => cb.checked = true);
+
+      // rebuild subcategories to disabled (since ALL)
+      buildSubcategories("ALL");
+      updateTierButtonLabel();
+      applyTierVisibility();
+
+      applyFilters();
+    });
+
+    // ---- Init ----
+    buildSubcategories("ALL");
+    updateTierButtonLabel();
+    applyTierVisibility();
+    applyFilters();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

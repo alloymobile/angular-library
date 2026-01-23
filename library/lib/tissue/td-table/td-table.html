@@ -1,0 +1,200 @@
+<!-- TD Table Component - Supports both simple and grouped headers -->
+
+<table [id]="table.id" [class]="table.className">
+  <!-- Caption -->
+  <caption *ngIf="table.name" class="caption-top text-center">
+    {{ table.name }}
+  </caption>
+
+  <!-- ============================================== -->
+  <!-- GROUPED COLUMNS MODE (with column config)     -->
+  <!-- ============================================== -->
+  <ng-container *ngIf="table.hasColumnConfig(); else legacyMode">
+    <thead>
+      <!-- Row 1: Parent headers -->
+      <tr class="header-row-primary">
+        <!-- Icon column header (spans 2 rows if grouped) -->
+        <th
+          *ngIf="table.showIconColumn"
+          scope="col"
+          [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+          class="icon-column-header"
+        >
+          Type
+        </th>
+
+        <!-- Column headers -->
+        <ng-container *ngFor="let col of processedColumns; trackBy: trackByColumn">
+          <!-- Simple column: spans 2 rows -->
+          <th
+            *ngIf="col.type === 'simple'"
+            scope="col"
+            [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+            class="simple-column-header"
+          >
+            <span
+              class="sortable-header"
+              (click)="onHeaderClick(col.key)"
+              (keydown.enter)="onHeaderClick(col.key)"
+              (keydown.space)="onHeaderClick(col.key)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Sort by ' + col.label"
+            >
+              {{ col.label }}
+              <span
+                *ngIf="isColumnActive(col.key)"
+                class="sort-indicator"
+                aria-hidden="true"
+                [ngStyle]="getSortIconStyle()"
+              >
+                <i [class]="table.sort.iconClass"></i>
+              </span>
+            </span>
+          </th>
+
+          <!-- Grouped column: spans multiple columns -->
+          <th
+            *ngIf="col.type === 'grouped'"
+            scope="colgroup"
+            [attr.colspan]="col.colspan"
+            class="grouped-column-header"
+          >
+            {{ col.label }}
+          </th>
+        </ng-container>
+      </tr>
+
+      <!-- Row 2: Sub-headers (only if grouped columns exist) -->
+      <tr *ngIf="hasGroupedColumns" class="header-row-secondary">
+        <ng-container *ngFor="let subCol of getAllSubColumns()">
+          <th scope="col" class="sub-column-header">
+            <span
+              class="sortable-header"
+              (click)="onHeaderClick(subCol.parentKey, subCol.key)"
+              (keydown.enter)="onHeaderClick(subCol.parentKey, subCol.key)"
+              (keydown.space)="onHeaderClick(subCol.parentKey, subCol.key)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Sort by ' + subCol.label"
+            >
+              {{ subCol.label }}
+              <span
+                *ngIf="isColumnActive(subCol.parentKey, subCol.key)"
+                class="sort-indicator"
+                aria-hidden="true"
+                [ngStyle]="getSortIconStyle()"
+              >
+                <i [class]="table.sort.iconClass"></i>
+              </span>
+            </span>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Data rows -->
+      <tr
+        *ngFor="let row of table.rows; trackBy: trackByRow"
+        class="table-row-clickable"
+        (click)="onRowClick(row)"
+        (keydown.enter)="onRowClick(row)"
+        tabindex="0"
+        role="button"
+      >
+        <!-- Icon column -->
+        <td *ngIf="table.showIconColumn" class="icon-column">
+          <i [class]="table.icon.iconClass" [attr.aria-label]="table.icon.ariaLabel"></i>
+        </td>
+
+        <!-- Data columns -->
+        <ng-container *ngFor="let cell of getCellDefinitions()">
+          <td [class.grouped-cell]="cell.subColKey">
+            {{ formatCellValue(getCellValue(row, cell.colKey, cell.subColKey)) }}
+          </td>
+        </ng-container>
+      </tr>
+
+      <!-- Empty state -->
+      <tr *ngIf="table.rows.length === 0">
+        <td
+          [attr.colspan]="table.getTotalColumnCount()"
+          class="text-center text-secondary empty-state"
+        >
+          No data available
+        </td>
+      </tr>
+    </tbody>
+  </ng-container>
+
+  <!-- ============================================== -->
+  <!-- LEGACY MODE (flat key-value, no column config) -->
+  <!-- ============================================== -->
+  <ng-template #legacyMode>
+    <thead>
+      <tr>
+        <!-- Icon column header -->
+        <th *ngIf="table.showIconColumn" scope="col">Type</th>
+
+        <!-- Data column headers -->
+        <th
+          *ngFor="let key of headerKeys; trackBy: trackByColumn"
+          scope="col"
+        >
+          <span
+            class="sortable-header"
+            (click)="onHeaderClick(key)"
+            (keydown.enter)="onHeaderClick(key)"
+            (keydown.space)="onHeaderClick(key)"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="'Sort by ' + prettifyLabel(key)"
+          >
+            {{ prettifyLabel(key) }}
+            <span
+              *ngIf="isColumnActive(key)"
+              class="sort-indicator"
+              aria-hidden="true"
+              [ngStyle]="getSortIconStyle()"
+            >
+              <i [class]="table.sort.iconClass"></i>
+            </span>
+          </span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Data rows -->
+      <tr
+        *ngFor="let row of table.rows; trackBy: trackByRow"
+        class="table-row-clickable"
+        (click)="onRowClick(row)"
+        (keydown.enter)="onRowClick(row)"
+        tabindex="0"
+        role="button"
+      >
+        <!-- Icon column -->
+        <td *ngIf="table.showIconColumn">
+          <i [class]="table.icon.iconClass" [attr.aria-label]="table.icon.ariaLabel"></i>
+        </td>
+
+        <!-- Data columns -->
+        <td *ngFor="let key of headerKeys; trackBy: trackByColumn">
+          {{ formatCellValue(row[key]) }}
+        </td>
+      </tr>
+
+      <!-- Empty state -->
+      <tr *ngIf="table.rows.length === 0">
+        <td
+          [attr.colspan]="headerKeys.length + (table.showIconColumn ? 1 : 0)"
+          class="text-center text-secondary empty-state"
+        >
+          No data available
+        </td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>
