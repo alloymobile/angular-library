@@ -1,0 +1,21 @@
+<div class="td-admin-shell">
+  <!-- TOP HEADER -->
+  <header class="td-admin-header">
+    <td-nav-bar-action
+      [navBarAction]="navBarAction"
+      (output)="onNavbar($event)"
+    ></td-nav-bar-action>
+  </header>
+
+  <!-- BODY: SIDEBAR + CONTENT -->
+  <div class="td-admin-body">
+    <td-sidebar
+      [sidebar]="sidebar"
+      (output)="onSidebar($event)"
+    ></td-sidebar>
+
+    <main class="td-admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

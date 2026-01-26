@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TD Bank - ULOC Enter Rates (Full Width)</title>
+  <title>TD Bank - ULOC Super Admin Dashboard</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
       overflow-x:hidden;
     }
 
-    /* Sidebar - only ULOC / ILOC */
+    /* Sidebar */
     .sidebar{
       position:fixed; left:0; top:0;
       width:68px; height:100vh;
@@ -125,30 +125,6 @@
       font-size:12px;
     }
 
-    /* Mode tabs (keep these) */
-    .mode-tabs{
-      display:flex; align-items:center; justify-content:center;
-      gap:10px; flex:1;
-      min-width:520px;
-    }
-    .mode-link{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:900;
-      font-size:13px;
-      color:var(--blue);
-      transition:all var(--transition);
-      border:1px solid transparent;
-      user-select:none;
-    }
-    .mode-link:hover{ background:#f6f8ff; }
-    .mode-link.active{
-      background:var(--blue); color:#fff;
-      box-shadow:0 10px 22px rgba(37,99,235,0.18);
-    }
-
     .header-actions{
       display:flex; align-items:center; gap:10px;
       min-width:240px; justify-content:flex-end;
@@ -172,7 +148,8 @@
 
     /* Content container */
     .content{ padding:18px 24px 26px; }
-    /* Page tabs (View / Enter / Approve / History) */
+
+    /* Page tabs */
     .page-tabs{ background:transparent; border:none; border-radius:0; box-shadow:none; padding:0; margin-bottom:14px; }
     .page-tabs .nav{ gap:0; flex-wrap:wrap; justify-content:flex-start; border-bottom:1px solid var(--border); }
     .page-tabs .nav-link{
@@ -194,7 +171,7 @@
     .page-tabs .nav-item:hover{ background:transparent; }
     .page-tabs .nav-link.active{ background:transparent; color:#111827; border-bottom-color:var(--blue); box-shadow:none; }
 
-    /* KPI cards (dashboard summary) */
+    /* KPI cards */
     .kpi-row{ margin-bottom:14px; }
     .kpi-card{
       background:#fff;
@@ -235,30 +212,15 @@
       line-height:1.05;
       margin:0;
       color:#111827;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
     .kpi-sub{
       margin-top:4px;
       color:#9ca3af;
       font-weight:800;
       font-size:12px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
     }
 
-    /* Centering filters nicely */
-    .filter-row-center{ align-items:center; }
-    .filter-block{
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .hint.placeholder-hint{ opacity:0; }
-/* Filter Bar - full width */
+    /* Filter Bar */
     .filter-bar{
       background:var(--panel);
       border:1px solid var(--border);
@@ -319,32 +281,9 @@
       transform:translateY(-50%);
       color:#9ca3af;
     }
-    .search-wrap input{
-      padding-left:40px;
-    }
+    .search-wrap input{ padding-left:40px; }
 
-    /* Status checkboxes */
-    .status-box{
-      display:flex; gap:12px; flex-wrap:wrap;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:#fff;
-    }
-    .status-box label{
-      display:flex; align-items:center; gap:8px;
-      font-weight:800; font-size:13px;
-      color:#111827;
-      user-select:none;
-      cursor:pointer;
-    }
-    .status-box input{
-      width:18px; height:18px;
-      accent-color:var(--td-green);
-      cursor:pointer;
-    }
-
-    /* Multi select tiers */
+    /* Multi select */
     .multi-select{ position:relative; }
     .multi-btn{
       width:100%;
@@ -360,6 +299,11 @@
       user-select:none;
     }
     .multi-btn:hover{ border-color:#d1d5db; background:#fafafa; }
+    .multi-btn.disabled{
+      background:#fafafa;
+      color:var(--muted);
+      cursor:not-allowed;
+    }
     .multi-menu{
       position:absolute;
       left:0; top:calc(100% + 8px);
@@ -506,7 +450,7 @@
     .rate-cell{
       text-align:center;
       border-left:1px solid var(--border);
-      min-width:92px;
+      min-width:60px;
       font-weight:900;
     }
 
@@ -558,7 +502,7 @@
       box-shadow:0 0 0 3px rgba(37,99,235,0.12);
     }
 
-    /* Row actions (segmented) */
+    /* Row actions */
     .actions-cell{ width:190px; text-align:center; }
     .action-group{
       display:inline-flex;
@@ -580,7 +524,7 @@
     .action-btn:hover{ background:#f5f6f7; color:#111827; }
     .action-btn.danger:hover{ background:#fee2e2; color:#991b1b; }
 
-    /* Row status pill */
+    /* Status pills */
     .status-pill{
       display:inline-flex; align-items:center; justify-content:center;
       padding:7px 12px;
@@ -592,6 +536,9 @@
     .status-active{ background:#dcfce7; color:#166534; }
     .status-expiring{ background:#fef3c7; color:#92400e; }
     .status-inactive{ background:#f3f4f6; color:#6b7280; }
+    .status-approved{ background:#dcfce7; color:#166534; }
+    .status-declined{ background:#fee2e2; color:#991b1b; }
+    .status-pending{ background:#fef3c7; color:#92400e; }
 
     /* Pagination bar */
     .pager{
@@ -681,73 +628,18 @@
     @keyframes slideIn{ from{ transform:translateY(10px); opacity:0 } to{ transform:translateY(0); opacity:1 } }
 
     /* Responsive */
-    @media (max-width: 1200px){
-                        .mode-tabs{ min-width:420px; }
-    }
     @media (max-width: 992px){
-      .mode-tabs{ display:none; }
-            .filter-grid .span-2,       .top-header{ flex-wrap:wrap; }
+      .top-header{ flex-wrap:wrap; }
       .title{ min-width:auto; }
       .header-actions{ min-width:auto; }
     }
     @media (max-width: 576px){
       .content{ padding:14px 14px 22px; }
-            .filter-grid .span-2,       .pager{ flex-direction:column; align-items:stretch; }
+      .pager{ flex-direction:column; align-items:stretch; }
       .pager-right{ justify-content:space-between; }
     }
-  
-    /* ---- Mode toggles (View / Enter / Approve / History) ---- */
-    body.mode-view .new-col,
-    body.mode-view td.new-col{ display:none !important; }
 
-    body.mode-view .select-cell,
-    body.mode-view .actions-cell{ display:none !important; }
-
-    body.mode-view .toolbar-left,
-    body.mode-view #btnUpload,
-    body.mode-view #btnEmail,
-    body.mode-view #btnSaveDraft,
-    body.mode-view #btnSubmit{ display:none !important; }
-
-    body.mode-view .new-input,
-    body.mode-view .disc-input{ 
-      pointer-events:none; 
-      background:transparent !important; 
-      border:none !important;
-      box-shadow:none !important;
-      padding:0 !important;
-    }
-    body.mode-view .disc-input{ text-align:center; font-weight:900; }
-
-    /* Approve: hide editing + row actions, show approve controls */
-    body.mode-approve .new-input,
-    body.mode-approve .disc-input{
-      pointer-events:none;
-      background:transparent !important;
-      border:none !important;
-      box-shadow:none !important;
-      padding:0 !important;
-    }
-    body.mode-approve .action-group{ display:none !important; }
-    body.mode-approve .approve-controls{ display:flex !important; }
-
-    /* History: read-only + no row actions */
-    body.mode-history .new-input,
-    body.mode-history .disc-input{
-      pointer-events:none;
-      background:transparent !important;
-      border:none !important;
-      box-shadow:none !important;
-      padding:0 !important;
-    }
-    body.mode-history .actions-cell{ display:none !important; }
-    body.mode-history .select-cell{ display:none !important; }
-
-    /* Enter: show normal actions */
-    body.mode-enter .approve-controls{ display:none !important; }
-
-  
-    /* ---- Prime pill in top bar ---- */
+    /* Prime pill */
     .prime-pill{
       display:flex; align-items:center; gap:8px;
       padding:8px 10px;
@@ -761,35 +653,74 @@
     .prime-value{ font-size:14px; font-weight:900; color:#111827; }
 
     /* ---- Section visibility per tab ---- */
-    .section-approve,.section-history,.section-status{ display:none; }
+    .section-view,.section-status,.section-approve,.section-history{ display:none; }
+    body.mode-view .section-view{ display:block; }
+    body.mode-status .section-status{ display:block; }
     body.mode-approve .section-approve{ display:block; }
     body.mode-history .section-history{ display:block; }
-    body.mode-status .section-status{ display:block; }
 
+    body.mode-view .section-grid,
+    body.mode-status .section-grid,
     body.mode-approve .section-grid,
-    body.mode-history .section-grid,
-    body.mode-status .section-grid{ display:none; }
+    body.mode-history .section-grid{ display:none; }
 
-    /* View Rates: remove KPI cards */
-    body.mode-view .kpi-row{ display:none !important; }
+    /* Hide KPI cards except for Enter mode */
+    body.mode-view .kpi-row,
+    body.mode-status .kpi-row,
     body.mode-approve .kpi-row,
-    body.mode-history .kpi-row,
-    body.mode-status .kpi-row{ display:none !important; }
+    body.mode-history .kpi-row{ display:none !important; }
 
-    /* Approve Rates: no Status filter (pending-only) */
-    body.mode-approve #statusFilterCol{ display:none !important; }
+    /* Hide Enter filter bar when not in Enter mode */
+    body.mode-view .filter-bar-enter,
+    body.mode-status .filter-bar-enter,
+    body.mode-approve .filter-bar-enter,
+    body.mode-history .filter-bar-enter{ display:none !important; }
 
-    /* Approve/Status table controls */
-    #approveTable .control, #statusTable .control{
-      width:100%;
-      border-radius:12px;
-      border:1px solid #e5e7eb;
-      background:#fff;
-      padding:10px 12px;
-      font-weight:800;
-      color:#111827;
+    /* Show View filter bar only in View mode */
+    .filter-bar-view{ display:none; }
+    body.mode-view .filter-bar-view{ display:block; }
+
+    /* View Rates table styles */
+    .view-rate-table thead th.tier-header{
+      text-align:center;
+      border-left:1px solid var(--border);
+      background:#f7f8fa;
     }
-    
+    .view-rate-table thead .tier-row th{
+      padding:8px 10px;
+      font-size:11px;
+      background:#f1f3f5;
+      font-weight:700;
+      border-bottom:1px solid var(--border);
+    }
+    .view-rate-table .rate-cell{
+      text-align:center;
+      border-left:1px solid var(--border);
+      min-width:64px;
+      font-weight:600;
+    }
+
+    /* Compact table styles for Approve/Status/History */
+    #statusTable .rate-cell,
+    #approveTable .rate-cell,
+    #historyTable .rate-cell{
+      min-width:50px;
+      font-size:11px;
+      padding:6px 4px;
+    }
+    #statusTable thead th,
+    #approveTable thead th,
+    #historyTable thead th{
+      font-size:11px;
+      padding:10px 6px;
+    }
+    #statusTable tbody td,
+    #approveTable tbody td,
+    #historyTable tbody td{
+      padding:8px 6px;
+      font-size:12px;
+    }
+
   </style>
 </head>
 
@@ -806,7 +737,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="user-avatar" title="Profile">JD</div>
+      <div class="user-avatar" title="Profile">SA</div>
     </div>
   </aside>
 
@@ -814,11 +745,11 @@
     <!-- Header -->
     <header class="top-header">
       <div class="title">
-        <h1><i class="fas fa-pen-to-square" style="color: var(--blue)"></i> Enter Rates (e-Log)</h1>
-        <small>Only New Rate + Discretion are editable. Current stays visible.</small>
+        <h1><i class="fas fa-shield-halved" style="color: var(--blue)"></i> Super Admin Dashboard</h1>
+        <small>Full access to view, enter, approve, and audit rates.</small>
       </div>
 
-<div class="header-actions">
+      <div class="header-actions">
         <div class="prime-pill" title="Prime Rate">
           <span class="prime-label">Prime</span>
           <span class="prime-value" id="primeRateTop">7.20%</span>
@@ -830,17 +761,20 @@
     </header>
 
     <div class="content">
-      <!-- PAGE TABS -->
+      <!-- PAGE TABS (5 tabs) -->
       <section class="page-tabs" aria-label="Rate pages">
         <ul class="nav nav-tabs" id="rateTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link" type="button" data-mode="view" role="tab" aria-selected="false"><i class="far fa-eye"></i> View Rate</button>
+            <button class="nav-link" type="button" data-mode="view" role="tab" aria-selected="false"><i class="far fa-eye"></i> View Rates</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" type="button" data-mode="enter" role="tab" aria-selected="true"><i class="fas fa-pen-to-square"></i> Enter Rate</button>
+            <button class="nav-link active" type="button" data-mode="enter" role="tab" aria-selected="true"><i class="fas fa-pen-to-square"></i> Enter Rates</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" type="button" data-mode="approve" role="tab" aria-selected="false"><i class="far fa-circle-check"></i> Approve Rate</button>
+            <button class="nav-link" type="button" data-mode="status" role="tab" aria-selected="false"><i class="far fa-circle-check"></i> Approved Status</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" type="button" data-mode="approve" role="tab" aria-selected="false"><i class="fas fa-gavel"></i> Approve</button>
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link" type="button" data-mode="history" role="tab" aria-selected="false"><i class="far fa-clock"></i> History</button>
@@ -848,7 +782,7 @@
         </ul>
       </section>
 
-<!-- KPI CARDS (dashboard summary) -->
+      <!-- KPI CARDS (only for Enter mode) -->
       <section class="kpi-row">
         <div class="row g-3 justify-content-center">
           <div class="col-12 col-md-6 col-xl-3">
@@ -856,12 +790,11 @@
               <div class="kpi-ico green"><i class="fas fa-percent"></i></div>
               <div class="kpi-meta">
                 <div class="kpi-title">Prime Rate</div>
-                <p class="kpi-value" id="kpiPrime">7.20%</p>
+                <p class="kpi-value">7.20%</p>
                 <div class="kpi-sub">Base reference</div>
               </div>
             </div>
           </div>
-
           <div class="col-12 col-md-6 col-xl-3">
             <div class="kpi-card">
               <div class="kpi-ico blue"><i class="fas fa-pen"></i></div>
@@ -872,7 +805,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-12 col-md-6 col-xl-3">
             <div class="kpi-card">
               <div class="kpi-ico amber"><i class="fas fa-triangle-exclamation"></i></div>
@@ -883,13 +815,12 @@
               </div>
             </div>
           </div>
-
           <div class="col-12 col-md-6 col-xl-3">
             <div class="kpi-card">
               <div class="kpi-ico purple"><i class="fas fa-layer-group"></i></div>
               <div class="kpi-meta">
                 <div class="kpi-title">Batch</div>
-                <p class="kpi-value" id="kpiBatch">ULOC–JAN22</p>
+                <p class="kpi-value">ULOC–JAN22</p>
                 <div class="kpi-sub">Save Draft / Submit</div>
               </div>
             </div>
@@ -897,585 +828,721 @@
         </div>
       </section>
 
-<!-- FILTER BAR (full width) -->
-      <section class="filter-bar">
-        <div class="filter-top">
-          <div class="filter-title"><i class="fas fa-filter" style="color:#9ca3af"></i> Filters</div>
-          <a class="clear-all" href="#" id="clearAll">Clear all</a>
+<!-- ==================== VIEW RATES FILTER BAR ==================== -->
+<section class="filter-bar filter-bar-view">
+  <div class="filter-top">
+    <div class="filter-title"><i class="fas fa-filter" style="color:#9ca3af"></i> Filters</div>
+    <a class="clear-all" href="#" id="clearAllView">Clear all</a>
+  </div>
+
+  <div class="row g-3 align-items-end mb-1">
+    <div class="col-12 col-lg-8 mx-lg-auto">
+      <div class="field-label">Search</div>
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input class="control" id="viewSearch" type="text" placeholder="Search CVP, subcategory, dates, rates..." />
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-4">
+      <div class="field-label">Category</div>
+      <select class="control" id="viewCategorySelect">
+        <option value="ALL" selected>All Categories</option>
+        <option value="NEW_TO_BANK">New to Bank</option>
+        <option value="STAFF">Staff</option>
+        <option value="PROMOTION">Promotion</option>
+        <option value="ALL_PROGRAMS">All Programs</option>
+      </select>
+      <div class="hint">Pick a category to narrow results.</div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="field-label">Subcategory</div>
+      <div class="multi-select" id="viewSubcategoryMulti">
+        <button class="multi-btn disabled" id="viewSubcategoryBtn" type="button">
+          <span id="viewSubcategoryBtnLabel">Select a category first</span>
+          <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
+        </button>
+        <div class="multi-menu" id="viewSubcategoryMenu"></div>
+      </div>
+      <div class="hint">If a category has no subcategories, stays disabled.</div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="field-label">Amount Tiers</div>
+      <div class="multi-select" id="viewTierMulti">
+        <button class="multi-btn" id="viewTierBtn" type="button">
+          <span id="viewTierBtnLabel">All tiers selected</span>
+          <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
+        </button>
+        <div class="multi-menu" id="viewTierMenu">
+          <label class="multi-item"><input type="checkbox" class="viewTierCheck" value="T1" checked><span>&lt;5k</span></label>
+          <label class="multi-item"><input type="checkbox" class="viewTierCheck" value="T2" checked><span>5–10k</span></label>
+          <label class="multi-item"><input type="checkbox" class="viewTierCheck" value="T3" checked><span>10–15k</span></label>
+          <label class="multi-item"><input type="checkbox" class="viewTierCheck" value="T4" checked><span>15–20k</span></label>
+          <label class="multi-item"><input type="checkbox" class="viewTierCheck" value="T5" checked><span>&gt;20k</span></label>
         </div>
+      </div>
+      <div class="hint">Select tiers to show in the table.</div>
+    </div>
+  </div>
+</section>
 
-        <!-- Row 1: Search (full width or centered 8-col on lg) -->
-        <div class="row g-3 align-items-end mb-1">
-          <div class="col-12 col-lg-8 mx-lg-auto">
-            <div class="field-label">Search</div>
-            <div class="search-wrap">
-              <i class="fas fa-search"></i>
-              <input class="control" id="globalSearch" type="text" placeholder="Search CVP, Current, New, Discretion, dates, status..." />
-            </div>
-          </div>
+<!-- ==================== VIEW RATES TABLE (Target/Floor per tier) ==================== -->
+<section class="table-card section-view" id="viewSection">
+  <div class="table-toolbar">
+    <div class="toolbar-left">
+      <span class="chip"><i class="far fa-eye"></i> View Mode (Read-Only)</span>
+    </div>
+    <div class="toolbar-right">
+      <button class="mini-btn" id="btnViewDownload"><i class="fas fa-download"></i> Download</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="rate-table view-rate-table" id="viewTable">
+      <thead>
+        <tr>
+          <th rowspan="2">CVP</th>
+          <th class="tier-header view-tier-T1" colspan="2">&lt;5k</th>
+          <th class="tier-header view-tier-T2" colspan="2">5–10k</th>
+          <th class="tier-header view-tier-T3" colspan="2">10–15k</th>
+          <th class="tier-header view-tier-T4" colspan="2">15–20k</th>
+          <th class="tier-header view-tier-T5" colspan="2">&gt;20k</th>
+          <th rowspan="2">Eff. Date</th>
+          <th rowspan="2">Expiry</th>
+        </tr>
+        <tr class="tier-row">
+          <th class="tier-header view-tier-T1">Target</th>
+          <th class="tier-header view-tier-T1">Floor</th>
+          <th class="tier-header view-tier-T2">Target</th>
+          <th class="tier-header view-tier-T2">Floor</th>
+          <th class="tier-header view-tier-T3">Target</th>
+          <th class="tier-header view-tier-T3">Floor</th>
+          <th class="tier-header view-tier-T4">Target</th>
+          <th class="tier-header view-tier-T4">Floor</th>
+          <th class="tier-header view-tier-T5">Target</th>
+          <th class="tier-header view-tier-T5">Floor</th>
+        </tr>
+      </thead>
+      <tbody id="viewTbody">
+        <tr data-category="ALL_PROGRAMS" data-subcategory="">
+          <td class="cvp-cell">AAXX</td>
+          <td class="rate-cell view-tier-T1">2.99</td><td class="rate-cell view-tier-T1">2.49</td>
+          <td class="rate-cell view-tier-T2">2.99</td><td class="rate-cell view-tier-T2">2.49</td>
+          <td class="rate-cell view-tier-T3">2.99</td><td class="rate-cell view-tier-T3">2.49</td>
+          <td class="rate-cell view-tier-T4">2.99</td><td class="rate-cell view-tier-T4">2.49</td>
+          <td class="rate-cell view-tier-T5">2.99</td><td class="rate-cell view-tier-T5">2.49</td>
+          <td>2025-06-03</td>
+          <td>—</td>
+        </tr>
+        <tr data-category="STAFF" data-subcategory="STF_CORE">
+          <td class="cvp-cell">STF1</td>
+          <td class="rate-cell view-tier-T1">2.50</td><td class="rate-cell view-tier-T1">2.10</td>
+          <td class="rate-cell view-tier-T2">2.55</td><td class="rate-cell view-tier-T2">2.15</td>
+          <td class="rate-cell view-tier-T3">2.60</td><td class="rate-cell view-tier-T3">2.20</td>
+          <td class="rate-cell view-tier-T4">2.65</td><td class="rate-cell view-tier-T4">2.25</td>
+          <td class="rate-cell view-tier-T5">2.70</td><td class="rate-cell view-tier-T5">2.30</td>
+          <td>2025-06-01</td>
+          <td>—</td>
+        </tr>
+        <tr data-category="NEW_TO_BANK" data-subcategory="NTB_NEW">
+          <td class="cvp-cell">NEW1</td>
+          <td class="rate-cell view-tier-T1">3.10</td><td class="rate-cell view-tier-T1">2.70</td>
+          <td class="rate-cell view-tier-T2">3.10</td><td class="rate-cell view-tier-T2">2.70</td>
+          <td class="rate-cell view-tier-T3">3.10</td><td class="rate-cell view-tier-T3">2.70</td>
+          <td class="rate-cell view-tier-T4">3.10</td><td class="rate-cell view-tier-T4">2.70</td>
+          <td class="rate-cell view-tier-T5">3.10</td><td class="rate-cell view-tier-T5">2.70</td>
+          <td>2025-05-20</td>
+          <td>—</td>
+        </tr>
+        <tr data-category="PROMOTION" data-subcategory="">
+          <td class="cvp-cell">PRM9</td>
+          <td class="rate-cell view-tier-T1">2.80</td><td class="rate-cell view-tier-T1">2.40</td>
+          <td class="rate-cell view-tier-T2">2.85</td><td class="rate-cell view-tier-T2">2.45</td>
+          <td class="rate-cell view-tier-T3">2.90</td><td class="rate-cell view-tier-T3">2.50</td>
+          <td class="rate-cell view-tier-T4">2.95</td><td class="rate-cell view-tier-T4">2.55</td>
+          <td class="rate-cell view-tier-T5">3.00</td><td class="rate-cell view-tier-T5">2.60</td>
+          <td>2025-06-10</td>
+          <td>2025-07-31</td>
+        </tr>
+        <tr data-category="STAFF" data-subcategory="STF_PREMIUM">
+          <td class="cvp-cell">STF2</td>
+          <td class="rate-cell view-tier-T1">2.45</td><td class="rate-cell view-tier-T1">2.05</td>
+          <td class="rate-cell view-tier-T2">2.50</td><td class="rate-cell view-tier-T2">2.10</td>
+          <td class="rate-cell view-tier-T3">2.55</td><td class="rate-cell view-tier-T3">2.15</td>
+          <td class="rate-cell view-tier-T4">2.60</td><td class="rate-cell view-tier-T4">2.20</td>
+          <td class="rate-cell view-tier-T5">2.65</td><td class="rate-cell view-tier-T5">2.25</td>
+          <td>2025-06-05</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pager">
+    <div class="pager-left"><span id="viewPagerInfo">Showing 1–5 of 5</span></div>
+    <div class="pager-right">
+      <span style="color:#6b7280; font-weight:900; font-size:12px;">Rows</span>
+      <select class="pager-select" id="viewRowsPerPage">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+      </select>
+      <div class="page-controls">
+        <button class="page-btn" id="viewBtnPrev" title="Prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="page-pill" id="viewPagePill">1</div>
+        <button class="page-btn" id="viewBtnNext" title="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ENTER RATES FILTER BAR ==================== -->
+<section class="filter-bar filter-bar-enter">
+  <div class="filter-top">
+    <div class="filter-title"><i class="fas fa-filter" style="color:#9ca3af"></i> Filters</div>
+    <a class="clear-all" href="#" id="clearAll">Clear all</a>
+  </div>
+
+  <div class="row g-3 align-items-end mb-1">
+    <div class="col-12 col-lg-8 mx-lg-auto">
+      <div class="field-label">Search</div>
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input class="control" id="globalSearch" type="text" placeholder="Search CVP, Current, New, Discretion, dates, status..." />
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-3">
+      <div class="field-label">Category</div>
+      <select class="control" id="categorySelect">
+        <option value="ALL" selected>All</option>
+        <option value="STAFF">Staff</option>
+        <option value="PROMO">Promotion</option>
+        <option value="NTB">New to Bank</option>
+      </select>
+      <div class="hint">Choose a category to narrow the list.</div>
+    </div>
+
+    <div class="col-12 col-lg-3">
+      <div class="field-label">Subcategory</div>
+      <select class="control" id="subcategorySelect">
+        <option value="ALL" selected>All subcategories</option>
+      </select>
+      <div class="hint" id="subHint">If a category has no subcategories, this stays disabled.</div>
+    </div>
+
+    <div class="col-12 col-lg-3">
+      <div class="field-label">Status</div>
+      <div class="multi-select" id="statusMulti">
+        <button type="button" class="multi-btn" id="statusBtn">
+          <span id="statusBtnLabel">All statuses selected</span>
+          <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
+        </button>
+        <div class="multi-menu" id="statusMenu">
+          <label class="multi-item"><input type="checkbox" class="statusCheck" value="ACTIVE" checked><span>Active</span></label>
+          <label class="multi-item"><input type="checkbox" class="statusCheck" value="EXPIRING" checked><span>Expiring</span></label>
+          <label class="multi-item"><input type="checkbox" class="statusCheck" value="INACTIVE" checked><span>Inactive</span></label>
         </div>
+      </div>
+      <div class="hint">Select one or more statuses.</div>
+    </div>
 
-        <!-- Row 2: 4 filters (3/3/3/3 on lg) -->
-        <div class="row g-3 filter-row-center">
-          <div class="col-12 col-lg-3">
-            <div class="filter-block">
-              <div class="field-label">Category</div>
-              <select class="control" id="categorySelect">
-                <option value="ALL" selected>All</option>
-                <option value="STAFF">Staff</option>
-                <option value="PROMO">Promotion</option>
-                <option value="NTB">New to Bank</option>
-              </select>
-              <div class="hint">Choose a category to narrow the list.</div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-3">
-            <div class="filter-block">
-              <div class="field-label">Subcategory</div>
-              <select class="control" id="subcategorySelect">
-                <option value="ALL" selected>All subcategories</option>
-              </select>
-              <div class="hint" id="subHint">If a category has no subcategories, this stays disabled.</div>
-            </div>
-          </div>
-
-          
-          <div class="col-12 col-lg-3" id="statusFilterCol">
-            <div class="filter-block">
-              <div class="field-label">Status</div>
-              <div class="multi-select" id="statusMulti">
-                <button type="button" class="multi-btn" id="statusBtn">
-                  <span id="statusBtnLabel">All statuses selected</span>
-                  <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
-                </button>
-                <div class="multi-menu" id="statusMenu">
-                  <label class="multi-item"><input type="checkbox" class="statusCheck" value="ACTIVE" checked><span>Active</span></label>
-                  <label class="multi-item"><input type="checkbox" class="statusCheck" value="EXPIRING" checked><span>Expiring</span></label>
-                  <label class="multi-item"><input type="checkbox" class="statusCheck" value="INACTIVE" checked><span>Inactive</span></label>
-                </div>
-              </div>
-              <div class="hint">Select one or more statuses.</div>
-            </div>
-          </div>
-
-
-          <div class="col-12 col-lg-3">
-            <div class="filter-block">
-              <div class="field-label">Amount Tiers</div>
-              <div class="multi-select" id="tierMulti">
-                <button type="button" class="multi-btn" id="tierBtn">
-                  <span id="tierBtnLabel">All tiers selected</span>
-                  <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
-                </button>
-                <div class="multi-menu" id="tierMenu">
-                  <label class="multi-item"><input type="checkbox" class="tierCheck" value="T1" checked><span>&lt;5k</span></label>
-                  <label class="multi-item"><input type="checkbox" class="tierCheck" value="T2" checked><span>5–10k</span></label>
-                  <label class="multi-item"><input type="checkbox" class="tierCheck" value="T3" checked><span>10–15k</span></label>
-                  <label class="multi-item"><input type="checkbox" class="tierCheck" value="T4" checked><span>15–20k</span></label>
-                  <label class="multi-item"><input type="checkbox" class="tierCheck" value="T5" checked><span>&gt;20k</span></label>
-                </div>
-              </div>
-              <div class="hint">Pick tiers to show in the grid.</div>
-            </div>
-          </div>
+    <div class="col-12 col-lg-3">
+      <div class="field-label">Amount Tiers</div>
+      <div class="multi-select" id="tierMulti">
+        <button type="button" class="multi-btn" id="tierBtn">
+          <span id="tierBtnLabel">All tiers selected</span>
+          <i class="fas fa-chevron-down" style="color:#9ca3af"></i>
+        </button>
+        <div class="multi-menu" id="tierMenu">
+          <label class="multi-item"><input type="checkbox" class="tierCheck" value="T1" checked><span>&lt;5k</span></label>
+          <label class="multi-item"><input type="checkbox" class="tierCheck" value="T2" checked><span>5–10k</span></label>
+          <label class="multi-item"><input type="checkbox" class="tierCheck" value="T3" checked><span>10–15k</span></label>
+          <label class="multi-item"><input type="checkbox" class="tierCheck" value="T4" checked><span>15–20k</span></label>
+          <label class="multi-item"><input type="checkbox" class="tierCheck" value="T5" checked><span>&gt;20k</span></label>
         </div>
-      </section>
+      </div>
+      <div class="hint">Pick tiers to show in the grid.</div>
+    </div>
+  </div>
+</section>
 
-      
-      <!-- TABLE (full width) -->
+<!-- ==================== ENTER RATES TABLE ==================== -->
 <section class="table-card section-grid" id="gridSection">
-        <div class="table-toolbar">
-          <div class="toolbar-left">
-            </span>
+  <div class="table-toolbar">
+    <div class="toolbar-left">
+      <button class="mini-btn" id="btnCopyNewAcross"><i class="fas fa-wand-magic-sparkles"></i> Copy New Down</button>
+      <button class="mini-btn" id="btnCopyDiscAcross"><i class="fas fa-copy"></i> Copy Discretion Down</button>
+    </div>
+    <div class="toolbar-right">
+      <button class="mini-btn" id="btnUpload"><i class="fas fa-upload"></i> Upload</button>
+      <button class="mini-btn" id="btnDownload"><i class="fas fa-download"></i> Download</button>
+      <button class="mini-btn" id="btnEmail"><i class="fas fa-envelope"></i> Email</button>
+      <button class="mini-btn" id="btnSaveDraft"><i class="fas fa-floppy-disk"></i> Save Draft</button>
+      <button class="mini-btn primary" id="btnSubmit"><i class="fas fa-paper-plane"></i> Submit</button>
+    </div>
+  </div>
 
-            <button class="mini-btn" id="btnCopyNewAcross"><i class="fas fa-wand-magic-sparkles"></i> Copy New Down</button>
-            <button class="mini-btn" id="btnCopyDiscAcross"><i class="fas fa-copy"></i> Copy Discretion Down</button>
-</div>
-
-          <div class="toolbar-right">
-            <button class="mini-btn" id="btnUpload"><i class="fas fa-upload"></i> Upload</button>
-            <button class="mini-btn" id="btnDownload"><i class="fas fa-download"></i> Download</button>
-            <button class="mini-btn" id="btnEmail"><i class="fas fa-envelope"></i> Email</button>
-
-            <button class="mini-btn" id="btnSaveDraft"><i class="fas fa-floppy-disk"></i> Save Draft</button>
-            <button class="mini-btn primary" id="btnSubmit"><i class="fas fa-paper-plane"></i> Submit</button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table class="rate-table" id="rateTable">
-            <thead>
-              <tr>
-                <th rowspan="2" class="select-cell">
-                  <input type="checkbox" id="selectAll" title="Select all rows on this page">
-                </th>
-                <th rowspan="2">CVP</th>
-
-                <th colspan="3" class="tier tier-T1 tier-head">&lt;5k</th>
-                <th colspan="3" class="tier tier-T2 tier-head">5–10k</th>
-                <th colspan="3" class="tier tier-T3 tier-head">10–15k</th>
-                <th colspan="3" class="tier tier-T4 tier-head">15–20k</th>
-                <th colspan="3" class="tier tier-T5 tier-head">&gt;20k</th>
-
-                <th rowspan="2">Eff. Date</th>
-                <th rowspan="2">Expiry</th>
-                <th rowspan="2">Status</th>
-                <th rowspan="2">Actions</th>
-              </tr>
-
-              <tr class="sub">
-                <th class="tier tier-T1">Current</th>
-                <th class="tier tier-T1 new-col">New</th>
-                <th class="tier tier-T1">Discretion</th>
-
-                <th class="tier tier-T2">Current</th>
-                <th class="tier tier-T2 new-col">New</th>
-                <th class="tier tier-T2">Discretion</th>
-
-                <th class="tier tier-T3">Current</th>
-                <th class="tier tier-T3 new-col">New</th>
-                <th class="tier tier-T3">Discretion</th>
-
-                <th class="tier tier-T4">Current</th>
-                <th class="tier tier-T4 new-col">New</th>
-                <th class="tier tier-T4">Discretion</th>
-
-                <th class="tier tier-T5">Current</th>
-                <th class="tier tier-T5 new-col">New</th>
-                <th class="tier tier-T5">Discretion</th>
-              </tr>
-            </thead>
-
-            <tbody id="tbody">
-              <tr data-category="STAFF" data-subcategory="ALL" data-status="ACTIVE">
-                <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
-                <td class="cvp-cell">STF1</td>
-
-                <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.50</span></td>
-                <td class="rate-cell tier-T1 new-col"><input class="new-input" data-tier="T1" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.55</span></td>
-                <td class="rate-cell tier-T2 new-col"><input class="new-input" data-tier="T2" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.60</span></td>
-                <td class="rate-cell tier-T3 new-col"><input class="new-input" data-tier="T3" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 2.65</span></td>
-                <td class="rate-cell tier-T4 new-col"><input class="new-input" data-tier="T4" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 2.70</span></td>
-                <td class="rate-cell tier-T5 new-col"><input class="new-input" data-tier="T5" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" data-kind="disc" placeholder="—"></td>
-
-                <td>2025-06-01</td>
-                <td>—</td>
-                <td><span class="status-pill status-active">Active</span></td>
-                <td class="actions-cell">
-                  <div class="action-group">
-                    <button class="action-btn act-copy-new" title="Copy New across this row"><i class="fas fa-arrows-left-right"></i></button>
-                    <button class="action-btn act-copy-disc" title="Copy Discretion across this row"><i class="fas fa-repeat"></i></button>
-<button class="action-btn danger act-delete" title="Delete row"><i class="fas fa-trash"></i></button>
-                  </div>
-
-                  <div class="approve-controls" style="display:none; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                    <select class="control" style="max-width:140px; padding:8px 10px; border-radius:12px; font-weight:800;">
-                      <option value="PENDING" selected>Pending</option>
-                      <option value="APPROVED">Approve</option>
-                      <option value="DECLINED">Decline</option>
-                    </select>
-                    <input class="control" type="text" placeholder="Comment (optional)" style="max-width:220px; padding:8px 10px; border-radius:12px; font-weight:700;">
-                  </div>
-
-                </td>
-              </tr>
-
-              <tr data-category="STAFF" data-subcategory="ALL" data-status="ACTIVE">
-                <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
-                <td class="cvp-cell">STF2</td>
-
-                <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.45</span></td>
-                <td class="rate-cell tier-T1 new-col"><input class="new-input" data-tier="T1" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.50</span></td>
-                <td class="rate-cell tier-T2 new-col"><input class="new-input" data-tier="T2" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.55</span></td>
-                <td class="rate-cell tier-T3 new-col"><input class="new-input" data-tier="T3" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 2.60</span></td>
-                <td class="rate-cell tier-T4 new-col"><input class="new-input" data-tier="T4" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 2.65</span></td>
-                <td class="rate-cell tier-T5 new-col"><input class="new-input" data-tier="T5" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" data-kind="disc" placeholder="—"></td>
-
-                <td>2025-06-05</td>
-                <td>—</td>
-                <td><span class="status-pill status-active">Active</span></td>
-                <td class="actions-cell">
-                  <div class="action-group">
-                    <button class="action-btn act-copy-new" title="Copy New across this row"><i class="fas fa-arrows-left-right"></i></button>
-                    <button class="action-btn act-copy-disc" title="Copy Discretion across this row"><i class="fas fa-repeat"></i></button>
-<button class="action-btn danger act-delete" title="Delete row"><i class="fas fa-trash"></i></button>
-                  </div>
-
-                  <div class="approve-controls" style="display:none; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                    <select class="control" style="max-width:140px; padding:8px 10px; border-radius:12px; font-weight:800;">
-                      <option value="PENDING" selected>Pending</option>
-                      <option value="APPROVED">Approve</option>
-                      <option value="DECLINED">Decline</option>
-                    </select>
-                    <input class="control" type="text" placeholder="Comment (optional)" style="max-width:220px; padding:8px 10px; border-radius:12px; font-weight:700;">
-                  </div>
-
-                </td>
-              </tr>
-
-              <tr data-category="STAFF" data-subcategory="ALL" data-status="EXPIRING">
-                <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
-                <td class="cvp-cell">STF9</td>
-
-                <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.52</span></td>
-                <td class="rate-cell tier-T1 new-col"><input class="new-input" data-tier="T1" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.57</span></td>
-                <td class="rate-cell tier-T2 new-col"><input class="new-input" data-tier="T2" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.62</span></td>
-                <td class="rate-cell tier-T3 new-col"><input class="new-input" data-tier="T3" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 2.67</span></td>
-                <td class="rate-cell tier-T4 new-col"><input class="new-input" data-tier="T4" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 2.72</span></td>
-                <td class="rate-cell tier-T5 new-col"><input class="new-input" data-tier="T5" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" data-kind="disc" placeholder="—"></td>
-
-                <td>2025-06-09</td>
-                <td>2025-07-01</td>
-                <td><span class="status-pill status-expiring">Expiring</span></td>
-                <td class="actions-cell">
-                  <div class="action-group">
-                    <button class="action-btn act-copy-new" title="Copy New across this row"><i class="fas fa-arrows-left-right"></i></button>
-                    <button class="action-btn act-copy-disc" title="Copy Discretion across this row"><i class="fas fa-repeat"></i></button>
-<button class="action-btn danger act-delete" title="Delete row"><i class="fas fa-trash"></i></button>
-                  </div>
-
-                  <div class="approve-controls" style="display:none; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                    <select class="control" style="max-width:140px; padding:8px 10px; border-radius:12px; font-weight:800;">
-                      <option value="PENDING" selected>Pending</option>
-                      <option value="APPROVED">Approve</option>
-                      <option value="DECLINED">Decline</option>
-                    </select>
-                    <input class="control" type="text" placeholder="Comment (optional)" style="max-width:220px; padding:8px 10px; border-radius:12px; font-weight:700;">
-                  </div>
-
-                </td>
-              </tr>
-
-              <tr data-category="PROMO" data-subcategory="SPRING25" data-status="ACTIVE">
-                <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
-                <td class="cvp-cell">PRM2</td>
-
-                <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.85</span></td>
-                <td class="rate-cell tier-T1 new-col"><input class="new-input" data-tier="T1" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.90</span></td>
-                <td class="rate-cell tier-T2 new-col"><input class="new-input" data-tier="T2" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.95</span></td>
-                <td class="rate-cell tier-T3 new-col"><input class="new-input" data-tier="T3" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 3.00</span></td>
-                <td class="rate-cell tier-T4 new-col"><input class="new-input" data-tier="T4" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 3.05</span></td>
-                <td class="rate-cell tier-T5 new-col"><input class="new-input" data-tier="T5" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" data-kind="disc" placeholder="—"></td>
-
-                <td>2025-06-10</td>
-                <td>—</td>
-                <td><span class="status-pill status-active">Active</span></td>
-                <td class="actions-cell">
-                  <div class="action-group">
-                    <button class="action-btn act-copy-new" title="Copy New across this row"><i class="fas fa-arrows-left-right"></i></button>
-                    <button class="action-btn act-copy-disc" title="Copy Discretion across this row"><i class="fas fa-repeat"></i></button>
-<button class="action-btn danger act-delete" title="Delete row"><i class="fas fa-trash"></i></button>
-                  </div>
-
-                  <div class="approve-controls" style="display:none; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                    <select class="control" style="max-width:140px; padding:8px 10px; border-radius:12px; font-weight:800;">
-                      <option value="PENDING" selected>Pending</option>
-                      <option value="APPROVED">Approve</option>
-                      <option value="DECLINED">Decline</option>
-                    </select>
-                    <input class="control" type="text" placeholder="Comment (optional)" style="max-width:220px; padding:8px 10px; border-radius:12px; font-weight:700;">
-                  </div>
-
-                </td>
-              </tr>
-
-              <tr data-category="NTB" data-subcategory="ALL" data-status="INACTIVE">
-                <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
-                <td class="cvp-cell">NTB7</td>
-
-                <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 3.25</span></td>
-                <td class="rate-cell tier-T1 new-col"><input class="new-input" data-tier="T1" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 3.25</span></td>
-                <td class="rate-cell tier-T2 new-col"><input class="new-input" data-tier="T2" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 3.25</span></td>
-                <td class="rate-cell tier-T3 new-col"><input class="new-input" data-tier="T3" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 3.25</span></td>
-                <td class="rate-cell tier-T4 new-col"><input class="new-input" data-tier="T4" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" data-kind="disc" placeholder="—"></td>
-
-                <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 3.25</span></td>
-                <td class="rate-cell tier-T5 new-col"><input class="new-input" data-tier="T5" data-kind="new" placeholder="—"></td>
-                <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" data-kind="disc" placeholder="—"></td>
-
-                <td>2025-05-01</td>
-                <td>2025-06-01</td>
-                <td><span class="status-pill status-inactive">Inactive</span></td>
-                <td class="actions-cell">
-                  <div class="action-group">
-                    <button class="action-btn act-copy-new" title="Copy New across this row"><i class="fas fa-arrows-left-right"></i></button>
-                    <button class="action-btn act-copy-disc" title="Copy Discretion across this row"><i class="fas fa-repeat"></i></button>
-<button class="action-btn danger act-delete" title="Delete row"><i class="fas fa-trash"></i></button>
-                  </div>
-
-                  <div class="approve-controls" style="display:none; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap;">
-                    <select class="control" style="max-width:140px; padding:8px 10px; border-radius:12px; font-weight:800;">
-                      <option value="PENDING" selected>Pending</option>
-                      <option value="APPROVED">Approve</option>
-                      <option value="DECLINED">Decline</option>
-                    </select>
-                    <input class="control" type="text" placeholder="Comment (optional)" style="max-width:220px; padding:8px 10px; border-radius:12px; font-weight:700;">
-                  </div>
-
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="pager">
-          <div class="pager-left">
-            <span id="pagerInfo">Showing 1–5 of 5</span>
-          </div>
-
-          <div class="pager-right">
-            <span style="color:#6b7280; font-weight:900; font-size:12px;">Rows</span>
-            <select class="pager-select" id="rowsPerPage">
-              <option value="5" selected>5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-            </select>
-
-            <div class="page-controls">
-              <button class="page-btn" id="btnPrev" title="Prev"><i class="fas fa-chevron-left"></i></button>
-              <div class="page-pill" id="pagePill">1</div>
-              <button class="page-btn" id="btnNext" title="Next"><i class="fas fa-chevron-right"></i></button>
+  <div class="table-container">
+    <table class="rate-table" id="rateTable">
+      <thead>
+        <tr>
+          <th rowspan="2" class="select-cell"><input type="checkbox" id="selectAll" title="Select all"></th>
+          <th rowspan="2">CVP</th>
+          <th colspan="3" class="tier tier-T1 tier-head">&lt;5k</th>
+          <th colspan="3" class="tier tier-T2 tier-head">5–10k</th>
+          <th colspan="3" class="tier tier-T3 tier-head">10–15k</th>
+          <th colspan="3" class="tier tier-T4 tier-head">15–20k</th>
+          <th colspan="3" class="tier tier-T5 tier-head">&gt;20k</th>
+          <th rowspan="2">Eff. Date</th>
+          <th rowspan="2">Expiry</th>
+          <th rowspan="2">Status</th>
+          <th rowspan="2">Actions</th>
+        </tr>
+        <tr class="sub">
+          <th class="tier tier-T1">Current</th>
+          <th class="tier tier-T1">New</th>
+          <th class="tier tier-T1">Disc.</th>
+          <th class="tier tier-T2">Current</th>
+          <th class="tier tier-T2">New</th>
+          <th class="tier tier-T2">Disc.</th>
+          <th class="tier tier-T3">Current</th>
+          <th class="tier tier-T3">New</th>
+          <th class="tier tier-T3">Disc.</th>
+          <th class="tier tier-T4">Current</th>
+          <th class="tier tier-T4">New</th>
+          <th class="tier tier-T4">Disc.</th>
+          <th class="tier tier-T5">Current</th>
+          <th class="tier tier-T5">New</th>
+          <th class="tier tier-T5">Disc.</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr data-category="STAFF" data-subcategory="ALL" data-status="ACTIVE">
+          <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
+          <td class="cvp-cell">STF1</td>
+          <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.50</span></td>
+          <td class="rate-cell tier-T1"><input class="new-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.55</span></td>
+          <td class="rate-cell tier-T2"><input class="new-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.60</span></td>
+          <td class="rate-cell tier-T3"><input class="new-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 2.65</span></td>
+          <td class="rate-cell tier-T4"><input class="new-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 2.70</span></td>
+          <td class="rate-cell tier-T5"><input class="new-input" data-tier="T5" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" placeholder="—"></td>
+          <td>2025-06-01</td>
+          <td>—</td>
+          <td><span class="status-pill status-active">Active</span></td>
+          <td class="actions-cell">
+            <div class="action-group">
+              <button class="action-btn act-copy-new" title="Copy New"><i class="fas fa-arrows-left-right"></i></button>
+              <button class="action-btn act-copy-disc" title="Copy Disc"><i class="fas fa-repeat"></i></button>
+              <button class="action-btn danger act-delete" title="Delete"><i class="fas fa-trash"></i></button>
             </div>
-          </div>
-        </div>
-      </section>
+          </td>
+        </tr>
+        <tr data-category="STAFF" data-subcategory="ALL" data-status="ACTIVE">
+          <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
+          <td class="cvp-cell">STF2</td>
+          <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.45</span></td>
+          <td class="rate-cell tier-T1"><input class="new-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.50</span></td>
+          <td class="rate-cell tier-T2"><input class="new-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.55</span></td>
+          <td class="rate-cell tier-T3"><input class="new-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 2.60</span></td>
+          <td class="rate-cell tier-T4"><input class="new-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 2.65</span></td>
+          <td class="rate-cell tier-T5"><input class="new-input" data-tier="T5" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" placeholder="—"></td>
+          <td>2025-06-05</td>
+          <td>—</td>
+          <td><span class="status-pill status-active">Active</span></td>
+          <td class="actions-cell">
+            <div class="action-group">
+              <button class="action-btn act-copy-new" title="Copy New"><i class="fas fa-arrows-left-right"></i></button>
+              <button class="action-btn act-copy-disc" title="Copy Disc"><i class="fas fa-repeat"></i></button>
+              <button class="action-btn danger act-delete" title="Delete"><i class="fas fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="PROMO" data-subcategory="SPRING25" data-status="EXPIRING">
+          <td class="select-cell"><input class="rowCheck" type="checkbox"></td>
+          <td class="cvp-cell">PRM2</td>
+          <td class="rate-cell tier-T1"><span class="current-pill"><i class="fas fa-lock"></i> 2.85</span></td>
+          <td class="rate-cell tier-T1"><input class="new-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T1"><input class="disc-input" data-tier="T1" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><span class="current-pill"><i class="fas fa-lock"></i> 2.90</span></td>
+          <td class="rate-cell tier-T2"><input class="new-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T2"><input class="disc-input" data-tier="T2" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><span class="current-pill"><i class="fas fa-lock"></i> 2.95</span></td>
+          <td class="rate-cell tier-T3"><input class="new-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T3"><input class="disc-input" data-tier="T3" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><span class="current-pill"><i class="fas fa-lock"></i> 3.00</span></td>
+          <td class="rate-cell tier-T4"><input class="new-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T4"><input class="disc-input" data-tier="T4" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><span class="current-pill"><i class="fas fa-lock"></i> 3.05</span></td>
+          <td class="rate-cell tier-T5"><input class="new-input" data-tier="T5" placeholder="—"></td>
+          <td class="rate-cell tier-T5"><input class="disc-input" data-tier="T5" placeholder="—"></td>
+          <td>2025-06-10</td>
+          <td>2025-07-31</td>
+          <td><span class="status-pill status-expiring">Expiring</span></td>
+          <td class="actions-cell">
+            <div class="action-group">
+              <button class="action-btn act-copy-new" title="Copy New"><i class="fas fa-arrows-left-right"></i></button>
+              <button class="action-btn act-copy-disc" title="Copy Disc"><i class="fas fa-repeat"></i></button>
+              <button class="action-btn danger act-delete" title="Delete"><i class="fas fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-      <section class="table-card section-approve" id="approveSection">
-        <div class="table-toolbar">
-          <div class="toolbar-left">
-            <span class="chip"><i class="fas fa-circle-notch"></i> Pending tier changes</span>
-          </div>
-          <div class="toolbar-right">
-            <button class="mini-btn" id="btnApproveDownload"><i class="fas fa-download"></i> Download</button>
-            <button class="mini-btn primary" id="btnApproveSubmit"><i class="fas fa-paper-plane"></i> Submit Decisions</button>
-          </div>
-        </div>
+  <div class="pager">
+    <div class="pager-left"><span id="pagerInfo">Showing 1–3 of 3</span></div>
+    <div class="pager-right">
+      <span style="color:#6b7280; font-weight:900; font-size:12px;">Rows</span>
+      <select class="pager-select" id="rowsPerPage">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+      <div class="page-controls">
+        <button class="page-btn" id="btnPrev" title="Prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="page-pill" id="pagePill">1</div>
+        <button class="page-btn" id="btnNext" title="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="table-container">
-          <table class="rate-table" id="approveTable">
-            <thead>
-              <tr>
-                <th>CVP</th>
-                <th>Amount Tier</th>
-                <th>Current</th>
-                <th>Requested</th>
-                <th>Any Change?</th>
-                <th>Submitted By</th>
-                <th>Submitted On</th>
-                <th>Eff. Date</th>
-                <th>Expiry</th>
-                <th>Decision</th>
-                <th>Comment</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="cvp-cell">AAXX</td>
-                <td>&lt;5k</td>
-                <td><span class="current-pill"><i class="fas fa-lock"></i> 2.50</span></td>
-                <td><span class="current-pill" style="background:var(--blue-weak);"><i class="fas fa-pen"></i> 2.65</span></td>
-                <td>Yes</td>
-                <td>user1</td>
-                <td>2025-06-08</td>
-                <td>2025-06-10</td>
-                <td>—</td>
-                <td style="min-width:160px;">
-                  <select class="control approveDecision">
-                    <option value="APPROVE">Approve</option>
-                    <option value="DECLINE">Decline</option>
-                  </select>
-                </td>
-                <td style="min-width:260px;">
-                  <input class="control approveComment" type="text" placeholder="Comment (required if declined)" />
-                </td>
-              </tr>
+<!-- ==================== APPROVED STATUS TABLE (Full Row Records) ==================== -->
+<section class="table-card section-status" id="statusSection">
+  <div class="table-toolbar">
+    <div class="toolbar-left">
+      <span class="chip"><i class="fas fa-list-check"></i> Submissions & approval results</span>
+    </div>
+    <div class="toolbar-right">
+      <button class="mini-btn" id="btnStatusDownload"><i class="fas fa-download"></i> Download</button>
+    </div>
+  </div>
 
-              <tr>
-                <td class="cvp-cell">AAXX</td>
-                <td>5–10k</td>
-                <td><span class="current-pill"><i class="fas fa-lock"></i> 2.55</span></td>
-                <td><span class="current-pill" style="background:var(--blue-weak);"><i class="fas fa-pen"></i> 2.70</span></td>
-                <td>Yes</td>
-                <td>user1</td>
-                <td>2025-06-08</td>
-                <td>2025-06-10</td>
-                <td>—</td>
-                <td>
-                  <select class="control approveDecision">
-                    <option value="APPROVE">Approve</option>
-                    <option value="DECLINE">Decline</option>
-                  </select>
-                </td>
-                <td>
-                  <input class="control approveComment" type="text" placeholder="Comment (required if declined)" />
-                </td>
-              </tr>
+  <div class="table-container">
+    <table class="rate-table" id="statusTable">
+      <thead>
+        <tr>
+          <th rowspan="2">CVP</th>
+          <th class="tier tier-T1" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&lt;5k</th>
+          <th class="tier tier-T2" colspan="2" style="text-align:center;border-left:1px solid var(--border);">5–10k</th>
+          <th class="tier tier-T3" colspan="2" style="text-align:center;border-left:1px solid var(--border);">10–15k</th>
+          <th class="tier tier-T4" colspan="2" style="text-align:center;border-left:1px solid var(--border);">15–20k</th>
+          <th class="tier tier-T5" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&gt;20k</th>
+          <th rowspan="2">Eff.</th>
+          <th rowspan="2">Expiry</th>
+          <th rowspan="2">Submitted</th>
+          <th rowspan="2">Result</th>
+          <th rowspan="2">Decision By</th>
+          <th rowspan="2">Decision On</th>
+          <th rowspan="2">Comment</th>
+        </tr>
+        <tr class="sub">
+          <th class="tier tier-T1" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T1">Disc</th>
+          <th class="tier tier-T2" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T2">Disc</th>
+          <th class="tier tier-T3" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T3">Disc</th>
+          <th class="tier tier-T4" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T4">Disc</th>
+          <th class="tier tier-T5" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T5">Disc</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cvp-cell">AAXX</td>
+          <td class="rate-cell tier-T1">2.99</td><td class="rate-cell tier-T1">P-0.5</td>
+          <td class="rate-cell tier-T2">2.99</td><td class="rate-cell tier-T2">P-0.5</td>
+          <td class="rate-cell tier-T3">2.99</td><td class="rate-cell tier-T3">P-0.5</td>
+          <td class="rate-cell tier-T4">2.99</td><td class="rate-cell tier-T4">P-0.5</td>
+          <td class="rate-cell tier-T5">2.99</td><td class="rate-cell tier-T5">P-0.5</td>
+          <td>06-10</td>
+          <td>—</td>
+          <td>06-08</td>
+          <td><span class="status-pill status-approved">Approved</span></td>
+          <td>approver1</td>
+          <td>06-09</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">STF1</td>
+          <td class="rate-cell tier-T1">2.50</td><td class="rate-cell tier-T1">—</td>
+          <td class="rate-cell tier-T2">2.55</td><td class="rate-cell tier-T2">—</td>
+          <td class="rate-cell tier-T3">2.60</td><td class="rate-cell tier-T3">P-0.3</td>
+          <td class="rate-cell tier-T4">2.65</td><td class="rate-cell tier-T4">P-0.3</td>
+          <td class="rate-cell tier-T5">2.70</td><td class="rate-cell tier-T5">P-0.3</td>
+          <td>06-15</td>
+          <td>—</td>
+          <td>06-08</td>
+          <td><span class="status-pill status-declined">Declined</span></td>
+          <td>approver1</td>
+          <td>06-09</td>
+          <td>Use standard margin</td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">STF9</td>
+          <td class="rate-cell tier-T1">2.52</td><td class="rate-cell tier-T1">—</td>
+          <td class="rate-cell tier-T2">2.57</td><td class="rate-cell tier-T2">—</td>
+          <td class="rate-cell tier-T3">2.62</td><td class="rate-cell tier-T3">—</td>
+          <td class="rate-cell tier-T4">2.67</td><td class="rate-cell tier-T4">—</td>
+          <td class="rate-cell tier-T5">2.72</td><td class="rate-cell tier-T5">P-0.2</td>
+          <td>06-12</td>
+          <td>07-01</td>
+          <td>06-09</td>
+          <td><span class="status-pill status-pending">Pending</span></td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-              <tr>
-                <td class="cvp-cell">STF9</td>
-                <td>10–15k</td>
-                <td><span class="current-pill"><i class="fas fa-lock"></i> 2.62</span></td>
-                <td><span class="current-pill" style="background:var(--blue-weak);"><i class="fas fa-pen"></i> 2.62</span></td>
-                <td>No</td>
-                <td>user2</td>
-                <td>2025-06-09</td>
-                <td>2025-06-12</td>
-                <td>2025-07-01</td>
-                <td>
-                  <select class="control approveDecision">
-                    <option value="APPROVE">Approve</option>
-                    <option value="DECLINE">Decline</option>
-                  </select>
-                </td>
-                <td>
-                  <input class="control approveComment" type="text" placeholder="Comment (required if declined)" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div class="pager">
+    <div class="pager-left"><span>Full row records with all tier data + approval metadata.</span></div>
+    <div class="pager-right"><span style="color:#6b7280; font-weight:900; font-size:12px;">—</span></div>
+  </div>
+</section>
 
-        <div class="pager">
-          <div class="pager-left"><span>Approve is tier-level: CVP + Amount Tier.</span></div>
-          <div class="pager-right"><span style="color:#6b7280; font-weight:900; font-size:12px;">—</span></div>
-        </div>
-      </section>
+<!-- ==================== APPROVE TABLE (Full Row Records with Decision Controls) ==================== -->
+<section class="table-card section-approve" id="approveSection">
+  <div class="table-toolbar">
+    <div class="toolbar-left">
+      <span class="chip"><i class="fas fa-gavel"></i> Pending submissions for approval</span>
+    </div>
+    <div class="toolbar-right">
+      <button class="mini-btn" id="btnApproveDownload"><i class="fas fa-download"></i> Download</button>
+      <button class="mini-btn primary" id="btnApproveSubmit"><i class="fas fa-paper-plane"></i> Submit Decisions</button>
+    </div>
+  </div>
 
-      <section class="table-card section-history" id="historySection">
-        <div class="table-toolbar">
-          <div class="toolbar-left">
-            <span class="chip"><i class="far fa-clock"></i> Audit trail</span>
-          </div>
-          <div class="toolbar-right">
-            <button class="mini-btn" id="btnHistoryDownload"><i class="fas fa-download"></i> Download</button>
-          </div>
-        </div>
+  <div class="table-container">
+    <table class="rate-table" id="approveTable">
+      <thead>
+        <tr>
+          <th rowspan="2">CVP</th>
+          <th class="tier tier-T1" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&lt;5k</th>
+          <th class="tier tier-T2" colspan="2" style="text-align:center;border-left:1px solid var(--border);">5–10k</th>
+          <th class="tier tier-T3" colspan="2" style="text-align:center;border-left:1px solid var(--border);">10–15k</th>
+          <th class="tier tier-T4" colspan="2" style="text-align:center;border-left:1px solid var(--border);">15–20k</th>
+          <th class="tier tier-T5" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&gt;20k</th>
+          <th rowspan="2">By</th>
+          <th rowspan="2">Submitted</th>
+          <th rowspan="2">Eff.</th>
+          <th rowspan="2">Expiry</th>
+          <th rowspan="2">Decision</th>
+          <th rowspan="2">Comment</th>
+        </tr>
+        <tr class="sub">
+          <th class="tier tier-T1" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T1">Req</th>
+          <th class="tier tier-T2" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T2">Req</th>
+          <th class="tier tier-T3" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T3">Req</th>
+          <th class="tier tier-T4" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T4">Req</th>
+          <th class="tier tier-T5" style="border-left:1px solid var(--border);">Curr</th>
+          <th class="tier tier-T5">Req</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cvp-cell">AAXX</td>
+          <td class="rate-cell tier-T1">2.50</td><td class="rate-cell tier-T1" style="background:var(--blue-weak);">2.65</td>
+          <td class="rate-cell tier-T2">2.55</td><td class="rate-cell tier-T2" style="background:var(--blue-weak);">2.70</td>
+          <td class="rate-cell tier-T3">2.60</td><td class="rate-cell tier-T3" style="background:var(--blue-weak);">2.75</td>
+          <td class="rate-cell tier-T4">2.65</td><td class="rate-cell tier-T4" style="background:var(--blue-weak);">2.80</td>
+          <td class="rate-cell tier-T5">2.70</td><td class="rate-cell tier-T5" style="background:var(--blue-weak);">2.85</td>
+          <td>user1</td>
+          <td>06-08</td>
+          <td>06-10</td>
+          <td>—</td>
+          <td style="min-width:120px;">
+            <select class="control approveDecision" style="padding:6px 8px;">
+              <option value="APPROVE">Approve</option>
+              <option value="DECLINE">Decline</option>
+            </select>
+          </td>
+          <td style="min-width:160px;">
+            <input class="control approveComment" type="text" placeholder="Comment..." style="padding:6px 8px;">
+          </td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">STF9</td>
+          <td class="rate-cell tier-T1">2.52</td><td class="rate-cell tier-T1">2.52</td>
+          <td class="rate-cell tier-T2">2.57</td><td class="rate-cell tier-T2">2.57</td>
+          <td class="rate-cell tier-T3">2.62</td><td class="rate-cell tier-T3" style="background:var(--blue-weak);">2.68</td>
+          <td class="rate-cell tier-T4">2.67</td><td class="rate-cell tier-T4" style="background:var(--blue-weak);">2.73</td>
+          <td class="rate-cell tier-T5">2.72</td><td class="rate-cell tier-T5" style="background:var(--blue-weak);">2.78</td>
+          <td>user2</td>
+          <td>06-09</td>
+          <td>06-12</td>
+          <td>07-01</td>
+          <td style="min-width:120px;">
+            <select class="control approveDecision" style="padding:6px 8px;">
+              <option value="APPROVE">Approve</option>
+              <option value="DECLINE">Decline</option>
+            </select>
+          </td>
+          <td style="min-width:160px;">
+            <input class="control approveComment" type="text" placeholder="Comment..." style="padding:6px 8px;">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <div class="table-container">
-          <table class="rate-table" id="historyTable">
-            <thead>
-              <tr>
-                <th>CVP</th>
-                <th>Amount Tier</th>
-                <th>Old</th>
-                <th>New</th>
-                <th>Changed By</th>
-                <th>Changed On</th>
-                <th>Decision</th>
-                <th>Decision By</th>
-                <th>Decision On</th>
-                <th>Comment</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="cvp-cell">AAXX</td>
-                <td>&lt;5k</td>
-                <td>2.50</td>
-                <td>2.65</td>
-                <td>user1</td>
-                <td>2025-06-08</td>
-                <td><span class="status-pill" style="background:#dcfce7;color:#166534;">Approved</span></td>
-                <td>approver1</td>
-                <td>2025-06-09</td>
-                <td>OK</td>
-              </tr>
-              <tr>
-                <td class="cvp-cell">AAXX</td>
-                <td>5–10k</td>
-                <td>2.55</td>
-                <td>2.70</td>
-                <td>user1</td>
-                <td>2025-06-08</td>
-                <td><span class="status-pill" style="background:#fee2e2;color:#991b1b;">Declined</span></td>
-                <td>approver1</td>
-                <td>2025-06-09</td>
-                <td>Please use standard margin for this tier.</td>
-              </tr>
-              <tr>
-                <td class="cvp-cell">STF9</td>
-                <td>10–15k</td>
-                <td>2.62</td>
-                <td>2.62</td>
-                <td>user2</td>
-                <td>2025-06-09</td>
-                <td><span class="status-pill status-expiring">Pending</span></td>
-                <td>—</td>
-                <td>—</td>
-                <td>—</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div class="pager">
+    <div class="pager-left"><span>All tiers for each CVP shown in one row. Yellow cells = changed values.</span></div>
+    <div class="pager-right"><span style="color:#6b7280; font-weight:900; font-size:12px;">—</span></div>
+  </div>
+</section>
 
-        <div class="pager">
-          <div class="pager-left"><span>History includes who/when/what changed.</span></div>
-          <div class="pager-right"><span style="color:#6b7280; font-weight:900; font-size:12px;">—</span></div>
-        </div>
-      </section>
+<!-- ==================== HISTORY TABLE (Full Row + Verified By/On columns) ==================== -->
+<section class="table-card section-history" id="historySection">
+  <div class="table-toolbar">
+    <div class="toolbar-left">
+      <span class="chip"><i class="far fa-clock"></i> Audit trail (full records)</span>
+    </div>
+    <div class="toolbar-right">
+      <button class="mini-btn" id="btnHistoryDownload"><i class="fas fa-download"></i> Download</button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="rate-table" id="historyTable">
+      <thead>
+        <tr>
+          <th rowspan="2">CVP</th>
+          <th class="tier tier-T1" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&lt;5k</th>
+          <th class="tier tier-T2" colspan="2" style="text-align:center;border-left:1px solid var(--border);">5–10k</th>
+          <th class="tier tier-T3" colspan="2" style="text-align:center;border-left:1px solid var(--border);">10–15k</th>
+          <th class="tier tier-T4" colspan="2" style="text-align:center;border-left:1px solid var(--border);">15–20k</th>
+          <th class="tier tier-T5" colspan="2" style="text-align:center;border-left:1px solid var(--border);">&gt;20k</th>
+          <th rowspan="2">Changed By</th>
+          <th rowspan="2">Changed On</th>
+          <th rowspan="2">Decision</th>
+          <th rowspan="2">Decision By</th>
+          <th rowspan="2">Decision On</th>
+          <th rowspan="2">Verified By</th>
+          <th rowspan="2">Verified On</th>
+          <th rowspan="2">Comment</th>
+        </tr>
+        <tr class="sub">
+          <th class="tier tier-T1" style="border-left:1px solid var(--border);">Old</th>
+          <th class="tier tier-T1">New</th>
+          <th class="tier tier-T2" style="border-left:1px solid var(--border);">Old</th>
+          <th class="tier tier-T2">New</th>
+          <th class="tier tier-T3" style="border-left:1px solid var(--border);">Old</th>
+          <th class="tier tier-T3">New</th>
+          <th class="tier tier-T4" style="border-left:1px solid var(--border);">Old</th>
+          <th class="tier tier-T4">New</th>
+          <th class="tier tier-T5" style="border-left:1px solid var(--border);">Old</th>
+          <th class="tier tier-T5">New</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cvp-cell">AAXX</td>
+          <td class="rate-cell tier-T1">2.50</td><td class="rate-cell tier-T1">2.65</td>
+          <td class="rate-cell tier-T2">2.55</td><td class="rate-cell tier-T2">2.70</td>
+          <td class="rate-cell tier-T3">2.60</td><td class="rate-cell tier-T3">2.75</td>
+          <td class="rate-cell tier-T4">2.65</td><td class="rate-cell tier-T4">2.80</td>
+          <td class="rate-cell tier-T5">2.70</td><td class="rate-cell tier-T5">2.85</td>
+          <td>user1</td>
+          <td>06-08</td>
+          <td><span class="status-pill status-approved">Approved</span></td>
+          <td>approver1</td>
+          <td>06-09</td>
+          <td>verifier1</td>
+          <td>06-10</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">STF1</td>
+          <td class="rate-cell tier-T1">2.45</td><td class="rate-cell tier-T1">2.50</td>
+          <td class="rate-cell tier-T2">2.50</td><td class="rate-cell tier-T2">2.55</td>
+          <td class="rate-cell tier-T3">2.55</td><td class="rate-cell tier-T3">2.60</td>
+          <td class="rate-cell tier-T4">2.60</td><td class="rate-cell tier-T4">2.65</td>
+          <td class="rate-cell tier-T5">2.65</td><td class="rate-cell tier-T5">2.70</td>
+          <td>user1</td>
+          <td>06-05</td>
+          <td><span class="status-pill status-declined">Declined</span></td>
+          <td>approver1</td>
+          <td>06-06</td>
+          <td>—</td>
+          <td>—</td>
+          <td>Use standard margin</td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">PRM2</td>
+          <td class="rate-cell tier-T1">2.80</td><td class="rate-cell tier-T1">2.85</td>
+          <td class="rate-cell tier-T2">2.85</td><td class="rate-cell tier-T2">2.90</td>
+          <td class="rate-cell tier-T3">2.90</td><td class="rate-cell tier-T3">2.95</td>
+          <td class="rate-cell tier-T4">2.95</td><td class="rate-cell tier-T4">3.00</td>
+          <td class="rate-cell tier-T5">3.00</td><td class="rate-cell tier-T5">3.05</td>
+          <td>user2</td>
+          <td>06-10</td>
+          <td><span class="status-pill status-approved">Approved</span></td>
+          <td>approver2</td>
+          <td>06-11</td>
+          <td>verifier2</td>
+          <td>06-12</td>
+          <td>Q3 promo approved</td>
+        </tr>
+        <tr>
+          <td class="cvp-cell">STF9</td>
+          <td class="rate-cell tier-T1">2.52</td><td class="rate-cell tier-T1">2.52</td>
+          <td class="rate-cell tier-T2">2.57</td><td class="rate-cell tier-T2">2.57</td>
+          <td class="rate-cell tier-T3">2.62</td><td class="rate-cell tier-T3">2.68</td>
+          <td class="rate-cell tier-T4">2.67</td><td class="rate-cell tier-T4">2.73</td>
+          <td class="rate-cell tier-T5">2.72</td><td class="rate-cell tier-T5">2.78</td>
+          <td>user2</td>
+          <td>06-09</td>
+          <td><span class="status-pill status-pending">Pending</span></td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pager">
+    <div class="pager-left"><span>Full audit trail: all tiers per CVP + Changed/Decision/Verified metadata.</span></div>
+    <div class="pager-right"><span style="color:#6b7280; font-weight:900; font-size:12px;">—</span></div>
+  </div>
+</section>
 
 <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
     </div>
@@ -1502,7 +1569,7 @@
       setTimeout(() => el.remove(), 3800);
     }
 
-    // ----- Subcategory mapping (placeholder) -----
+    // Subcategory mapping
     const SUBS = {
       "STAFF": ["ALL"],
       "PROMO": ["SPRING25", "SUMMER25"],
@@ -1513,7 +1580,6 @@
       const cat = $("#categorySelect").value;
       const subSel = $("#subcategorySelect");
       const hint = $("#subHint");
-
       const list = (cat === "ALL") ? ["ALL subcategories"] : (SUBS[cat] || []);
       subSel.innerHTML = "";
 
@@ -1543,24 +1609,32 @@
     });
     $("#subcategorySelect").addEventListener("change", applyAll);
 
-    // ----- Tier multi-select (hide/show columns) -----
+    // Tier multi-select
     function closeMenus(except){
       if (except !== "tierMenu") $("#tierMenu")?.classList.remove("open");
       if (except !== "statusMenu") $("#statusMenu")?.classList.remove("open");
+      if (except !== "viewTierMenu") $("#viewTierMenu")?.classList.remove("open");
+      if (except !== "viewSubcategoryMenu") $("#viewSubcategoryMenu")?.classList.remove("open");
     }
+
     $("#statusBtn")?.addEventListener("click", (e) => {
       e.preventDefault();
+      closeMenus("statusMenu");
       $("#statusMenu").classList.toggle("open");
     });
 
     $("#tierBtn").addEventListener("click", (e) => {
       e.preventDefault();
+      closeMenus("tierMenu");
       $("#tierMenu").classList.toggle("open");
     });
+
     document.addEventListener("click", (e) => {
       const inTier = $("#tierMulti")?.contains(e.target);
       const inStatus = $("#statusMulti")?.contains(e.target);
-      if (!inTier && !inStatus) closeMenus(null);
+      const inViewTier = $("#viewTierMulti")?.contains(e.target);
+      const inViewSub = $("#viewSubcategoryMulti")?.contains(e.target);
+      if (!inTier && !inStatus && !inViewTier && !inViewSub) closeMenus(null);
     });
 
     function getSelectedTiers(){
@@ -1582,16 +1656,12 @@
       applyTierVisibility();
     }));
 
-    
     function getSelectedStatuses(){
       return $$(".statusCheck").filter(cb => cb.checked).map(cb => cb.value);
     }
     function updateStatusLabel(){
       const n = getSelectedStatuses().length;
-      $("#statusBtnLabel").textContent =
-        (n === 3) ? "All statuses selected" :
-        (n === 0) ? "No statuses selected" :
-        `${n} status(es) selected`;
+      $("#statusBtnLabel").textContent = (n === 3) ? "All statuses selected" : (n === 0) ? "No statuses selected" : `${n} status(es) selected`;
     }
     $$(".statusCheck").forEach(cb => cb.addEventListener("change", () => {
       updateStatusLabel();
@@ -1599,75 +1669,7 @@
     }));
     updateStatusLabel();
 
-// ----- Validation + KPI -----
-    function parseRate(v){
-      if (v == null) return null;
-      const s = String(v).trim();
-      if (s === "" || s === "—" || s === "-") return null;
-      const n = Number(s);
-      if (!Number.isFinite(n)) return NaN;
-      return n;
-    }
-    function validateNew(input){
-      const n = parseRate(input.value);
-      if (n === null) return true;
-      return Number.isFinite(n) && n >= 0 && n <= 30;
-    }
-    function rowState(tr){
-      const inputs = Array.from(tr.querySelectorAll("input.new-input, input.disc-input"));
-      const anyValue = inputs.some(i => String(i.value).trim() !== "");
-      const anyInvalid = inputs.some(i => i.classList.contains("new-input") && !validateNew(i));
-      return { anyValue, anyInvalid };
-    }
-    function getVisiblePageRows(){
-      const rows = getFilteredRows();
-      const size = pageSize();
-      const start = (currentPage - 1) * size;
-      return rows.slice(start, start + size);
-    }
-    function refreshKpis(){
-      const visible = getVisiblePageRows();
-      const edited = visible.filter(r => rowState(r).anyValue).length;
-      const invalid = visible.filter(r => rowState(r).anyInvalid).length;
-      $("#kpiEdited").textContent = edited;
-      $("#kpiInvalid").textContent = invalid;
-      const c1 = $("#kpiEditedCard");
-      const c2 = $("#kpiInvalidCard");
-      if (c1) c1.textContent = edited;
-      if (c2) c2.textContent = invalid;
-    }
-    function markChanged(input){
-      const v = String(input.value).trim();
-      input.classList.toggle("changed", v !== "");
-      if (input.classList.contains("new-input")){
-        input.classList.toggle("is-invalid", !validateNew(input) && v !== "");
-        input.classList.toggle("is-valid", validateNew(input) && v !== "");
-      }
-      autoSave();
-      refreshKpis();
-    }
-    $$(".new-input, .disc-input").forEach(inp => {
-      inp.addEventListener("input", () => markChanged(inp));
-      inp.addEventListener("blur", () => markChanged(inp));
-    });
-
-    // ----- Row selection -----
-    function syncSelectAllState(){
-      const rows = getVisiblePageRows();
-      const checks = rows.map(r => r.querySelector(".rowCheck"));
-      const any = checks.length && checks.some(c => c.checked);
-      const all = checks.length && checks.every(c => c.checked);
-      $("#selectAll").indeterminate = any && !all;
-      $("#selectAll").checked = all;
-    }
-    $("#selectAll").addEventListener("change", () => {
-      const rows = getVisiblePageRows();
-      rows.forEach(r => r.querySelector(".rowCheck").checked = $("#selectAll").checked);
-      syncSelectAllState();
-    });
-    $$(".rowCheck").forEach(cb => cb.addEventListener("change", syncSelectAllState));
-
-    // ----- Filtering + Pagination -----
+    // Filtering + Pagination
     let currentPage = 1;
     function getActiveStatusSet(){
       return new Set($$(".statusCheck").filter(cb => cb.checked).map(cb => cb.value));
@@ -1678,16 +1680,13 @@
       const sub = $("#subcategorySelect").value;
       const term = $("#globalSearch").value.trim().toLowerCase();
       const statusSet = getActiveStatusSet();
-
       const rowCat = tr.getAttribute("data-category") || "STAFF";
       const rowSub = tr.getAttribute("data-subcategory") || "ALL";
       const rowStatus = tr.getAttribute("data-status") || "ACTIVE";
-
       const catOk = (cat === "ALL") || (rowCat === cat);
       const subOk = (sub === "ALL") || (rowSub === sub);
       const statusOk = statusSet.has(rowStatus);
       const searchOk = !term || tr.textContent.toLowerCase().includes(term);
-
       return catOk && subOk && statusOk && searchOk;
     }
 
@@ -1701,322 +1700,230 @@
 
     function clampPage(){
       const total = getFilteredRows().length;
-      const pages = Math.max(1, Math.ceil(total / pageSize()));
-      currentPage = Math.min(Math.max(1, currentPage), pages);
-      $("#pagePill").textContent = String(currentPage);
-      $("#btnPrev").disabled = (currentPage === 1);
-      $("#btnNext").disabled = (currentPage === pages);
+      const size = pageSize();
+      const maxPage = Math.max(1, Math.ceil(total / size));
+      if (currentPage > maxPage) currentPage = maxPage;
+      if (currentPage < 1) currentPage = 1;
     }
 
-    function renderTable(){
-      const all = $$("#tbody tr");
-      all.forEach(r => r.style.display = "none");
-
-      clampPage();
-
-      const rows = getVisiblePageRows();
-      rows.forEach(r => r.style.display = "");
-
-      const total = getFilteredRows().length;
+    function renderPage(){
+      const rows = $$("#tbody tr");
+      const filtered = rows.filter(matchesFilters);
       const size = pageSize();
-      const start = total ? ((currentPage - 1) * size + 1) : 0;
-      const end = Math.min(currentPage * size, total);
-      $("#pagerInfo").textContent = `Showing ${start}–${end} of ${total}`;
-
-      syncSelectAllState();
-      refreshKpis();
+      const start = (currentPage - 1) * size;
+      const end = start + size;
+      rows.forEach(r => r.style.display = "none");
+      filtered.slice(start, end).forEach(r => r.style.display = "");
+      const total = filtered.length;
+      const showing = Math.min(end, total);
+      $("#pagerInfo").textContent = total === 0 ? "No results" : `Showing ${start + 1}–${showing} of ${total}`;
+      $("#pagePill").textContent = currentPage;
     }
 
     function applyAll(){
-      currentPage = 1;
-      renderTable();
+      clampPage();
+      renderPage();
     }
 
-        $("#globalSearch").addEventListener("input", applyAll);
-    $("#rowsPerPage").addEventListener("change", () => { currentPage = 1; renderTable(); });
-    $("#btnPrev").addEventListener("click", () => { currentPage--; renderTable(); });
-    $("#btnNext").addEventListener("click", () => { currentPage++; renderTable(); });
-
-    // ----- Copy helpers (global) -----
-    function copyDownVisible(kind){
-      // Copy the first non-empty value in each visible column DOWN the page (blank cells only)
-      const rows = getVisiblePageRows();
-      if (!rows.length) return;
-
-      const cls = (kind === "new") ? ".new-input" : ".disc-input";
-      const cols = Array.from(rows[0].querySelectorAll(cls)).map((_, idx) => idx);
-
-      cols.forEach(colIdx => {
-        // find source value for this column
-        let src = "";
-        for (const tr of rows){
-          const el = tr.querySelectorAll(cls)[colIdx];
-          if (!el) continue;
-          const v = String(el.value || "").trim();
-          if (v !== ""){
-            src = v;
-            break;
-          }
-        }
-        if (!src) return;
-
-        // fill down blanks
-        for (const tr of rows){
-          const el = tr.querySelectorAll(cls)[colIdx];
-          if (!el) continue;
-          if (String(el.value || "").trim() === ""){
-            el.value = src;
-          }
-        }
-      });
-    }
-
-    $("#btnCopyNewAcross").addEventListener("click", () => {
-      copyDownVisible("new");
-      toast("Copied", "New values copied down (blank cells only).", "fa-wand-magic-sparkles");
+    $("#globalSearch").addEventListener("input", () => { currentPage = 1; applyAll(); });
+    $("#rowsPerPage").addEventListener("change", () => { currentPage = 1; applyAll(); });
+    $("#btnPrev").addEventListener("click", () => { if (currentPage > 1) { currentPage--; applyAll(); } });
+    $("#btnNext").addEventListener("click", () => {
+      const total = getFilteredRows().length;
+      const maxPage = Math.max(1, Math.ceil(total / pageSize()));
+      if (currentPage < maxPage) { currentPage++; applyAll(); }
     });
 
-    $("#btnCopyDiscAcross").addEventListener("click", () => {
-      copyDownVisible("disc");
-      toast("Copied", "Discretion copied down (blank cells only).", "fa-copy");
-    });
-
-    if ($("#btnResetAll")) $("#btnResetAll").addEventListener("click", () => {
-      $$(".new-input, .disc-input").forEach(i => {
-        i.value = "";
-        i.classList.remove("changed","is-valid","is-invalid");
-      });
-      toast("Reset", "All New + Discretion cleared.", "fa-rotate-left");
-      autoSave(true);
-      refreshKpis();
-    });
-
-    // ----- Row actions (per-row) -----
-    function copyRowAcross(tr, kind){
-      const inputs = Array.from(tr.querySelectorAll(kind === "new" ? ".new-input" : ".disc-input"));
-      const first = inputs.find(i => String(i.value).trim() !== "");
-      if (!first) return;
-      inputs.forEach(i => {
-        if (i === first) return;
-        if (String(i.value).trim() === "") {
-          i.value = first.value;
-          markChanged(i);
-        }
-      });
-    }
-
+    // Row actions
     function bindRowActions(tr){
-      tr.querySelector(".act-copy-new").addEventListener("click", () => {
-        copyRowAcross(tr, "new");
-        toast("Copied", "New copied across this row.", "fa-arrows-left-right");
+      tr.querySelector(".act-copy-new")?.addEventListener("click", () => {
+        const inputs = tr.querySelectorAll(".new-input");
+        const first = Array.from(inputs).find(i => i.value.trim());
+        if (first) inputs.forEach(i => i.value = first.value);
+        toast("Copied", "New rate copied across tiers.", "fa-check");
       });
-      tr.querySelector(".act-copy-disc").addEventListener("click", () => {
-        copyRowAcross(tr, "disc");
-        toast("Copied", "Discretion copied across this row.", "fa-repeat");
+      tr.querySelector(".act-copy-disc")?.addEventListener("click", () => {
+        const inputs = tr.querySelectorAll(".disc-input");
+        const first = Array.from(inputs).find(i => i.value.trim());
+        if (first) inputs.forEach(i => i.value = first.value);
+        toast("Copied", "Discretion copied across tiers.", "fa-check");
       });
-      const dup = tr.querySelector(".act-duplicate");
-      if (dup) dup.addEventListener("click", () => cloneRow(tr));
-      tr.querySelector(".act-delete").addEventListener("click", () => deleteRow(tr));
-    }
-
-    function cloneRow(tr){
-      const clone = tr.cloneNode(true);
-      clone.querySelector(".rowCheck").checked = false;
-      clone.querySelectorAll(".new-input, .disc-input").forEach(inp => {
-        inp.classList.remove("changed","is-valid","is-invalid");
-        inp.value = "";
-        inp.addEventListener("input", () => markChanged(inp));
-        inp.addEventListener("blur", () => markChanged(inp));
+      tr.querySelector(".act-delete")?.addEventListener("click", () => {
+        tr.remove();
+        toast("Row removed", "Row deleted.", "fa-trash");
+        applyAll();
       });
-      clone.querySelector(".rowCheck").addEventListener("change", syncSelectAllState);
-      bindRowActions(clone);
-      tr.parentNode.insertBefore(clone, tr.nextSibling);
-      toast("Row added", "Duplicated row structure (values cleared).", "fa-plus");
-      applyAll();
     }
-
-    function deleteRow(tr){
-      tr.remove();
-      toast("Row removed", "Row deleted (placeholder).", "fa-trash");
-      applyAll();
-    }
-
     $$("#tbody tr").forEach(tr => bindRowActions(tr));
 
-    // ----- Draft (localStorage placeholder) -----
-    const DRAFT_KEY = "td_enter_rates_elog_v2";
-
-    function serializeDraft(){
-      const rows = $$("#tbody tr").map(tr => {
-        const cvp = tr.querySelector(".cvp-cell")?.textContent?.trim() || "";
-        const data = {};
-        ["T1","T2","T3","T4","T5"].forEach(t => {
-          const newInp = tr.querySelector(`.new-input[data-tier="${t}"]`);
-          const discInp = tr.querySelector(`.disc-input[data-tier="${t}"]`);
-          data[t] = { new: newInp?.value || "", disc: discInp?.value || "" };
-        });
-
-        return {
-          cvp,
-          category: tr.getAttribute("data-category"),
-          subcategory: tr.getAttribute("data-subcategory"),
-          status: tr.getAttribute("data-status"),
-          selected: tr.querySelector(".rowCheck")?.checked || false,
-          data
-        };
-      });
-
-      return {
-        categoryFilter: $("#categorySelect").value,
-        subcategoryFilter: $("#subcategorySelect").value,
-        statusFilter: Array.from(getActiveStatusSet()),
-        tiers: getSelectedTiers(),
-        search: $("#globalSearch").value,
-        rows
-      };
-    }
-
-    let autosaveTimer = null;
-    function autoSave(){
-      clearTimeout(autosaveTimer);
-      autosaveTimer = setTimeout(() => {
-        try{ localStorage.setItem(DRAFT_KEY, JSON.stringify(serializeDraft())); }catch(e){}
-      }, 240);
-    }
-
-    function saveDraft(){
-      try{
-        localStorage.setItem(DRAFT_KEY, JSON.stringify(serializeDraft()));
-        toast("Draft saved", "Stored locally (placeholder for API save).", "fa-floppy-disk");
-      }catch(e){
-        toast("Draft error", "Could not save draft.", "fa-triangle-exclamation");
-      }
-    }
-
-    function loadDraft(){
-      try{
-        const raw = localStorage.getItem(DRAFT_KEY);
-        if (!raw) return false;
-        const d = JSON.parse(raw);
-
-        if (d.categoryFilter) $("#categorySelect").value = d.categoryFilter;
-        rebuildSubcategories();
-        if (d.subcategoryFilter) $("#subcategorySelect").value = d.subcategoryFilter;
-
-        const want = new Set(d.statusFilter || []);
-        $$(".statusCheck").forEach(cb => cb.checked = want.has(cb.value));
-
-        const tiers = new Set(d.tiers || []);
-        $$(".tierCheck").forEach(cb => cb.checked = tiers.size ? tiers.has(cb.value) : true);
-        updateTierLabel();
-        applyTierVisibility();
-
-        if (typeof d.search === "string") $("#globalSearch").value = d.search;
-
-        const byCvp = new Map((d.rows || []).map(r => [r.cvp, r]));
-        $$("#tbody tr").forEach(tr => {
-          const cvp = tr.querySelector(".cvp-cell")?.textContent?.trim() || "";
-          const row = byCvp.get(cvp);
-          if (!row) return;
-
-          const cbox = tr.querySelector(".rowCheck");
-          if (cbox) cbox.checked = !!row.selected;
-
-          ["T1","T2","T3","T4","T5"].forEach(t => {
-            const newInp = tr.querySelector(`.new-input[data-tier="${t}"]`);
-            const discInp = tr.querySelector(`.disc-input[data-tier="${t}"]`);
-            if (newInp) newInp.value = row.data?.[t]?.new ?? "";
-            if (discInp) discInp.value = row.data?.[t]?.disc ?? "";
-            if (newInp) markChanged(newInp);
-            if (discInp) markChanged(discInp);
-          });
-        });
-
-        return true;
-      }catch(e){
-        return false;
-      }
-    }
-
-    $("#btnSaveDraft").addEventListener("click", saveDraft);
-
-    // ----- Submit -----
-    function selectedRowsOnly(){
-      const rows = getFilteredRows();
-      const sel = rows.filter(r => r.querySelector(".rowCheck")?.checked);
-      return sel.length ? sel : rows.filter(r => rowState(r).anyValue);
-    }
-
-    function submit(){
-      const rows = selectedRowsOnly();
-      const edited = rows.filter(r => rowState(r).anyValue).length;
-
-      if (!edited){
-        toast("Nothing to submit", "Select rows or add at least one New rate / Discretion.", "fa-circle-info");
-        return;
-      }
-      const invalid = rows.filter(r => rowState(r).anyInvalid);
-      if (invalid.length){
-        toast("Fix validation first", `${invalid.length} selected/edited row(s) have invalid New rates (0–30).`, "fa-triangle-exclamation");
-        return;
-      }
-      toast("Submitted", "Submitted for review (placeholder). Reviewer gets notified.", "fa-paper-plane");
-    }
-
-    $("#btnSubmit").addEventListener("click", submit);
-
-    // ----- Clear all -----
+    // Clear all
     $("#clearAll").addEventListener("click", (e) => {
       e.preventDefault();
       $("#categorySelect").value = "ALL";
       rebuildSubcategories();
       $("#subcategorySelect").value = "ALL";
       $("#globalSearch").value = "";
-
-      $$(".statusCheck").forEach(cb => cb.checked = (cb.value !== "INACTIVE"));
-
+      $$(".statusCheck").forEach(cb => cb.checked = true);
       $$(".tierCheck").forEach(cb => cb.checked = true);
       updateTierLabel();
+      updateStatusLabel();
       applyTierVisibility();
-
       $$(".rowCheck").forEach(cb => cb.checked = false);
       $("#selectAll").checked = false;
-      $("#selectAll").indeterminate = false;
-
       applyAll();
       toast("Cleared", "Filters reset.", "fa-filter-circle-xmark");
     });
 
-    // ----- Buttons placeholders -----
-    $("#btnUpload").addEventListener("click", () => toast("Upload", "Upload Excel/CSV (placeholder).", "fa-upload"));
-    $("#btnDownload").addEventListener("click", () => toast("Download", "Download current + draft (placeholder).", "fa-download"));
-    $("#btnEmail").addEventListener("click", () => toast("Email", "Email reviewers / distribution list (placeholder).", "fa-envelope"));
-    $("#btnNotif").addEventListener("click", () => toast("Notifications", "Reviewer feedback + rate alerts (placeholder).", "fa-bell"));
-    $("#btnMsg").addEventListener("click", () => toast("Messages", "Threaded batch comments (placeholder).", "fa-comment-dots"));
+    // Button placeholders
+    $("#btnUpload")?.addEventListener("click", () => toast("Upload", "Upload Excel/CSV (placeholder).", "fa-upload"));
+    $("#btnDownload")?.addEventListener("click", () => toast("Download", "Download current + draft (placeholder).", "fa-download"));
+    $("#btnEmail")?.addEventListener("click", () => toast("Email", "Email reviewers (placeholder).", "fa-envelope"));
+    $("#btnSaveDraft")?.addEventListener("click", () => toast("Draft saved", "Stored locally (placeholder).", "fa-floppy-disk"));
+    $("#btnSubmit")?.addEventListener("click", () => toast("Submitted", "Submitted for review (placeholder).", "fa-paper-plane"));
+    $("#btnNotif")?.addEventListener("click", () => toast("Notifications", "Rate alerts (placeholder).", "fa-bell"));
+    $("#btnMsg")?.addEventListener("click", () => toast("Messages", "Comments (placeholder).", "fa-comment-dots"));
+    $("#btnViewDownload")?.addEventListener("click", () => toast("Download", "Download view data (placeholder).", "fa-download"));
+    $("#btnStatusDownload")?.addEventListener("click", () => toast("Download", "Download status data (placeholder).", "fa-download"));
+    $("#btnApproveDownload")?.addEventListener("click", () => toast("Download", "Download approve data (placeholder).", "fa-download"));
+    $("#btnApproveSubmit")?.addEventListener("click", () => toast("Decisions submitted", "Approval decisions saved (placeholder).", "fa-paper-plane"));
+    $("#btnHistoryDownload")?.addEventListener("click", () => toast("Download", "Download history data (placeholder).", "fa-download"));
 
-    // ----- Init -----
+    // Init
     rebuildSubcategories();
     updateTierLabel();
     applyTierVisibility();
-
-    const loaded = loadDraft();
     applyAll();
-    if (loaded) toast("Draft loaded", "Resumed your last saved draft (local placeholder).", "fa-rotate");
+
+    // =============== VIEW RATES TAB LOGIC ===============
+    const VIEW_CATEGORY_SUBS = {
+      "ALL": [],
+      "NEW_TO_BANK": [{ id: "NTB_NEW", name: "New Customer" }, { id: "NTB_MORTGAGE_XSELL", name: "Mortgage Cross-sell" }],
+      "STAFF": [{ id: "STF_CORE", name: "Core Staff" }, { id: "STF_PREMIUM", name: "Premium Staff" }],
+      "PROMOTION": [],
+      "ALL_PROGRAMS": []
+    };
+
+    let viewCurrentPage = 1;
+
+    $("#viewSubcategoryBtn")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      if ($("#viewSubcategoryBtn").classList.contains("disabled")) return;
+      closeMenus("viewSubcategoryMenu");
+      $("#viewSubcategoryMenu").classList.toggle("open");
+    });
+
+    $("#viewTierBtn")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeMenus("viewTierMenu");
+      $("#viewTierMenu").classList.toggle("open");
+    });
+
+    function buildViewSubcategories(category) {
+      const subs = VIEW_CATEGORY_SUBS[category] || [];
+      const menu = $("#viewSubcategoryMenu");
+      menu.innerHTML = "";
+      if (!subs.length) {
+        $("#viewSubcategoryBtn").classList.add("disabled");
+        $("#viewSubcategoryBtnLabel").textContent = "No subcategories";
+        return;
+      }
+      $("#viewSubcategoryBtn").classList.remove("disabled");
+      $("#viewSubcategoryBtnLabel").textContent = "All subcategories";
+      subs.forEach((s) => {
+        const label = document.createElement("label");
+        label.className = "multi-item";
+        label.innerHTML = `<input type="checkbox" class="viewSubcatCheck" value="${s.id}"><span>${s.name}</span>`;
+        menu.appendChild(label);
+      });
+      $$(".viewSubcatCheck").forEach(cb => cb.addEventListener("change", applyViewFilters));
+    }
+
+    function getSelectedViewTiers() {
+      return $$(".viewTierCheck").filter(cb => cb.checked).map(cb => cb.value);
+    }
+
+    function updateViewTierButtonLabel() {
+      const tiers = getSelectedViewTiers();
+      if (tiers.length === 5) $("#viewTierBtnLabel").textContent = "All tiers selected";
+      else if (tiers.length === 0) $("#viewTierBtnLabel").textContent = "No tiers selected";
+      else $("#viewTierBtnLabel").textContent = `${tiers.length} tier(s) selected`;
+    }
+
+    function applyViewTierVisibility() {
+      const selected = new Set(getSelectedViewTiers());
+      ["T1","T2","T3","T4","T5"].forEach(t => {
+        $$(".view-tier-" + t).forEach(el => el.classList.toggle("tier-hidden", !selected.has(t)));
+      });
+    }
+
+    $$(".viewTierCheck").forEach(cb => cb.addEventListener("change", () => {
+      updateViewTierButtonLabel();
+      applyViewTierVisibility();
+    }));
+
+    function viewMatchesFilters(row) {
+      const category = $("#viewCategorySelect").value;
+      const subSelected = $$(".viewSubcatCheck").filter(cb => cb.checked).map(cb => cb.value);
+      const term = $("#viewSearch").value.trim().toLowerCase();
+      const rowCat = row.getAttribute("data-category") || "";
+      const rowSub = row.getAttribute("data-subcategory") || "";
+      const catOk = (category === "ALL") || (rowCat === category);
+      const subOk = (subSelected.length === 0) || subSelected.includes(rowSub);
+      const searchOk = !term || row.textContent.toLowerCase().includes(term);
+      return catOk && subOk && searchOk;
+    }
+
+    function applyViewFilters() {
+      const rows = $$("#viewTbody tr");
+      const filtered = rows.filter(viewMatchesFilters);
+      viewCurrentPage = 1;
+      const pageSize = Number($("#viewRowsPerPage").value) || 10;
+      rows.forEach(r => r.style.display = "none");
+      filtered.slice(0, pageSize).forEach(r => r.style.display = "");
+      const total = filtered.length;
+      $("#viewPagerInfo").textContent = total === 0 ? "No results" : `Showing 1–${Math.min(pageSize, total)} of ${total}`;
+      $("#viewPagePill").textContent = 1;
+    }
+
+    $("#viewCategorySelect")?.addEventListener("change", () => {
+      buildViewSubcategories($("#viewCategorySelect").value);
+      applyViewFilters();
+    });
+    $("#viewSearch")?.addEventListener("input", applyViewFilters);
+    $("#viewRowsPerPage")?.addEventListener("change", applyViewFilters);
+
+    $("#clearAllView")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      $("#viewCategorySelect").value = "ALL";
+      $("#viewSearch").value = "";
+      $$(".viewTierCheck").forEach(cb => cb.checked = true);
+      buildViewSubcategories("ALL");
+      updateViewTierButtonLabel();
+      applyViewTierVisibility();
+      applyViewFilters();
+    });
+
+    // Init View
+    buildViewSubcategories("ALL");
+    updateViewTierButtonLabel();
+    applyViewTierVisibility();
+    applyViewFilters();
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Tabs are visual modes (same layout, consistent filters/cards/table across all 4)
+    // Tab mode switching (5 tabs)
     (function(){
       const tabs = Array.from(document.querySelectorAll('#rateTabs .nav-link'));
       const titleH1 = document.querySelector('.top-header .title h1');
       const subtitle = document.querySelector('.top-header .title small');
 
       const MODE_META = {
-        view:   { icon: 'far fa-eye',              color: 'var(--blue)', text: 'View Rates',   sub: 'Admin view of all rates (read-only).' },
-        enter:  { icon: 'fas fa-pen-to-square',    color: 'var(--blue)', text: 'Enter Rates (e-Log)', sub: 'Only New Rate + Discretion are editable. Current stays visible.' },
-        approve:{ icon: 'far fa-circle-check',     color: 'var(--blue)', text: 'Approve Rates', sub: 'Review and approve/decline rate changes.' },
-        history:{ icon: 'far fa-clock',            color: 'var(--blue)', text: 'Rate History', sub: 'View past submissions and changes.' }
+        view:    { icon: 'far fa-eye',           color: 'var(--blue)', text: 'View Rates',      sub: 'Admin view of all rates (read-only).' },
+        enter:   { icon: 'fas fa-pen-to-square', color: 'var(--blue)', text: 'Enter Rates',     sub: 'Only New Rate + Discretion are editable.' },
+        status:  { icon: 'far fa-circle-check',  color: 'var(--blue)', text: 'Approved Status', sub: 'Track approvals/declines for submissions.' },
+        approve: { icon: 'fas fa-gavel',         color: 'var(--blue)', text: 'Approve Rates',   sub: 'Review and approve/decline pending changes.' },
+        history: { icon: 'far fa-clock',         color: 'var(--blue)', text: 'Rate History',    sub: 'Full audit trail with verification data.' }
       };
 
       function setMode(mode){
@@ -2025,21 +1932,10 @@
           t.classList.toggle('active', active);
           t.setAttribute('aria-selected', active ? 'true' : 'false');
         });
-
-        // Apply mode class to body for CSS toggles
         document.body.classList.remove('mode-view','mode-enter','mode-status','mode-approve','mode-history');
         document.body.classList.add('mode-' + mode);
-
-        // Adjust tier group colspans when New column is hidden (View mode)
-        const tierHeads = Array.from(document.querySelectorAll('th.tier-head'));
-        tierHeads.forEach(th => {
-          th.colSpan = (mode === 'view') ? 2 : 3;
-        });
-
         const meta = MODE_META[mode] || MODE_META.enter;
-        if (titleH1){
-          titleH1.innerHTML = `<i class="${meta.icon}" style="color:${meta.color}"></i> ${meta.text}`;
-        }
+        if (titleH1) titleH1.innerHTML = `<i class="${meta.icon}" style="color:${meta.color}"></i> ${meta.text}`;
         if (subtitle) subtitle.textContent = meta.sub;
       }
 

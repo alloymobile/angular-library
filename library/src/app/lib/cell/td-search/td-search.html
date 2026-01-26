@@ -1,0 +1,7 @@
+<div [id]="model.id" [class]="model.className">
+  <div class="col-12">
+    @if (inputModel()) {
+      <td-input [input]="inputModel()!" (output)="onInputOutput($event)"></td-input>
+    }
+  </div>
+</div>

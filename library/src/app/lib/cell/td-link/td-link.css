@@ -1,0 +1,4 @@
+/* td-link.css */
+:host {
+  display: inline-block;
+}

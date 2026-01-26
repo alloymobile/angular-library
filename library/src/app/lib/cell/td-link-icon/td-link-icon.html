@@ -1,0 +1,16 @@
+<!-- td-link-icon.html -->
+<a
+  [id]="domId"
+  [href]="linkIcon.href || '#'"
+  [class]="computedClass"
+  [target]="linkIcon.target"
+  [rel]="safeRel"
+  [title]="linkIcon.title"
+  [attr.aria-label]="linkIcon.ariaLabel"
+  (click)="onClick($event)"
+>
+  <td-icon [icon]="linkIcon.icon"></td-icon>
+  @if (linkIcon.name) {
+    <span>{{ linkIcon.name }}</span>
+  }
+</a>

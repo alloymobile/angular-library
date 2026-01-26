@@ -1,0 +1,56 @@
+<!-- src/app/demo/pages/cell/demo-link-icon/demo-link-icon.html -->
+<section id="link-icon" class="container py-3">
+  <h3 class="mb-1 text-center">TdLinkIcon</h3>
+
+  <div class="row mb-2">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <pre class="bg-light text-dark border rounded-3 p-3 small mb-0">
+        <code>&lt;td-link-icon [linkIcon]="linkIconModel"&gt;&lt;/td-link-icon&gt;</code>
+      </pre>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-12 text-center">
+      <span class="fw-semibold d-block mb-2">Link Icon</span>
+      <div class="d-flex justify-content-center">
+        <td-link-icon [linkIcon]="model()"></td-link-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="fw-semibold">LinkIcon JSON (editable)</span>
+        <button
+          type="button"
+          (click)="formatJson()"
+          class="btn btn-sm btn-outline-secondary">
+          <i class="fa-solid fa-wand-magic-sparkles me-2" aria-hidden="true"></i>
+          Format JSON
+        </button>
+      </div>
+
+      <textarea
+        class="form-control font-monospace"
+        [class.is-invalid]="error()"
+        rows="12"
+        spellcheck="false"
+        [(ngModel)]="jsonText"
+        (ngModelChange)="handleChange($event)">
+      </textarea>
+
+      @if (error()) {
+        <div class="invalid-feedback">{{ error() }}</div>
+      } @else {
+        <div class="form-text">
+          Required: <code>href</code>, <code>icon.iconClass</code>. Optional:
+          <code>id</code>, <code>name</code>, <code>className</code>,
+          <code>active</code>, <code>target</code>, <code>rel</code>,
+          <code>title</code>, and for icon wrapper styling: <code>icon.className</code>.
+        </div>
+      }
+    </div>
+  </div>
+</section>

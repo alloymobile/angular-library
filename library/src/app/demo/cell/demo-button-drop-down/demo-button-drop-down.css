@@ -1,0 +1,12 @@
+/* demo-button-drop-down.css */
+.demo-dd-root .demo-snippet {
+  max-width: 980px;
+}
+
+.demo-dd-root td-button-drop-down {
+  margin-top: 6px;
+}
+
+.demo-dd-root textarea {
+  resize: vertical;
+}

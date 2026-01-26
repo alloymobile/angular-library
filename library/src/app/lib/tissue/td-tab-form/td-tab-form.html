@@ -1,0 +1,191 @@
+<!-- td-tab-form.html -->
+<div class="td-tab-form">
+  <!-- No tabs message -->
+  @if (!currentTab) {
+    <div class="alert alert-warning">No steps defined for this TabForm.</div>
+  } @else {
+
+    <!-- Tabs Navigation (tabs layout only) -->
+    @if (!isMixed) {
+      <ul class="nav nav-tabs mb-3 flex-wrap">
+        @for (tab of tabs; track trackByTab($index, tab); let idx = $index) {
+          <li class="nav-item">
+            <button
+              type="button"
+              class="nav-link"
+              [class.active]="idx === currentIndex"
+              (click)="setCurrentIndex(idx)"
+            >
+              @if (tab.icon) {
+                <span class="me-1">
+                  <td-icon [icon]="tab.icon"></td-icon>
+                </span>
+              }
+              {{ tab.title || 'Step ' + (idx + 1) }}
+            </button>
+          </li>
+        }
+      </ul>
+    }
+
+    <!-- Form -->
+    <form (submit)="$event.preventDefault()" novalidate>
+
+      <!-- Mixed Layout: All tabs as fieldsets -->
+      @if (isMixed) {
+        <div class="row g-3">
+          @for (tab of tabs; track trackByTab($index, tab); let idx = $index) {
+            <div [class]="tab.className">
+              <fieldset class="border rounded p-3">
+                <legend class="float-none w-auto px-2 mb-0">
+                  @if (tab.icon) {
+                    <span class="me-1">
+                      <td-icon [icon]="tab.icon"></td-icon>
+                    </span>
+                  }
+                  {{ tab.title || 'Step ' + (idx + 1) }}
+                </legend>
+
+                @if (tab.subtitle) {
+                  <div class="text-muted small mb-3">{{ tab.subtitle }}</div>
+                }
+
+                @if (tab.initError) {
+                  <div class="alert alert-danger">{{ tab.initError }}</div>
+                }
+
+                <!-- Inputs type -->
+                @if (tab.type === 'inputs') {
+                  <div class="row g-3">
+                    <div [class]="tab.inputClass">
+                      @for (inputModel of tab.inputs; track trackByInput($index, inputModel)) {
+                        <div class="mb-3">
+                          <td-input
+                            [input]="createInputModel(tab.key, inputModel)"
+                            (output)="handleFieldOutput(tab.key, $event)"
+                          ></td-input>
+
+                          @if (hasFieldErrors(tab.key, inputModel.name)) {
+                            <div class="invalid-feedback d-block">
+                              @for (err of getFieldErrors(tab.key, inputModel.name); track $index) {
+                                <div>{{ err }}</div>
+                              }
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+
+                <!-- Cards type -->
+                @if (tab.type === 'cards') {
+                  <div class="row g-3">
+                    @for (card of tab.cards; track trackByCard($index, card)) {
+                      <div class="col-12">
+                        <td-card
+                          [card]="card"
+                          (output)="handleCardOutput($event)"
+                        ></td-card>
+                      </div>
+                    }
+                  </div>
+                }
+              </fieldset>
+            </div>
+          }
+        </div>
+      } @else {
+        <!-- Tabs Layout: Single tab content -->
+
+        <!-- Title & Subtitle -->
+        @if (currentTab.title || currentTab.subtitle) {
+          <div class="mb-3">
+            @if (currentTab.title) {
+              <h5 class="mb-1">{{ currentTab.title }}</h5>
+            }
+            @if (currentTab.subtitle) {
+              <div class="text-muted small">{{ currentTab.subtitle }}</div>
+            }
+          </div>
+        }
+
+        @if (currentTab.initError) {
+          <div class="alert alert-danger">{{ currentTab.initError }}</div>
+        }
+
+        <div class="row g-3">
+          <!-- Inputs type -->
+          @if (currentTab.type === 'inputs') {
+            <div class="row g-3">
+              <div [class]="currentTab.inputClass">
+                @for (inputModel of currentTab.inputs; track trackByInput($index, inputModel)) {
+                  <div class="mb-3">
+                    <td-input
+                      [input]="createInputModel(currentTab.key, inputModel)"
+                      (output)="handleFieldOutput(currentTab.key, $event)"
+                    ></td-input>
+
+                    @if (hasFieldErrors(currentTab.key, inputModel.name)) {
+                      <div class="invalid-feedback d-block">
+                        @for (err of getFieldErrors(currentTab.key, inputModel.name); track $index) {
+                          <div>{{ err }}</div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Cards type -->
+          @if (currentTab.type === 'cards') {
+            <div class="col-12">
+              <div class="row g-3">
+                @for (card of currentTab.cards; track trackByCard($index, card)) {
+                  <div class="col-12">
+                    <td-card
+                      [card]="card"
+                      (output)="handleCardOutput($event)"
+                    ></td-card>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <!-- Previous Button -->
+        @if (hasPrevious) {
+          <td-button-icon
+            [buttonIcon]="previousButton"
+            (output)="handlePrevious()"
+          ></td-button-icon>
+        } @else {
+          <span></span>
+        }
+
+        <!-- Next / Finish Buttons -->
+        <div class="d-flex gap-2 ms-auto">
+          @if (hasNext) {
+            <td-button-icon
+              [buttonIcon]="nextButton"
+              (output)="handleNext()"
+            ></td-button-icon>
+          }
+
+          @if (isLast || isMixed) {
+            <td-button-icon
+              [buttonIcon]="finishButton"
+              (output)="handleFinish()"
+            ></td-button-icon>
+          }
+        </div>
+      </div>
+    </form>
+  }
+</div>

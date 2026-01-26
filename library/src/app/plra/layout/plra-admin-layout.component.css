@@ -1,0 +1,147 @@
+/* =========================================================
+   PLRA Admin Layout (Angular)
+   - Thin Teams-like rail + fixed topbar
+   - Colors are driven by your TD theme tokens (we don't hardcode)
+   ========================================================= */
+
+:host {
+  display: block;
+}
+
+/* Layout sizing (override per page if you want) */
+.plra-admin{
+  --navbar-height: 56px;
+  --sidebar-width: 84px;
+}
+
+/* Topbar: same "topbar" class used in Next config */
+:host ::ng-deep .plra-admin .topbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-height);
+  z-index: 1030;
+}
+
+/* Reserve space for fixed topbar */
+.plra-admin.page.with-topbar{
+  padding-top: var(--navbar-height);
+}
+
+/* Desktop sidebar rail under the topbar
+   IMPORTANT: td-sidebar renders the <aside> inside its own template,
+   so this MUST be under ::ng-deep to apply.
+*/
+:host ::ng-deep .plra-sidebar.desktop-sidebar{
+  width: var(--sidebar-width);
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  height: calc(100vh - var(--navbar-height));
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1019;
+
+  /* keep scrollbar from covering content */
+  scrollbar-gutter: stable;
+  padding-right: .25rem;
+}
+
+/* Push main content to the right (lg+) */
+@media (min-width: 992px) {
+  .plra-admin.page.with-desktop-sidebar{
+    padding-left: var(--sidebar-width);
+  }
+}
+
+/* Main content area */
+.plra-main{
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 18px;
+}
+
+/* ---------------------------------------------------------
+   Rail link styling
+   We intentionally target the same class your JSON uses:
+   "sidebar-link d-flex flex-column align-items-center fs-8"
+   --------------------------------------------------------- */
+:host ::ng-deep .plra-sidebar .sidebar-link{
+  position: relative;
+  padding: .55rem .35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  text-align: center;
+
+  /* force override of default anchor styles */
+  text-decoration: none !important;
+  color: inherit !important;
+
+  transition: all .18s ease;
+  border-radius: 12px;
+}
+
+:host ::ng-deep .plra-sidebar .sidebar-link:visited{
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Disable sideways slide (breaks narrow rail) */
+:host ::ng-deep .plra-sidebar .sidebar-link:hover,
+:host ::ng-deep .plra-sidebar .sidebar-link.active{
+  transform: none !important;
+  text-decoration: none !important;
+}
+
+/* Active indicator bar */
+:host ::ng-deep .plra-sidebar .sidebar-link::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: 12px 0 0 12px;
+  background: currentColor;
+  opacity: .2;
+}
+
+:host ::ng-deep .plra-sidebar .sidebar-link.active::before{
+  width: 6px;
+}
+
+/* Make icons consistent without forcing colors */
+:host ::ng-deep .plra-sidebar .sidebar-link i{
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   Mobile: keep sidebar as offcanvas/drawer if your TD Sidebar uses it
+   --------------------------------------------------------- */
+@media (max-width: 991.98px){
+  :host ::ng-deep .plra-sidebar .offcanvas{
+    width: var(--sidebar-width) !important;
+  }
+
+  :host ::ng-deep .plra-sidebar .offcanvas-body{
+    padding: .35rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  :host ::ng-deep .plra-sidebar .offcanvas-body .sidebar-link{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: .55rem .35rem;
+    gap: .35rem;
+  }
+
+  :host ::ng-deep .plra-sidebar .offcanvas-body .sidebar-link i{
+    margin-right: 0;
+  }
+}
