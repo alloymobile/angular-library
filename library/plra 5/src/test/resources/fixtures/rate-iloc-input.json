@@ -1,0 +1,9 @@
+{
+  "amountTierId": 1,
+  "subCategoryId": 2,
+  "startDate": "2026-02-02",
+  "expiryDate": "2026-03-03",
+  "targetRate": 4.1,
+  "floorRate": 3.1,
+  "detail": "rate detail"
+}
