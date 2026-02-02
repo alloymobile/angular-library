@@ -1,0 +1,166 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Home Equity Line of Credit",
+      "type": "HELOC",
+      "securityCode": "SEC001",
+      "detail": "Home equity line of credit product",
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "Personal Line of Credit",
+      "type": "PLOC",
+      "securityCode": "SEC002",
+      "detail": "Personal unsecured line of credit",
+      "active": "Y"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Mortgage",
+      "detail": "Mortgage related products",
+      "productId": 1,
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "Consumer Loans",
+      "detail": "Consumer lending products",
+      "productId": 2,
+      "active": "Y"
+    }
+  ],
+  "subCategories": [
+    {
+      "id": 1,
+      "name": "Fixed Rate Mortgage",
+      "detail": "Fixed rate mortgage subcategory",
+      "categoryId": 1,
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "Variable Rate Mortgage",
+      "detail": "Variable rate mortgage subcategory",
+      "categoryId": 1,
+      "active": "Y"
+    }
+  ],
+  "amountTiers": [
+    {
+      "id": 1,
+      "name": "Tier 1 (0-50K)",
+      "detail": "Amount from 0 to 50,000",
+      "min": 0,
+      "max": 50000,
+      "productId": 1,
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "Tier 2 (50K-100K)",
+      "detail": "Amount from 50,001 to 100,000",
+      "min": 50001,
+      "max": 100000,
+      "productId": 1,
+      "active": "Y"
+    }
+  ],
+  "cvpCodes": [
+    {
+      "id": 1,
+      "name": "CVP001",
+      "detail": "Customer Value Proposition 1",
+      "subCategoryId": 1,
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "CVP002",
+      "detail": "Customer Value Proposition 2",
+      "subCategoryId": 2,
+      "active": "Y"
+    }
+  ],
+  "primes": [
+    {
+      "id": 1,
+      "rate": 7.25,
+      "effectiveDate": "2024-01-01",
+      "detail": "Prime rate effective Jan 2024",
+      "active": "Y"
+    }
+  ],
+  "rateIlocDrafts": [
+    {
+      "id": 1,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "targetRate": 7.50,
+      "floorRate": 5.00,
+      "startDate": "2025-02-01",
+      "expiryDate": "2025-12-31",
+      "detail": "ILOC rate draft",
+      "notes": "Pending review",
+      "status": "DRAFT",
+      "changeId": "CHG-ILOC-00000001",
+      "active": "Y"
+    }
+  ],
+  "rateIlocActives": [
+    {
+      "id": 1,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "targetRate": 7.25,
+      "floorRate": 4.75,
+      "startDate": "2025-01-01",
+      "expiryDate": "2025-12-31",
+      "detail": "Active ILOC rate",
+      "notes": "Current rate",
+      "status": "ACTIVE",
+      "changeId": "CHG-ILOC-00000002",
+      "active": "Y"
+    }
+  ],
+  "rateUlocDrafts": [
+    {
+      "id": 1,
+      "cvpCodeId": 1,
+      "amountTierId": 1,
+      "targetRate": 8.50,
+      "floorRate": 6.00,
+      "startDate": "2025-02-01",
+      "expiryDate": "2025-12-31",
+      "detail": "ULOC rate draft",
+      "notes": "Pending review",
+      "status": "DRAFT",
+      "changeId": "CHG-ULOC-00000001",
+      "active": "Y"
+    }
+  ],
+  "workflows": [
+    {
+      "id": 1,
+      "rateType": "ILOC",
+      "rateId": 1,
+      "action": "CREATE",
+      "fromStatus": null,
+      "toStatus": "DRAFT",
+      "performedBy": "admin",
+      "notes": "Draft created"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "title": "Rate Change Notification",
+      "message": "New rate pending approval",
+      "status": "PENDING",
+      "active": "Y"
+    }
+  ]
+}
