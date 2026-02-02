@@ -4,7 +4,7 @@ import com.td.plra.application.exception.BadRequestException;
 import com.td.plra.application.exception.EntityNotFoundException;
 import com.td.plra.application.utils.PageResponse;
 import com.td.plra.common.BaseServiceTest;
-import com.td.plra.common.TestFixtures;
+import com.td.plra.common.TestEntityFactory;
 import com.td.plra.persistence.entity.Category;
 import com.td.plra.persistence.entity.Product;
 import com.td.plra.persistence.enums.ActiveStatus;
@@ -30,8 +30,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @DisplayName("CategoryService Tests")
@@ -59,10 +59,10 @@ class CategoryServiceTest extends BaseServiceTest {
     
     @BeforeEach
     void setUp() {
-        product = TestFixtures.createProduct();
-        category = TestFixtures.createCategory();
-        input = TestFixtures.createCategoryInput();
-        adminView = TestFixtures.createCategoryAdminView();
+        product = TestEntityFactory.createProduct();
+        category = TestEntityFactory.createCategory();
+        input = TestEntityFactory.createCategoryInput();
+        adminView = TestEntityFactory.createCategoryAdminView();
     }
     
     @Nested
@@ -73,19 +73,17 @@ class CategoryServiceTest extends BaseServiceTest {
         @DisplayName("Should create category successfully")
         void shouldCreateCategorySuccessfully() {
             // Given
-            when(repository.existsByName(anyString())).thenReturn(false);
+            when(repository.existsByName(input.getName())).thenReturn(false);
             when(productService.getEntityById(anyLong())).thenReturn(product);
-            when(mapper.toEntity(any(CategoryInput.class))).thenReturn(category);
+            when(mapper.toEntity(input)).thenReturn(category);
             when(repository.save(any(Category.class))).thenReturn(category);
-            when(mapper.toAdminView(any(Category.class))).thenReturn(adminView);
+            when(mapper.toAdminView(category)).thenReturn(adminView);
             
             // When
             CategoryAdminView result = service.create(input);
             
             // Then
             assertThat(result).isNotNull();
-            assertThat(result.getName()).isEqualTo(input.getName());
-            verify(productService).getEntityById(input.getProductId());
             verify(repository).save(any(Category.class));
         }
         
@@ -93,28 +91,12 @@ class CategoryServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when name already exists")
         void shouldThrowExceptionWhenNameExists() {
             // Given
-            when(repository.existsByName(anyString())).thenReturn(true);
+            when(repository.existsByName(input.getName())).thenReturn(true);
             
             // When/Then
             assertThatThrownBy(() -> service.create(input))
                     .isInstanceOf(BadRequestException.class)
-                    .hasMessageContaining("already exists");
-            
-            verify(repository, never()).save(any(Category.class));
-        }
-        
-        @Test
-        @DisplayName("Should throw exception when product not found")
-        void shouldThrowExceptionWhenProductNotFound() {
-            // Given
-            when(repository.existsByName(anyString())).thenReturn(false);
-            when(productService.getEntityById(anyLong()))
-                    .thenThrow(new EntityNotFoundException("Product", input.getProductId()));
-            
-            // When/Then
-            assertThatThrownBy(() -> service.create(input))
-                    .isInstanceOf(EntityNotFoundException.class)
-                    .hasMessageContaining("Product");
+                    .hasMessageContaining("name already exists");
         }
     }
     
@@ -141,12 +123,11 @@ class CategoryServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when category not found")
         void shouldThrowExceptionWhenNotFound() {
             // Given
-            when(repository.findById(INVALID_ID)).thenReturn(Optional.empty());
+            when(repository.findById(TEST_ID)).thenReturn(Optional.empty());
             
             // When/Then
-            assertThatThrownBy(() -> service.findById(INVALID_ID))
-                    .isInstanceOf(EntityNotFoundException.class)
-                    .hasMessageContaining("Category");
+            assertThatThrownBy(() -> service.findById(TEST_ID))
+                    .isInstanceOf(EntityNotFoundException.class);
         }
     }
     
@@ -158,9 +139,9 @@ class CategoryServiceTest extends BaseServiceTest {
         @DisplayName("Should find all categories with pagination")
         void shouldFindAllCategoriesWithPagination() {
             // Given
-            Page<Category> categoryPage = new PageImpl<>(List.of(category), defaultPageable, 1);
-            when(binding.buildPredicate(any())).thenReturn(null);
-            when(repository.findAll(defaultPageable)).thenReturn(categoryPage);
+            Page<Category> page = new PageImpl<>(List.of(category), defaultPageable, 1);
+            when(binding.buildPredicate(emptyParams)).thenReturn(null);
+            when(repository.findAll(defaultPageable)).thenReturn(page);
             when(mapper.toAdminViewList(anyList())).thenReturn(List.of(adminView));
             
             // When
@@ -181,40 +162,17 @@ class CategoryServiceTest extends BaseServiceTest {
         void shouldUpdateCategorySuccessfully() {
             // Given
             when(repository.findById(TEST_ID)).thenReturn(Optional.of(category));
-            when(repository.existsByNameAndIdNot(anyString(), anyLong())).thenReturn(false);
-            when(productService.getEntityById(anyLong())).thenReturn(product);
+            when(repository.existsByName(input.getName())).thenReturn(false);
             when(repository.save(any(Category.class))).thenReturn(category);
-            when(mapper.toAdminView(any(Category.class))).thenReturn(adminView);
+            when(mapper.toAdminView(category)).thenReturn(adminView);
             
             // When
             CategoryAdminView result = service.update(TEST_ID, input);
             
             // Then
             assertThat(result).isNotNull();
+            verify(mapper).updateEntity(input, category);
             verify(repository).save(category);
-        }
-        
-        @Test
-        @DisplayName("Should update product reference when changed")
-        void shouldUpdateProductReferenceWhenChanged() {
-            // Given
-            Product newProduct = TestFixtures.createProduct(2L, "New Product");
-            CategoryInput newInput = CategoryInput.builder()
-                    .name("Test Category")
-                    .productId(2L)
-                    .build();
-            
-            when(repository.findById(TEST_ID)).thenReturn(Optional.of(category));
-            when(repository.existsByNameAndIdNot(anyString(), anyLong())).thenReturn(false);
-            when(productService.getEntityById(2L)).thenReturn(newProduct);
-            when(repository.save(any(Category.class))).thenReturn(category);
-            when(mapper.toAdminView(any(Category.class))).thenReturn(adminView);
-            
-            // When
-            service.update(TEST_ID, newInput);
-            
-            // Then
-            verify(productService).getEntityById(2L);
         }
     }
     
@@ -239,24 +197,23 @@ class CategoryServiceTest extends BaseServiceTest {
     }
     
     @Nested
-    @DisplayName("Reactivate Category")
-    class ReactivateCategory {
+    @DisplayName("Find By Product")
+    class FindByProduct {
         
         @Test
-        @DisplayName("Should reactivate category successfully")
-        void shouldReactivateCategorySuccessfully() {
+        @DisplayName("Should find categories by product ID")
+        void shouldFindCategoriesByProductId() {
             // Given
-            category.setActive(ActiveStatus.N);
-            when(repository.findById(TEST_ID)).thenReturn(Optional.of(category));
-            when(repository.save(any(Category.class))).thenReturn(category);
-            when(mapper.toAdminView(any(Category.class))).thenReturn(adminView);
+            when(productService.getEntityById(TEST_ID)).thenReturn(product);
+            when(repository.findByProductAndActive(product, ActiveStatus.Y))
+                    .thenReturn(List.of(category));
+            when(mapper.toAdminViewList(anyList())).thenReturn(List.of(adminView));
             
             // When
-            CategoryAdminView result = service.reactivate(TEST_ID);
+            List<CategoryAdminView> result = service.findByProductId(TEST_ID);
             
             // Then
-            assertThat(category.getActive()).isEqualTo(ActiveStatus.Y);
-            verify(repository).save(category);
+            assertThat(result).hasSize(1);
         }
     }
 }

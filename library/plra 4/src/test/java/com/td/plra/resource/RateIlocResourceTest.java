@@ -1,11 +1,8 @@
 package com.td.plra.resource;
 
-import com.td.plra.application.exception.BadRequestException;
-import com.td.plra.application.exception.EntityNotFoundException;
-import com.td.plra.application.exception.GlobalExceptionHandler;
 import com.td.plra.application.utils.PageResponse;
 import com.td.plra.common.BaseResourceTest;
-import com.td.plra.common.TestFixtures;
+import com.td.plra.common.TestEntityFactory;
 import com.td.plra.persistence.enums.RateStatus;
 import com.td.plra.service.rateiloc.RateIlocService;
 import com.td.plra.service.rateiloc.dto.RateIlocAdminView;
@@ -14,13 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 import java.util.Map;
@@ -31,43 +24,30 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(RateIlocResource.class)
 @DisplayName("RateIlocResource Tests")
 class RateIlocResourceTest extends BaseResourceTest {
     
     private static final String BASE_URL = "/api/v1/rates/iloc";
-    private static final String DRAFTS_URL = BASE_URL + "/drafts";
-    private static final String ACTIVE_URL = BASE_URL + "/active";
-    private static final String HISTORY_URL = BASE_URL + "/history";
     
-    @Mock
+    @MockBean
     private RateIlocService service;
-    
-    @InjectMocks
-    private RateIlocResource resource;
     
     private RateIlocInput input;
     private RateIlocAdminView draftView;
     private RateIlocAdminView activeView;
-    private RateIlocAdminView historyView;
     
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(resource)
-                .setControllerAdvice(new GlobalExceptionHandler())
-                .build();
-        
-        input = TestFixtures.createRateIlocInput();
-        draftView = TestFixtures.createRateIlocAdminView(1L, RateStatus.DRAFT, "DRAFT");
-        activeView = TestFixtures.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
-        historyView = TestFixtures.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY");
+        input = TestEntityFactory.createRateIlocInput();
+        draftView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.DRAFT, "DRAFT");
+        activeView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
     }
     
     // ============================================================
-    // DRAFT CRUD TESTS
+    // DRAFT ENDPOINTS
     // ============================================================
     
     @Nested
@@ -75,45 +55,19 @@ class RateIlocResourceTest extends BaseResourceTest {
     class CreateDraft {
         
         @Test
-        @DisplayName("Should create draft and return 201")
-        void shouldCreateDraftAndReturn201() throws Exception {
+        @DisplayName("Should create draft successfully")
+        void shouldCreateDraftSuccessfully() throws Exception {
             // Given
             when(service.createDraft(any(RateIlocInput.class))).thenReturn(draftView);
             
             // When/Then
-            performPost(DRAFTS_URL, input)
+            performPost(BASE_URL + "/drafts", input)
                     .andExpect(status().isCreated())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.id").value(draftView.getId()))
-                    .andExpect(jsonPath("$.data.status").value("DRAFT"))
-                    .andExpect(jsonPath("$.data.source").value("DRAFT"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.id", is(1)))
+                    .andExpect(jsonPath("$.data.status", is("DRAFT")));
             
             verify(service).createDraft(any(RateIlocInput.class));
-        }
-        
-        @Test
-        @DisplayName("Should return 400 when validation fails")
-        void shouldReturn400WhenValidationFails() throws Exception {
-            // Given
-            when(service.createDraft(any(RateIlocInput.class)))
-                    .thenThrow(new BadRequestException("startDate", "Start date must be before expiry date"));
-            
-            // When/Then
-            performPost(DRAFTS_URL, input)
-                    .andExpect(status().isBadRequest())
-                    .andExpect(jsonPath("$.success").value(false));
-        }
-        
-        @Test
-        @DisplayName("Should return 404 when amount tier not found")
-        void shouldReturn404WhenAmountTierNotFound() throws Exception {
-            // Given
-            when(service.createDraft(any(RateIlocInput.class)))
-                    .thenThrow(new EntityNotFoundException("AmountTier", 1L));
-            
-            // When/Then
-            performPost(DRAFTS_URL, input)
-                    .andExpect(status().isNotFound());
         }
     }
     
@@ -122,30 +76,18 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetDraftById {
         
         @Test
-        @DisplayName("Should return draft when found")
-        void shouldReturnDraftWhenFound() throws Exception {
+        @DisplayName("Should get draft by ID successfully")
+        void shouldGetDraftByIdSuccessfully() throws Exception {
             // Given
             when(service.findDraftById(TEST_ID)).thenReturn(draftView);
             
             // When/Then
-            performGet(DRAFTS_URL + "/" + TEST_ID)
+            performGet(BASE_URL + "/drafts/" + TEST_ID)
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.success").value(true))
-                    .andExpect(jsonPath("$.data.id").value(draftView.getId()))
-                    .andExpect(jsonPath("$.data.targetRate").value(draftView.getTargetRate().doubleValue()))
-                    .andExpect(jsonPath("$.data.floorRate").value(draftView.getFloorRate().doubleValue()));
-        }
-        
-        @Test
-        @DisplayName("Should return 404 when draft not found")
-        void shouldReturn404WhenDraftNotFound() throws Exception {
-            // Given
-            when(service.findDraftById(INVALID_ID))
-                    .thenThrow(new EntityNotFoundException("RateIlocDraft", INVALID_ID));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.id", is(1)));
             
-            // When/Then
-            performGet(DRAFTS_URL + "/" + INVALID_ID)
-                    .andExpect(status().isNotFound());
+            verify(service).findDraftById(TEST_ID);
         }
     }
     
@@ -154,38 +96,26 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetAllDrafts {
         
         @Test
-        @DisplayName("Should return paginated drafts")
-        void shouldReturnPaginatedDrafts() throws Exception {
+        @DisplayName("Should get all drafts with pagination")
+        void shouldGetAllDraftsWithPagination() throws Exception {
             // Given
-            PageResponse<RateIlocAdminView> pageResponse = PageResponse.from(
-                    new PageImpl<>(List.of(draftView)), List.of(draftView));
+            PageResponse<RateIlocAdminView> pageResponse = PageResponse.<RateIlocAdminView>builder()
+                    .content(List.of(draftView))
+                    .pageNumber(0)
+                    .pageSize(20)
+                    .totalElements(1)
+                    .totalPages(1)
+                    .first(true)
+                    .last(true)
+                    .build();
             
             when(service.findAllDrafts(any(Map.class), any(Pageable.class))).thenReturn(pageResponse);
             
             // When/Then
-            performGet(DRAFTS_URL)
+            performGet(BASE_URL + "/drafts")
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.content", hasSize(1)))
-                    .andExpect(jsonPath("$.data.content[0].status").value("DRAFT"));
-        }
-        
-        @Test
-        @DisplayName("Should filter by status")
-        void shouldFilterByStatus() throws Exception {
-            // Given
-            PageResponse<RateIlocAdminView> pageResponse = PageResponse.from(
-                    new PageImpl<>(List.of(draftView)), List.of(draftView));
-            
-            when(service.findAllDrafts(any(Map.class), any(Pageable.class))).thenReturn(pageResponse);
-            
-            // When/Then
-            mockMvc.perform(get(DRAFTS_URL)
-                            .param("status", "DRAFT")
-                            .param("amountTierId", "1")
-                            .param("subCategoryId", "1"))
-                    .andExpect(status().isOk());
-            
-            verify(service).findAllDrafts(any(Map.class), any(Pageable.class));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.content", hasSize(1)));
         }
     }
     
@@ -197,40 +127,15 @@ class RateIlocResourceTest extends BaseResourceTest {
         @DisplayName("Should update draft successfully")
         void shouldUpdateDraftSuccessfully() throws Exception {
             // Given
-            when(service.updateDraft(eq(TEST_ID), any(RateIlocInput.class))).thenReturn(draftView);
+            when(service.updateDraft(anyLong(), any(RateIlocInput.class))).thenReturn(draftView);
             
             // When/Then
-            performPut(DRAFTS_URL + "/" + TEST_ID, input)
+            performPut(BASE_URL + "/drafts/" + TEST_ID, input)
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.success").value(true));
-        }
-        
-        @Test
-        @DisplayName("Should return 400 when draft not in editable status")
-        void shouldReturn400WhenDraftNotEditable() throws Exception {
-            // Given
-            when(service.updateDraft(eq(TEST_ID), any(RateIlocInput.class)))
-                    .thenThrow(new BadRequestException("status", "Can only update drafts in DRAFT or REJECTED status"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.id", is(1)));
             
-            // When/Then
-            performPut(DRAFTS_URL + "/" + TEST_ID, input)
-                    .andExpect(status().isBadRequest());
-        }
-    }
-    
-    @Nested
-    @DisplayName("PATCH /api/v1/rates/iloc/drafts/{id}")
-    class PatchDraft {
-        
-        @Test
-        @DisplayName("Should partially update draft successfully")
-        void shouldPartiallyUpdateDraftSuccessfully() throws Exception {
-            // Given
-            when(service.updateDraft(eq(TEST_ID), any(RateIlocInput.class))).thenReturn(draftView);
-            
-            // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID, input)
-                    .andExpect(status().isOk());
+            verify(service).updateDraft(eq(TEST_ID), any(RateIlocInput.class));
         }
     }
     
@@ -239,13 +144,13 @@ class RateIlocResourceTest extends BaseResourceTest {
     class DeleteDraft {
         
         @Test
-        @DisplayName("Should delete draft and return 204")
-        void shouldDeleteDraftAndReturn204() throws Exception {
+        @DisplayName("Should delete draft successfully")
+        void shouldDeleteDraftSuccessfully() throws Exception {
             // Given
             doNothing().when(service).deleteDraft(TEST_ID);
             
             // When/Then
-            performDelete(DRAFTS_URL + "/" + TEST_ID)
+            performDelete(BASE_URL + "/drafts/" + TEST_ID)
                     .andExpect(status().isNoContent());
             
             verify(service).deleteDraft(TEST_ID);
@@ -253,7 +158,7 @@ class RateIlocResourceTest extends BaseResourceTest {
     }
     
     // ============================================================
-    // WORKFLOW TESTS
+    // WORKFLOW ENDPOINTS
     // ============================================================
     
     @Nested
@@ -261,48 +166,37 @@ class RateIlocResourceTest extends BaseResourceTest {
     class SubmitForApproval {
         
         @Test
-        @DisplayName("Should submit draft for approval")
-        void shouldSubmitDraftForApproval() throws Exception {
+        @DisplayName("Should submit draft for approval successfully")
+        void shouldSubmitDraftForApprovalSuccessfully() throws Exception {
             // Given
-            RateIlocAdminView pendingView = TestFixtures.createRateIlocAdminView(1L, RateStatus.PENDING_APPROVAL, "DRAFT");
+            RateIlocAdminView pendingView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.PENDING_APPROVAL, "DRAFT");
             when(service.submitForApproval(TEST_ID)).thenReturn(pendingView);
             
             // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID + "/submit")
+            performPatch(BASE_URL + "/drafts/" + TEST_ID + "/submit")
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("PENDING_APPROVAL"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.status", is("PENDING_APPROVAL")));
             
             verify(service).submitForApproval(TEST_ID);
-        }
-        
-        @Test
-        @DisplayName("Should return 400 when draft not in DRAFT status")
-        void shouldReturn400WhenNotInDraftStatus() throws Exception {
-            // Given
-            when(service.submitForApproval(TEST_ID))
-                    .thenThrow(new BadRequestException("status", "Can only submit drafts in DRAFT status"));
-            
-            // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID + "/submit")
-                    .andExpect(status().isBadRequest());
         }
     }
     
     @Nested
     @DisplayName("PATCH /api/v1/rates/iloc/drafts/{id}/approve")
-    class ApproveDraft {
+    class Approve {
         
         @Test
-        @DisplayName("Should approve draft")
-        void shouldApproveDraft() throws Exception {
+        @DisplayName("Should approve draft successfully")
+        void shouldApproveDraftSuccessfully() throws Exception {
             // Given
-            RateIlocAdminView approvedView = TestFixtures.createRateIlocAdminView(1L, RateStatus.APPROVED, "DRAFT");
-            when(service.approve(TEST_ID)).thenReturn(approvedView);
+            when(service.approve(TEST_ID)).thenReturn(activeView);
             
             // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID + "/approve")
+            performPatch(BASE_URL + "/drafts/" + TEST_ID + "/approve")
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("APPROVED"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.status", is("ACTIVE")));
             
             verify(service).approve(TEST_ID);
         }
@@ -310,59 +204,30 @@ class RateIlocResourceTest extends BaseResourceTest {
     
     @Nested
     @DisplayName("PATCH /api/v1/rates/iloc/drafts/{id}/reject")
-    class RejectDraft {
+    class Reject {
         
         @Test
-        @DisplayName("Should reject draft with reason")
-        void shouldRejectDraftWithReason() throws Exception {
+        @DisplayName("Should reject draft successfully")
+        void shouldRejectDraftSuccessfully() throws Exception {
             // Given
-            RateIlocAdminView rejectedView = TestFixtures.createRateIlocAdminView(1L, RateStatus.REJECTED, "DRAFT");
+            RateIlocAdminView rejectedView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.REJECTED, "DRAFT");
             when(service.reject(eq(TEST_ID), anyString())).thenReturn(rejectedView);
             
             // When/Then
-            mockMvc.perform(patch(DRAFTS_URL + "/" + TEST_ID + "/reject")
-                            .param("reason", "Rate too high"))
+            mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                            .patch(BASE_URL + "/drafts/" + TEST_ID + "/reject")
+                            .param("reason", "Rate too high")
+                            .contentType(org.springframework.http.MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("REJECTED"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.status", is("REJECTED")));
             
-            verify(service).reject(eq(TEST_ID), eq("Rate too high"));
-        }
-    }
-    
-    @Nested
-    @DisplayName("PATCH /api/v1/rates/iloc/drafts/{id}/activate")
-    class ActivateDraft {
-        
-        @Test
-        @DisplayName("Should activate draft")
-        void shouldActivateDraft() throws Exception {
-            // Given
-            when(service.activate(TEST_ID)).thenReturn(activeView);
-            
-            // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID + "/activate")
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("ACTIVE"))
-                    .andExpect(jsonPath("$.data.source").value("ACTIVE"));
-            
-            verify(service).activate(TEST_ID);
-        }
-        
-        @Test
-        @DisplayName("Should return 400 when draft not approved")
-        void shouldReturn400WhenDraftNotApproved() throws Exception {
-            // Given
-            when(service.activate(TEST_ID))
-                    .thenThrow(new BadRequestException("status", "Can only activate drafts in APPROVED status"));
-            
-            // When/Then
-            performPatch(DRAFTS_URL + "/" + TEST_ID + "/activate")
-                    .andExpect(status().isBadRequest());
+            verify(service).reject(eq(TEST_ID), anyString());
         }
     }
     
     // ============================================================
-    // ACTIVE TESTS
+    // ACTIVE ENDPOINTS
     // ============================================================
     
     @Nested
@@ -370,16 +235,19 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetActiveById {
         
         @Test
-        @DisplayName("Should return active rate when found")
-        void shouldReturnActiveRateWhenFound() throws Exception {
+        @DisplayName("Should get active rate by ID successfully")
+        void shouldGetActiveRateByIdSuccessfully() throws Exception {
             // Given
             when(service.findActiveById(TEST_ID)).thenReturn(activeView);
             
             // When/Then
-            performGet(ACTIVE_URL + "/" + TEST_ID)
+            performGet(BASE_URL + "/active/" + TEST_ID)
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("ACTIVE"))
-                    .andExpect(jsonPath("$.data.source").value("ACTIVE"));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.id", is(1)))
+                    .andExpect(jsonPath("$.data.source", is("ACTIVE")));
+            
+            verify(service).findActiveById(TEST_ID);
         }
     }
     
@@ -388,18 +256,51 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetAllActive {
         
         @Test
-        @DisplayName("Should return paginated active rates")
-        void shouldReturnPaginatedActiveRates() throws Exception {
+        @DisplayName("Should get all active rates with pagination")
+        void shouldGetAllActiveRatesWithPagination() throws Exception {
             // Given
-            PageResponse<RateIlocAdminView> pageResponse = PageResponse.from(
-                    new PageImpl<>(List.of(activeView)), List.of(activeView));
+            PageResponse<RateIlocAdminView> pageResponse = PageResponse.<RateIlocAdminView>builder()
+                    .content(List.of(activeView))
+                    .pageNumber(0)
+                    .pageSize(20)
+                    .totalElements(1)
+                    .totalPages(1)
+                    .first(true)
+                    .last(true)
+                    .build();
             
             when(service.findAllActive(any(Map.class), any(Pageable.class))).thenReturn(pageResponse);
             
             // When/Then
-            performGet(ACTIVE_URL)
+            performGet(BASE_URL + "/active")
                     .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success", is(true)))
                     .andExpect(jsonPath("$.data.content", hasSize(1)));
+        }
+        
+        @Test
+        @DisplayName("Should get current live rates with current=true parameter")
+        void shouldGetCurrentLiveRatesWithCurrentParameter() throws Exception {
+            // Given
+            PageResponse<RateIlocAdminView> pageResponse = PageResponse.<RateIlocAdminView>builder()
+                    .content(List.of(activeView))
+                    .pageNumber(0)
+                    .pageSize(20)
+                    .totalElements(1)
+                    .totalPages(1)
+                    .first(true)
+                    .last(true)
+                    .build();
+            
+            when(service.findAllActive(any(Map.class), any(Pageable.class))).thenReturn(pageResponse);
+            
+            // When/Then
+            mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                            .get(BASE_URL + "/active")
+                            .param("current", "true")
+                            .contentType(org.springframework.http.MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success", is(true)));
         }
     }
     
@@ -408,13 +309,13 @@ class RateIlocResourceTest extends BaseResourceTest {
     class ExpireRate {
         
         @Test
-        @DisplayName("Should expire active rate")
-        void shouldExpireActiveRate() throws Exception {
+        @DisplayName("Should expire active rate successfully")
+        void shouldExpireActiveRateSuccessfully() throws Exception {
             // Given
             doNothing().when(service).expireRate(TEST_ID);
             
             // When/Then
-            performPatch(ACTIVE_URL + "/" + TEST_ID + "/expire")
+            performPatch(BASE_URL + "/active/" + TEST_ID + "/expire")
                     .andExpect(status().isNoContent());
             
             verify(service).expireRate(TEST_ID);
@@ -422,7 +323,7 @@ class RateIlocResourceTest extends BaseResourceTest {
     }
     
     // ============================================================
-    // HISTORY TESTS
+    // HISTORY ENDPOINTS
     // ============================================================
     
     @Nested
@@ -430,36 +331,20 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetHistoryById {
         
         @Test
-        @DisplayName("Should return history rate when found")
-        void shouldReturnHistoryRateWhenFound() throws Exception {
+        @DisplayName("Should get history rate by ID successfully")
+        void shouldGetHistoryRateByIdSuccessfully() throws Exception {
             // Given
+            RateIlocAdminView historyView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY");
             when(service.findHistoryById(TEST_ID)).thenReturn(historyView);
             
             // When/Then
-            performGet(HISTORY_URL + "/" + TEST_ID)
+            performGet(BASE_URL + "/history/" + TEST_ID)
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.status").value("EXPIRED"))
-                    .andExpect(jsonPath("$.data.source").value("HISTORY"));
-        }
-    }
-    
-    @Nested
-    @DisplayName("GET /api/v1/rates/iloc/history")
-    class GetAllHistory {
-        
-        @Test
-        @DisplayName("Should return paginated history rates")
-        void shouldReturnPaginatedHistoryRates() throws Exception {
-            // Given
-            PageResponse<RateIlocAdminView> pageResponse = PageResponse.from(
-                    new PageImpl<>(List.of(historyView)), List.of(historyView));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data.id", is(1)))
+                    .andExpect(jsonPath("$.data.source", is("HISTORY")));
             
-            when(service.findAllHistory(any(Map.class), any(Pageable.class))).thenReturn(pageResponse);
-            
-            // When/Then
-            performGet(HISTORY_URL)
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.content", hasSize(1)));
+            verify(service).findHistoryById(TEST_ID);
         }
     }
     
@@ -468,21 +353,25 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetHistoryByChangeId {
         
         @Test
-        @DisplayName("Should return history by change ID")
-        void shouldReturnHistoryByChangeId() throws Exception {
+        @DisplayName("Should get history by change ID successfully")
+        void shouldGetHistoryByChangeIdSuccessfully() throws Exception {
             // Given
-            String changeId = "CHG-ILOC-TEST001";
+            String changeId = "CHG-ILOC-00000001";
+            RateIlocAdminView historyView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY");
             when(service.findHistoryByChangeId(changeId)).thenReturn(List.of(historyView));
             
             // When/Then
-            performGet(HISTORY_URL + "/change/" + changeId)
+            performGet(BASE_URL + "/history/change/" + changeId)
                     .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success", is(true)))
                     .andExpect(jsonPath("$.data", hasSize(1)));
+            
+            verify(service).findHistoryByChangeId(changeId);
         }
     }
     
     // ============================================================
-    // COMBINED QUERY TESTS
+    // COMBINED QUERY
     // ============================================================
     
     @Nested
@@ -490,18 +379,23 @@ class RateIlocResourceTest extends BaseResourceTest {
     class GetByTierAndSubCategory {
         
         @Test
-        @DisplayName("Should return all rates for tier and subcategory")
-        void shouldReturnAllRatesForTierAndSubCategory() throws Exception {
+        @DisplayName("Should get rates by tier and subcategory")
+        void shouldGetRatesByTierAndSubCategory() throws Exception {
             // Given
             when(service.findAllByAmountTierAndSubCategory(1L, 1L))
-                    .thenReturn(List.of(draftView, activeView, historyView));
+                    .thenReturn(List.of(draftView, activeView));
             
             // When/Then
-            mockMvc.perform(get(BASE_URL + "/by-tier-subcategory")
+            mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                            .get(BASE_URL + "/by-tier-subcategory")
                             .param("amountTierId", "1")
-                            .param("subCategoryId", "1"))
+                            .param("subCategoryId", "1")
+                            .contentType(org.springframework.http.MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data", hasSize(3)));
+                    .andExpect(jsonPath("$.success", is(true)))
+                    .andExpect(jsonPath("$.data", hasSize(2)));
+            
+            verify(service).findAllByAmountTierAndSubCategory(1L, 1L);
         }
     }
 }

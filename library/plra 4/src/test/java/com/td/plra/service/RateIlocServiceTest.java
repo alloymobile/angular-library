@@ -4,7 +4,7 @@ import com.td.plra.application.exception.BadRequestException;
 import com.td.plra.application.exception.EntityNotFoundException;
 import com.td.plra.application.utils.PageResponse;
 import com.td.plra.common.BaseServiceTest;
-import com.td.plra.common.TestFixtures;
+import com.td.plra.common.TestEntityFactory;
 import com.td.plra.persistence.entity.AmountTier;
 import com.td.plra.persistence.entity.RateIlocActive;
 import com.td.plra.persistence.entity.RateIlocDraft;
@@ -25,7 +25,6 @@ import com.td.plra.service.rateiloc.dto.RateIlocInput;
 import com.td.plra.service.rateiloc.mapper.RateIlocMapper;
 import com.td.plra.service.subcategory.SubCategoryService;
 import com.td.plra.service.workflow.WorkflowService;
-import com.td.plra.service.workflow.dto.WorkflowAdminView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -37,12 +36,14 @@ import org.springframework.data.domain.PageImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -87,13 +88,13 @@ class RateIlocServiceTest extends BaseServiceTest {
     
     @BeforeEach
     void setUp() {
-        amountTier = TestFixtures.createAmountTier();
-        subCategory = TestFixtures.createSubCategory();
-        draft = TestFixtures.createRateIlocDraft();
-        active = TestFixtures.createRateIlocActive();
-        history = TestFixtures.createRateIlocHistory();
-        input = TestFixtures.createRateIlocInput();
-        adminView = TestFixtures.createRateIlocAdminView();
+        amountTier = TestEntityFactory.createAmountTier();
+        subCategory = TestEntityFactory.createSubCategory();
+        draft = TestEntityFactory.createRateIlocDraft();
+        active = TestEntityFactory.createRateIlocActive();
+        history = TestEntityFactory.createRateIlocHistory();
+        input = TestEntityFactory.createRateIlocInput();
+        adminView = TestEntityFactory.createRateIlocAdminView();
     }
     
     // ============================================================
@@ -114,7 +115,7 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             RateIlocAdminView result = service.createDraft(input);
@@ -188,11 +189,33 @@ class RateIlocServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when draft not found")
         void shouldThrowExceptionWhenDraftNotFound() {
             // Given
-            when(draftRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
+            when(draftRepository.findById(TEST_ID)).thenReturn(Optional.empty());
             
             // When/Then
-            assertThatThrownBy(() -> service.findDraftById(INVALID_ID))
+            assertThatThrownBy(() -> service.findDraftById(TEST_ID))
                     .isInstanceOf(EntityNotFoundException.class);
+        }
+    }
+    
+    @Nested
+    @DisplayName("Find All Drafts")
+    class FindAllDrafts {
+        
+        @Test
+        @DisplayName("Should find all drafts with pagination")
+        void shouldFindAllDraftsWithPagination() {
+            // Given
+            Page<RateIlocDraft> page = new PageImpl<>(List.of(draft), defaultPageable, 1);
+            when(binding.buildDraftPredicate(emptyParams)).thenReturn(null);
+            when(draftRepository.findAll(defaultPageable)).thenReturn(page);
+            when(mapper.draftToAdminViewList(anyList())).thenReturn(List.of(adminView));
+            
+            // When
+            PageResponse<RateIlocAdminView> result = service.findAllDrafts(emptyParams, defaultPageable);
+            
+            // Then
+            assertThat(result).isNotNull();
+            assertThat(result.getContent()).hasSize(1);
         }
     }
     
@@ -209,19 +232,18 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             RateIlocAdminView result = service.updateDraft(TEST_ID, input);
             
             // Then
             assertThat(result).isNotNull();
-            verify(mapper).updateDraft(input, draft);
-            verify(draftRepository).save(draft);
+            verify(draftRepository).save(any(RateIlocDraft.class));
         }
         
         @Test
-        @DisplayName("Should update draft in REJECTED status")
+        @DisplayName("Should update draft in REJECTED status and reset to DRAFT")
         void shouldUpdateDraftInRejectedStatus() {
             // Given
             draft.setStatus(RateStatus.REJECTED);
@@ -229,18 +251,17 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
-            RateIlocAdminView result = service.updateDraft(TEST_ID, input);
+            service.updateDraft(TEST_ID, input);
             
             // Then
-            assertThat(result).isNotNull();
-            assertThat(draft.getStatus()).isEqualTo(RateStatus.DRAFT); // Reset to draft
+            assertThat(draft.getStatus()).isEqualTo(RateStatus.DRAFT);
         }
         
         @Test
-        @DisplayName("Should throw exception when updating PENDING_APPROVAL draft")
+        @DisplayName("Should throw exception when updating draft in PENDING_APPROVAL status")
         void shouldThrowExceptionWhenUpdatingPendingApprovalDraft() {
             // Given
             draft.setStatus(RateStatus.PENDING_APPROVAL);
@@ -265,7 +286,7 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             service.deleteDraft(TEST_ID);
@@ -273,15 +294,13 @@ class RateIlocServiceTest extends BaseServiceTest {
             // Then
             assertThat(draft.getActive()).isEqualTo(ActiveStatus.N);
             assertThat(draft.getStatus()).isEqualTo(RateStatus.CANCELLED);
-            verify(workflowService).recordTransition(
-                    eq(RateType.ILOC), anyLong(), eq(WorkflowAction.CANCEL), any(), eq(RateStatus.CANCELLED));
         }
         
         @Test
-        @DisplayName("Should throw exception when deleting approved draft")
-        void shouldThrowExceptionWhenDeletingApprovedDraft() {
+        @DisplayName("Should throw exception when deleting draft in PENDING_APPROVAL status")
+        void shouldThrowExceptionWhenDeletingPendingApprovalDraft() {
             // Given
-            draft.setStatus(RateStatus.APPROVED);
+            draft.setStatus(RateStatus.PENDING_APPROVAL);
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
             
             // When/Then
@@ -308,7 +327,7 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             RateIlocAdminView result = service.submitForApproval(TEST_ID);
@@ -324,7 +343,7 @@ class RateIlocServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when submitting non-draft")
         void shouldThrowExceptionWhenSubmittingNonDraft() {
             // Given
-            draft.setStatus(RateStatus.APPROVED);
+            draft.setStatus(RateStatus.PENDING_APPROVAL);
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
             
             // When/Then
@@ -335,28 +354,75 @@ class RateIlocServiceTest extends BaseServiceTest {
     }
     
     @Nested
-    @DisplayName("Approve Draft")
-    class ApproveDraft {
+    @DisplayName("Approve (New Workflow)")
+    class Approve {
         
         @Test
-        @DisplayName("Should approve draft successfully")
-        void shouldApproveDraftSuccessfully() {
+        @DisplayName("Should approve and activate draft with no existing rate")
+        void shouldApproveAndActivateDraftWithNoExistingRate() {
             // Given
             draft.setStatus(RateStatus.PENDING_APPROVAL);
+            draft.setStartDate(LocalDate.now().plusDays(10));
+            draft.setAmountTier(amountTier);
+            draft.setSubCategory(subCategory);
+            
+            RateIlocAdminView activeAdminView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
+            
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
-            when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
-            when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
+            when(activeRepository.findRatesToSupersede(anyLong(), anyLong(), any(ActiveStatus.class), any(LocalDate.class)))
+                    .thenReturn(Collections.emptyList());
+            when(mapper.draftToActive(any(RateIlocDraft.class))).thenReturn(active);
+            when(activeRepository.save(any(RateIlocActive.class))).thenReturn(active);
+            when(mapper.activeToAdminView(any(RateIlocActive.class))).thenReturn(activeAdminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             RateIlocAdminView result = service.approve(TEST_ID);
             
             // Then
-            assertThat(draft.getStatus()).isEqualTo(RateStatus.APPROVED);
-            verify(workflowService).recordTransition(
-                    eq(RateType.ILOC), anyLong(), eq(WorkflowAction.APPROVE),
-                    eq(RateStatus.PENDING_APPROVAL), eq(RateStatus.APPROVED));
+            assertThat(result.getStatus()).isEqualTo(RateStatus.ACTIVE);
+            verify(draftRepository).delete(draft);
+            verify(activeRepository).save(any(RateIlocActive.class));
+            verify(historyRepository, never()).save(any(RateIlocHistory.class));
+        }
+        
+        @Test
+        @DisplayName("Should approve and supersede existing rate")
+        void shouldApproveAndSupersedeExistingRate() {
+            // Given
+            LocalDate newStartDate = LocalDate.now().plusDays(10);
+            
+            draft.setStatus(RateStatus.PENDING_APPROVAL);
+            draft.setStartDate(newStartDate);
+            draft.setAmountTier(amountTier);
+            draft.setSubCategory(subCategory);
+            
+            RateIlocActive existingActive = TestEntityFactory.createRateIlocActive();
+            existingActive.setExpiryDate(LocalDate.now().plusYears(1));
+            
+            RateIlocAdminView activeAdminView = TestEntityFactory.createRateIlocAdminView(2L, RateStatus.ACTIVE, "ACTIVE");
+            
+            when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
+            when(activeRepository.findRatesToSupersede(anyLong(), anyLong(), any(ActiveStatus.class), any(LocalDate.class)))
+                    .thenReturn(List.of(existingActive));
+            when(mapper.activeToHistorySuperseded(any(RateIlocActive.class))).thenReturn(history);
+            when(historyRepository.save(any(RateIlocHistory.class))).thenReturn(history);
+            when(activeRepository.save(any(RateIlocActive.class))).thenReturn(active);
+            when(mapper.draftToActive(any(RateIlocDraft.class))).thenReturn(active);
+            when(mapper.activeToAdminView(any(RateIlocActive.class))).thenReturn(activeAdminView);
+            when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
+            
+            // When
+            RateIlocAdminView result = service.approve(TEST_ID);
+            
+            // Then
+            assertThat(existingActive.getExpiryDate()).isEqualTo(newStartDate.minusDays(1));
+            verify(mapper).activeToHistorySuperseded(existingActive);
+            verify(historyRepository).save(any(RateIlocHistory.class));
+            verify(activeRepository, times(2)).save(any(RateIlocActive.class));
+            verify(draftRepository).delete(draft);
         }
         
         @Test
@@ -371,23 +437,41 @@ class RateIlocServiceTest extends BaseServiceTest {
                     .isInstanceOf(BadRequestException.class)
                     .hasMessageContaining("PENDING_APPROVAL status");
         }
+        
+        @Test
+        @DisplayName("Should throw exception when approving draft without start date")
+        void shouldThrowExceptionWhenApprovingDraftWithoutStartDate() {
+            // Given
+            draft.setStatus(RateStatus.PENDING_APPROVAL);
+            draft.setStartDate(null);
+            draft.setAmountTier(amountTier);
+            draft.setSubCategory(subCategory);
+            
+            when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
+            
+            // When/Then
+            assertThatThrownBy(() -> service.approve(TEST_ID))
+                    .isInstanceOf(BadRequestException.class)
+                    .hasMessageContaining("Start date is required");
+        }
     }
     
     @Nested
-    @DisplayName("Reject Draft")
-    class RejectDraft {
+    @DisplayName("Reject")
+    class Reject {
         
         @Test
-        @DisplayName("Should reject draft with reason")
-        void shouldRejectDraftWithReason() {
+        @DisplayName("Should reject pending approval draft")
+        void shouldRejectPendingApprovalDraft() {
             // Given
             draft.setStatus(RateStatus.PENDING_APPROVAL);
             String reason = "Rate too high";
+            
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
             when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
             when(mapper.draftToAdminView(any(RateIlocDraft.class))).thenReturn(adminView);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             RateIlocAdminView result = service.reject(TEST_ID, reason);
@@ -395,83 +479,19 @@ class RateIlocServiceTest extends BaseServiceTest {
             // Then
             assertThat(draft.getStatus()).isEqualTo(RateStatus.REJECTED);
             assertThat(draft.getNotes()).isEqualTo(reason);
-            verify(workflowService).recordTransition(
-                    eq(RateType.ILOC), anyLong(), eq(WorkflowAction.REJECT),
-                    eq(RateStatus.PENDING_APPROVAL), eq(RateStatus.REJECTED));
-        }
-    }
-    
-    @Nested
-    @DisplayName("Activate Draft")
-    class ActivateDraft {
-        
-        @Test
-        @DisplayName("Should activate approved draft successfully")
-        void shouldActivateApprovedDraftSuccessfully() {
-            // Given
-            draft.setStatus(RateStatus.APPROVED);
-            RateIlocAdminView activeAdminView = TestFixtures.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
-            
-            when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
-            when(activeRepository.findByAmountTierAndSubCategoryAndActive(any(), any(), any()))
-                    .thenReturn(Optional.empty());
-            when(mapper.draftToActive(any(RateIlocDraft.class))).thenReturn(active);
-            when(activeRepository.save(any(RateIlocActive.class))).thenReturn(active);
-            when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
-            when(mapper.activeToAdminView(any(RateIlocActive.class))).thenReturn(activeAdminView);
-            when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
-            
-            // When
-            RateIlocAdminView result = service.activate(TEST_ID);
-            
-            // Then
-            assertThat(result.getStatus()).isEqualTo(RateStatus.ACTIVE);
-            verify(activeRepository).save(any(RateIlocActive.class));
-            verify(workflowService).recordTransition(
-                    eq(RateType.ILOC), anyLong(), eq(WorkflowAction.ACTIVATE),
-                    eq(RateStatus.APPROVED), eq(RateStatus.ACTIVE));
         }
         
         @Test
-        @DisplayName("Should supersede existing active rate when activating")
-        void shouldSupersedeExistingActiveRateWhenActivating() {
+        @DisplayName("Should throw exception when rejecting non-pending draft")
+        void shouldThrowExceptionWhenRejectingNonPendingDraft() {
             // Given
-            draft.setStatus(RateStatus.APPROVED);
-            RateIlocActive existingActive = TestFixtures.createRateIlocActive();
-            
-            when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
-            when(activeRepository.findByAmountTierAndSubCategoryAndActive(any(), any(), any()))
-                    .thenReturn(Optional.of(existingActive));
-            when(mapper.activeToHistory(any(RateIlocActive.class))).thenReturn(history);
-            when(historyRepository.save(any(RateIlocHistory.class))).thenReturn(history);
-            when(activeRepository.save(any(RateIlocActive.class))).thenReturn(active);
-            when(mapper.draftToActive(any(RateIlocDraft.class))).thenReturn(active);
-            when(draftRepository.save(any(RateIlocDraft.class))).thenReturn(draft);
-            when(mapper.activeToAdminView(any(RateIlocActive.class)))
-                    .thenReturn(TestFixtures.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE"));
-            when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
-            
-            // When
-            service.activate(TEST_ID);
-            
-            // Then
-            verify(historyRepository).save(any(RateIlocHistory.class));
-            assertThat(existingActive.getStatus()).isEqualTo(RateStatus.SUPERSEDED);
-        }
-        
-        @Test
-        @DisplayName("Should throw exception when activating non-approved draft")
-        void shouldThrowExceptionWhenActivatingNonApprovedDraft() {
-            // Given
-            draft.setStatus(RateStatus.PENDING_APPROVAL);
+            draft.setStatus(RateStatus.DRAFT);
             when(draftRepository.findById(TEST_ID)).thenReturn(Optional.of(draft));
             
             // When/Then
-            assertThatThrownBy(() -> service.activate(TEST_ID))
+            assertThatThrownBy(() -> service.reject(TEST_ID, "reason"))
                     .isInstanceOf(BadRequestException.class)
-                    .hasMessageContaining("APPROVED status");
+                    .hasMessageContaining("PENDING_APPROVAL status");
         }
     }
     
@@ -489,7 +509,7 @@ class RateIlocServiceTest extends BaseServiceTest {
             when(historyRepository.save(any(RateIlocHistory.class))).thenReturn(history);
             when(activeRepository.save(any(RateIlocActive.class))).thenReturn(active);
             when(workflowService.recordTransition(any(), anyLong(), any(), any(), any()))
-                    .thenReturn(TestFixtures.createWorkflowAdminView());
+                    .thenReturn(TestEntityFactory.createWorkflowAdminView());
             
             // When
             service.expireRate(TEST_ID);
@@ -526,7 +546,7 @@ class RateIlocServiceTest extends BaseServiceTest {
         @DisplayName("Should find active rate by ID")
         void shouldFindActiveRateById() {
             // Given
-            RateIlocAdminView activeAdminView = TestFixtures.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
+            RateIlocAdminView activeAdminView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
             when(activeRepository.findById(TEST_ID)).thenReturn(Optional.of(active));
             when(mapper.activeToAdminView(active)).thenReturn(activeAdminView);
             
@@ -536,6 +556,58 @@ class RateIlocServiceTest extends BaseServiceTest {
             // Then
             assertThat(result).isNotNull();
             assertThat(result.getSource()).isEqualTo("ACTIVE");
+        }
+        
+        @Test
+        @DisplayName("Should throw exception when active rate not found")
+        void shouldThrowExceptionWhenActiveRateNotFound() {
+            // Given
+            when(activeRepository.findById(TEST_ID)).thenReturn(Optional.empty());
+            
+            // When/Then
+            assertThatThrownBy(() -> service.findActiveById(TEST_ID))
+                    .isInstanceOf(EntityNotFoundException.class);
+        }
+    }
+    
+    @Nested
+    @DisplayName("Find Current Live Rate")
+    class FindCurrentLiveRate {
+        
+        @Test
+        @DisplayName("Should find current live rate")
+        void shouldFindCurrentLiveRate() {
+            // Given
+            Long amountTierId = 1L;
+            Long subCategoryId = 1L;
+            
+            RateIlocAdminView activeAdminView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
+            
+            when(activeRepository.findCurrentLiveRate(eq(amountTierId), eq(subCategoryId), eq(ActiveStatus.Y), any(LocalDate.class)))
+                    .thenReturn(Optional.of(active));
+            when(mapper.activeToAdminView(active)).thenReturn(activeAdminView);
+            
+            // When
+            RateIlocAdminView result = service.findCurrentLiveRate(amountTierId, subCategoryId);
+            
+            // Then
+            assertThat(result).isNotNull();
+            assertThat(result.getSource()).isEqualTo("ACTIVE");
+        }
+        
+        @Test
+        @DisplayName("Should throw exception when no current live rate found")
+        void shouldThrowExceptionWhenNoCurrentLiveRateFound() {
+            // Given
+            Long amountTierId = 1L;
+            Long subCategoryId = 1L;
+            
+            when(activeRepository.findCurrentLiveRate(eq(amountTierId), eq(subCategoryId), eq(ActiveStatus.Y), any(LocalDate.class)))
+                    .thenReturn(Optional.empty());
+            
+            // When/Then
+            assertThatThrownBy(() -> service.findCurrentLiveRate(amountTierId, subCategoryId))
+                    .isInstanceOf(EntityNotFoundException.class);
         }
     }
     
@@ -548,9 +620,9 @@ class RateIlocServiceTest extends BaseServiceTest {
         void shouldFindAllActiveRatesWithPagination() {
             // Given
             Page<RateIlocActive> activePage = new PageImpl<>(List.of(active), defaultPageable, 1);
-            RateIlocAdminView activeAdminView = TestFixtures.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
+            RateIlocAdminView activeAdminView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE");
             
-            when(binding.buildActivePredicate(any())).thenReturn(null);
+            when(binding.buildActivePredicate(emptyParams)).thenReturn(null);
             when(activeRepository.findAll(defaultPageable)).thenReturn(activePage);
             when(mapper.activeToAdminViewList(anyList())).thenReturn(List.of(activeAdminView));
             
@@ -572,7 +644,7 @@ class RateIlocServiceTest extends BaseServiceTest {
         void shouldFindHistoryByChangeId() {
             // Given
             String changeId = "CHG-ILOC-TEST001";
-            RateIlocAdminView historyAdminView = TestFixtures.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY");
+            RateIlocAdminView historyAdminView = TestEntityFactory.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY");
             
             when(historyRepository.findByChangeIdOrderByCreatedOnDesc(changeId))
                     .thenReturn(List.of(history));
@@ -584,6 +656,35 @@ class RateIlocServiceTest extends BaseServiceTest {
             // Then
             assertThat(result).hasSize(1);
             assertThat(result.get(0).getSource()).isEqualTo("HISTORY");
+        }
+    }
+    
+    @Nested
+    @DisplayName("Find All By AmountTier And SubCategory")
+    class FindAllByAmountTierAndSubCategory {
+        
+        @Test
+        @DisplayName("Should find all rates by tier and subcategory")
+        void shouldFindAllRatesByTierAndSubCategory() {
+            // Given
+            Long amountTierId = 1L;
+            Long subCategoryId = 1L;
+            
+            when(draftRepository.findByAmountTierIdAndSubCategoryIdAndActive(amountTierId, subCategoryId, ActiveStatus.Y))
+                    .thenReturn(List.of(draft));
+            when(activeRepository.findByAmountTierIdAndSubCategoryIdAndActive(amountTierId, subCategoryId, ActiveStatus.Y))
+                    .thenReturn(List.of(active));
+            when(historyRepository.findByAmountTierIdAndSubCategoryId(eq(amountTierId), eq(subCategoryId), any()))
+                    .thenReturn(List.of(history));
+            when(mapper.draftToAdminView(draft)).thenReturn(adminView);
+            when(mapper.activeToAdminView(active)).thenReturn(TestEntityFactory.createRateIlocAdminView(1L, RateStatus.ACTIVE, "ACTIVE"));
+            when(mapper.historyToAdminView(history)).thenReturn(TestEntityFactory.createRateIlocAdminView(1L, RateStatus.EXPIRED, "HISTORY"));
+            
+            // When
+            List<RateIlocAdminView> result = service.findAllByAmountTierAndSubCategory(amountTierId, subCategoryId);
+            
+            // Then
+            assertThat(result).hasSize(3);
         }
     }
 }

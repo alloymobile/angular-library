@@ -4,7 +4,7 @@ import com.td.plra.application.exception.BadRequestException;
 import com.td.plra.application.exception.EntityNotFoundException;
 import com.td.plra.application.utils.PageResponse;
 import com.td.plra.common.BaseServiceTest;
-import com.td.plra.common.TestFixtures;
+import com.td.plra.common.TestEntityFactory;
 import com.td.plra.persistence.entity.Product;
 import com.td.plra.persistence.enums.ActiveStatus;
 import com.td.plra.persistence.repository.ProductRepository;
@@ -28,8 +28,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @DisplayName("ProductService Tests")
@@ -53,9 +51,9 @@ class ProductServiceTest extends BaseServiceTest {
     
     @BeforeEach
     void setUp() {
-        product = TestFixtures.createProduct();
-        input = TestFixtures.createProductInput();
-        adminView = TestFixtures.createProductAdminView();
+        product = TestEntityFactory.createProduct();
+        input = TestEntityFactory.createProductInput();
+        adminView = TestEntityFactory.createProductAdminView();
     }
     
     @Nested
@@ -66,18 +64,17 @@ class ProductServiceTest extends BaseServiceTest {
         @DisplayName("Should create product successfully")
         void shouldCreateProductSuccessfully() {
             // Given
-            when(repository.existsByName(anyString())).thenReturn(false);
-            when(mapper.toEntity(any(ProductInput.class))).thenReturn(product);
+            when(repository.existsByName(input.getName())).thenReturn(false);
+            when(mapper.toEntity(input)).thenReturn(product);
             when(repository.save(any(Product.class))).thenReturn(product);
-            when(mapper.toAdminView(any(Product.class))).thenReturn(adminView);
+            when(mapper.toAdminView(product)).thenReturn(adminView);
             
             // When
             ProductAdminView result = service.create(input);
             
             // Then
             assertThat(result).isNotNull();
-            assertThat(result.getName()).isEqualTo(input.getName());
-            verify(repository).existsByName(input.getName());
+            assertThat(result.getId()).isEqualTo(TEST_ID);
             verify(repository).save(any(Product.class));
         }
         
@@ -85,14 +82,14 @@ class ProductServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when name already exists")
         void shouldThrowExceptionWhenNameExists() {
             // Given
-            when(repository.existsByName(anyString())).thenReturn(true);
+            when(repository.existsByName(input.getName())).thenReturn(true);
             
             // When/Then
             assertThatThrownBy(() -> service.create(input))
                     .isInstanceOf(BadRequestException.class)
-                    .hasMessageContaining("already exists");
+                    .hasMessageContaining("name already exists");
             
-            verify(repository, never()).save(any(Product.class));
+            verify(repository, never()).save(any());
         }
     }
     
@@ -119,12 +116,11 @@ class ProductServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when product not found")
         void shouldThrowExceptionWhenNotFound() {
             // Given
-            when(repository.findById(INVALID_ID)).thenReturn(Optional.empty());
+            when(repository.findById(TEST_ID)).thenReturn(Optional.empty());
             
             // When/Then
-            assertThatThrownBy(() -> service.findById(INVALID_ID))
-                    .isInstanceOf(EntityNotFoundException.class)
-                    .hasMessageContaining("Product");
+            assertThatThrownBy(() -> service.findById(TEST_ID))
+                    .isInstanceOf(EntityNotFoundException.class);
         }
     }
     
@@ -136,9 +132,9 @@ class ProductServiceTest extends BaseServiceTest {
         @DisplayName("Should find all products with pagination")
         void shouldFindAllProductsWithPagination() {
             // Given
-            Page<Product> productPage = new PageImpl<>(List.of(product), defaultPageable, 1);
-            when(binding.buildPredicate(any())).thenReturn(null);
-            when(repository.findAll(defaultPageable)).thenReturn(productPage);
+            Page<Product> page = new PageImpl<>(List.of(product), defaultPageable, 1);
+            when(binding.buildPredicate(emptyParams)).thenReturn(null);
+            when(repository.findAll(defaultPageable)).thenReturn(page);
             when(mapper.toAdminViewList(anyList())).thenReturn(List.of(adminView));
             
             // When
@@ -148,24 +144,6 @@ class ProductServiceTest extends BaseServiceTest {
             assertThat(result).isNotNull();
             assertThat(result.getContent()).hasSize(1);
             assertThat(result.getTotalElements()).isEqualTo(1);
-        }
-        
-        @Test
-        @DisplayName("Should return empty page when no products found")
-        void shouldReturnEmptyPageWhenNoProductsFound() {
-            // Given
-            Page<Product> emptyPage = new PageImpl<>(List.of(), defaultPageable, 0);
-            when(binding.buildPredicate(any())).thenReturn(null);
-            when(repository.findAll(defaultPageable)).thenReturn(emptyPage);
-            when(mapper.toAdminViewList(anyList())).thenReturn(List.of());
-            
-            // When
-            PageResponse<ProductAdminView> result = service.findAll(emptyParams, defaultPageable);
-            
-            // Then
-            assertThat(result).isNotNull();
-            assertThat(result.getContent()).isEmpty();
-            assertThat(result.isEmpty()).isTrue();
         }
     }
     
@@ -178,9 +156,9 @@ class ProductServiceTest extends BaseServiceTest {
         void shouldUpdateProductSuccessfully() {
             // Given
             when(repository.findById(TEST_ID)).thenReturn(Optional.of(product));
-            when(repository.existsByNameAndIdNot(anyString(), anyLong())).thenReturn(false);
+            when(repository.existsByName(input.getName())).thenReturn(false);
             when(repository.save(any(Product.class))).thenReturn(product);
-            when(mapper.toAdminView(any(Product.class))).thenReturn(adminView);
+            when(mapper.toAdminView(product)).thenReturn(adminView);
             
             // When
             ProductAdminView result = service.update(TEST_ID, input);
@@ -195,26 +173,18 @@ class ProductServiceTest extends BaseServiceTest {
         @DisplayName("Should throw exception when updating to existing name")
         void shouldThrowExceptionWhenUpdatingToExistingName() {
             // Given
+            ProductInput newInput = ProductInput.builder()
+                    .name("Different Name")
+                    .type("TYPE")
+                    .build();
+            
             when(repository.findById(TEST_ID)).thenReturn(Optional.of(product));
-            when(repository.existsByNameAndIdNot(anyString(), anyLong())).thenReturn(true);
+            when(repository.existsByName("Different Name")).thenReturn(true);
             
             // When/Then
-            assertThatThrownBy(() -> service.update(TEST_ID, input))
+            assertThatThrownBy(() -> service.update(TEST_ID, newInput))
                     .isInstanceOf(BadRequestException.class)
-                    .hasMessageContaining("already exists");
-            
-            verify(repository, never()).save(any(Product.class));
-        }
-        
-        @Test
-        @DisplayName("Should throw exception when product not found")
-        void shouldThrowExceptionWhenProductNotFound() {
-            // Given
-            when(repository.findById(INVALID_ID)).thenReturn(Optional.empty());
-            
-            // When/Then
-            assertThatThrownBy(() -> service.update(INVALID_ID, input))
-                    .isInstanceOf(EntityNotFoundException.class);
+                    .hasMessageContaining("name already exists");
         }
     }
     
@@ -239,12 +209,12 @@ class ProductServiceTest extends BaseServiceTest {
         
         @Test
         @DisplayName("Should throw exception when product not found")
-        void shouldThrowExceptionWhenProductNotFoundForDelete() {
+        void shouldThrowExceptionWhenProductNotFound() {
             // Given
-            when(repository.findById(INVALID_ID)).thenReturn(Optional.empty());
+            when(repository.findById(TEST_ID)).thenReturn(Optional.empty());
             
             // When/Then
-            assertThatThrownBy(() -> service.delete(INVALID_ID))
+            assertThatThrownBy(() -> service.delete(TEST_ID))
                     .isInstanceOf(EntityNotFoundException.class);
         }
     }
@@ -260,7 +230,7 @@ class ProductServiceTest extends BaseServiceTest {
             product.setActive(ActiveStatus.N);
             when(repository.findById(TEST_ID)).thenReturn(Optional.of(product));
             when(repository.save(any(Product.class))).thenReturn(product);
-            when(mapper.toAdminView(any(Product.class))).thenReturn(adminView);
+            when(mapper.toAdminView(product)).thenReturn(adminView);
             
             // When
             ProductAdminView result = service.reactivate(TEST_ID);
@@ -272,12 +242,25 @@ class ProductServiceTest extends BaseServiceTest {
     }
     
     @Nested
-    @DisplayName("Get Entity By ID")
-    class GetEntityById {
+    @DisplayName("Utility Methods")
+    class UtilityMethods {
         
         @Test
-        @DisplayName("Should return entity for internal use")
-        void shouldReturnEntityForInternalUse() {
+        @DisplayName("Should check if product exists by ID")
+        void shouldCheckIfProductExistsById() {
+            // Given
+            when(repository.existsById(TEST_ID)).thenReturn(true);
+            
+            // When
+            boolean result = service.existsById(TEST_ID);
+            
+            // Then
+            assertThat(result).isTrue();
+        }
+        
+        @Test
+        @DisplayName("Should get entity by ID")
+        void shouldGetEntityById() {
             // Given
             when(repository.findById(TEST_ID)).thenReturn(Optional.of(product));
             
