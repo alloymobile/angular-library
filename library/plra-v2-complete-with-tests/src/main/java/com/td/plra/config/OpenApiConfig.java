@@ -46,23 +46,23 @@ public class OpenApiConfig {
                         ## Features
                         - Product hierarchy management (Product → Category → SubCategory → CVP Code)
                         - Amount tier configuration
-                        - Rate lifecycle management (Draft → Pending Approval → Approved → Active → History)
+                        - Rate lifecycle management (Draft → Pending → Approved → Active → History)
                         - Full audit trail via workflow tracking
-                        - Prime rate management
+                        - UK FK pattern: same ID follows rate through Draft → Active → History
                         
                         ## Rate Workflow States
                         | Status | Description |
                         |--------|-------------|
                         | DRAFT | Initial state, editable |
-                        | PENDING_APPROVAL | Submitted for review |
-                        | APPROVED | Ready for activation |
+                        | PENDING | Submitted for approval |
+                        | APPROVED | Approved, Active rate created |
                         | ACTIVE | Currently in effect |
-                        | REJECTED | Returned for revision |
-                        | EXPIRED | Manually expired |
+                        | REJECTED | Rejected (immutable, create new draft) |
+                        | EXPIRED | Past expiry date or manually expired |
                         | SUPERSEDED | Replaced by newer rate |
                         | CANCELLED | Soft deleted |
                         """)
-                .version("1.0.0")
+                .version("2.0.0")
                 .contact(new Contact()
                         .name("TD PLRA Team")
                         .email("plra-support@td.com"))
