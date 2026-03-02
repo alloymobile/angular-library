@@ -1,0 +1,80 @@
+// ============================================================
+//  angular.json — CRITICAL SETTINGS TO CHECK
+// ============================================================
+//
+//  File: plra-ui/angular.json
+//
+//  Find the "build" section under your project and verify
+//  the outputPath matches what the Maven POMs expect.
+//
+
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "plra-ui": {
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+
+            // ============================================
+            //  OPTION A: Angular 20 (new format)
+            //  Build output goes to: dist/plra-ui/browser/
+            // ============================================
+            "outputPath": {
+              "base": "dist/plra-ui",
+              "browser": ""
+            },
+
+            // ============================================
+            //  OPTION B: Angular 17-19 (older format)
+            //  Build output goes to: dist/plra-ui/
+            //  If using this, update BOTH pom.xml files:
+            //    change "dist/plra-ui/browser" → "dist/plra-ui"
+            // ============================================
+            // "outputPath": "dist/plra-ui",
+
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+
+            // ... rest of your config
+          },
+
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                }
+              ],
+              "outputHashing": "all"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// ============================================================
+//  ALSO CHECK: package.json scripts
+// ============================================================
+//
+//  File: plra-ui/package.json
+//
+//  Make sure you have a "build" script. The Maven POM runs:
+//    npm run build -- --configuration=production
+//
+//  Your package.json should have:
+//
+//  {
+//    "scripts": {
+//      "start": "ng serve",
+//      "build": "ng build",
+//      "test": "ng test"
+//    }
+//  }

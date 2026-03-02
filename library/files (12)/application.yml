@@ -1,0 +1,55 @@
+# ============================================================
+#  PLRA API — Application Configuration
+# ============================================================
+
+server:
+  port: 8080
+  servlet:
+    context-path: /   # Root context — Angular at http://localhost:8080/
+
+spring:
+  application:
+    name: plra-api
+
+  # ----------------------------------------------------------
+  #  Static Resource Handling (serves Angular build files)
+  # ----------------------------------------------------------
+  web:
+    resources:
+      # Enable static content serving
+      static-locations: classpath:/static/
+      cache:
+        # Cache static assets for 1 year (Angular uses content hashing)
+        period: 365d
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: "/**"
+
+  # ----------------------------------------------------------
+  #  DB2 Database Configuration
+  # ----------------------------------------------------------
+  datasource:
+    url: jdbc:db2://your-host:50000/your-db
+    username: ${DB2_USERNAME:your-username}
+    password: ${DB2_PASSWORD:your-password}
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  jpa:
+    database-platform: org.hibernate.dialect.DB2Dialect
+    hibernate:
+      ddl-auto: none     # NEVER auto-generate DDL in production
+    show-sql: false
+
+# ----------------------------------------------------------
+#  API prefix — Keep all REST endpoints under /api/
+#  This prevents conflicts with Angular routes
+# ----------------------------------------------------------
+# In your @RestController classes, use:
+#   @RequestMapping("/api/v1/rates")
+#   @RequestMapping("/api/v1/admin")
+# etc.
