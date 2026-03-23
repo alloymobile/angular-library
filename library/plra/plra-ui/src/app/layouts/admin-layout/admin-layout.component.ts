@@ -9,30 +9,23 @@ import { AuthService } from '../../shared/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <!-- TD Green Banner -->
     <div class="td-banner">
       <a class="td-banner-logo" routerLink="dashboard">
         <span class="td-banner-shield">TD</span>
         <span>PLRA</span>
       </a>
       <div class="td-banner-nav">
-        <span class="td-banner-role">Administration</span>
+        <span class="td-banner-role">{{ t.get('pages.administration') }}</span>
       </div>
     </div>
-
-    <!-- White Sidebar -->
     <nav class="td-sidebar">
-      <a routerLink="dashboard" routerLinkActive="active" class="td-sidebar-item"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a>
+      <a routerLink="dashboard" routerLinkActive="active" class="td-sidebar-item"><i class="fa-solid fa-gauge"></i><span>{{ t.get('sidebar.dashboard') }}</span></a>
       <div class="td-sidebar-divider"></div>
       <a routerLink="uloc" routerLinkActive="active" class="td-sidebar-item"><i class="fa-solid fa-credit-card"></i><span>ULOC</span></a>
       <a routerLink="iloc" routerLinkActive="active" class="td-sidebar-item"><i class="fa-solid fa-landmark"></i><span>ILOC</span></a>
-      <div class="td-sidebar-divider"></div>
-      <a routerLink="workflows" routerLinkActive="active" class="td-sidebar-item"><i class="fa-solid fa-code-branch"></i><span>Workflows</span></a>
     </nav>
-
-    <!-- Top Bar -->
     <header class="td-topbar">
-      <h1 class="td-topbar-title">{{ t.get('app.title') }} — Administration</h1>
+      <h1 class="td-topbar-title">{{ t.get('app.title') }} — {{ t.get('pages.administration') }}</h1>
       <div class="td-topbar-right">
         <div class="td-lang-toggle">
           <button class="td-lang-btn" [class.active]="t.currentLang() === 'en'" (click)="t.setLanguage('en')">EN</button>
@@ -44,14 +37,9 @@ import { AuthService } from '../../shared/services/auth.service';
         </div>
       </div>
     </header>
-
-    <!-- Content -->
     <main class="td-content"><router-outlet /></main>
   `,
-  styles: [`
-    :host { display: block; }
-    .td-banner-role { color:rgba(255,255,255,.7); font-size:12px; font-weight:500; margin-left:auto; }
-  `]
+  styles: [`:host{display:block}.td-banner-role{color:rgba(255,255,255,.7);font-size:12px;font-weight:500;margin-left:auto;}`]
 })
 export class AdminLayoutComponent {
   t = inject(TranslationService);

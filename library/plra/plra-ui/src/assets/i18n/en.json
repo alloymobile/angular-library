@@ -1,7 +1,90 @@
 {
   "app": { "title": "PLRA — Rate Administration", "brand": "TD" },
-  "sidebar": { "dashboard": "Dashboard", "uloc": "ULOC Rates", "iloc": "ILOC Rates", "products": "Products", "categories": "Categories", "amount_tiers": "Amount Tiers", "workflows": "Workflows", "notifications": "Notifications", "settings": "Settings", "uloc_settings": "ULOC Settings", "iloc_settings": "ILOC Settings", "pending": "Pending" },
-  "common": { "search": "Search...", "add": "Add", "edit": "Edit", "delete": "Delete", "save": "Save", "cancel": "Cancel", "actions": "Actions", "active": "Active", "inactive": "Inactive", "loading": "Loading...", "no_data": "No data found", "confirm_delete": "Are you sure you want to delete this item?", "success": "Success", "error": "Error", "name": "Name", "detail": "Detail", "status": "Status", "created_by": "Created By", "created_on": "Created On" },
-  "rates": { "target_rate": "Target Rate", "floor_rate": "Floor Rate", "discretion": "Discretion", "start_date": "Start Date", "expiry_date": "Expiry Date", "prime_rate": "Prime Rate", "save_drafts": "Save Drafts", "enter_rates": "Enter Rates", "view_rates": "View Rates", "approve": "Approve", "reject": "Reject", "pending_approval": "Pending Approval" },
-  "dashboard": { "products": "Products", "categories": "Categories", "amount_tiers": "Amount Tiers", "recent_activity": "Recent Activity", "quick_actions": "Quick Actions" }
+  "sidebar": {
+    "dashboard": "Dashboard", "uloc": "ULOC", "iloc": "ILOC",
+    "uloc_rates": "ULOC Rates", "iloc_rates": "ILOC Rates",
+    "uloc_settings": "ULOC Settings", "iloc_settings": "ILOC Settings",
+    "cvp_codes": "CVP Codes", "workflows": "Workflows",
+    "master_data": "Master Data", "rates": "Rates"
+  },
+  "common": {
+    "search": "Search...", "add": "Add", "edit": "Edit", "delete": "Delete",
+    "save": "Save", "cancel": "Cancel", "actions": "Actions",
+    "active": "Active", "inactive": "Inactive", "loading": "Loading...",
+    "no_data": "No data found", "confirm_delete": "Are you sure you want to delete this item?",
+    "success": "Success", "error": "Error", "refresh": "Refresh",
+    "back": "Back", "submit": "Submit", "download": "Download",
+    "name": "Name", "detail": "Detail", "description": "Description",
+    "status": "Status", "type": "Type", "id": "ID", "version": "Version",
+    "created_by": "Created By", "created_on": "Created On",
+    "updated_by": "Updated By", "updated_on": "Updated On"
+  },
+  "tabs": {
+    "view_rates": "View Rates", "enter_rates": "Enter Rates",
+    "approved_status": "Approved Status", "approve": "Approve", "history": "History",
+    "categories": "Categories", "amount_tiers": "Amount Tiers",
+    "rate_matrix": "Rate Matrix", "review": "Review"
+  },
+  "columns": {
+    "cvp": "CVP", "subcategory": "SubCategory", "product": "Product",
+    "category": "Category", "amount_tier": "Amount Tier",
+    "target": "Target", "floor": "Floor", "current": "Current",
+    "new": "New", "discretion": "Disc.", "requested": "Req",
+    "old": "Old", "effective_date": "Eff. Date", "expiry_date": "Expiry",
+    "start_date": "Start Date", "expiry": "Expiry",
+    "submitted_by": "Submitted By", "submitted_on": "Submitted On",
+    "decision": "Decision", "decision_by": "Decision By", "decision_on": "Decision On",
+    "comment": "Comment", "message": "Message", "result": "Result",
+    "changed_by": "Changed By", "changed_on": "Changed On",
+    "verified_by": "Verified By", "verified_on": "Verified On",
+    "min": "Min", "max": "Max", "security_code": "Security Code",
+    "rate_type": "Type", "rate_id": "Rate ID", "action": "Action",
+    "from_status": "From", "to_status": "To", "change_id": "Change ID",
+    "by": "By"
+  },
+  "rates": {
+    "target_rate": "Target Rate", "floor_rate": "Floor Rate",
+    "discretion": "Discretion", "start_date": "Start Date",
+    "expiry_date": "Expiry Date", "prime_rate": "Prime Rate",
+    "save_draft": "Save Draft", "submit_selected": "Submit Selected",
+    "submit_decisions": "Submit Decisions",
+    "copy_new_down": "Copy New Down", "copy_disc_down": "Copy Disc. Down",
+    "generate_drafts": "Generate Missing Drafts",
+    "no_rates": "No rates found",
+    "cvp_tier": "CVP × Tier", "subcat_tier": "SubCat × Tier"
+  },
+  "pages": {
+    "uloc_admin": "ULOC — Admin Settings",
+    "iloc_admin": "ILOC — Admin Settings",
+    "uloc_rates": "ULOC — Rate Management",
+    "iloc_rates": "ILOC — Rate Management",
+    "uloc_admin_sub": "Manage master data for Unsecured Line of Credit",
+    "iloc_admin_sub": "Manage master data for Investment Line of Credit",
+    "uloc_rates_sub": "CVP Code × Amount Tier — full lifecycle: enter, submit, approve, audit",
+    "iloc_rates_sub": "SubCategory × Amount Tier — full lifecycle: enter, submit, approve, audit",
+    "workflows_title": "Audit Trail — Workflows",
+    "workflows_sub": "All rate lifecycle transitions",
+    "system_admin": "System Admin",
+    "administration": "Administration",
+    "view_rates": "View Rates",
+    "review": "Review"
+  },
+  "workflow": {
+    "create": "CREATE", "modify": "MODIFY", "submit": "SUBMIT",
+    "approve": "APPROVE", "reject": "REJECT", "cancel": "CANCEL",
+    "archive": "ARCHIVE", "expire": "EXPIRE"
+  },
+  "status": {
+    "draft": "DRAFT", "pending": "PENDING", "approved": "APPROVED",
+    "rejected": "REJECTED", "active": "ACTIVE", "cancelled": "CANCELLED",
+    "expired": "EXPIRED", "superseded": "SUPERSEDED"
+  },
+  "dashboard": {
+    "products": "Products", "categories": "Categories",
+    "amount_tiers": "Amount Tiers", "recent_activity": "Recent Activity",
+    "quick_actions": "Quick Actions", "prime_rate": "Prime Rate",
+    "uloc_active": "ULOC Active", "iloc_active": "ILOC Active",
+    "uloc_drafts": "ULOC Drafts", "iloc_drafts": "ILOC Drafts",
+    "pending": "Pending"
+  }
 }

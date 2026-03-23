@@ -1,7 +1,90 @@
 {
   "app": { "title": "PLRA — Administration des taux", "brand": "TD" },
-  "sidebar": { "dashboard": "Tableau de bord", "uloc": "Taux MCNG", "iloc": "Taux MCI", "products": "Produits", "categories": "Catégories", "amount_tiers": "Tranches", "workflows": "Flux de travail", "notifications": "Notifications", "settings": "Paramètres", "uloc_settings": "Paramètres MCNG", "iloc_settings": "Paramètres MCI", "pending": "En attente" },
-  "common": { "search": "Rechercher...", "add": "Ajouter", "edit": "Modifier", "delete": "Supprimer", "save": "Enregistrer", "cancel": "Annuler", "actions": "Actions", "active": "Actif", "inactive": "Inactif", "loading": "Chargement...", "no_data": "Aucune donnée trouvée", "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet élément?", "success": "Succès", "error": "Erreur", "name": "Nom", "detail": "Détail", "status": "Statut", "created_by": "Créé par", "created_on": "Créé le" },
-  "rates": { "target_rate": "Taux cible", "floor_rate": "Taux plancher", "discretion": "Discrétion", "start_date": "Date de début", "expiry_date": "Date d'expiration", "prime_rate": "Taux préférentiel", "save_drafts": "Enregistrer les brouillons", "enter_rates": "Saisir les taux", "view_rates": "Voir les taux", "approve": "Approuver", "reject": "Rejeter", "pending_approval": "En attente d'approbation" },
-  "dashboard": { "products": "Produits", "categories": "Catégories", "amount_tiers": "Tranches de montant", "recent_activity": "Activité récente", "quick_actions": "Actions rapides" }
+  "sidebar": {
+    "dashboard": "Tableau de bord", "uloc": "MCNG", "iloc": "MCI",
+    "uloc_rates": "Taux MCNG", "iloc_rates": "Taux MCI",
+    "uloc_settings": "Paramètres MCNG", "iloc_settings": "Paramètres MCI",
+    "cvp_codes": "Codes CVP", "workflows": "Flux de travail",
+    "master_data": "Données de référence", "rates": "Taux"
+  },
+  "common": {
+    "search": "Rechercher...", "add": "Ajouter", "edit": "Modifier", "delete": "Supprimer",
+    "save": "Enregistrer", "cancel": "Annuler", "actions": "Actions",
+    "active": "Actif", "inactive": "Inactif", "loading": "Chargement...",
+    "no_data": "Aucune donnée trouvée", "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet élément?",
+    "success": "Succès", "error": "Erreur", "refresh": "Actualiser",
+    "back": "Retour", "submit": "Soumettre", "download": "Télécharger",
+    "name": "Nom", "detail": "Détail", "description": "Description",
+    "status": "Statut", "type": "Type", "id": "ID", "version": "Version",
+    "created_by": "Créé par", "created_on": "Créé le",
+    "updated_by": "Modifié par", "updated_on": "Modifié le"
+  },
+  "tabs": {
+    "view_rates": "Voir les taux", "enter_rates": "Saisir les taux",
+    "approved_status": "Statut d'approbation", "approve": "Approuver", "history": "Historique",
+    "categories": "Catégories", "amount_tiers": "Tranches de montant",
+    "rate_matrix": "Matrice des taux", "review": "Révision"
+  },
+  "columns": {
+    "cvp": "CVP", "subcategory": "Sous-catégorie", "product": "Produit",
+    "category": "Catégorie", "amount_tier": "Tranche de montant",
+    "target": "Cible", "floor": "Plancher", "current": "Actuel",
+    "new": "Nouveau", "discretion": "Disc.", "requested": "Demandé",
+    "old": "Ancien", "effective_date": "Date d'effet", "expiry_date": "Échéance",
+    "start_date": "Date de début", "expiry": "Échéance",
+    "submitted_by": "Soumis par", "submitted_on": "Soumis le",
+    "decision": "Décision", "decision_by": "Décision par", "decision_on": "Décision le",
+    "comment": "Commentaire", "message": "Message", "result": "Résultat",
+    "changed_by": "Modifié par", "changed_on": "Modifié le",
+    "verified_by": "Vérifié par", "verified_on": "Vérifié le",
+    "min": "Min", "max": "Max", "security_code": "Code de sécurité",
+    "rate_type": "Type", "rate_id": "ID du taux", "action": "Action",
+    "from_status": "De", "to_status": "À", "change_id": "ID de changement",
+    "by": "Par"
+  },
+  "rates": {
+    "target_rate": "Taux cible", "floor_rate": "Taux plancher",
+    "discretion": "Discrétion", "start_date": "Date de début",
+    "expiry_date": "Date d'expiration", "prime_rate": "Taux préférentiel",
+    "save_draft": "Enregistrer le brouillon", "submit_selected": "Soumettre la sélection",
+    "submit_decisions": "Soumettre les décisions",
+    "copy_new_down": "Copier nouveau vers le bas", "copy_disc_down": "Copier disc. vers le bas",
+    "generate_drafts": "Générer les brouillons manquants",
+    "no_rates": "Aucun taux trouvé",
+    "cvp_tier": "CVP × Tranche", "subcat_tier": "Sous-cat. × Tranche"
+  },
+  "pages": {
+    "uloc_admin": "MCNG — Paramètres administratifs",
+    "iloc_admin": "MCI — Paramètres administratifs",
+    "uloc_rates": "MCNG — Gestion des taux",
+    "iloc_rates": "MCI — Gestion des taux",
+    "uloc_admin_sub": "Gérer les données de référence pour la marge de crédit non garantie",
+    "iloc_admin_sub": "Gérer les données de référence pour la marge de crédit d'investissement",
+    "uloc_rates_sub": "Code CVP × Tranche — cycle complet: saisir, soumettre, approuver, auditer",
+    "iloc_rates_sub": "Sous-catégorie × Tranche — cycle complet: saisir, soumettre, approuver, auditer",
+    "workflows_title": "Piste d'audit — Flux de travail",
+    "workflows_sub": "Toutes les transitions du cycle de vie des taux",
+    "system_admin": "Administration système",
+    "administration": "Administration",
+    "view_rates": "Voir les taux",
+    "review": "Révision"
+  },
+  "workflow": {
+    "create": "CRÉER", "modify": "MODIFIER", "submit": "SOUMETTRE",
+    "approve": "APPROUVER", "reject": "REJETER", "cancel": "ANNULER",
+    "archive": "ARCHIVER", "expire": "EXPIRER"
+  },
+  "status": {
+    "draft": "BROUILLON", "pending": "EN ATTENTE", "approved": "APPROUVÉ",
+    "rejected": "REJETÉ", "active": "ACTIF", "cancelled": "ANNULÉ",
+    "expired": "EXPIRÉ", "superseded": "REMPLACÉ"
+  },
+  "dashboard": {
+    "products": "Produits", "categories": "Catégories",
+    "amount_tiers": "Tranches de montant", "recent_activity": "Activité récente",
+    "quick_actions": "Actions rapides", "prime_rate": "Taux préférentiel",
+    "uloc_active": "MCNG actifs", "iloc_active": "MCI actifs",
+    "uloc_drafts": "Brouillons MCNG", "iloc_drafts": "Brouillons MCI",
+    "pending": "En attente"
+  }
 }

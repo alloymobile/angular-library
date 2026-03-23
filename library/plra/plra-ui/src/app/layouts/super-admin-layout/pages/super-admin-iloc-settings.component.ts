@@ -147,9 +147,9 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
   genResult = signal<{ created: number; errors: number; total: number } | null>(null);
 
   private catPage = 0;
-  private tierPage = 0;
-  private subPage = 0;
-  private productName = '';
+    private tierPage = 0;
+    private subPage = 0;
+    private productName = '';
 
   ngOnInit(): void {
     this.api.getProducts({ type: 'ILOC', size: 10 }).subscribe({
@@ -207,7 +207,6 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
       case 'edit': this.api.updateCategory(this.productName, data['id'], { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadCategories() }); break;
       case 'delete': this.api.deleteCategory(this.productName, data['id']).subscribe({ next: () => this.loadCategories() }); break;
       case 'subcategories': this.drillToSubcategories(data['name']); break;
-      case 'page': this.catPage = data['pageNumber'] as number; this.loadCategories(); break;
     }
   }
 
@@ -245,7 +244,6 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
       case 'create': this.api.createAmountTier(this.productName, { name: data['name'], detail: data['detail'] ?? '', min: Number(data['min']), max: Number(data['max']) }).subscribe({ next: () => this.loadTiers() }); break;
       case 'edit': this.api.updateAmountTier(this.productName, data['id'], { name: data['name'], detail: data['detail'] ?? '', min: Number(data['minRaw'] ?? data['min']), max: Number(data['maxRaw'] ?? data['max']) }).subscribe({ next: () => this.loadTiers() }); break;
       case 'delete': this.api.deleteAmountTier(this.productName, data['id']).subscribe({ next: () => this.loadTiers() }); break;
-      case 'page': this.tierPage = data['pageNumber'] as number; this.loadTiers(); break;
     }
   }
 
@@ -290,7 +288,6 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
       case 'create': this.api.createSubCategory(catName, { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadSubCategories() }); break;
       case 'edit': this.api.updateSubCategory(catName, data['id'], { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadSubCategories() }); break;
       case 'delete': this.api.deleteSubCategory(catName, data['id']).subscribe({ next: () => this.loadSubCategories() }); break;
-      case 'page': this.subPage = data['pageNumber'] as number; this.loadSubCategories(); break;
     }
   }
 

@@ -11,7 +11,7 @@
     <!-- This module:                                                      -->
     <!--   1. Installs Node.js + npm (hermetic, no system dependency)      -->
     <!--   2. Runs npm ci (clean install from lockfile)                    -->
-    <!--   3. Runs ng build --configuration production                     -->
+    <!--   3. Runs ng build (production configuration)                     -->
     <!--   4. Packages dist/ as a Maven artifact for plra-api to consume   -->
     <!-- ================================================================= -->
 
