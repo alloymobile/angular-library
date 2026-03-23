@@ -1,0 +1,311 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "ILOC",
+      "type": "Investment",
+      "securityCode": "SEC001",
+      "detail": "Investment Line of Credit",
+      "active": "Y"
+    },
+    {
+      "id": 2,
+      "name": "ULOC",
+      "type": "Unsecured",
+      "securityCode": "SEC002",
+      "detail": "Unsecured Line of Credit",
+      "active": "Y"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Secured",
+      "detail": "Secured lending products",
+      "active": "Y",
+      "productId": 1
+    },
+    {
+      "id": 2,
+      "name": "Unsecured",
+      "detail": "Unsecured lending products",
+      "active": "Y",
+      "productId": 2
+    }
+  ],
+  "subCategories": [
+    {
+      "id": 1,
+      "name": "Variable Rate",
+      "detail": "Variable interest rate products",
+      "active": "Y",
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Fixed Rate",
+      "detail": "Fixed interest rate products",
+      "active": "Y",
+      "categoryId": 1
+    }
+  ],
+  "cvpCodes": [
+    {
+      "id": 1,
+      "name": "Premium Client",
+      "detail": "Premium tier client pricing",
+      "active": "Y",
+      "subCategoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Standard Client",
+      "detail": "Standard tier client pricing",
+      "active": "Y",
+      "subCategoryId": 1
+    }
+  ],
+  "amountTiers": [
+    {
+      "id": 1,
+      "name": "Tier 1 (0-50K)",
+      "detail": "Small amounts",
+      "active": "Y",
+      "min": 0.00,
+      "max": 50000.00,
+      "productId": 1
+    },
+    {
+      "id": 2,
+      "name": "Tier 2 (50K-100K)",
+      "detail": "Medium amounts",
+      "active": "Y",
+      "min": 50000.00,
+      "max": 100000.00,
+      "productId": 1
+    }
+  ],
+  "ilocDrafts": [
+    {
+      "id": 1001,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Q1 2026 ILOC rate",
+      "targetRate": 5.250000,
+      "floorRate": 3.750000,
+      "discretion": 0.500000,
+      "startDate": "2026-03-01",
+      "expiryDate": "2026-06-30",
+      "status": "DRAFT",
+      "active": "Y",
+      "notes": null,
+      "changeId": 5001
+    },
+    {
+      "id": 1002,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Q1 2026 ILOC rate pending",
+      "targetRate": 4.500000,
+      "floorRate": 3.000000,
+      "discretion": 0.250000,
+      "startDate": "2026-04-01",
+      "expiryDate": "2026-09-30",
+      "status": "PENDING",
+      "active": "Y",
+      "notes": null,
+      "changeId": 5002
+    },
+    {
+      "id": 1003,
+      "amountTierId": 2,
+      "subCategoryId": 1,
+      "detail": "Rejected draft",
+      "targetRate": 6.000000,
+      "floorRate": 4.000000,
+      "discretion": 0.000000,
+      "startDate": "2026-05-01",
+      "expiryDate": "2026-12-31",
+      "status": "REJECTED",
+      "active": "Y",
+      "notes": "Rate too high for current market",
+      "changeId": 5003
+    }
+  ],
+  "ilocActive": [
+    {
+      "id": 2001,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Currently active ILOC rate",
+      "targetRate": 4.750000,
+      "floorRate": 3.250000,
+      "discretion": 0.500000,
+      "startDate": "2026-01-01",
+      "expiryDate": "2026-06-30",
+      "status": "ACTIVE",
+      "active": "Y",
+      "notes": null,
+      "changeId": 4001
+    },
+    {
+      "id": 2002,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Expiring ILOC rate",
+      "targetRate": 4.250000,
+      "floorRate": 3.000000,
+      "discretion": 0.250000,
+      "startDate": "2025-07-01",
+      "expiryDate": "2025-12-31",
+      "status": "ACTIVE",
+      "active": "Y",
+      "notes": null,
+      "changeId": 4002
+    }
+  ],
+  "ilocHistory": [
+    {
+      "id": 3001,
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Superseded ILOC rate",
+      "targetRate": 4.000000,
+      "floorRate": 2.750000,
+      "discretion": 0.500000,
+      "startDate": "2025-01-01",
+      "expiryDate": "2025-06-30",
+      "status": "SUPERSEDED",
+      "active": "N",
+      "notes": null,
+      "changeId": 3001
+    }
+  ],
+  "ulocDrafts": [
+    {
+      "id": 6001,
+      "cvpCodeId": 1,
+      "amountTierId": 1,
+      "detail": "Q1 2026 ULOC rate",
+      "targetRate": 7.500000,
+      "floorRate": 5.000000,
+      "discretion": 1.000000,
+      "startDate": "2026-03-01",
+      "expiryDate": "2026-06-30",
+      "status": "DRAFT",
+      "active": "Y",
+      "notes": null,
+      "changeId": 8001
+    },
+    {
+      "id": 6002,
+      "cvpCodeId": 1,
+      "amountTierId": 1,
+      "detail": "Q1 2026 ULOC rate pending",
+      "targetRate": 6.750000,
+      "floorRate": 4.500000,
+      "discretion": 0.500000,
+      "startDate": "2026-04-01",
+      "expiryDate": "2026-09-30",
+      "status": "PENDING",
+      "active": "Y",
+      "notes": null,
+      "changeId": 8002
+    }
+  ],
+  "ulocActive": [
+    {
+      "id": 7001,
+      "cvpCodeId": 1,
+      "amountTierId": 1,
+      "detail": "Currently active ULOC rate",
+      "targetRate": 7.000000,
+      "floorRate": 4.750000,
+      "discretion": 0.500000,
+      "startDate": "2026-01-01",
+      "expiryDate": "2026-06-30",
+      "status": "ACTIVE",
+      "active": "Y",
+      "notes": null,
+      "changeId": 9001
+    }
+  ],
+  "workflows": [
+    {
+      "id": 1,
+      "rateType": "ILOC",
+      "rateStatus": "DRAFT",
+      "rateId": 1001,
+      "changeId": 5001,
+      "action": "CREATE",
+      "changeBy": "maker01",
+      "fromStatus": null,
+      "toStatus": "DRAFT",
+      "message": null
+    },
+    {
+      "id": 2,
+      "rateType": "ILOC",
+      "rateStatus": "PENDING",
+      "rateId": 1001,
+      "changeId": 5001,
+      "action": "SUBMIT",
+      "changeBy": "maker01",
+      "fromStatus": "DRAFT",
+      "toStatus": "PENDING",
+      "message": null
+    },
+    {
+      "id": 3,
+      "rateType": "ILOC",
+      "rateStatus": "ACTIVE",
+      "rateId": 1001,
+      "changeId": 5001,
+      "action": "APPROVE",
+      "changeBy": "checker01",
+      "fromStatus": "PENDING",
+      "toStatus": "ACTIVE",
+      "message": "Approved for Q1 2026"
+    }
+  ],
+  "rateInputs": {
+    "validIlocInput": {
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "detail": "Test ILOC rate",
+      "targetRate": 5.250000,
+      "floorRate": 3.750000,
+      "discretion": 0.500000,
+      "startDate": "2026-03-01",
+      "expiryDate": "2026-06-30",
+      "notes": "Test notes"
+    },
+    "invalidIlocInput_floorExceedsTarget": {
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "targetRate": 3.000000,
+      "floorRate": 5.000000,
+      "startDate": "2026-03-01",
+      "expiryDate": "2026-06-30"
+    },
+    "invalidIlocInput_startAfterExpiry": {
+      "amountTierId": 1,
+      "subCategoryId": 1,
+      "targetRate": 5.000000,
+      "floorRate": 3.000000,
+      "startDate": "2026-12-01",
+      "expiryDate": "2026-06-30"
+    },
+    "validUlocInput": {
+      "cvpCodeId": 1,
+      "amountTierId": 1,
+      "detail": "Test ULOC rate",
+      "targetRate": 7.500000,
+      "floorRate": 5.000000,
+      "discretion": 1.000000,
+      "startDate": "2026-03-01",
+      "expiryDate": "2026-06-30",
+      "notes": "Test notes"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<!-- td-pagination/td-pagination.html -->
+<nav
+  [class]="pagination.className"
+  [attr.aria-label]="pagination.name ? pagination.name + ' pagination' : 'pagination'"
+>
+  <div *ngIf="pagination.name && pagination.totalPages > 0" class="me-2 small text-muted">
+    {{ pagination.name }}: Page {{ pagination.pageNumber + 1 }} of {{ pagination.totalPages }}
+  </div>
+
+  <ul
+    *ngIf="pagination.totalPages > 0"
+    [class]="pagination.listClassName + ' list-unstyled'"
+    style="list-style: none; padding-left: 0; margin-bottom: 0;"
+  >
+    <li [class]="getItemClasses(pagination.firstBtn.disabled, false)">
+      <td-button-icon
+        [buttonIcon]="pagination.firstBtn"
+        (output)="onFirstClick()"
+      ></td-button-icon>
+    </li>
+
+    <li [class]="getItemClasses(pagination.prevBtn.disabled, false)">
+      <td-button-icon
+        [buttonIcon]="pagination.prevBtn"
+        (output)="onPrevClick()"
+      ></td-button-icon>
+    </li>
+
+    <ng-container *ngFor="let item of pageWindow; trackBy: trackByItem">
+      <li *ngIf="item.type === 'ellipsis'" [class]="getItemClasses(true, false)">
+        <span class="page-link td-ellipsis">…</span>
+      </li>
+
+      <li *ngIf="item.type === 'page'" [class]="getItemClasses(false, item.index === pagination.pageNumber)">
+        <button
+          type="button"
+          class="page-link"
+          [attr.aria-label]="'Go to page ' + ((item.index ?? 0) + 1)"
+          [attr.aria-current]="item.index === pagination.pageNumber ? 'page' : null"
+          (click)="onNavigate(item.index ?? 0, false)"
+        >
+          {{ (item.index ?? 0) + 1 }}
+        </button>
+      </li>
+    </ng-container>
+
+    <li [class]="getItemClasses(pagination.nextBtn.disabled, false)">
+      <td-button-icon
+        [buttonIcon]="pagination.nextBtn"
+        (output)="onNextClick()"
+      ></td-button-icon>
+    </li>
+
+    <li [class]="getItemClasses(pagination.lastBtn.disabled, false)">
+      <td-button-icon
+        [buttonIcon]="pagination.lastBtn"
+        (output)="onLastClick()"
+      ></td-button-icon>
+    </li>
+  </ul>
+</nav>

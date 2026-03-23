@@ -1,0 +1,7 @@
+{
+  "app": { "title": "PLRA — Administration des taux", "brand": "TD" },
+  "sidebar": { "dashboard": "Tableau de bord", "uloc": "Taux MCNG", "iloc": "Taux MCI", "products": "Produits", "categories": "Catégories", "amount_tiers": "Tranches", "workflows": "Flux de travail", "notifications": "Notifications", "settings": "Paramètres", "uloc_settings": "Paramètres MCNG", "iloc_settings": "Paramètres MCI", "pending": "En attente" },
+  "common": { "search": "Rechercher...", "add": "Ajouter", "edit": "Modifier", "delete": "Supprimer", "save": "Enregistrer", "cancel": "Annuler", "actions": "Actions", "active": "Actif", "inactive": "Inactif", "loading": "Chargement...", "no_data": "Aucune donnée trouvée", "confirm_delete": "Êtes-vous sûr de vouloir supprimer cet élément?", "success": "Succès", "error": "Erreur", "name": "Nom", "detail": "Détail", "status": "Statut", "created_by": "Créé par", "created_on": "Créé le" },
+  "rates": { "target_rate": "Taux cible", "floor_rate": "Taux plancher", "discretion": "Discrétion", "start_date": "Date de début", "expiry_date": "Date d'expiration", "prime_rate": "Taux préférentiel", "save_drafts": "Enregistrer les brouillons", "enter_rates": "Saisir les taux", "view_rates": "Voir les taux", "approve": "Approuver", "reject": "Rejeter", "pending_approval": "En attente d'approbation" },
+  "dashboard": { "products": "Produits", "categories": "Catégories", "amount_tiers": "Tranches de montant", "recent_activity": "Activité récente", "quick_actions": "Actions rapides" }
+}

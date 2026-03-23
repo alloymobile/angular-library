@@ -1,0 +1,7 @@
+{
+  "app": { "title": "PLRA — Rate Administration", "brand": "TD" },
+  "sidebar": { "dashboard": "Dashboard", "uloc": "ULOC Rates", "iloc": "ILOC Rates", "products": "Products", "categories": "Categories", "amount_tiers": "Amount Tiers", "workflows": "Workflows", "notifications": "Notifications", "settings": "Settings", "uloc_settings": "ULOC Settings", "iloc_settings": "ILOC Settings", "pending": "Pending" },
+  "common": { "search": "Search...", "add": "Add", "edit": "Edit", "delete": "Delete", "save": "Save", "cancel": "Cancel", "actions": "Actions", "active": "Active", "inactive": "Inactive", "loading": "Loading...", "no_data": "No data found", "confirm_delete": "Are you sure you want to delete this item?", "success": "Success", "error": "Error", "name": "Name", "detail": "Detail", "status": "Status", "created_by": "Created By", "created_on": "Created On" },
+  "rates": { "target_rate": "Target Rate", "floor_rate": "Floor Rate", "discretion": "Discretion", "start_date": "Start Date", "expiry_date": "Expiry Date", "prime_rate": "Prime Rate", "save_drafts": "Save Drafts", "enter_rates": "Enter Rates", "view_rates": "View Rates", "approve": "Approve", "reject": "Reject", "pending_approval": "Pending Approval" },
+  "dashboard": { "products": "Products", "categories": "Categories", "amount_tiers": "Amount Tiers", "recent_activity": "Recent Activity", "quick_actions": "Quick Actions" }
+}

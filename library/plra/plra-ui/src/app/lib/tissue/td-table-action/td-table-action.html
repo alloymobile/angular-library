@@ -1,0 +1,359 @@
+<!-- TD Table Action Component -->
+<!-- Supports: Legacy mode (flat rows) AND Grouped mode (column config with cell types) -->
+
+<div class="table-responsive">
+  <table [id]="tableAction.id" [class]="tableAction.className">
+    <!-- Caption -->
+    <caption *ngIf="tableAction.name" class="caption-top text-center">
+      {{ tableAction.name }}
+    </caption>
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- NEW MODE: Grouped columns with cell types                              -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <ng-container *ngIf="tableAction.hasColumnConfig(); else legacyMode">
+      <thead>
+        <!-- Row 1: Parent Headers -->
+        <tr class="header-row-primary">
+          <!-- Checkbox column header (spans 2 rows) -->
+          <th
+            *ngIf="tableAction.showCheckboxColumn"
+            scope="col"
+            [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+            class="checkbox-column-header"
+          >
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="isAllSelected"
+              [indeterminate]="isIndeterminate"
+              (change)="onSelectAll($event)"
+              aria-label="Select all rows"
+            />
+          </th>
+
+          <!-- Icon column header (spans 2 rows) -->
+          <th
+            *ngIf="tableAction.showIconColumn"
+            scope="col"
+            [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+            class="icon-column-header"
+          >
+            Type
+          </th>
+
+          <!-- Column headers -->
+          <ng-container *ngFor="let col of processedColumns; trackBy: trackByColumn">
+            <!-- Simple column: spans 2 rows -->
+            <th
+              *ngIf="col.type === 'simple'"
+              scope="col"
+              [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+              class="simple-column-header"
+              [style.width]="col.width || 'auto'"
+            >
+              <span
+                class="sortable-header"
+                (click)="onHeaderClick(col.key)"
+                (keydown.enter)="onHeaderClick(col.key)"
+                (keydown.space)="onHeaderClick(col.key)"
+                tabindex="0"
+                role="button"
+                [attr.aria-label]="'Sort by ' + col.label"
+              >
+                {{ col.label }}
+                <span
+                  *ngIf="isColumnActive(col.key)"
+                  class="sort-indicator"
+                  aria-hidden="true"
+                  [ngStyle]="getSortIconStyle()"
+                >
+                  <i [class]="tableAction.sort.iconClass"></i>
+                </span>
+              </span>
+            </th>
+
+            <!-- Grouped column: spans multiple columns -->
+            <th
+              *ngIf="col.type === 'grouped'"
+              scope="colgroup"
+              [attr.colspan]="col.colspan"
+              class="grouped-column-header"
+            >
+              {{ col.label }}
+            </th>
+          </ng-container>
+
+          <!-- Actions column header (spans 2 rows) -->
+          <th
+            *ngIf="tableAction.hasActions()"
+            scope="col"
+            [attr.rowspan]="hasGroupedColumns ? 2 : 1"
+            class="actions-column-header"
+          >
+            {{ tableAction.actionsHeader }}
+          </th>
+        </tr>
+
+        <!-- Row 2: Sub-Headers (only if grouped columns exist) -->
+        <tr *ngIf="hasGroupedColumns" class="header-row-secondary">
+          <ng-container *ngFor="let subCol of getAllSubColumns(); trackBy: trackBySubColumn">
+            <th
+              scope="col"
+              class="sub-column-header"
+              [style.width]="subCol.width || 'auto'"
+            >
+              <span
+                class="sortable-header"
+                (click)="onHeaderClick(subCol.parentKey, subCol.key)"
+                (keydown.enter)="onHeaderClick(subCol.parentKey, subCol.key)"
+                (keydown.space)="onHeaderClick(subCol.parentKey, subCol.key)"
+                tabindex="0"
+                role="button"
+                [attr.aria-label]="'Sort by ' + subCol.label"
+              >
+                {{ subCol.label }}
+                <span
+                  *ngIf="isColumnActive(subCol.parentKey, subCol.key)"
+                  class="sort-indicator"
+                  aria-hidden="true"
+                  [ngStyle]="getSortIconStyle()"
+                >
+                  <i [class]="tableAction.sort.iconClass"></i>
+                </span>
+              </span>
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Data rows -->
+        <tr
+          *ngFor="let row of tableAction.rows; trackBy: trackByRow"
+          [class.table-row-clickable]="isRowClickable()"
+          [class.row-selected]="row.selected"
+        >
+          <!-- Checkbox column -->
+          <td *ngIf="tableAction.showCheckboxColumn" class="checkbox-column">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="row.selected"
+              (change)="onRowSelect(row, $event)"
+              (click)="$event.stopPropagation()"
+              [attr.aria-label]="'Select row ' + row.id"
+            />
+          </td>
+
+          <!-- Icon column -->
+          <td *ngIf="tableAction.showIconColumn" class="icon-column">
+            <i [class]="tableAction.icon.iconClass" [attr.aria-label]="tableAction.icon.ariaLabel"></i>
+          </td>
+
+          <!-- Data columns -->
+          <ng-container *ngFor="let cell of getCellDefinitions(); trackBy: trackByCell">
+            <td
+              [class.cell-clickable]="isRowClickable() && !isInputCell(cell.cellType)"
+              [class.cell-input]="isInputCell(cell.cellType)"
+              [style.width]="cell.width || 'auto'"
+              (click)="!isInputCell(cell.cellType) && isRowClickable() && onRowClick(row)"
+            >
+              <!-- TEXT cell -->
+              <ng-container *ngIf="isTextCell(cell.cellType)">
+                {{ formatCellValue(getCellData(row, cell.colKey, cell.subColKey)) }}
+              </ng-container>
+
+              <!-- ICON-TEXT cell -->
+              <ng-container *ngIf="isIconTextCell(cell.cellType)">
+                <td-icon-text
+                  *ngIf="getIconTextModel(getCellData(row, cell.colKey, cell.subColKey)) as iconTextModel"
+                  [iconText]="iconTextModel"
+                ></td-icon-text>
+                <span *ngIf="!getIconTextModel(getCellData(row, cell.colKey, cell.subColKey))">
+                  {{ formatCellValue(getCellData(row, cell.colKey, cell.subColKey)) }}
+                </span>
+              </ng-container>
+
+              <!-- INPUT cell -->
+              <ng-container *ngIf="isInputCell(cell.cellType)">
+                <ng-container *ngIf="getInputConfig(getCellData(row, cell.colKey, cell.subColKey)) as inputCfg">
+                  <input
+                    [type]="inputCfg.type || 'text'"
+                    [class]="inputCfg.className || 'form-control form-control-sm cell-input-field'"
+                    [placeholder]="inputCfg.placeholder || '—'"
+                    [disabled]="inputCfg.disabled || false"
+                    [min]="inputCfg.min"
+                    [max]="inputCfg.max"
+                    [step]="inputCfg.step"
+                    [attr.name]="getFieldPath(cell.colKey, cell.subColKey)"
+                    [value]="getInputValue(row.id, getFieldPath(cell.colKey, cell.subColKey)) ?? inputCfg.value ?? ''"
+                    (input)="onInputChange(row, getFieldPath(cell.colKey, cell.subColKey), $event, inputCfg)"
+                    (blur)="onInputBlur(row, getFieldPath(cell.colKey, cell.subColKey), $event, inputCfg)"
+                    (click)="$event.stopPropagation()"
+                  />
+                </ng-container>
+              </ng-container>
+
+              <!-- STATUS cell -->
+              <ng-container *ngIf="isStatusCell(cell.cellType)">
+                <ng-container *ngIf="getStatusConfig(getCellData(row, cell.colKey, cell.subColKey)) as status">
+                  <span [class]="getStatusClass(status)">
+                    {{ status.value }}
+                  </span>
+                </ng-container>
+                <span *ngIf="!getStatusConfig(getCellData(row, cell.colKey, cell.subColKey))">
+                  {{ formatCellValue(getCellData(row, cell.colKey, cell.subColKey)) }}
+                </span>
+              </ng-container>
+            </td>
+          </ng-container>
+
+          <!-- Actions column -->
+          <td *ngIf="tableAction.hasActions()" class="actions-column">
+            <td-button-bar
+              [buttonBar]="tableAction.actions"
+              (output)="onActionOutput(row, $event)"
+            ></td-button-bar>
+          </td>
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="tableAction.rows.length === 0">
+          <td
+            [attr.colspan]="tableAction.getTotalColumnCount()"
+            class="text-center text-secondary empty-state"
+          >
+            No data available
+          </td>
+        </tr>
+      </tbody>
+    </ng-container>
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- LEGACY MODE: Flat key-value rows (backward compatible)                 -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <ng-template #legacyMode>
+      <thead>
+        <tr>
+          <!-- Checkbox column header -->
+          <th *ngIf="tableAction.showCheckboxColumn" scope="col" class="checkbox-column-header">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="isAllSelected"
+              [indeterminate]="isIndeterminate"
+              (change)="onSelectAll($event)"
+              aria-label="Select all rows"
+            />
+          </th>
+
+          <!-- Icon column header -->
+          <th *ngIf="tableAction.showIconColumn" scope="col" class="icon-column">Type</th>
+
+          <!-- Data column headers -->
+          <th
+            *ngFor="let key of headerKeys; trackBy: trackByColumn"
+            scope="col"
+          >
+            <span
+              class="text-dark text-decoration-none sortable-header"
+              (click)="onHeaderClick(key)"
+              (keydown.enter)="onHeaderClick(key)"
+              (keydown.space)="onHeaderClick(key)"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Sort by ' + prettifyLabel(key)"
+            >
+              {{ prettifyLabel(key) }}
+
+              <span
+                *ngIf="isColumnActive(key)"
+                class="ms-1 d-inline-flex align-middle sort-indicator"
+                aria-hidden="true"
+                [attr.title]="isDescending() ? 'Sorted descending' : 'Sorted ascending'"
+                [ngStyle]="getSortIconStyle()"
+              >
+                <i [class]="tableAction.sort.iconClass"></i>
+              </span>
+            </span>
+          </th>
+
+          <!-- Actions column header -->
+          <th *ngIf="tableAction.hasActions()" scope="col" class="actions-column">
+            {{ tableAction.actionsHeader }}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Data rows -->
+        <tr
+          *ngFor="let row of tableAction.rows; trackBy: trackByRow"
+          [class.table-row-clickable]="isRowClickable()"
+          [class.row-selected]="row.selected"
+          [attr.tabindex]="isRowClickable() ? 0 : null"
+          [attr.role]="isRowClickable() ? 'button' : null"
+          (keydown.enter)="isRowClickable() && onRowClick(row)"
+        >
+          <!-- Checkbox column -->
+          <td *ngIf="tableAction.showCheckboxColumn" class="checkbox-column">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="row.selected"
+              (change)="onRowSelect(row, $event)"
+              (click)="$event.stopPropagation()"
+              [attr.aria-label]="'Select row ' + row.id"
+            />
+          </td>
+
+          <!-- Icon column -->
+          <td *ngIf="tableAction.showIconColumn" class="icon-column">
+            <i [class]="tableAction.icon.iconClass" [attr.aria-label]="tableAction.icon.ariaLabel"></i>
+          </td>
+
+          <!-- Data columns -->
+          <td
+            *ngFor="let key of headerKeys; trackBy: trackByColumn"
+            [class.cell-clickable]="isRowClickable()"
+            (click)="onCellClick(row, $event)"
+          >
+            <!-- Link wrapper if linkable -->
+            <a
+              *ngIf="isRowClickable()"
+              [href]="getRowLink(row)"
+              class="cell-link text-decoration-none text-reset"
+              (click)="onCellClick(row, $event); $event.preventDefault()"
+            >
+              {{ formatCellValue(row[key]) }}
+            </a>
+
+            <!-- Plain text if not linkable -->
+            <span *ngIf="!isRowClickable()">
+              {{ formatCellValue(row[key]) }}
+            </span>
+          </td>
+
+          <!-- Actions column -->
+          <td *ngIf="tableAction.hasActions()" class="actions-column">
+            <td-button-bar
+              [buttonBar]="tableAction.actions"
+              (output)="onActionOutput(row, $event)"
+            ></td-button-bar>
+          </td>
+        </tr>
+
+        <!-- Empty state -->
+        <tr *ngIf="tableAction.rows.length === 0">
+          <td
+            [attr.colspan]="tableAction.getTotalColumnCount()"
+            class="text-center text-secondary py-4"
+          >
+            No data available
+          </td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
+</div>

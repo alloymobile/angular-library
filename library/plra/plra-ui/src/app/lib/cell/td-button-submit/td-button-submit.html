@@ -1,0 +1,29 @@
+<button
+  type="submit"
+  [id]="domId"
+  [class]="cssClass"
+  [title]="buttonSubmit.title"
+  [attr.aria-label]="buttonSubmit.ariaLabel"
+  [attr.aria-busy]="isLoading || null"
+  [attr.aria-disabled]="isDisabled || null"
+  [attr.aria-pressed]="buttonSubmit.isActive"
+  [disabled]="isDisabled"
+  [attr.tabindex]="buttonSubmit.tabIndex"
+  (click)="onClick()">
+
+  @if (isLoading) {
+    <span class="d-inline-flex align-middle">
+      <td-icon [icon]="loadingIcon"></td-icon>
+    </span>
+  }
+
+  <span [class]="isLoading ? 'px-2 align-middle' : 'align-middle'">
+    {{ buttonSubmit.name }}
+  </span>
+
+  @if (isLoading) {
+    <span class="ms-2 visually-hidden" aria-live="polite">
+      Loading…
+    </span>
+  }
+</button>

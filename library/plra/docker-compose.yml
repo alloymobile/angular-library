@@ -1,0 +1,86 @@
+# =============================================================================
+# PLRA — Local Development Docker Compose
+# =============================================================================
+#
+# Starts a full local environment:
+#   - SQL Server 2022 (on port 1433, with RATEMGMT schema)
+#   - HashiCorp Vault (on port 8200, dev mode)
+#   - PLRA App (on port 8080, optional — can also run from IDE)
+#
+# Usage:
+#   docker-compose up -d sqlserver vault   # Start dependencies only
+#   docker-compose up -d                   # Start everything including app
+#   docker-compose down -v                 # Stop and remove volumes
+#
+# Connect to SQL Server:
+#   Host: localhost,1433
+#   User: sa
+#   Password: Plra_Dev_2026!
+#   Database: plra
+#
+# =============================================================================
+
+version: "3.8"
+
+services:
+  # =========================================================================
+  # SQL Server 2022 — Local development database
+  # =========================================================================
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: plra-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Plra_Dev_2026!"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      # Mount SQL scripts for initialization
+      - ./db/sqlserver:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "Plra_Dev_2026!" -C -Q "SELECT 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # =========================================================================
+  # HashiCorp Vault — Secrets management (dev mode)
+  # =========================================================================
+  vault:
+    image: hashicorp/vault:latest
+    container_name: plra-vault
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "plra-dev-token"
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+
+  # =========================================================================
+  # PLRA Application — Spring Boot + Angular (optional for local dev)
+  # =========================================================================
+  # Uncomment to run the app in Docker instead of IDE:
+  #
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: plra-app
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     SPRING_PROFILES_ACTIVE: "azure"
+  #     AZURE_SQL_URL: "jdbc:sqlserver://sqlserver:1433;database=plra;encrypt=false;trustServerCertificate=true"
+  #     AZURE_SQL_USERNAME: "sa"
+  #     AZURE_SQL_PASSWORD: "Plra_Dev_2026!"
+  #     VAULT_ENABLED: "false"
+  #   depends_on:
+  #     sqlserver:
+  #       condition: service_healthy
+
+volumes:
+  sqlserver-data:
+    driver: local

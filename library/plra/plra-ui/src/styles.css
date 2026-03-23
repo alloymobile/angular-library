@@ -1,0 +1,346 @@
+/* =============================================================================
+ * PLRA — Global Styles & TD Bank Design Tokens
+ * =============================================================================
+ * Aligned to TD Bank corporate identity:
+ *   - TD Green #008A00 as primary brand color
+ *   - White/light surface backgrounds
+ *   - Helvetica World font family
+ *   - Clean, corporate, professional aesthetic
+ * ============================================================================= */
+
+:root {
+  /* ── Typography ── */
+  --font-primary: "Helvetica World", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 17px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 22px;
+
+  /* ── TD Brand Colors ── */
+  --td-green: #008A00;
+  --td-green-dark: #006B00;
+  --td-green-light: #e6f4e6;
+  --td-green-50: #f0faf0;
+  --td-dark: #1d1d1d;
+
+  /* ── Functional Colors ── */
+  --color-brand: #008A00;
+  --color-brand-light: #33a133;
+  --color-brand-dark: #006B00;
+  --color-brand-50: #e6f4e6;
+  --color-accent: #008A00;
+  --color-accent-50: #f0faf0;
+  --color-ink: #1d1d1d;
+  --color-muted: #5f6368;
+  --color-surface: #f5f5f5;
+  --color-card: #ffffff;
+  --color-background: #ffffff;
+
+  /* ── Borders ── */
+  --border-color: #e0e0e0;
+  --border-radius: 8px;
+
+  /* ── Layout ── */
+  --sidebar-width: 72px;
+  --topbar-height: 56px;
+  --td-banner-height: 40px;
+
+  /* ── Sidebar (TD white style — matches TdSidebar library) ── */
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e0e0e0;
+  --sidebar-link-color: #5f6368;
+  --sidebar-link-hover-bg: #f5f5f5;
+  --sidebar-link-hover-color: #1d1d1d;
+  --sidebar-link-active-bg: #e6f4e6;
+  --sidebar-link-active-color: #008A00;
+
+  /* ── Status Colors ── */
+  --status-active: #008A00;
+  --status-pending: #d97706;
+  --status-draft: #6b7280;
+  --status-rejected: #dc2626;
+  --status-expired: #9ca3af;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: var(--text-base); }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--td-green); text-decoration: none; }
+a:hover { color: var(--td-green-dark); text-decoration: underline; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 600; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c1c7cd; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+/* ── TD Utility Classes ── */
+.text-td-green { color: var(--td-green) !important; }
+.bg-td-green { background-color: var(--td-green) !important; }
+.border-td-green { border-color: var(--td-green) !important; }
+
+/* ── TD Button overrides ── */
+.btn-success { background-color: var(--td-green) !important; border-color: var(--td-green) !important; }
+.btn-success:hover { background-color: var(--td-green-dark) !important; border-color: var(--td-green-dark) !important; }
+.btn-outline-success { color: var(--td-green) !important; border-color: var(--td-green) !important; }
+.btn-outline-success:hover { background-color: var(--td-green) !important; color: #fff !important; }
+
+/* ── TD Card Style ── */
+.card { border: 1px solid var(--border-color); border-radius: var(--border-radius); }
+
+/* =============================================================================
+ * Shared Layout: TD Green Banner + White Sidebar + Content Area
+ * =============================================================================
+ * All 4 layouts (viewer, reviewer, admin, super-admin) use this structure:
+ *
+ *  ┌──────────────────────────────────────────────┐
+ *  │  TD Green Banner (40px)                       │
+ *  ├──────┬───────────────────────────────────────┤
+ *  │      │  White Top Bar (56px)                  │
+ *  │  72  ├───────────────────────────────────────┤
+ *  │  px  │                                        │
+ *  │      │  Content Area                          │
+ *  │      │                                        │
+ *  └──────┴───────────────────────────────────────┘
+ * ============================================================================= */
+
+/* ── TD Green Banner (top strip) ── */
+.td-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--td-banner-height);
+  background: var(--td-green);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1100;
+}
+.td-banner-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+.td-banner-logo:hover { color: #fff; text-decoration: none; }
+.td-banner-shield {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--td-green);
+  font-weight: 800;
+  font-size: 12px;
+}
+.td-banner-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.td-banner-nav a,
+.td-banner-nav button {
+  color: rgba(255,255,255,.85);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+}
+.td-banner-nav a:hover,
+.td-banner-nav button:hover { background: rgba(255,255,255,.15); color: #fff; }
+.td-banner-nav .active { background: rgba(255,255,255,.2); color: #fff; }
+
+/* ── White Sidebar ── */
+.td-sidebar {
+  position: fixed;
+  top: var(--td-banner-height);
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--td-banner-height));
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 1050;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
+.td-sidebar-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 4px;
+  margin: 2px 6px;
+  color: var(--sidebar-link-color);
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 500;
+  text-align: center;
+  transition: all .15s;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.td-sidebar-item i { font-size: 18px; }
+.td-sidebar-item:hover {
+  background: var(--sidebar-link-hover-bg);
+  color: var(--sidebar-link-hover-color);
+  text-decoration: none;
+}
+.td-sidebar-item.active {
+  background: var(--sidebar-link-active-bg);
+  color: var(--sidebar-link-active-color);
+  font-weight: 600;
+}
+.td-sidebar-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 50%;
+  background: var(--td-green);
+  border-radius: 0 3px 3px 0;
+}
+.td-sidebar-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 6px 12px;
+}
+
+/* ── Top Bar (below banner, right of sidebar) ── */
+.td-topbar {
+  position: fixed;
+  top: var(--td-banner-height);
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--topbar-height);
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1040;
+}
+.td-topbar-title { font-size: 15px; font-weight: 600; color: var(--color-ink); margin: 0; }
+.td-topbar-right { display: flex; align-items: center; gap: 10px; }
+.td-topbar-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.td-topbar-btn:hover { background: #f5f5f5; color: var(--color-ink); }
+.td-lang-toggle { display: flex; border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; }
+.td-lang-btn {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  background: #fff;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all .15s;
+}
+.td-lang-btn.active { background: var(--td-green); color: #fff; }
+.td-user-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 10px 3px 3px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+}
+.td-user-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--td-green); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.td-user-name { font-size: 12px; font-weight: 500; color: var(--color-ink); }
+
+/* ── Main Content Area ── */
+.td-content {
+  margin-left: var(--sidebar-width);
+  margin-top: calc(var(--td-banner-height) + var(--topbar-height));
+  padding: 24px;
+  min-height: calc(100vh - var(--td-banner-height) - var(--topbar-height));
+  background: var(--color-surface);
+}
+
+/* ── Page Elements ── */
+.page-heading {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--color-ink);
+}
+.page-subtitle {
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 4px 0 0;
+}
+
+/* ── Quick Action Cards ── */
+.quick-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  text-decoration: none;
+  color: var(--color-ink);
+  font-weight: 500;
+  font-size: 14px;
+  transition: all .15s;
+}
+.quick-card:hover {
+  border-color: var(--td-green);
+  box-shadow: 0 2px 8px rgba(0,138,0,.08);
+  text-decoration: none;
+  color: var(--color-ink);
+}
+.quick-card i { font-size: 20px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .td-sidebar { display: none; }
+  .td-topbar { left: 0; }
+  .td-content { margin-left: 0; }
+}

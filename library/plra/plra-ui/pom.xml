@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ================================================================= -->
+    <!-- PLRA-UI — Angular 20 Frontend Module                              -->
+    <!-- ================================================================= -->
+    <!-- This module:                                                      -->
+    <!--   1. Installs Node.js + npm (hermetic, no system dependency)      -->
+    <!--   2. Runs npm ci (clean install from lockfile)                    -->
+    <!--   3. Runs ng build --configuration production                     -->
+    <!--   4. Packages dist/ as a Maven artifact for plra-api to consume   -->
+    <!-- ================================================================= -->
+
+    <parent>
+        <groupId>com.td</groupId>
+        <artifactId>plra-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>plra-ui</artifactId>
+    <packaging>pom</packaging>
+    <name>PLRA UI - Angular Frontend</n>
+    <description>Angular 20 frontend for PLRA rate management dashboard</description>
+
+    <properties>
+        <angular.configuration>production</angular.configuration>
+        <!-- Output dir name from angular.json → projects.td-angular.architect.build -->
+        <angular.output.dir>${project.basedir}/dist/td-angular/browser</angular.output.dir>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- ========================================================= -->
+            <!-- frontend-maven-plugin: Node + npm + Angular CLI           -->
+            <!-- ========================================================= -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+
+                <!-- Working directory = this module's root (where package.json lives) -->
+                <configuration>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <installDirectory>${project.build.directory}/node-installation</installDirectory>
+                </configuration>
+
+                <executions>
+                    <!-- Step 1: Install Node.js and npm locally -->
+                    <execution>
+                        <id>install-node-and-npm</id>
+                        <goals><goal>install-node-and-npm</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <nodeVersion>${node.version}</nodeVersion>
+                            <npmVersion>${npm.version}</npmVersion>
+                        </configuration>
+                    </execution>
+
+                    <!-- Step 2: npm ci (clean install from lockfile) -->
+                    <execution>
+                        <id>npm-ci</id>
+                        <goals><goal>npm</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>ci --prefer-offline</arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Step 3: Run Angular production build -->
+                    <execution>
+                        <id>ng-build</id>
+                        <goals><goal>npm</goal></goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>run build -- --configuration ${angular.configuration}</arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Step 4: Run Angular unit tests (during test phase) -->
+                    <execution>
+                        <id>ng-test</id>
+                        <goals><goal>npm</goal></goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <arguments>run test -- --no-watch --browsers=ChromeHeadless</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ========================================================= -->
+            <!-- Package the Angular dist as a zip artifact                -->
+            <!-- This allows plra-api to depend on it via maven-dependency -->
+            <!-- ========================================================= -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>package-angular-dist</id>
+                        <phase>package</phase>
+                        <goals><goal>single</goal></goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/dist.xml</descriptor>
+                            </descriptors>
+                            <appendAssemblyId>true</appendAssemblyId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Development build — faster, with source maps -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <angular.configuration>development</angular.configuration>
+            </properties>
+        </profile>
+    </profiles>
+</project>

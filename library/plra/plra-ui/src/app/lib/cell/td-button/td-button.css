@@ -1,0 +1,4 @@
+/* td-button.css */
+:host {
+  display: inline-block;
+}

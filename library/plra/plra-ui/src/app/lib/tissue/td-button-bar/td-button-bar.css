@@ -1,0 +1,14 @@
+/* td-button-bar.css */
+:host {
+  display: block;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.nav-item {
+  list-style: none;
+}

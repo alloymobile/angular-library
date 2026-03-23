@@ -1,0 +1,10 @@
+<span [id]="domId" [class]="model.className">
+  <!-- Icon on left -->
+  <td-icon *ngIf="isIconLeft" [icon]="model.icon"></td-icon>
+
+  <!-- Value text -->
+  <span [class]="model.valueClassName">{{ displayValue }}</span>
+
+  <!-- Icon on right -->
+  <td-icon *ngIf="isIconRight" [icon]="model.icon"></td-icon>
+</span>

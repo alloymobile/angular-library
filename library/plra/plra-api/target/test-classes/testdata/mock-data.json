@@ -1,0 +1,214 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Personal Lending",
+      "type": "RETAIL",
+      "securityCode": "SEC001",
+      "detail": "Personal lending products for retail customers",
+      "active": "Y",
+      "createdBy": "system",
+      "version": 1
+    },
+    {
+      "id": 2,
+      "name": "Business Lending",
+      "type": "COMMERCIAL",
+      "securityCode": "SEC002",
+      "detail": "Business lending products for commercial customers",
+      "active": "Y",
+      "createdBy": "admin",
+      "version": 1
+    },
+    {
+      "id": 3,
+      "name": "Mortgage Products",
+      "type": "MORTGAGE",
+      "securityCode": "SEC003",
+      "detail": "Inactive mortgage product line",
+      "active": "N",
+      "createdBy": "system",
+      "version": 2
+    }
+  ],
+  "categories": [
+    {
+      "id": 10,
+      "name": "Secured Loans",
+      "detail": "Loans secured against assets",
+      "active": "Y",
+      "productId": 1
+    },
+    {
+      "id": 11,
+      "name": "Unsecured Loans",
+      "detail": "Loans without security",
+      "active": "Y",
+      "productId": 1
+    }
+  ],
+  "subCategories": [
+    {
+      "id": 100,
+      "name": "Investment LOC",
+      "detail": "Investment line of credit",
+      "active": "Y",
+      "categoryId": 10
+    },
+    {
+      "id": 101,
+      "name": "Personal LOC",
+      "detail": "Personal line of credit",
+      "active": "Y",
+      "categoryId": 11
+    }
+  ],
+  "cvpCodes": [
+    {
+      "id": 200,
+      "name": "CVP-ULOC-STD",
+      "detail": "Standard unsecured LOC CVP code",
+      "active": "Y",
+      "subCategoryId": 101
+    },
+    {
+      "id": 201,
+      "name": "CVP-ULOC-PRM",
+      "detail": "Premium unsecured LOC CVP code",
+      "active": "Y",
+      "subCategoryId": 101
+    }
+  ],
+  "amountTiers": [
+    {
+      "id": 300,
+      "name": "Tier 1 - Small",
+      "detail": "0 to 50000",
+      "active": "Y",
+      "min": 0.00,
+      "max": 50000.00,
+      "productId": 1
+    },
+    {
+      "id": 301,
+      "name": "Tier 2 - Medium",
+      "detail": "50001 to 250000",
+      "active": "Y",
+      "min": 50001.00,
+      "max": 250000.00,
+      "productId": 1
+    }
+  ],
+  "rateIlocDrafts": [
+    {
+      "id": 1000,
+      "amountTierId": 300,
+      "subCategoryId": 100,
+      "detail": "Standard ILOC rate draft",
+      "targetRate": 5.250000,
+      "floorRate": 3.750000,
+      "discretion": 1.500000,
+      "startDate": "2025-07-01",
+      "expiryDate": "2025-12-31",
+      "status": "DRAFT",
+      "active": "Y",
+      "notes": null,
+      "changeId": 1001,
+      "createdBy": "system",
+      "version": 1
+    },
+    {
+      "id": 1001,
+      "amountTierId": 300,
+      "subCategoryId": 100,
+      "detail": "Pending ILOC rate",
+      "targetRate": 4.500000,
+      "floorRate": 3.000000,
+      "discretion": 1.000000,
+      "startDate": "2025-08-01",
+      "expiryDate": "2026-01-31",
+      "status": "PENDING",
+      "active": "Y",
+      "notes": null,
+      "changeId": 1002,
+      "createdBy": "admin",
+      "version": 1
+    }
+  ],
+  "rateIlocActive": [
+    {
+      "id": 900,
+      "amountTierId": 300,
+      "subCategoryId": 100,
+      "detail": "Current active ILOC rate",
+      "targetRate": 5.000000,
+      "floorRate": 3.500000,
+      "discretion": 1.250000,
+      "startDate": "2025-01-01",
+      "expiryDate": "2025-06-30",
+      "status": "ACTIVE",
+      "active": "Y",
+      "notes": null,
+      "changeId": 999,
+      "createdBy": "system",
+      "version": 1
+    }
+  ],
+  "rateUlocDrafts": [
+    {
+      "id": 2000,
+      "cvpCodeId": 200,
+      "amountTierId": 300,
+      "detail": "Standard ULOC rate draft",
+      "targetRate": 7.500000,
+      "floorRate": 5.250000,
+      "discretion": 2.000000,
+      "startDate": "2025-07-01",
+      "expiryDate": "2025-12-31",
+      "status": "DRAFT",
+      "active": "Y",
+      "notes": null,
+      "changeId": 2001,
+      "createdBy": "system",
+      "version": 1
+    }
+  ],
+  "workflows": [
+    {
+      "id": 5000,
+      "rateType": "ILOC",
+      "rateStatus": "DRAFT",
+      "rateId": 1000,
+      "changeId": 1001,
+      "action": "CREATE",
+      "changeBy": "system",
+      "fromStatus": null,
+      "toStatus": "DRAFT",
+      "message": null
+    },
+    {
+      "id": 5001,
+      "rateType": "ILOC",
+      "rateStatus": "PENDING",
+      "rateId": 1001,
+      "changeId": 1002,
+      "action": "SUBMIT",
+      "changeBy": "admin",
+      "fromStatus": "DRAFT",
+      "toStatus": "PENDING",
+      "message": null
+    },
+    {
+      "id": 5002,
+      "rateType": "ILOC",
+      "rateStatus": "REJECTED",
+      "rateId": 1001,
+      "changeId": 1002,
+      "action": "REJECT",
+      "changeBy": "manager",
+      "fromStatus": "PENDING",
+      "toStatus": "REJECTED",
+      "message": "Rates too high for current market conditions"
+    }
+  ]
+}
