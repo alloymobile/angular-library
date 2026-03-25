@@ -1,0 +1,19 @@
+<div class="hf-filter">
+  <div class="hf-filter-row">
+    <div class="hf-field hf-field-wide">
+      <label class="hf-label">{{ t.get('common.status') }}</label>
+      <td-input [input]="statusInput" (output)="onStatusChange($event)"></td-input>
+    </div>
+    <div class="hf-field">
+      <label class="hf-label">{{ t.get('filter.date_from') }}</label>
+      <td-input [input]="dateFromInput" (output)="onDateFromChange($event)"></td-input>
+    </div>
+    <div class="hf-field">
+      <label class="hf-label">{{ t.get('filter.date_to') }}</label>
+      <td-input [input]="dateToInput" (output)="onDateToChange($event)"></td-input>
+    </div>
+    <div class="hf-field-action">
+      <a class="hf-clear" (click)="clearAll()">{{ t.get('filter.clear_all') }}</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="wf-filter">
+  <div class="wf-filter-row">
+    <div class="wf-field">
+      <label class="wf-label">{{ t.get('columns.rate_type') }}</label>
+      <td-input [input]="rateTypeInput" (output)="onRateTypeChange($event)"></td-input>
+    </div>
+    <div class="wf-field wf-field-wide">
+      <label class="wf-label">{{ t.get('columns.action') }}</label>
+      <td-input [input]="actionInput" (output)="onActionChange($event)"></td-input>
+    </div>
+    <div class="wf-field">
+      <label class="wf-label">{{ t.get('filter.date_from') || 'From' }}</label>
+      <td-input [input]="dateFromInput" (output)="onDateFromChange($event)"></td-input>
+    </div>
+    <div class="wf-field">
+      <label class="wf-label">{{ t.get('filter.date_to') || 'To' }}</label>
+      <td-input [input]="dateToInput" (output)="onDateToChange($event)"></td-input>
+    </div>
+    <div class="wf-field-action">
+      <a class="wf-clear" (click)="clearAll()">{{ t.get('filter.clear_all') }}</a>
+    </div>
+  </div>
+</div>

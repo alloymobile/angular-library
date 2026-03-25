@@ -1,0 +1,43 @@
+.wf-filter {
+  padding: 0;
+  margin-bottom: 4px;
+}
+.wf-filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.wf-field {
+  min-width: 120px;
+  flex: 1;
+}
+.wf-field-wide {
+  flex: 2;
+  min-width: 180px;
+}
+.wf-field-action {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 6px;
+}
+.wf-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--color-muted, #6b7280);
+  margin-bottom: 2px;
+  display: block;
+}
+.wf-clear {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.wf-clear:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,43 @@
+.hf-filter {
+  padding: 0;
+  margin-bottom: 4px;
+}
+.hf-filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.hf-field {
+  min-width: 120px;
+  flex: 1;
+}
+.hf-field-wide {
+  flex: 2;
+  min-width: 180px;
+}
+.hf-field-action {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 6px;
+}
+.hf-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--color-muted, #6b7280);
+  margin-bottom: 2px;
+  display: block;
+}
+.hf-clear {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.hf-clear:hover {
+  text-decoration: underline;
+}

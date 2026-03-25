@@ -1,0 +1,9 @@
+<header class="mb-4"><h1 style="font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px;margin:0;"><i class="fa-solid fa-pen-ruler text-td-green"></i> {{ t.get('pages.administration') }}</h1><p class="text-muted" style="font-size:14px;margin:4px 0 0;">{{ t.get('rates.enter_rates') }}</p></header>
+    <div class="row g-3 mb-4">
+      <div class="col-sm-6"><plra-kpi-card [title]="t.get('dashboard.uloc_drafts')" [value]="ulocDrafts()" icon="fa-solid fa-file-pen" color="green" /></div>
+      <div class="col-sm-6"><plra-kpi-card [title]="t.get('dashboard.iloc_drafts')" [value]="ilocDrafts()" icon="fa-solid fa-file-pen" color="blue" /></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><a routerLink="../uloc" class="qc"><i class="fa-solid fa-credit-card text-td-green"></i> ULOC</a></div>
+      <div class="col-md-6"><a routerLink="../iloc" class="qc"><i class="fa-solid fa-landmark" style="color:var(--color-brand)"></i> ILOC</a></div>
+    </div>

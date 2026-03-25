@@ -1,0 +1,5 @@
+/* TdIcon Component Styles */
+
+:host {
+  display: inline-flex;
+}

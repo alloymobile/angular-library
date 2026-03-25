@@ -1,0 +1,45 @@
+<header class="dash-header">
+      <h1><i class="fa-solid fa-crown"></i> {{ t.get('pages.system_admin') }}</h1>
+      <p>{{ t.get('pages.dash_subtitle') }}</p>
+    </header>
+
+    <div class="row g-3 mb-4">
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card [title]="t.get('dashboard.products')" [value]="prodCount()" icon="fa-solid fa-boxes-stacked" color="green" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card [title]="t.get('dashboard.categories')" [value]="catCount()" icon="fa-solid fa-tags" color="blue" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card [title]="t.get('dashboard.amount_tiers')" [value]="tierCount()" icon="fa-solid fa-layer-group" color="purple" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card [title]="t.get('dashboard.prime_rate')" value="6.95%" icon="fa-solid fa-chart-line" color="amber" /></div>
+    </div>
+
+    <!-- Settings Section -->
+    <h2 class="section-title"><i class="fa-solid fa-gear"></i> {{ t.get('pages.settings') }}</h2>
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <a routerLink="../uloc-settings" class="dash-card">
+          <div class="dash-icon green"><i class="fa-solid fa-credit-card"></i></div>
+          <div><h3>{{ t.get('sidebar.uloc_settings') }}</h3><p>{{ t.get('pages.uloc_admin_sub') }}</p></div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="../iloc-settings" class="dash-card">
+          <div class="dash-icon blue"><i class="fa-solid fa-landmark"></i></div>
+          <div><h3>{{ t.get('sidebar.iloc_settings') }}</h3><p>{{ t.get('pages.iloc_admin_sub') }}</p></div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a routerLink="../cvp-codes" class="dash-card">
+          <div class="dash-icon purple"><i class="fa-solid fa-tags"></i></div>
+          <div><h3>{{ t.get('sidebar.cvp_codes') }}</h3><p>{{ t.get('pages.cvp_codes_sub') }}</p></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Audit Section -->
+    <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> {{ t.get('pages.audit') }}</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <a routerLink="../workflows" class="dash-card">
+          <div class="dash-icon amber"><i class="fa-solid fa-code-branch"></i></div>
+          <div><h3>{{ t.get('sidebar.workflows') }}</h3><p>{{ t.get('pages.workflows_sub') }}</p></div>
+        </a>
+      </div>
+    </div>

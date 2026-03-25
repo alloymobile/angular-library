@@ -1,0 +1,45 @@
+.matrix-wrap{overflow:hidden;border:1px solid var(--border-color,#e0e0e0);border-radius:10px;background:#fff}
+    .table-responsive{overflow-x:auto}
+    .rate-matrix{width:100%;border-collapse:collapse;font-size:12px}
+    .rate-matrix thead th{background:#f8fafb;padding:8px 10px;text-align:center;font-size:11px;font-weight:700;color:var(--color-muted,#5f6368);border-bottom:1px solid var(--border-color);white-space:nowrap}
+    .tier-group{border-left:1px solid var(--border-color);background:#f0f4f8 !important;font-weight:800 !important;color:var(--color-ink) !important}
+    .sub-hdr th{font-size:10px;font-weight:600;padding:5px 8px}
+    .curr-th{background:#f7f8fa !important}
+    .new-th{background:rgba(37,99,235,.06) !important;color:#2563eb !important}
+    .req-th{background:rgba(37,99,235,.06) !important}
+    .rate-matrix tbody td{padding:6px 8px;text-align:center;border-bottom:1px solid #f3f4f6;font-size:12px}
+    .rate-matrix tbody tr:hover{background:#f8fafb}
+    .row-selected{background:#f0fdf4 !important}
+    .row-modified{border-left:3px solid var(--td-green)}
+    .cvp-col{text-align:left !important;min-width:80px;position:sticky;left:0;z-index:2}
+    .cvp-cell{font-weight:700;text-align:left !important;position:sticky;left:0;background:#fff;z-index:1;white-space:nowrap}
+    .rate-matrix tbody tr:hover .cvp-cell{background:#f8fafb}
+    .sel-col{width:32px}
+    .rate-cell{font-variant-numeric:tabular-nums}
+    .curr-cell{background:#f9fafb !important}
+    .curr-pill{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;background:#f3f4f6;color:#6b7280;font-size:12px;font-weight:600;white-space:nowrap}
+    .new-cell{background:rgba(37,99,235,.03) !important}
+    .changed{background:rgba(37,99,235,.1) !important;font-weight:700;color:#2563eb}
+    .rate-input{width:68px;text-align:center;padding:4px 6px;border:1px solid var(--border-color);border-radius:6px;font-size:12px;font-weight:600}
+    .rate-input:focus{border-color:#2563eb;outline:none;box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+    .disc-input{width:80px;text-align:center;padding:4px 6px;border:1px solid var(--border-color);border-radius:6px;font-size:11px}
+    .disc-input:focus{border-color:#2563eb;outline:none;box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+    .act-cell{white-space:nowrap}
+    .comment-cell{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-style:italic;color:var(--color-muted)}
+    .status-pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#f3f4f6;color:#6b7280}
+    .status-pill[data-status="ACTIVE"],.status-pill[data-status="APPROVED"]{background:#dcfce7;color:#166534}
+    .status-pill[data-status="PENDING"]{background:#fef3c7;color:#92400e}
+    .status-pill[data-status="DRAFT"]{background:#dbeafe;color:#1e40af}
+    .status-pill[data-status="REJECTED"],.status-pill[data-status="DECLINED"]{background:#fee2e2;color:#991b1b}
+    .empty-cell{text-align:center !important;padding:40px !important;color:var(--color-muted)}
+    .empty-cell i{display:block;font-size:28px;margin-bottom:8px;opacity:.4}
+.sortable { cursor: pointer; user-select: none; }
+.sortable:hover { background: rgba(0,138,0,.06); }
+.sortable i { font-size: 10px; margin-left: 4px; color: var(--color-muted); }
+.sortable:hover i { color: var(--td-green); }
+.date-cell { padding: 2px 4px !important; }
+.date-input { font-size: 12px; padding: 2px 6px; min-width: 120px; max-width: 140px; }
+.pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 4px 4px; border-top: 1px solid #e5e7eb; margin-top: 4px; }
+.page-info { display: flex; align-items: center; gap: 8px; }
+.page-info-text { font-size: 12px; color: var(--color-muted, #6b7280); white-space: nowrap; }
+.page-size-select { width: 70px; font-size: 12px; padding: 2px 6px; }

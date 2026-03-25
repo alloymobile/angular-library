@@ -1,0 +1,69 @@
+<header class="mb-3">
+      <h2 class="page-heading"><i class="fa-solid fa-credit-card text-td-green me-2"></i>ULOC — {{ t.get('pages.review') }}</h2>
+      <p class="page-subtitle">{{ t.get('pages.review_sub') }}</p>
+    </header>
+
+    <ul class="nav td-tabs mb-3">
+      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='view'" (click)="switchTab('view')"><i class="fa-regular fa-eye me-1"></i>{{ t.get('tabs.view_rates') }}</button></li>
+      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='review'" (click)="switchTab('review')"><i class="fa-solid fa-clipboard-check me-1"></i>{{ t.get('tabs.review') }}</button></li>
+    </ul>
+
+    @if (message()) {
+      <div class="alert mb-3" [class.alert-success]="messageType()==='success'" [class.alert-danger]="messageType()==='error'" [class.alert-info]="messageType()==='info'">
+        {{ message() }}<button type="button" class="btn-close float-end" (click)="message.set('')"></button>
+      </div>
+    }
+
+    @if (tab() === 'view') {
+      <plra-rate-filter [productName]="productName" productType="ULOC" (filterChange)="onViewFilter($event)" />
+      <plra-rate-matrix mode="view" productType="ULOC" [tiers]="tiers()" [rows]="filteredViewRows()" [searchTerm]="viewSearch" [visibleTierIds]="visibleTierIds"
+  [totalElements]="totalElements" [totalPages]="totalPages" [currentPage]="currentPage" [pageSize]="pageSize"
+  (onPageChange)="onPageChange($event)" />
+    }
+
+    @if (tab() === 'review') {
+      <plra-rate-filter [productName]="productName" productType="ULOC" (filterChange)="onReviewFilter($event)" />
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <input class="form-control form-control-sm" style="max-width:300px" [placeholder]="t.get('common.search')" [(ngModel)]="reviewSearch" (ngModelChange)="applyReviewFilter()" />
+        <button class="btn btn-sm btn-success" (click)="submitReview()" [disabled]="reviewing()">
+          <i class="fa-solid fa-clipboard-check me-1"></i>{{ reviewing() ? t.get('common.loading') : t.get('rates.submit_review') }}
+        </button>
+      </div>
+      <div class="review-wrap">
+        <table class="review-tbl">
+          <thead>
+            <tr>
+              <th class="sel-col"><input type="checkbox" [checked]="allSelected" (change)="toggleAll($event)" /></th>
+              <th class="name-col">{{ t.get('columns.cvp') }}</th>
+              @for (tier of tiers(); track tier.id) { <th colspan="2" class="tier-hdr">{{ tier.name }}</th> }
+              <th>{{ t.get('columns.effective_date') }}</th>
+              <th>{{ t.get('columns.expiry') }}</th>
+            </tr>
+            <tr class="sub-hdr">
+              <th></th><th></th>
+              @for (tier of tiers(); track tier.id) {
+                <th class="sub-th">{{ t.get('columns.target') }}</th>
+                <th class="sub-th">{{ t.get('columns.floor') }}</th>
+              }
+              <th></th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of filteredReviewRows(); track row.id) {
+              <tr [class.row-selected]="row.selected">
+                <td class="sel-col"><input type="checkbox" [(ngModel)]="row.selected" /></td>
+                <td class="name-cell">{{ row.name }}</td>
+                @for (cell of row.cells; track cell.tierId) {
+                  <td class="rate-cell">{{ cell.currentRate !== null ? (cell.currentRate | number:'1.2-2') : '—' }}</td>
+                  <td class="rate-cell">{{ cell.currentFloor !== null ? (cell.currentFloor | number:'1.2-2') : '—' }}</td>
+                }
+                <td>{{ row.effectiveDate || '—' }}</td>
+                <td>{{ row.expiryDate || '—' }}</td>
+              </tr>
+            } @empty {
+              <tr><td [attr.colspan]="99" class="empty-cell"><i class="fa-solid fa-inbox"></i> {{ t.get('rates.no_rates') }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }

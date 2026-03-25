@@ -1,0 +1,80 @@
+@if (view() === 'product') {
+      <header class="mb-3">
+        <h2 class="page-heading"><i class="fa-solid fa-gear text-td-green me-2"></i>ILOC — Admin Settings</h2>
+        <p class="page-subtitle">Manage master data for Investment Line of Credit</p>
+      </header>
+
+      @if (product()) {
+        <div class="product-card mb-3">
+          <div class="d-flex align-items-start justify-content-between mb-3">
+            <div>
+              <h2 class="product-title"><i class="fa-solid fa-landmark text-td-green me-2"></i>{{ product()!.name }}</h2>
+              <p class="product-sub">Product configuration and linked master entities</p>
+            </div>
+            <span class="type-badge"><i class="fa-solid fa-tag me-1"></i>{{ product()!.type }}</span>
+          </div>
+          <div class="meta-grid">
+            <div class="meta-item"><span class="meta-label">Product ID</span><span class="meta-value">{{ product()!.id }}</span></div>
+            <div class="meta-item"><span class="meta-label">Security Code</span><span class="meta-value">{{ product()!.securityCode }}</span></div>
+            <div class="meta-item"><span class="meta-label">Type</span><span class="meta-value">{{ product()!.type }}</span></div>
+            <div class="meta-item"><span class="meta-label">Status</span><span class="badge-active" [class.inactive]="!product()!.active">{{ product()!.active ? 'Active' : 'Inactive' }}</span></div>
+          </div>
+        </div>
+      }
+
+      <ul class="nav td-tabs mb-3">
+        <li class="nav-item"><button class="nav-link" [class.active]="activeTab() === 'categories'" (click)="switchTab('categories')"><i class="fa-solid fa-folder-tree me-2"></i>Categories</button></li>
+        <li class="nav-item"><button class="nav-link" [class.active]="activeTab() === 'tiers'" (click)="switchTab('tiers')"><i class="fa-solid fa-layer-group me-2"></i>Amount Tiers</button></li>
+        <li class="nav-item"><button class="nav-link" [class.active]="activeTab() === 'matrix'" (click)="switchTab('matrix')"><i class="fa-solid fa-table-cells me-2"></i>Rate Matrix (SubCat × Tier)</button></li>
+      </ul>
+
+      @if (activeTab() === 'categories' && categoryCrud()) {
+        <td-crud [crud]="categoryCrud()!" (output)="onCategoryOutput($event)"></td-crud>
+      }
+      @if (activeTab() === 'tiers' && tierCrud()) {
+        <td-crud [crud]="tierCrud()!" (output)="onTierOutput($event)"></td-crud>
+      }
+      @if (activeTab() === 'matrix') {
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <p class="text-muted mb-0" style="font-size:13px">
+            <i class="fa-solid fa-info-circle me-1"></i>
+            SubCategory × Amount Tier cross-product. Empty cells = no rate entry exists.
+          </p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-success" (click)="loadMatrix()"><i class="fa-solid fa-rotate me-1"></i>Refresh</button>
+            <button class="btn btn-sm btn-success" (click)="generateMissingDrafts()" [disabled]="generating()">
+              @if (generating()) { <i class="fa-solid fa-spinner fa-spin me-1"></i>Generating... }
+              @else { <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Generate Missing Drafts }
+            </button>
+          </div>
+        </div>
+        @if (genResult()) {
+          <div class="alert mb-3" [class.alert-success]="genResult()!.errors === 0" [class.alert-warning]="genResult()!.errors > 0">
+            <i class="fa-solid fa-check-circle me-1"></i>
+            Created {{ genResult()!.created }} draft(s) out of {{ genResult()!.total }} missing combination(s).
+            @if (genResult()!.errors > 0) { {{ genResult()!.errors }} failed. }
+            @if (genResult()!.total === 0) { All SubCategory × Tier combinations already have rates. }
+          </div>
+        }
+        <plra-rate-matrix mode="view" productType="ILOC" [tiers]="matrixTiers()" [rows]="matrixRows()" />
+      }
+    }
+
+    @if (view() === 'subcategory') {
+      <header class="mb-3">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <button class="btn btn-sm btn-outline-secondary" (click)="backToProduct()"><i class="fa-solid fa-arrow-left me-1"></i>Back</button>
+          <h2 class="page-heading mb-0"><i class="fa-solid fa-sitemap text-td-green me-2"></i>Subcategories — {{ drillCategoryName() }}</h2>
+        </div>
+        <nav class="breadcrumb-nav">
+          <a (click)="backToProduct()">ILOC Settings</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a (click)="backToProduct()">Categories</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span class="current">{{ drillCategoryName() }} — Subcategories</span>
+        </nav>
+      </header>
+      @if (subCategoryCrud()) {
+        <td-crud [crud]="subCategoryCrud()!" (output)="onSubCategoryOutput($event)"></td-crud>
+      }
+    }

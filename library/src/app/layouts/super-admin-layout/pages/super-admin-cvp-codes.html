@@ -1,0 +1,7 @@
+<header class="mb-4">
+      <h2 class="page-heading"><i class="fa-solid fa-tags text-td-green me-2"></i>CVP Codes</h2>
+      <p class="page-subtitle">Manage CVP codes across all products — independent of category hierarchy</p>
+    </header>
+    @if (crud()) {
+      <td-crud [crud]="crud()!" (output)="onCrudOutput($event)"></td-crud>
+    }

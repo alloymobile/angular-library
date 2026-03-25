@@ -1,0 +1,168 @@
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslationService } from '../../../core/i18n/translation.service';
+import { TdPagination } from '../../../lib/tissue/td-pagination/td-pagination';
+import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
+import { OutputObject } from '../../../lib/share/output-object';
+
+export type MatrixMode = 'view' | 'enter' | 'approve' | 'status' | 'history';
+export interface MatrixTier { id: number; name: string; }
+export interface MatrixCell {
+  tierId: number; draftId?: number | null; activeId?: number | null;
+  currentRate: number | null; currentFloor: number | null;
+  newRate: number | null; newFloor: number | null; discretion: string;
+  reqRate: number | null; changed: boolean;
+  oldRate: number | null; newHistRate: number | null;
+}
+export interface MatrixRow {
+  id: number; name: string; draftIds: number[]; cells: MatrixCell[];
+  effectiveDate: string; expiryDate: string; status: string; selected: boolean;
+  submittedBy: string; submittedOn: string; decision: string; comment: string;
+  result: string; decisionBy: string; decisionOn: string; changedBy: string; changedOn: string;
+}
+export interface MatrixAction { action: 'save-row' | 'submit-rows' | 'approve-rows' | 'reject-rows'; rows: MatrixRow[]; }
+export interface PageChangeEvent { page: number; size: number; }
+
+@Component({
+  selector: 'plra-rate-matrix',
+  standalone: true,
+  imports: [CommonModule, FormsModule, TdPagination],
+  templateUrl: './rate-matrix.html',
+  styleUrls: ['./rate-matrix.css']
+})
+export class RateMatrixComponent implements OnChanges {
+  t = inject(TranslationService);
+  @Input() mode: MatrixMode = 'view';
+  @Input() productType: 'ULOC' | 'ILOC' = 'ULOC';
+  @Input() tiers: MatrixTier[] = [];
+  @Input() rows: MatrixRow[] = [];
+  @Input() searchTerm = '';
+  @Input() visibleTierIds: number[] = [];
+  @Input() totalElements = 0;
+  @Input() totalPages = 0;
+  @Input() currentPage = 0;
+  @Input() pageSize = 20;
+  @Input() showPagination = true;
+  @Output() onAction = new EventEmitter<MatrixAction>();
+  @Output() onPageChange = new EventEmitter<PageChangeEvent>();
+
+  filteredRows: MatrixRow[] = [];
+  displayTiers: MatrixTier[] = [];
+  colsPerTier = 2;
+  allSelected = false;
+  sortField = '';
+  sortDir: 'asc' | 'desc' = 'asc';
+
+  paginationModel!: TdPaginationModel;
+  pageSizeOptions = [
+    { value: '5', label: '5' },
+    { value: '10', label: '10' },
+    { value: '20', label: '20' },
+    { value: '50', label: '50' },
+    { value: '0', label: 'All' }
+  ];
+  selectedPageSize = '20';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.colsPerTier = this.mode === 'enter' ? 3 : 2;
+    this.updateDisplayTiers();
+    this.applyFilter();
+    this.buildPagination();
+  }
+
+  private buildPagination(): void {
+    this.paginationModel = new TdPaginationModel({
+      totalPages: this.totalPages,
+      totalElements: this.totalElements,
+      size: this.pageSize,
+      pageNumber: this.currentPage,
+      numberOfElements: this.rows.length,
+      empty: this.rows.length === 0,
+      first: this.currentPage === 0,
+      last: this.totalPages > 0 ? this.currentPage >= this.totalPages - 1 : true
+    });
+  }
+
+  private updateDisplayTiers(): void {
+    if (this.visibleTierIds.length === 0) {
+      this.displayTiers = this.tiers;
+    } else {
+      this.displayTiers = this.tiers.filter(t => this.visibleTierIds.includes(t.id));
+    }
+  }
+
+  isTierVisible(tierId: number): boolean {
+    return this.visibleTierIds.length === 0 || this.visibleTierIds.includes(tierId);
+  }
+
+  private applyFilter(): void {
+    let rows = this.rows;
+    if (this.searchTerm) {
+      const term = this.searchTerm.toLowerCase();
+      rows = rows.filter(r => r.name.toLowerCase().includes(term));
+    }
+    if (this.sortField) {
+      rows = [...rows].sort((a: MatrixRow, b: MatrixRow) => {
+        let va: any = '', vb: any = '';
+        switch (this.sortField) {
+          case 'name': va = a.name; vb = b.name; break;
+          case 'effectiveDate': va = a.effectiveDate; vb = b.effectiveDate; break;
+          case 'expiryDate': va = a.expiryDate; vb = b.expiryDate; break;
+          case 'status': va = a.status; vb = b.status; break;
+        }
+        const cmp = String(va).localeCompare(String(vb));
+        return this.sortDir === 'asc' ? cmp : -cmp;
+      });
+    }
+    this.filteredRows = rows;
+  }
+
+  toggleSort(field: string): void {
+    if (this.sortField === field) {
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDir = 'asc';
+    }
+    this.applyFilter();
+  }
+
+  sortIcon(field: string): string {
+    if (this.sortField !== field) return 'fa-solid fa-sort';
+    return this.sortDir === 'asc' ? 'fa-solid fa-sort-up' : 'fa-solid fa-sort-down';
+  }
+
+  toggleAll(e: Event): void {
+    const checked = (e.target as HTMLInputElement).checked;
+    this.filteredRows.forEach(r => r.selected = checked);
+    this.allSelected = checked;
+  }
+
+  isRowModified(row: MatrixRow): boolean {
+    return row.cells.some(c => c.newRate !== null && c.newRate !== undefined && c.newRate !== c.currentRate);
+  }
+
+  onSaveRow(row: MatrixRow): void {
+    this.onAction.emit({ action: 'save-row', rows: [row] });
+  }
+
+  onPaginationOutput(out: OutputObject): void {
+    const page = (out as any)?.data?.pageNumber ?? 0;
+    this.onPageChange.emit({ page, size: this.pageSize });
+  }
+
+  onPageSizeChange(): void {
+    const size = Number(this.selectedPageSize);
+    this.onPageChange.emit({ page: 0, size: size === 0 ? 99999 : size });
+  }
+
+  get showingFrom(): number {
+    return this.totalElements === 0 ? 0 : this.currentPage * this.pageSize + 1;
+  }
+
+  get showingTo(): number {
+    const to = (this.currentPage + 1) * this.pageSize;
+    return to > this.totalElements ? this.totalElements : to;
+  }
+}

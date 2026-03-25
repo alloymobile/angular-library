@@ -1,0 +1,8 @@
+<header class="wf-header d-flex justify-content-between align-items-start">
+      <div>
+        <h2 class="page-heading"><i class="fa-solid fa-code-branch text-td-green me-2"></i>{{ t.get('pages.workflows_title') }}</h2>
+        <p class="page-subtitle">{{ t.get('pages.workflows_sub') }}</p>
+      </div>
+    </header>
+    <plra-workflow-filter (filterChange)="onFilterChange($event)" />
+    @if (crud()) { <td-crud [crud]="crud()!" (output)="onCrudOutput($event)"></td-crud> }

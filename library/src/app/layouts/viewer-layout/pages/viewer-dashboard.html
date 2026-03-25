@@ -1,0 +1,14 @@
+<header class="mb-4">
+      <h1 style="font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px;margin:0;"><i class="fa-solid fa-eye text-td-green"></i> Dashboard</h1>
+      <p class="text-muted" style="font-size:14px;margin:4px 0 0;">Read-only access to published rates</p>
+    </header>
+    <div class="row g-3 mb-4">
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card title="ULOC Active" [value]="ulocCount()" icon="fa-solid fa-credit-card" color="green" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card title="ILOC Active" [value]="ilocCount()" icon="fa-solid fa-landmark" color="blue" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card title="Products" [value]="prodCount()" icon="fa-solid fa-boxes-stacked" color="purple" /></div>
+      <div class="col-sm-6 col-lg-3"><plra-kpi-card title="Prime Rate" value="6.95%" icon="fa-solid fa-chart-line" color="amber" /></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6"><a routerLink="../uloc" class="qc"><i class="fa-solid fa-credit-card text-td-green"></i><div><div class="fw-semibold">ULOC Rates</div><div class="text-muted small">View unsecured line of credit rates</div></div></a></div>
+      <div class="col-md-6"><a routerLink="../iloc" class="qc"><i class="fa-solid fa-landmark" style="color:var(--color-brand)"></i><div><div class="fw-semibold">ILOC Rates</div><div class="text-muted small">View investment line of credit rates</div></div></a></div>
+    </div>

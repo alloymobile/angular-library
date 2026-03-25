@@ -1,0 +1,57 @@
+<header class="mb-3">
+      <h2 class="page-heading"><i class="fa-solid fa-table-cells text-td-green me-2"></i>{{ t.get('pages.uloc_rates') }}</h2>
+      <p class="page-subtitle">{{ t.get('rates.enter_rates') }}</p>
+    </header>
+    <ul class="nav td-tabs mb-3">
+      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='view'" (click)="switchTab('view')"><i class="fa-regular fa-eye me-1"></i>{{ t.get('tabs.view_rates') }}</button></li>
+      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='enter'" (click)="switchTab('enter')"><i class="fa-solid fa-pen me-1"></i>{{ t.get('tabs.enter_rates') }}</button></li>
+      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='status'" (click)="switchTab('status')"><i class="fa-regular fa-circle-check me-1"></i>{{ t.get('tabs.approved_status') }}</button></li>
+      
+      
+    </ul>
+    @if (message()) {
+      <div class="alert mb-3" [class.alert-success]="messageType()==='success'" [class.alert-danger]="messageType()==='error'" [class.alert-info]="messageType()==='info'">
+        {{ message() }}<button type="button" class="btn-close float-end" (click)="message.set('')"></button>
+      </div>
+    }
+    @if (tab() === 'view') {
+      <plra-rate-filter [productName]="productName" productType="ULOC" (filterChange)="onFilter($event)" />
+      <plra-rate-matrix mode="view" productType="ULOC" [tiers]="tiers()" [rows]="viewRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
+  [totalElements]="totalElements" [totalPages]="totalPages" [currentPage]="currentPage" [pageSize]="pageSize"
+  (onPageChange)="onPageChange($event)" />
+    }
+    @if (tab() === 'enter') {
+      <plra-rate-status-filter [productName]="productName" productType="ULOC" [availableStatuses]="['DRAFT', 'PENDING', 'APPROVED', 'REJECTED']" (filterChange)="onStatusFilter($event)" />
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-secondary" (click)="copyNewDown()"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>{{ t.get('rates.copy_new_down') }}</button>
+          <button class="btn btn-sm btn-outline-secondary" (click)="copyDiscDown()"><i class="fa-solid fa-copy me-1"></i>{{ t.get('rates.copy_disc_down') }}</button>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-success" (click)="saveDrafts()" [disabled]="saving()"><i class="fa-solid fa-floppy-disk me-1"></i>{{ saving() ? t.get('common.loading') : t.get('rates.save_draft') }}</button>
+          <button class="btn btn-sm btn-success" (click)="submitSelected()" [disabled]="submitting()"><i class="fa-solid fa-paper-plane me-1"></i>{{ submitting() ? t.get('common.loading') : t.get('rates.submit_selected') }}</button>
+        </div>
+      </div>
+      <plra-rate-matrix mode="enter" productType="ULOC" [tiers]="tiers()" [rows]="enterRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
+      [totalElements]="enterTotal" [totalPages]="enterPages" [currentPage]="enterPage" [pageSize]="enterSize"
+      (onAction)="onEnterAction($event)" (onPageChange)="onEnterPageChange($event)" />
+    }
+    @if (tab() === 'status') {
+      <plra-rate-status-filter [productName]="productName" productType="ULOC" [availableStatuses]="['PENDING', 'APPROVED', 'REJECTED']" (filterChange)="onStatusFilter($event)" />
+      <plra-rate-matrix mode="status" productType="ULOC" [tiers]="tiers()" [rows]="statusRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
+      [totalElements]="statusTotal" [totalPages]="statusPages" [currentPage]="statusPage" [pageSize]="statusSize"
+      (onPageChange)="onStatusPageChange($event)" />
+    }
+    @if (tab() === 'approve') {
+      <plra-rate-status-filter [productName]="productName" productType="ULOC" [availableStatuses]="['PENDING']" (filterChange)="onStatusFilter($event)" />
+      <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-sm btn-success" (click)="submitDecisions()" [disabled]="approving()"><i class="fa-solid fa-paper-plane me-1"></i>{{ approving() ? t.get('common.loading') : t.get('rates.submit_decisions') }}</button>
+      </div>
+      <plra-rate-matrix mode="approve" productType="ULOC" [tiers]="tiers()" [rows]="approveRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
+      [totalElements]="approveTotal" [totalPages]="approvePages" [currentPage]="approvePage" [pageSize]="approveSize"
+      (onPageChange)="onApprovePageChange($event)" />
+    }
+    @if (tab() === 'history') {
+      <plra-history-filter (filterChange)="onHistoryFilterChange($event)" />
+      @if (historyCrud()) { <td-crud [crud]="historyCrud()!" (output)="onHistoryOutput($event)"></td-crud> }
+    }

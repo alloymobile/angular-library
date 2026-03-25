@@ -1,0 +1,22 @@
+<header class="dash-header">
+      <h1><i class="fa-solid fa-clipboard-check"></i> {{ t.get('pages.review') }}</h1>
+      <p>{{ t.get('pages.review_dash_sub') }}</p>
+    </header>
+    <div class="row g-3 mb-4">
+      <div class="col-sm-6"><plra-kpi-card [title]="t.get('dashboard.uloc_active')" [value]="ulocActive()" icon="fa-solid fa-credit-card" color="green" /></div>
+      <div class="col-sm-6"><plra-kpi-card [title]="t.get('dashboard.iloc_active')" [value]="ilocActive()" icon="fa-solid fa-landmark" color="blue" /></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <a routerLink="../uloc" class="dash-card">
+          <div class="dash-icon green"><i class="fa-solid fa-credit-card"></i></div>
+          <div><h3>ULOC</h3><p>{{ t.get('pages.review_uloc_sub') }}</p></div>
+        </a>
+      </div>
+      <div class="col-md-6">
+        <a routerLink="../iloc" class="dash-card">
+          <div class="dash-icon blue"><i class="fa-solid fa-landmark"></i></div>
+          <div><h3>ILOC</h3><p>{{ t.get('pages.review_iloc_sub') }}</p></div>
+        </a>
+      </div>
+    </div>

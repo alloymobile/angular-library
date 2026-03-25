@@ -1,0 +1,26 @@
+<div class="filter-panel">
+  <div class="filter-header">
+    <span class="filter-title"><i class="fa-solid fa-filter"></i> {{ t.get('filter.title') }}</span>
+    <a class="clear-link" (click)="clearAll()">{{ t.get('filter.clear_all') }}</a>
+  </div>
+  <div class="filter-search-row">
+    <td-search [model]="searchModel" (output)="onSearchOutput($event)"></td-search>
+  </div>
+  <div class="filter-select-row">
+    <div class="filter-field">
+      <label class="filter-label">{{ t.get('columns.category') }}</label>
+      <td-input [input]="categoryInput" (output)="onCategoryChange($event)"></td-input>
+      <span class="filter-hint">{{ t.get('filter.category_hint') }}</span>
+    </div>
+    <div class="filter-field">
+      <label class="filter-label">{{ t.get('columns.subcategory') }}</label>
+      <td-input [input]="subCategoryInput" (output)="onSubCategoryChange($event)"></td-input>
+      <span class="filter-hint">{{ t.get('filter.subcategory_hint') }}</span>
+    </div>
+    <div class="filter-field">
+      <label class="filter-label">{{ t.get('common.status') }}</label>
+      <td-input [input]="statusInput" (output)="onStatusChange($event)"></td-input>
+      <span class="filter-hint">{{ t.get('filter.status_hint') }}</span>
+    </div>
+  </div>
+</div>

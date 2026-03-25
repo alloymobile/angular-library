@@ -1,0 +1,20 @@
+<button
+  type="button"
+  [id]="domId"
+  [class]="cssClass"
+  [title]="buttonIcon.title"
+  [attr.aria-label]="buttonIcon.ariaLabel"
+  [attr.aria-disabled]="buttonIcon.disabled || null"
+  [attr.aria-pressed]="buttonIcon.isActive"
+  [disabled]="buttonIcon.disabled"
+  [attr.tabindex]="buttonIcon.tabIndex"
+  (click)="onClick()">
+
+  <span class="align-middle">
+    <td-icon [icon]="buttonIcon.icon"></td-icon>
+  </span>
+
+  @if (buttonIcon.name) {
+    <span class="px-2 align-middle">{{ buttonIcon.name }}</span>
+  }
+</button>

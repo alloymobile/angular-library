@@ -1,0 +1,62 @@
+<!-- DESKTOP SIDEBAR -->
+<aside
+  class="plra-sidebar desktop-sidebar d-none d-lg-block"
+  [attr.id]="sidebar.id + '-desktop'"
+>
+  <!-- Categories -->
+  <ng-container *ngFor="let category of sidebar.categories; trackBy: trackByCategory">
+    <!-- Category title -->
+    <h6
+      *ngIf="category.hasTitle()"
+      [attr.id]="category.title.id"
+      class="sidebar-heading d-flex justify-content-between align-items-center px-2 mt-3 mb-1 text-muted"
+    >
+      <span>{{ category.title.name }}</span>
+    </h6>
+
+    <!-- Category links -->
+    <td-link-bar
+      [linkBar]="category"
+      (output)="onLinkBarOutput(category, $event)"
+    ></td-link-bar>
+  </ng-container>
+</aside>
+
+<!-- MOBILE SIDEBAR (BOOTSTRAP OFFCANVAS) -->
+<div
+  class="offcanvas offcanvas-start d-lg-none"
+  tabindex="-1"
+  [attr.id]="sidebar.close"
+  [attr.aria-labelledby]="sidebar.close + '-label'"
+>
+  <!-- Offcanvas Header -->
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" [attr.id]="sidebar.close + '-label'">Menu</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <!-- Offcanvas Body -->
+  <div class="offcanvas-body p-0">
+    <ng-container *ngFor="let category of sidebar.categories; trackBy: trackByCategory">
+      <!-- Category title -->
+      <h6
+        *ngIf="category.hasTitle()"
+        [attr.id]="category.title.id + '-mobile'"
+        class="sidebar-heading d-flex justify-content-between align-items-center px-2 mt-3 mb-1 text-muted"
+      >
+        <span>{{ category.title.name }}</span>
+      </h6>
+
+      <!-- Category links -->
+      <td-link-bar
+        [linkBar]="category"
+        (output)="onLinkBarOutput(category, $event)"
+      ></td-link-bar>
+    </ng-container>
+  </div>
+</div>

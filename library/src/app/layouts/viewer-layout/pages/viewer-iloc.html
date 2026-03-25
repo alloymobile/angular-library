@@ -1,0 +1,8 @@
+<header class="mb-3">
+  <h2 class="page-heading"><i class="fa-solid fa-landmark text-td-green me-2"></i>ILOC — {{ t.get('tabs.view_rates') }}</h2>
+  <p class="page-subtitle">{{ t.get('pages.iloc_rates_sub') }}</p>
+</header>
+<plra-rate-filter [productName]="productName" productType="ILOC" (filterChange)="onFilter($event)" />
+<plra-rate-matrix mode="view" productType="ILOC" [tiers]="tiers()" [rows]="rows()" [searchTerm]="searchTerm" [visibleTierIds]="visibleTierIds"
+  [totalElements]="totalElements" [totalPages]="totalPages" [currentPage]="currentPage" [pageSize]="pageSize"
+  (onPageChange)="onPageChange($event)" />

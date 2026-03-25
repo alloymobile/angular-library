@@ -1,0 +1,8 @@
+<header class="mb-3">
+  <h2 class="page-heading"><i class="fa-solid fa-credit-card text-td-green me-2"></i>ULOC — {{ t.get('tabs.view_rates') }}</h2>
+  <p class="page-subtitle">{{ t.get('pages.uloc_rates_sub') }}</p>
+</header>
+<plra-rate-filter [productName]="productName" productType="ULOC" (filterChange)="onFilter($event)" />
+<plra-rate-matrix mode="view" productType="ULOC" [tiers]="tiers()" [rows]="rows()" [searchTerm]="searchTerm" [visibleTierIds]="visibleTierIds"
+  [totalElements]="totalElements" [totalPages]="totalPages" [currentPage]="currentPage" [pageSize]="pageSize"
+  (onPageChange)="onPageChange($event)" />

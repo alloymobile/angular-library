@@ -1,0 +1,21 @@
+<!-- td-button-drop-down.html -->
+<div class="dropdown">
+  <button
+    [id]="buttonDropDown.id"
+    [type]="buttonDropDown.type"
+    [class]="buttonClasses"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    @if (buttonDropDown.icon) {
+      <td-icon [icon]="buttonDropDown.icon"></td-icon>
+    }
+
+    <span [class.ms-2]="buttonDropDown.icon">{{ buttonDropDown.name }}</span>
+  </button>
+
+  <td-link-bar
+    [linkBar]="buttonDropDown.linkBar"
+    (output)="onLinkBarOutput($event)"
+  ></td-link-bar>
+</div>
