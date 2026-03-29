@@ -15,16 +15,13 @@ import { CrudModel } from '../../../lib/organ/td-crud/td-crud.model';
 import { TdTableActionModel } from '../../../lib/tissue/td-table-action/td-table-action.model';
 import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
 import { OutputObject } from '../../../lib/share/output-object';
-import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
-import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
-import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 
 type Tab = 'view' | 'enter' | 'status' | 'approve' | 'history';
 
 @Component({
   selector: 'plra-super-admin-uloc-rates',
   standalone: true,
-  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud, TdButtonIcon],
+  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud],
   templateUrl: './super-admin-uloc-rates.html',
   styleUrls: ['./super-admin-uloc-rates.css']
 })
@@ -147,7 +144,6 @@ export class SuperAdminUlocRatesComponent implements OnInit {
           if (cell.newRate < 0) { this.showMsg('New rate cannot be negative.', 'error'); return; }
           const discBps = (cell.discretion !== null && cell.discretion !== undefined && cell.discretion !== '') ? Number(cell.discretion) : 0;
           if (discBps < 0) { this.showMsg('Discretion cannot be negative.', 'error'); return; }
-          if (!Number.isInteger(discBps)) { this.showMsg('Discretion must be whole basis points (e.g. 50, not 0.5).', 'error'); return; }
           const floor = cell.newRate - (discBps / 100);
           if (floor < -0.000001) { this.showMsg(`Floor cannot be negative: ${cell.newRate.toFixed(2)} − ${(discBps/100).toFixed(2)} = ${floor.toFixed(2)}`, 'error'); return; }
           toSave.push({
@@ -352,10 +348,6 @@ export class SuperAdminUlocRatesComponent implements OnInit {
       case 'status': this.loadStatus(); break;
       case 'approve': this.loadApprove(); break;
     }
-  }
-
-  btn(id: string, icon: string, name: string, cls: string = 'btn btn-sm btn-outline-secondary', isActive: boolean = false, disabled: boolean = false): TdButtonIconModel {
-    return new TdButtonIconModel({ id, name, className: cls, isActive, active: 'active', disabled, icon: new TdIconModel({ iconClass: icon }) });
   }
 
   private showMsg(msg: string, type: 'success' | 'error' | 'info'): void { this.message.set(msg); this.messageType.set(type); }

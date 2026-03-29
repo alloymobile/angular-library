@@ -11,18 +11,20 @@ import { RateFilterComponent, FilterState } from '../../../shared/components/rat
 import { RateStatusFilterComponent, StatusFilterState } from '../../../shared/components/rate-status-filter/rate-status-filter';
 import { buildViewMatrix, buildEnterMatrix, buildApproveMatrix, buildStatusMatrix } from '../../../shared/components/matrix-data-builder';
 import { TdCrud } from '../../../lib/organ/td-crud/td-crud';
-import { HistoryFilterComponent, HistoryFilterState } from '../../../shared/components/history-filter/history-filter';
 import { CrudModel } from '../../../lib/organ/td-crud/td-crud.model';
 import { TdTableActionModel } from '../../../lib/tissue/td-table-action/td-table-action.model';
 import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
 import { OutputObject } from '../../../lib/share/output-object';
+import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
+import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 
 type Tab = 'view' | 'enter' | 'status' | 'approve' | 'history';
 
 @Component({
   selector: 'plra-admin-iloc-rates',
   standalone: true,
-  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud, HistoryFilterComponent],
+  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud, TdButtonIcon],
   templateUrl: './admin-iloc-rates.html',
   styleUrls: ['./admin-iloc-rates.css']
 })
@@ -58,12 +60,6 @@ export class AdminIlocRatesComponent implements OnInit {
   productName = '';
   private tierData: AmountTierAdminView[] = [];
   private histPage = 0;
-  private histSize = 20;
-  private histSort = 'createdOn,desc';
-  private histSearch = '';
-  private histFilterParams: Record<string, any> = {};
-  private histFilterStatuses: string[] = [];
-  private readonly HIST_SORT_MAP: Record<string, string> = { name: 'subCategory.name', tier: 'amountTier.name', targetRate: 'targetRate', floorRate: 'floorRate', startDate: 'startDate', expiryDate: 'expiryDate', status: 'status', notes: 'notes', createdBy: 'createdBy', createdOn: 'createdOn' };
 
   ngOnInit(): void {
     this.api.getProducts({ type: 'ILOC', size: 1 }).subscribe({
@@ -157,16 +153,22 @@ export class AdminIlocRatesComponent implements OnInit {
     const rows = this.enterRows();
     const today = new Date().toISOString().substring(0, 10);
     const nextYear = new Date(Date.now() + 365 * 86400000).toISOString().substring(0, 10);
-    const toSave: { draftId: number | null; entityId: number; tierId: number; targetRate: number; floorRate: number; notes: string; startDate: string; expiryDate: string }[] = [];
+    const toSave: { draftId: number | null; entityId: number; tierId: number; targetRate: number; floorRate: number; discretion: number; notes: string; startDate: string; expiryDate: string }[] = [];
 
     for (const row of rows) {
       for (const cell of row.cells) {
         if (cell.newRate !== null && cell.newRate !== undefined) {
+          if (cell.newRate < 0) { this.showMsg('New rate cannot be negative.', 'error'); return; }
+          const discBps = (cell.discretion !== null && cell.discretion !== undefined && cell.discretion !== '') ? Number(cell.discretion) : 0;
+          if (discBps < 0) { this.showMsg('Discretion cannot be negative.', 'error'); return; }
+          if (!Number.isInteger(discBps)) { this.showMsg('Discretion must be whole basis points (e.g. 50, not 0.5).', 'error'); return; }
+          const floor = cell.newRate - (discBps / 100);
+          if (floor < -0.000001) { this.showMsg(`Floor cannot be negative: ${cell.newRate.toFixed(2)} − ${(discBps/100).toFixed(2)} = ${floor.toFixed(2)}`, 'error'); return; }
           toSave.push({
             draftId: cell.draftId ?? null,
             entityId: row.id, tierId: cell.tierId,
-            targetRate: cell.newRate, floorRate: cell.newFloor ?? cell.newRate,
-            notes: cell.discretion ?? '',
+            targetRate: cell.newRate, floorRate: floor,
+            discretion: discBps / 100, notes: String(cell.discretion ?? ''),
             startDate: row.effectiveDate || today, expiryDate: row.expiryDate || nextYear,
           });
         }
@@ -176,7 +178,7 @@ export class AdminIlocRatesComponent implements OnInit {
     this.saving.set(true);
     let done = 0, errors = 0;
     for (const item of toSave) {
-      const payload = { subCategoryId: item.entityId, amountTierId: item.tierId, targetRate: item.targetRate, floorRate: item.floorRate, startDate: item.startDate, expiryDate: item.expiryDate, notes: item.notes };
+      const payload = { subCategoryId: item.entityId, amountTierId: item.tierId, targetRate: item.targetRate, floorRate: item.floorRate, discretion: item.discretion, startDate: item.startDate, expiryDate: item.expiryDate, notes: item.notes };
       const obs = item.draftId ? this.api.updateIlocDraft(item.draftId, payload) : this.api.createIlocDraft(payload);
       obs.subscribe({
         next: () => { done++; if (done + errors >= toSave.length) { this.saving.set(false); this.showMsg(`Saved ${done} rate(s).${errors > 0 ? ` ${errors} failed.` : ''}`, errors > 0 ? 'error' : 'success'); this.loadEnter(); } },
@@ -276,20 +278,16 @@ export class AdminIlocRatesComponent implements OnInit {
 
   /* ═══════ HISTORY — TdCrud with search/sort/pagination ═══════ */
   private loadHistory(): void {
-    const params: Record<string, any> = {
-      page: this.histPage, size: this.histSize, sort: this.histSort,
-      ...this.histFilterParams
-    };
-    if (this.histSearch) params['search'] = this.histSearch;
-    this.api.getIlocHistory(params).subscribe({
-      next: (res: any) => {
-        let content: any[] = res.content;
-        if (this.histFilterStatuses.length > 0 && this.histFilterStatuses.length < 4) {
-          content = content.filter((r: any) => this.histFilterStatuses.includes(r.status));
-        }
-        const rows = content.map((r: any) => ({
+    forkJoin([
+      this.api.getIlocHistory({ size: 200 }),
+      this.api.getIlocDrafts({ size: 500 })
+    ]).subscribe({
+      next: ([histRes, draftRes]) => {
+        const approved = draftRes.content.filter(d => d.status === 'APPROVED' || d.status === 'REJECTED');
+        const all = [...histRes.content, ...approved];
+        const rows = all.map((r: any) => ({
           id: r.id,
-          name: r.subCategory?.name ?? '—',
+          name: r.cvpCode?.name ?? r.subCategory?.name ?? '—',
           tier: r.amountTier?.name ?? '—',
           targetRate: r.targetRate, floorRate: r.floorRate,
           startDate: r.startDate?.substring(0, 10) ?? '', expiryDate: r.expiryDate?.substring(0, 10) ?? '',
@@ -298,52 +296,15 @@ export class AdminIlocRatesComponent implements OnInit {
         }));
         this.historyCrud.set(new CrudModel({
           id: 'iloc-history', type: 'table',
-          search: { search: { name: 'query', type: 'text', layout: 'icon', label: this.t.get('common.search'), placeholder: this.t.get('common.search'), icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.histSearch } },
+          search: { search: { name: 'query', type: 'text', layout: 'icon', label: this.t.get('common.search'), placeholder: this.t.get('common.search'), icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control' } },
           document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows }),
-          page: new TdPaginationModel({ totalPages: res.totalPages, totalElements: res.totalElements, size: res.size, pageNumber: res.page, first: res.first, last: res.last, empty: res.empty })
+          page: new TdPaginationModel({ totalPages: Math.ceil(rows.length / 15), totalElements: rows.length, size: 15, pageNumber: 0, first: true, last: rows.length <= 15, empty: rows.length === 0 })
         }));
-      },
-      error: (err: any) => console.error('[PLRA] History load failed:', err?.status, err?.error ?? err)
+      }
     });
   }
 
-  onHistoryOutput(event: OutputObject): void {
-    const e = event.toJSON();
-    switch (e.action ?? '') {
-      case 'page': case 'Page':
-        this.histPage = (e.data as any)?.pageNumber ?? 0;
-        this.loadHistory();
-        break;
-      case 'sort':
-        const data = e.data || {};
-        const col = Object.keys(data)[0];
-        const dir = data[col] || 'asc';
-        const backendField = this.HIST_SORT_MAP[col] || col;
-        this.histSort = `${backendField},${dir}`;
-        this.histPage = 0;
-        this.loadHistory();
-        break;
-      case 'search':
-        this.histSearch = (e.data as any)?.query || (e.data as any)?.value || '';
-        this.histPage = 0;
-        this.loadHistory();
-        break;
-      case 'clear':
-        this.histSearch = '';
-        this.histPage = 0;
-        this.loadHistory();
-        break;
-    }
-  }
-
-  onHistoryFilterChange(f: HistoryFilterState): void {
-    this.histFilterParams = {};
-    if (f.dateFrom) this.histFilterParams['startDateFrom'] = f.dateFrom;
-    if (f.dateTo) this.histFilterParams['startDateTo'] = f.dateTo;
-    this.histFilterStatuses = f.statuses;
-    this.histPage = 0;
-    this.loadHistory();
-  }
+  onHistoryOutput(event: OutputObject): void { /* TdCrud handles search/sort/pagination client-side */ }
 
   /* ═══════ TOOLBAR ═══════ */
   copyNewDown(): void {
@@ -405,6 +366,10 @@ export class AdminIlocRatesComponent implements OnInit {
       case 'status': this.loadStatus(); break;
       case 'approve': this.loadApprove(); break;
     }
+  }
+
+  btn(id: string, icon: string, name: string, cls: string = 'btn btn-sm btn-outline-secondary', isActive: boolean = false, disabled: boolean = false): TdButtonIconModel {
+    return new TdButtonIconModel({ id, name, className: cls, isActive, active: 'active', disabled, icon: new TdIconModel({ iconClass: icon }) });
   }
 
   private showMsg(msg: string, type: 'success' | 'error' | 'info'): void { this.message.set(msg); this.messageType.set(type); }

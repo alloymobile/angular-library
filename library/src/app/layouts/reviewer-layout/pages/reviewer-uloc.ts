@@ -7,13 +7,17 @@ import { AmountTierAdminView } from '../../../core/models/api.models';
 import { RateMatrixComponent, MatrixTier, MatrixRow, PageChangeEvent } from '../../../shared/components/rate-matrix/rate-matrix';
 import { RateFilterComponent, FilterState } from '../../../shared/components/rate-filter/rate-filter';
 import { buildViewMatrix } from '../../../shared/components/matrix-data-builder';
+import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
+import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
+import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
+import { OutputObject } from '../../../lib/share/output-object';
 
 type Tab = 'view' | 'review';
 
 @Component({
   selector: 'plra-reviewer-uloc',
   standalone: true,
-  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent],
+  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, TdButtonIcon],
   templateUrl: './reviewer-uloc.html',
   styleUrls: ['./reviewer-uloc.css']
 })
@@ -176,6 +180,10 @@ export class ReviewerUlocComponent implements OnInit {
   onReviewFilter(f: FilterState): void {
     this.reviewSearch = f.search;
     this.visibleTierIds = f.tierIds.map((id: string) => Number(id));
+  }
+
+  btn(id: string, icon: string, name: string, cls: string = 'btn btn-sm btn-outline-secondary', isActive: boolean = false, disabled: boolean = false): TdButtonIconModel {
+    return new TdButtonIconModel({ id, name, className: cls, isActive, active: 'active', disabled, icon: new TdIconModel({ iconClass: icon }) });
   }
 
   private showMsg(msg: string, type: 'success' | 'error' | 'info'): void { this.message.set(msg); this.messageType.set(type); }

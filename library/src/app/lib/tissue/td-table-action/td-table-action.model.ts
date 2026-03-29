@@ -94,6 +94,7 @@ export interface TdTableActionConfig {
   columns?: ColumnConfig[];
   icon?: IconObjectConfig | IconObject;
   sort?: IconObjectConfig | IconObject;
+  sortState?: { col: string; subCol?: string; dir: 'asc' | 'desc' };
   link?: string;
   actions?: TdButtonBarModel | any;
   actionsHeader?: string;
@@ -111,6 +112,7 @@ export class TdTableActionModel {
   readonly columns: ColumnConfig[];
   readonly icon: IconObject;
   readonly sort: IconObject;
+  readonly sortState?: { col: string; subCol?: string; dir: 'asc' | 'desc' };
   readonly link: string;
   readonly actions: TdButtonBarModel;
   readonly actionsHeader: string;
@@ -153,6 +155,7 @@ export class TdTableActionModel {
     this.sort = cfg.sort instanceof IconObject
       ? cfg.sort
       : new IconObject(cfg.sort || defaultSortIcon);
+    this.sortState = cfg.sortState;
 
     // Actions -> TdButtonBarModel
     if (cfg.actions instanceof TdButtonBarModel) {

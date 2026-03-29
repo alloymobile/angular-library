@@ -3,11 +3,9 @@
       <p class="page-subtitle">{{ t.get('rates.enter_rates') }}</p>
     </header>
     <ul class="nav td-tabs mb-3">
-      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='view'" (click)="switchTab('view')"><i class="fa-regular fa-eye me-1"></i>{{ t.get('tabs.view_rates') }}</button></li>
-      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='enter'" (click)="switchTab('enter')"><i class="fa-solid fa-pen me-1"></i>{{ t.get('tabs.enter_rates') }}</button></li>
-      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='status'" (click)="switchTab('status')"><i class="fa-regular fa-circle-check me-1"></i>{{ t.get('tabs.approved_status') }}</button></li>
-      
-      
+      <li class="nav-item"><td-button-icon [buttonIcon]="btn('tab-view', 'fa-regular fa-eye', t.get('tabs.view_rates'), 'nav-link', tab()==='view')" (output)="switchTab('view')"></td-button-icon></li>
+      <li class="nav-item"><td-button-icon [buttonIcon]="btn('tab-enter', 'fa-solid fa-pen', t.get('tabs.enter_rates'), 'nav-link', tab()==='enter')" (output)="switchTab('enter')"></td-button-icon></li>
+      <li class="nav-item"><td-button-icon [buttonIcon]="btn('tab-status', 'fa-regular fa-circle-check', t.get('tabs.approved_status'), 'nav-link', tab()==='status')" (output)="switchTab('status')"></td-button-icon></li>
     </ul>
     @if (message()) {
       <div class="alert mb-3" [class.alert-success]="messageType()==='success'" [class.alert-danger]="messageType()==='error'" [class.alert-info]="messageType()==='info'">
@@ -24,12 +22,12 @@
       <plra-rate-status-filter [productName]="productName" productType="ULOC" [availableStatuses]="['DRAFT', 'PENDING', 'APPROVED', 'REJECTED']" (filterChange)="onStatusFilter($event)" />
       <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-outline-secondary" (click)="copyNewDown()"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>{{ t.get('rates.copy_new_down') }}</button>
-          <button class="btn btn-sm btn-outline-secondary" (click)="copyDiscDown()"><i class="fa-solid fa-copy me-1"></i>{{ t.get('rates.copy_disc_down') }}</button>
+          <td-button-icon [buttonIcon]="btn('btnCopyNew', 'fa-solid fa-wand-magic-sparkles', t.get('rates.copy_new_down'), 'btn btn-sm btn-outline-secondary')" (output)="copyNewDown()"></td-button-icon>
+          <td-button-icon [buttonIcon]="btn('btnCopyDisc', 'fa-solid fa-copy', t.get('rates.copy_disc_down'), 'btn btn-sm btn-outline-secondary')" (output)="copyDiscDown()"></td-button-icon>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-outline-success" (click)="saveDrafts()" [disabled]="saving()"><i class="fa-solid fa-floppy-disk me-1"></i>{{ saving() ? t.get('common.loading') : t.get('rates.save_draft') }}</button>
-          <button class="btn btn-sm btn-success" (click)="submitSelected()" [disabled]="submitting()"><i class="fa-solid fa-paper-plane me-1"></i>{{ submitting() ? t.get('common.loading') : t.get('rates.submit_selected') }}</button>
+          <td-button-icon [buttonIcon]="btn('btnSave', 'fa-solid fa-floppy-disk', saving() ? t.get('common.loading') : t.get('rates.save_draft'), 'btn btn-sm btn-outline-success', false, saving())" (output)="saveDrafts()"></td-button-icon>
+          <td-button-icon [buttonIcon]="btn('btnSubmit', 'fa-solid fa-paper-plane', submitting() ? t.get('common.loading') : t.get('rates.submit_selected'), 'btn btn-sm btn-success', false, submitting())" (output)="submitSelected()"></td-button-icon>
         </div>
       </div>
       <plra-rate-matrix mode="enter" productType="ULOC" [tiers]="tiers()" [rows]="enterRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
@@ -45,13 +43,12 @@
     @if (tab() === 'approve') {
       <plra-rate-status-filter [productName]="productName" productType="ULOC" [availableStatuses]="['PENDING']" (filterChange)="onStatusFilter($event)" />
       <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-sm btn-success" (click)="submitDecisions()" [disabled]="approving()"><i class="fa-solid fa-paper-plane me-1"></i>{{ approving() ? t.get('common.loading') : t.get('rates.submit_decisions') }}</button>
+        <td-button-icon [buttonIcon]="btn('btnDecisions', 'fa-solid fa-paper-plane', approving() ? t.get('common.loading') : t.get('rates.submit_decisions'), 'btn btn-sm btn-success', false, approving())" (output)="submitDecisions()"></td-button-icon>
       </div>
       <plra-rate-matrix mode="approve" productType="ULOC" [tiers]="tiers()" [rows]="approveRows()" [searchTerm]="search" [visibleTierIds]="visibleTierIds"
       [totalElements]="approveTotal" [totalPages]="approvePages" [currentPage]="approvePage" [pageSize]="approveSize"
       (onPageChange)="onApprovePageChange($event)" />
     }
     @if (tab() === 'history') {
-      <plra-history-filter (filterChange)="onHistoryFilterChange($event)" />
       @if (historyCrud()) { <td-crud [crud]="historyCrud()!" (output)="onHistoryOutput($event)"></td-crud> }
     }

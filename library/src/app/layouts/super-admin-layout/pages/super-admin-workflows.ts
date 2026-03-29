@@ -32,6 +32,7 @@ export class SuperAdminWorkflowsComponent implements OnInit {
   private page = 0;
   private size = 20;
   private sort = 'createdOn,desc';
+  private sortCol = ''; private sortDir: 'asc' | 'desc' = 'asc';
   private filterParams: Record<string, any> = {};
   private searchTerm = '';
   private activeFilterActions: string[] = [];
@@ -67,7 +68,7 @@ export class SuperAdminWorkflowsComponent implements OnInit {
     return new CrudModel({
       id: 'workflows', type: 'table',
       search: { search: { name: 'query', type: 'text', layout: 'icon', label: this.t.get('common.search'), placeholder: this.t.get('common.search'), icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.searchTerm } },
-      document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows: mapped }),
+      document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows: mapped, sortState: this.sortCol ? { col: this.sortCol, dir: this.sortDir } : undefined }),
       page: new TdPaginationModel({ totalPages: res.totalPages, totalElements: res.totalElements, size: res.size, pageNumber: res.page, first: res.first, last: res.last, empty: res.empty })
     });
   }
@@ -83,9 +84,10 @@ export class SuperAdminWorkflowsComponent implements OnInit {
       case 'sort':
         const data = e.data || {};
         const col = Object.keys(data)[0];
-        const dir = data[col] || 'asc';
+        if (col === this.sortCol) { this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc'; }
+        else { this.sortCol = col; this.sortDir = 'asc'; }
         const backendField = SORT_MAP[col] || col;
-        this.sort = `${backendField},${dir}`;
+        this.sort = backendField + ',' + this.sortDir;
         this.page = 0;
         this.load();
         break;

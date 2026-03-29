@@ -25,11 +25,13 @@ export class SuperAdminCvpCodesComponent implements OnInit {
   private page = 0;
   private size = 10;
   private query = '';
+  private sortCol = ''; private sortDir: 'asc' | 'desc' = 'asc';
 
   ngOnInit(): void { this.load(); }
 
   private load(): void {
     const params: Record<string, any> = { page: this.page, size: this.size };
+    if (this.sortCol) params['sort'] = this.sortCol + ',' + this.sortDir;
     if (this.query) params['search'] = this.query;
 
     this.api.getCvpCodes(params).subscribe({
@@ -49,10 +51,11 @@ export class SuperAdminCvpCodesComponent implements OnInit {
 
     return new CrudModel({
       id: 'cvp-codes-crud', type: 'table',
-      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search CVP Codes', placeholder: 'Search by name, category…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control' } },
+      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search CVP Codes', placeholder: 'Search by name, category…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.query } },
       add: new TdButtonIconModel({ name: 'Add CVP Code', icon: { iconClass: 'fa-solid fa-plus', className: '' }, className: 'btn btn-success', title: 'Add CVP Code' }),
       document: new TdTableActionModel({
         className: 'table table-hover', showIconColumn: false, rows,
+        sortState: this.sortCol ? { col: this.sortCol, dir: this.sortDir } : undefined,
         actions: { className: 'd-flex gap-1 justify-content-end', buttons: [
           { name: 'Edit', className: 'btn btn-sm btn-outline-success', icon: { iconClass: 'fa-solid fa-pen-to-square', className: '' } },
           { name: 'Delete', className: 'btn btn-sm btn-outline-danger', icon: { iconClass: 'fa-solid fa-trash', className: '' } }
@@ -78,8 +81,14 @@ export class SuperAdminCvpCodesComponent implements OnInit {
     const data = (e.data ?? {}) as Record<string, any>;
 
     switch (action) {
-      case 'search': this.query = String(data['query'] ?? ''); this.page = 0; this.load(); break;
+      case 'search': this.query = String(data['query'] || data['value'] || ''); this.page = 0; this.load(); break;
       case 'clear': this.query = ''; this.page = 0; this.load(); break;
+      case 'sort': {
+        const col = Object.keys(data)[0];
+        if (col === this.sortCol) { this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc'; }
+        else { this.sortCol = col; this.sortDir = 'asc'; }
+        this.page = 0; this.load(); break;
+      }
       case 'create':
         this.api.createCvpCode({ name: data['name'], subCategoryId: Number(data['subCategoryId']), detail: data['detail'] ?? '' })
           .subscribe({ next: () => this.load() });

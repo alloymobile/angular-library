@@ -4,8 +4,8 @@
     </header>
 
     <ul class="nav td-tabs mb-3">
-      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='view'" (click)="switchTab('view')"><i class="fa-regular fa-eye me-1"></i>{{ t.get('tabs.view_rates') }}</button></li>
-      <li class="nav-item"><button class="nav-link" [class.active]="tab()==='review'" (click)="switchTab('review')"><i class="fa-solid fa-clipboard-check me-1"></i>{{ t.get('tabs.review') }}</button></li>
+      <li class="nav-item"><td-button-icon [buttonIcon]="btn('tab-view', 'fa-regular fa-eye', t.get('tabs.view_rates'), 'nav-link', tab()==='view')" (output)="switchTab('view')"></td-button-icon></li>
+      <li class="nav-item"><td-button-icon [buttonIcon]="btn('tab-review', 'fa-solid fa-clipboard-check', t.get('tabs.review'), 'nav-link', tab()==='review')" (output)="switchTab('review')"></td-button-icon></li>
     </ul>
 
     @if (message()) {
@@ -25,9 +25,7 @@
       <plra-rate-filter [productName]="productName" productType="ILOC" (filterChange)="onReviewFilter($event)" />
       <div class="d-flex align-items-center justify-content-between mb-3">
         <input class="form-control form-control-sm" style="max-width:300px" [placeholder]="t.get('common.search')" [(ngModel)]="reviewSearch" (ngModelChange)="applyReviewFilter()" />
-        <button class="btn btn-sm btn-success" (click)="submitReview()" [disabled]="reviewing()">
-          <i class="fa-solid fa-clipboard-check me-1"></i>{{ reviewing() ? t.get('common.loading') : t.get('rates.submit_review') }}
-        </button>
+        <td-button-icon [buttonIcon]="btn('btnReview', 'fa-solid fa-clipboard-check', reviewing() ? t.get('common.loading') : t.get('rates.submit_review'), 'btn btn-sm btn-success', false, reviewing())" (output)="submitReview()"></td-button-icon>
       </div>
       <div class="review-wrap">
         <table class="review-tbl">

@@ -15,20 +15,17 @@ import { CrudModel } from '../../../lib/organ/td-crud/td-crud.model';
 import { TdTableActionModel } from '../../../lib/tissue/td-table-action/td-table-action.model';
 import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
 import { OutputObject } from '../../../lib/share/output-object';
-import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
-import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
-import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 
 type Tab = 'view' | 'enter' | 'status' | 'approve' | 'history';
 
 @Component({
-  selector: 'plra-super-admin-uloc-rates',
+  selector: 'plra-admin-uloc-rates',
   standalone: true,
-  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud, TdButtonIcon],
-  templateUrl: './super-admin-uloc-rates.html',
-  styleUrls: ['./super-admin-uloc-rates.css']
+  imports: [CommonModule, FormsModule, RateMatrixComponent, RateFilterComponent, RateStatusFilterComponent, TdCrud],
+  templateUrl: './admin-uloc-rates.html',
+  styleUrls: ['./admin-uloc-rates.css']
 })
-export class SuperAdminUlocRatesComponent implements OnInit {
+export class AdminUlocRatesComponent implements OnInit {
   t = inject(TranslationService);
   private api = inject(RateApiService);
   private route = inject(ActivatedRoute);
@@ -144,11 +141,15 @@ export class SuperAdminUlocRatesComponent implements OnInit {
     for (const row of rows) {
       for (const cell of row.cells) {
         if (cell.newRate !== null && cell.newRate !== undefined) {
+          // Validation: New rate >= 0
           if (cell.newRate < 0) { this.showMsg('New rate cannot be negative.', 'error'); return; }
+          // Parse discretion bps
           const discBps = (cell.discretion !== null && cell.discretion !== undefined && cell.discretion !== '') ? Number(cell.discretion) : 0;
+          // Validation: Discretion >= 0
           if (discBps < 0) { this.showMsg('Discretion cannot be negative.', 'error'); return; }
-          if (!Number.isInteger(discBps)) { this.showMsg('Discretion must be whole basis points (e.g. 50, not 0.5).', 'error'); return; }
+          // Compute floor = newRate - (discBps / 100)
           const floor = cell.newRate - (discBps / 100);
+          // Validation: Floor >= 0
           if (floor < -0.000001) { this.showMsg(`Floor cannot be negative: ${cell.newRate.toFixed(2)} − ${(discBps/100).toFixed(2)} = ${floor.toFixed(2)}`, 'error'); return; }
           toSave.push({
             draftId: cell.draftId ?? null,
@@ -352,10 +353,6 @@ export class SuperAdminUlocRatesComponent implements OnInit {
       case 'status': this.loadStatus(); break;
       case 'approve': this.loadApprove(); break;
     }
-  }
-
-  btn(id: string, icon: string, name: string, cls: string = 'btn btn-sm btn-outline-secondary', isActive: boolean = false, disabled: boolean = false): TdButtonIconModel {
-    return new TdButtonIconModel({ id, name, className: cls, isActive, active: 'active', disabled, icon: new TdIconModel({ iconClass: icon }) });
   }
 
   private showMsg(msg: string, type: 'success' | 'error' | 'info'): void { this.message.set(msg); this.messageType.set(type); }

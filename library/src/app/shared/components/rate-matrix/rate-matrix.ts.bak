@@ -4,9 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { TranslationService } from '../../../core/i18n/translation.service';
 import { TdPagination } from '../../../lib/tissue/td-pagination/td-pagination';
 import { TdPaginationModel } from '../../../lib/tissue/td-pagination/td-pagination.model';
-import { TdButtonIcon } from '../../../lib/cell/td-button-icon/td-button-icon';
-import { TdButtonIconModel } from '../../../lib/cell/td-button-icon/td-button-icon.model';
-import { TdIconModel } from '../../../lib/cell/td-icon/td-icon.model';
 import { OutputObject } from '../../../lib/share/output-object';
 
 export type MatrixMode = 'view' | 'enter' | 'approve' | 'status' | 'history';
@@ -30,7 +27,7 @@ export interface PageChangeEvent { page: number; size: number; }
 @Component({
   selector: 'plra-rate-matrix',
   standalone: true,
-  imports: [CommonModule, FormsModule, TdPagination, TdButtonIcon],
+  imports: [CommonModule, FormsModule, TdPagination],
   templateUrl: './rate-matrix.html',
   styleUrls: ['./rate-matrix.css']
 })
@@ -183,13 +180,13 @@ export class RateMatrixComponent implements OnChanges {
   isDiscInvalid(cell: MatrixCell): boolean {
     const bps = this.parseDiscBps(cell.discretion);
     if (bps === null) return false;
-    return bps < 0 || !Number.isInteger(bps) || this.isFloorNegative(cell);
+    return bps < 0 || this.isFloorNegative(cell);
   }
 
   isDiscValid(cell: MatrixCell): boolean {
     const bps = this.parseDiscBps(cell.discretion);
     if (bps === null) return false;
-    return bps >= 0 && Number.isInteger(bps) && !this.isFloorNegative(cell);
+    return bps >= 0 && !this.isFloorNegative(cell);
   }
 
   /** Check if computed floor would be negative */
@@ -205,21 +202,6 @@ export class RateMatrixComponent implements OnChanges {
 
   onSaveRow(row: MatrixRow): void {
     this.onAction.emit({ action: 'save-row', rows: [row] });
-  }
-
-  saveRowBtn(row: MatrixRow): TdButtonIconModel {
-    return new TdButtonIconModel({
-      id: 'save-row-' + row.id,
-      icon: new TdIconModel({ iconClass: 'fa-solid fa-floppy-disk' }),
-      name: '',
-      className: 'btn btn-sm btn-outline-success',
-      disabled: this.hasRowErrors(row),
-      title: this.hasRowErrors(row) ? 'Fix validation errors first' : 'Save row'
-    });
-  }
-
-  onSaveRowOutput(row: MatrixRow, _out: OutputObject): void {
-    this.onSaveRow(row);
   }
 
   onPaginationOutput(out: OutputObject): void {

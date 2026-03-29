@@ -44,10 +44,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
   generating = signal(false);
   genResult = signal<{ created: number; errors: number; total: number } | null>(null);
 
-  private catPage = 0;
-    private tierPage = 0;
-    private subPage = 0;
-    private productName = '';
+  private catPage = 0; private catSearch = ''; private catSortCol = ''; private catSortDir: 'asc' | 'desc' = 'asc';
+  private tierPage = 0; private tierSearch = ''; private tierSortCol = ''; private tierSortDir: 'asc' | 'desc' = 'asc';
+  private subPage = 0; private subSearch = ''; private subSortCol = ''; private subSortDir: 'asc' | 'desc' = 'asc';
+  private productName = '';
 
   ngOnInit(): void {
     this.api.getProducts({ type: 'ILOC', size: 10 }).subscribe({
@@ -72,7 +72,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
 
   /* ═══ CATEGORIES ═══ */
   private loadCategories(): void {
-    this.api.getCategories(this.productName, { page: this.catPage, size: 10 }).subscribe({
+    const catParams: Record<string, any> = { page: this.catPage, size: 10 };
+    if (this.catSortCol) catParams['sort'] = this.catSortCol + ',' + this.catSortDir;
+    if (this.catSearch) catParams['search'] = this.catSearch;
+    this.api.getCategories(this.productName, catParams).subscribe({
       next: (res) => this.categoryCrud.set(this.buildCatCrud(res))
     });
   }
@@ -81,9 +84,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
     const rows = res.content.map(c => ({ id: c.id, name: c.name, detail: c.detail, active: c.active ? 'Active' : 'Inactive', createdBy: c.createdBy, createdOn: c.createdOn?.substring(0, 10) ?? '', version: c.version }));
     return new CrudModel({
       id: 'iloc-cat', type: 'table',
-      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search categories…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control' } },
+      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search categories…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.catSearch } },
       add: new TdButtonIconModel({ name: 'Add Category', icon: { iconClass: 'fa-solid fa-plus', className: '' }, className: 'btn btn-success btn-sm' }),
       document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows,
+        sortState: this.catSortCol ? { col: this.catSortCol, dir: this.catSortDir } : undefined,
         actions: { className: 'd-flex gap-1 justify-content-end', buttons: [
           { name: 'Subcategories', className: 'btn btn-sm btn-outline-primary', icon: { iconClass: 'fa-solid fa-sitemap', className: '' } },
           { name: 'Edit', className: 'btn btn-sm btn-outline-success', icon: { iconClass: 'fa-solid fa-pen-to-square', className: '' } },
@@ -99,8 +103,15 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
   onCategoryOutput(event: OutputObject): void {
     const e = event.toJSON(); const action = e.action ?? ''; const data = (e.data ?? {}) as Record<string, any>;
     switch (action) {
-      case 'search': this.catPage = 0; this.loadCategories(); break;
-      case 'clear': this.catPage = 0; this.loadCategories(); break;
+      case 'search': this.catSearch = String(data['query'] || data['value'] || ''); this.catPage = 0; this.loadCategories(); break;
+      case 'clear': this.catSearch = ''; this.catPage = 0; this.loadCategories(); break;
+      case 'page': case 'Page': this.catPage = (data['pageNumber'] as number) ?? 0; this.loadCategories(); break;
+      case 'sort': {
+        const col = Object.keys(data)[0];
+        if (col === this.catSortCol) { this.catSortDir = this.catSortDir === 'asc' ? 'desc' : 'asc'; }
+        else { this.catSortCol = col; this.catSortDir = 'asc'; }
+        this.catPage = 0; this.loadCategories(); break;
+      }
       case 'create': this.api.createCategory(this.productName, { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadCategories() }); break;
       case 'edit': this.api.updateCategory(this.productName, data['id'], { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadCategories() }); break;
       case 'delete': this.api.deleteCategory(this.productName, data['id']).subscribe({ next: () => this.loadCategories() }); break;
@@ -110,7 +121,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
 
   /* ═══ AMOUNT TIERS ═══ */
   private loadTiers(): void {
-    this.api.getAmountTiers(this.productName, { page: this.tierPage, size: 10 }).subscribe({
+    const tierParams: Record<string, any> = { page: this.tierPage, size: 10 };
+    if (this.tierSortCol) tierParams['sort'] = this.tierSortCol + ',' + this.tierSortDir;
+    if (this.tierSearch) tierParams['search'] = this.tierSearch;
+    this.api.getAmountTiers(this.productName, tierParams).subscribe({
       next: (res) => this.tierCrud.set(this.buildTierCrud(res))
     });
   }
@@ -120,9 +134,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
     const rows = res.content.map(t => ({ id: t.id, name: t.name, detail: t.detail, min: fmt(t.min), max: fmt(t.max), minRaw: t.min, maxRaw: t.max, active: t.active ? 'Active' : 'Inactive', createdOn: t.createdOn?.substring(0, 10) ?? '', version: t.version }));
     return new CrudModel({
       id: 'iloc-tier', type: 'table',
-      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search tiers…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control' } },
+      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search tiers…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.tierSearch } },
       add: new TdButtonIconModel({ name: 'Add Tier', icon: { iconClass: 'fa-solid fa-plus', className: '' }, className: 'btn btn-success btn-sm' }),
       document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows,
+        sortState: this.tierSortCol ? { col: this.tierSortCol, dir: this.tierSortDir } : undefined,
         actions: { className: 'd-flex gap-1 justify-content-end', buttons: [
           { name: 'Edit', className: 'btn btn-sm btn-outline-success', icon: { iconClass: 'fa-solid fa-pen-to-square', className: '' } },
           { name: 'Delete', className: 'btn btn-sm btn-outline-danger', icon: { iconClass: 'fa-solid fa-trash', className: '' } }
@@ -137,8 +152,15 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
   onTierOutput(event: OutputObject): void {
     const e = event.toJSON(); const action = e.action ?? ''; const data = (e.data ?? {}) as Record<string, any>;
     switch (action) {
-      case 'search': this.tierPage = 0; this.loadTiers(); break;
-      case 'clear': this.tierPage = 0; this.loadTiers(); break;
+      case 'search': this.tierSearch = String(data['query'] || data['value'] || ''); this.tierPage = 0; this.loadTiers(); break;
+      case 'clear': this.tierSearch = ''; this.tierPage = 0; this.loadTiers(); break;
+      case 'page': case 'Page': this.tierPage = (data['pageNumber'] as number) ?? 0; this.loadTiers(); break;
+      case 'sort': {
+        const col = Object.keys(data)[0];
+        if (col === this.tierSortCol) { this.tierSortDir = this.tierSortDir === 'asc' ? 'desc' : 'asc'; }
+        else { this.tierSortCol = col; this.tierSortDir = 'asc'; }
+        this.tierPage = 0; this.loadTiers(); break;
+      }
       case 'create': this.api.createAmountTier(this.productName, { name: data['name'], detail: data['detail'] ?? '', min: Number(data['min']), max: Number(data['max']) }).subscribe({ next: () => this.loadTiers() }); break;
       case 'edit': this.api.updateAmountTier(this.productName, data['id'], { name: data['name'], detail: data['detail'] ?? '', min: Number(data['minRaw'] ?? data['min']), max: Number(data['maxRaw'] ?? data['max']) }).subscribe({ next: () => this.loadTiers() }); break;
       case 'delete': this.api.deleteAmountTier(this.productName, data['id']).subscribe({ next: () => this.loadTiers() }); break;
@@ -154,7 +176,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
   }
 
   private loadSubCategories(): void {
-    this.api.getSubCategories(this.drillCategoryName(), { page: this.subPage, size: 10 }).subscribe({
+    const subParams: Record<string, any> = { page: this.subPage, size: 10 };
+    if (this.subSortCol) subParams['sort'] = this.subSortCol + ',' + this.subSortDir;
+    if (this.subSearch) subParams['search'] = this.subSearch;
+    this.api.getSubCategories(this.drillCategoryName(), subParams).subscribe({
       next: (res) => this.subCategoryCrud.set(this.buildSubCrud(res))
     });
   }
@@ -163,9 +188,10 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
     const rows = res.content.map(s => ({ id: s.id, name: s.name, detail: s.detail, active: s.active ? 'Active' : 'Inactive', createdBy: s.createdBy, createdOn: s.createdOn?.substring(0, 10) ?? '', version: s.version }));
     return new CrudModel({
       id: 'iloc-subcat', type: 'table',
-      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search subcategories…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control' } },
+      search: { search: { name: 'query', type: 'text', layout: 'icon', label: 'Search', placeholder: 'Search subcategories…', icon: { iconClass: 'fa-solid fa-magnifying-glass', className: '' }, className: 'form-control', value: this.subSearch } },
       add: new TdButtonIconModel({ name: 'Add Subcategory', icon: { iconClass: 'fa-solid fa-plus', className: '' }, className: 'btn btn-success btn-sm' }),
       document: new TdTableActionModel({ className: 'table table-hover', showIconColumn: false, rows,
+        sortState: this.subSortCol ? { col: this.subSortCol, dir: this.subSortDir } : undefined,
         actions: { className: 'd-flex gap-1 justify-content-end', buttons: [
           { name: 'Edit', className: 'btn btn-sm btn-outline-success', icon: { iconClass: 'fa-solid fa-pen-to-square', className: '' } },
           { name: 'Delete', className: 'btn btn-sm btn-outline-danger', icon: { iconClass: 'fa-solid fa-trash', className: '' } }
@@ -181,8 +207,15 @@ export class SuperAdminIlocSettingsComponent implements OnInit {
     const e = event.toJSON(); const action = e.action ?? ''; const data = (e.data ?? {}) as Record<string, any>;
     const catName = this.drillCategoryName();
     switch (action) {
-      case 'search': this.subPage = 0; this.loadSubCategories(); break;
-      case 'clear': this.subPage = 0; this.loadSubCategories(); break;
+      case 'search': this.subSearch = String(data['query'] || data['value'] || ''); this.subPage = 0; this.loadSubCategories(); break;
+      case 'clear': this.subSearch = ''; this.subPage = 0; this.loadSubCategories(); break;
+      case 'page': case 'Page': this.subPage = (data['pageNumber'] as number) ?? 0; this.loadSubCategories(); break;
+      case 'sort': {
+        const col = Object.keys(data)[0];
+        if (col === this.subSortCol) { this.subSortDir = this.subSortDir === 'asc' ? 'desc' : 'asc'; }
+        else { this.subSortCol = col; this.subSortDir = 'asc'; }
+        this.subPage = 0; this.loadSubCategories(); break;
+      }
       case 'create': this.api.createSubCategory(catName, { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadSubCategories() }); break;
       case 'edit': this.api.updateSubCategory(catName, data['id'], { name: data['name'], detail: data['detail'] ?? '' }).subscribe({ next: () => this.loadSubCategories() }); break;
       case 'delete': this.api.deleteSubCategory(catName, data['id']).subscribe({ next: () => this.loadSubCategories() }); break;

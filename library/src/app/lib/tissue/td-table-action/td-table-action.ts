@@ -88,7 +88,15 @@ export class TdTableAction implements OnChanges {
         this.processedColumns = [];
         this.hasGroupedColumns = false;
       }
-      this.sort = { col: '', dir: 'asc' };
+      if (this.tableAction.sortState) {
+        this.sort = {
+          col: this.tableAction.sortState.col,
+          subCol: this.tableAction.sortState.subCol,
+          dir: this.tableAction.sortState.dir
+        };
+      } else {
+        this.sort = { col: '', dir: 'asc' };
+      }
     }
   }
 

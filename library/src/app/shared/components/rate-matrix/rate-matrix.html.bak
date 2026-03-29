@@ -58,7 +58,7 @@
                 }
                 @if (mode === 'enter') {
                   <td><span class="status-pill" [attr.data-status]="row.status">{{ row.status }}</span></td>
-                  <td class="act-cell"><td-button-icon [buttonIcon]="saveRowBtn(row)" (output)="onSaveRowOutput(row, $event)"></td-button-icon></td>
+                  <td class="act-cell"><button class="btn btn-sm btn-outline-success" (click)="onSaveRow(row)" [disabled]="hasRowErrors(row)" [title]="hasRowErrors(row) ? 'Fix validation errors first' : 'Save row'"><i class="fa-solid fa-floppy-disk"></i></button></td>
                 }
                 @if (mode === 'approve') {
                   <td>{{ row.submittedBy }}</td><td>{{ row.submittedOn }}</td>
